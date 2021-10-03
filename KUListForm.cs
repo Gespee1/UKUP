@@ -488,7 +488,7 @@ namespace РасчетКУ
         //Открытие формы списка поставщиков с помощью кнопки на верхней панели
         private void поставщикиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form FormVendorsList = new VendorsListForm();
+            Form FormVendorsList = new ListForm();
 
             FormVendorsList.Show();
         }

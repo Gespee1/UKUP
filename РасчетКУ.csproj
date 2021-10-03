@@ -113,11 +113,11 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="VendorsListForm.cs">
+    <Compile Include="ListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VendorsListForm.Designer.cs">
-      <DependentUpon>VendorsListForm.cs</DependentUpon>
+    <Compile Include="ListForm.Designer.cs">
+      <DependentUpon>ListForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="SelectCategoryForm.resx">
       <DependentUpon>SelectCategoryForm.cs</DependentUpon>
@@ -149,8 +149,8 @@
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VendorsListForm.resx">
-      <DependentUpon>VendorsListForm.cs</DependentUpon>
+    <EmbeddedResource Include="ListForm.resx">
+      <DependentUpon>ListForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

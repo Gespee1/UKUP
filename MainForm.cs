@@ -14,14 +14,6 @@ namespace РасчетКУ
         }
 
 
-        // Открытие формы ввода коммерческих условий
-        private void inputKUButton_Click(object sender, EventArgs e)
-        {
-            Form FormInputKU = new InputKUForm();
-
-            FormInputKU.Show();
-            
-        }
         // Открытие формы со списком коммерческих условий
         private void KUListButton_Click(object sender, EventArgs e)
         {
@@ -33,7 +25,7 @@ namespace РасчетКУ
         // Открытие формы со списком поставщиков
         private void VendorsListButton_Click(object sender, EventArgs e)
         {
-            Form FormVendorsList = new VendorsListForm();
+            Form FormVendorsList = new ListForm();
 
             FormVendorsList.Show();
             
@@ -64,12 +56,6 @@ namespace РасчетКУ
             }
             
             sqlcon.Close();
-        }
-
-        private void AboutButton_Click(object sender, EventArgs e)
-        {
-            Form settings = new SettingsForm();
-            settings.ShowDialog();
         }
     }
 }

@@ -224,10 +224,10 @@ namespace РасчетКУ
            $"'{(int)(Convert.ToDouble(textBox1.Text) * 10)}', '{comboBox2.SelectedItem}', '{dateTimePicker1.Value.ToShortDateString()}', '{dateTimePicker2.Value.ToShortDateString()}', '{status}')", _sqlConnection);
             command.ExecuteNonQuery();
 
-            // Создание условия "Все" для включенных товаров по выбранной КУ
-            //command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type) VALUES ((SELECT KU_id FROM KU WHERE Vendor_id = (SELECT Vendor_id FROM Vendors WHERE Name = " +
-            //  $"'{comboBox1.SelectedItem}' AND Date_from = '{dateTimePicker1.Value.ToShortDateString()}')), 'Все')", _sqlConnection);
-            //command.ExecuteNonQuery();
+            
+            //ПРОБНЫЙ МЕТОД ДЛЯ СОХРАНЕНИЯ iN/EX!!!!!!!!!!!!!!!!!!!
+            AddInExBD();
+            
 
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
@@ -444,8 +444,8 @@ namespace РасчетКУ
             Form selectCategoryForm = new SelectCategoryForm(ref CategoryID);
             selectCategoryForm.ShowDialog();
 
-            if (selectCategoryForm.DialogResult == DialogResult.OK)
-                addLine("Категория");
+             if (selectCategoryForm.DialogResult == DialogResult.OK)
+               addLine("Категория");
 
         }
 
@@ -601,6 +601,65 @@ namespace РасчетКУ
                     break;
             }
             showExInProducts(Convert.ToInt64(_KU_id));
+        }
+
+        //Запись в бд для in/ex через создание ку
+        private void AddInExBD()
+        {
+            Int64 KU_id = Convert.ToInt64(_KU_id);
+            Int16 tabPageId = Convert.ToInt16(tabControl1.SelectedIndex);
+            SqlCommand command;
+            for (int i = 0; i < dataGridView2.RowCount; i++)
+            {
+                switch (dataGridView2.Rows[i].Cells["TypeP"].Value.ToString())
+                {
+                    case "Все":
+                            command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type) VALUES ({KU_id}, 'Все')", _sqlConnection);
+                            command.ExecuteNonQuery();
+                        break;
+
+                    case "Категория":
+                        
+                            command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
+                                $"{KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                        break;
+
+                    case "Товары":
+                       
+                                command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
+                                    $"{KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                        break;
+                            
+
+                }
+                    
+                    
+            }
+            for (int i = 0; i < dataGridView3.RowCount; i++)
+            {
+                switch (dataGridView3.Rows[i].Cells["TypeM"].Value.ToString())
+                {
+                    case "Все":
+                        command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type) VALUES ({KU_id}, 'Все')", _sqlConnection);
+                        command.ExecuteNonQuery();
+                        break;
+
+                    case "Категория":
+
+                        command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
+                            $"{KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                        break;
+
+                    case "Товары":
+
+                        command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
+                            $"{KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                        break;
+
+
+                }
+            }
+            
         }
 
         // Запись значений из комбобоксов в БД

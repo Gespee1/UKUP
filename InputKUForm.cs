@@ -622,18 +622,22 @@ namespace РасчетКУ
                         
                             command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
                                 $"{KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                            command.ExecuteNonQuery();
                         break;
 
                     case "Товары":
                        
                                 command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
                                     $"{KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                                command.ExecuteNonQuery();
                         break;
-                            
-
+                                            
                 }
-                    
-                    
+                //производитель и марка
+                command = new SqlCommand($"INSERT INTO Included_products (Producer, Brand_name) VALUES ({dataGridView2.Rows[i].Cells["ProducerP"].Value.ToString()}, '{dataGridView2.Rows[i].Cells["BrandP"].Value.ToString()}')", _sqlConnection);
+                command.ExecuteNonQuery();
+
+
             }
             for (int i = 0; i < dataGridView3.RowCount; i++)
             {
@@ -648,21 +652,28 @@ namespace РасчетКУ
 
                         command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
                             $"{KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                        command.ExecuteNonQuery();
                         break;
 
                     case "Товары":
 
                         command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
                             $"{KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                        command.ExecuteNonQuery();
                         break;
 
 
                 }
+                //производитель и марка
+                command = new SqlCommand($"INSERT INTO Excluded_products (Producer, Brand_name) VALUES ({dataGridView3.Rows[i].Cells["ProducerM"].Value.ToString()}, '{dataGridView2.Rows[i].Cells["BrandM"].Value.ToString()}')", _sqlConnection);
+                command.ExecuteNonQuery();
+
             }
             
         }
 
         // Запись значений из комбобоксов в БД
+        /*
         private void DataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgv;
@@ -686,18 +697,8 @@ namespace РасчетКУ
                 column = "Ex_prod_id";
             }
 
-            //
-            //      ЗАЧЕМ И КАК ТУТ ЗАПИСЫВАТЬ В БД, КОГДА КУ ЕЩЕ НЕ СОЗДАНО? 
-            //
-            //                              ||
-            //                              ||
-            //                              \/
-            //
-            //SqlCommand command = new SqlCommand($"UPDATE {table} SET Producer = '{combo1.Value}', Brand_name = '{combo2.Value}' WHERE " +
-            //    $"{column} = {dgv.Rows[dgv.CurrentRow.Index].Cells[column].Value}", _sqlConnection);
-            //command.ExecuteNonQuery();
         }
-
+        */
 
 
         // Удаление данных из комбобоксов в таблицах

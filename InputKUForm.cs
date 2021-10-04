@@ -236,7 +236,7 @@ namespace РасчетКУ
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
         }
 
-        // Измменение КУ в БД
+        // Изменение КУ в БД
         private void updateKU(string status)
         {
             // Проверка на неповторность временного периода
@@ -336,7 +336,7 @@ namespace РасчетКУ
         //Отображение производителя и марки в combobox в таблицах искл и вкл товаров
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
             if (comboBox1.SelectedIndex > -1)
             {
                 //Вызываю метод отображения Производителя и марки
@@ -521,6 +521,7 @@ namespace РасчетКУ
             //showExInProducts(Convert.ToInt64(_KU_id));
         }
 
+        //Попробовать превратить этот метод в добавление строк на гриды(убрать сохранение в бд, отвязать от ку_id)
         // Добавление строк в таблицы включения и исключения
         private void addLine(string type)
         {

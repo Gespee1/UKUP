@@ -637,14 +637,14 @@ namespace РасчетКУ
                                             
                 }
                 //производитель и марка
-                MessageBox.Show(dataGridView2.Rows[i].Cells["ProducerP"].Value.ToString());
-                if ((dataGridView2.Rows[i].Cells["ProducerP"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                
+                if (!((dataGridView2.Rows[i].Cells["ProducerP"] as DataGridViewComboBoxCell).Value is null))
                 {
                     command = new SqlCommand($"UPDATE Included_products SET Producer = '{dataGridView2.Rows[i].Cells["ProducerP"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
                     command.ExecuteNonQuery();
                 }
 
-                if((dataGridView2.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                if(!((dataGridView2.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
                 {
                     command = new SqlCommand($"UPDATE Included_products SET Brand_name = '{dataGridView2.Rows[i].Cells["BrandP"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
                     command.ExecuteNonQuery();
@@ -676,13 +676,13 @@ namespace РасчетКУ
 
                 }
                 //производитель и марка
-                if ((dataGridView3.Rows[i].Cells["ProducerM"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                if (!((dataGridView3.Rows[i].Cells["ProducerM"] as DataGridViewComboBoxCell).Value is null))
                 {
                     command = new SqlCommand($"UPDATE Excluded_products SET Producer = '{dataGridView3.Rows[i].Cells["ProducerM"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
                     command.ExecuteNonQuery();
                 }
 
-                if ((dataGridView3.Rows[i].Cells["BrandM"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                if (!((dataGridView3.Rows[i].Cells["BrandM"] as DataGridViewComboBoxCell).Value is null))
                 {
                     command = new SqlCommand($"UPDATE Excluded_products SET Brand_name = '{dataGridView3.Rows[i].Cells["BrandM"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
                     command.ExecuteNonQuery();

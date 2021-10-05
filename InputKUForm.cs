@@ -224,7 +224,9 @@ namespace РасчетКУ
            $"'{(int)(Convert.ToDouble(textBox1.Text) * 10)}', '{comboBox2.SelectedItem}', '{dateTimePicker1.Value.ToShortDateString()}', '{dateTimePicker2.Value.ToShortDateString()}', '{status}')", _sqlConnection);
             command.ExecuteNonQuery();
 
-            
+            command = new SqlCommand($"SELECT KU_id FROM KU WHERE Vendor_id = (SELECT Vendor_id FROM Vendors WHERE Name = '{comboBox1.SelectedItem}') AND Date_from = '{dateTimePicker1.Value.ToShortDateString()}' AND Date_to = '{dateTimePicker2.Value.ToShortDateString()}'", _sqlConnection);
+            _KU_id = Convert.ToInt64(command.ExecuteScalar());
+
             //ПРОБНЫЙ МЕТОД ДЛЯ СОХРАНЕНИЯ iN/EX!!!!!!!!!!!!!!!!!!!
             AddInExBD();
             
@@ -337,7 +339,7 @@ namespace РасчетКУ
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             
-            if (comboBox1.SelectedIndex > -1)
+            if (comboBox1.SelectedIndex > -1 & _showKU == false)
             {
                 //Вызываю метод отображения Производителя и марки
                 SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM Vendors WHERE Vendors.Name = '{comboBox1.SelectedItem}'", _sqlConnection);
@@ -607,67 +609,84 @@ namespace РасчетКУ
         //Запись в бд для in/ex через создание ку
         private void AddInExBD()
         {
-            Int64 KU_id = Convert.ToInt64(_KU_id);
-            Int16 tabPageId = Convert.ToInt16(tabControl1.SelectedIndex);
+            //Int64 KU_id = Convert.ToInt64(_KU_id);
+            //Int16 tabPageId = Convert.ToInt16(tabControl1.SelectedIndex);
             SqlCommand command;
             for (int i = 0; i < dataGridView2.RowCount; i++)
             {
                 switch (dataGridView2.Rows[i].Cells["TypeP"].Value.ToString())
                 {
                     case "Все":
-                            command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type) VALUES ({KU_id}, 'Все')", _sqlConnection);
+                            command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type) VALUES ({_KU_id}, 'Все')", _sqlConnection);
                             command.ExecuteNonQuery();
                         break;
 
                     case "Категория":
                         
                             command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                                $"{KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                                $"{_KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
                             command.ExecuteNonQuery();
                         break;
 
                     case "Товары":
                        
                                 command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                                    $"{KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                                    $"{_KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
                                 command.ExecuteNonQuery();
                         break;
                                             
                 }
                 //производитель и марка
-                command = new SqlCommand($"INSERT INTO Included_products (Producer, Brand_name) VALUES ({dataGridView2.Rows[i].Cells["ProducerP"].Value.ToString()}, '{dataGridView2.Rows[i].Cells["BrandP"].Value.ToString()}')", _sqlConnection);
-                command.ExecuteNonQuery();
+                MessageBox.Show(dataGridView2.Rows[i].Cells["ProducerP"].Value.ToString());
+                if ((dataGridView2.Rows[i].Cells["ProducerP"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                {
+                    command = new SqlCommand($"UPDATE Included_products SET Producer = '{dataGridView2.Rows[i].Cells["ProducerP"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
+                    command.ExecuteNonQuery();
+                }
 
-
+                if((dataGridView2.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                {
+                    command = new SqlCommand($"UPDATE Included_products SET Brand_name = '{dataGridView2.Rows[i].Cells["BrandP"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
+                    command.ExecuteNonQuery();
+                }
             }
             for (int i = 0; i < dataGridView3.RowCount; i++)
             {
                 switch (dataGridView3.Rows[i].Cells["TypeM"].Value.ToString())
                 {
                     case "Все":
-                        command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type) VALUES ({KU_id}, 'Все')", _sqlConnection);
+                        command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type) VALUES ({_KU_id}, 'Все')", _sqlConnection);
                         command.ExecuteNonQuery();
                         break;
 
                     case "Категория":
 
                         command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                            $"{KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                            $"{_KU_id}, 'Категория', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
                         command.ExecuteNonQuery();
                         break;
 
                     case "Товары":
 
                         command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                            $"{KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                            $"{_KU_id}, 'Товары', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
                         command.ExecuteNonQuery();
                         break;
 
 
                 }
                 //производитель и марка
-                command = new SqlCommand($"INSERT INTO Excluded_products (Producer, Brand_name) VALUES ({dataGridView3.Rows[i].Cells["ProducerM"].Value.ToString()}, '{dataGridView2.Rows[i].Cells["BrandM"].Value.ToString()}')", _sqlConnection);
-                command.ExecuteNonQuery();
+                if ((dataGridView3.Rows[i].Cells["ProducerM"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                {
+                    command = new SqlCommand($"UPDATE Excluded_products SET Producer = '{dataGridView3.Rows[i].Cells["ProducerM"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
+                    command.ExecuteNonQuery();
+                }
+
+                if ((dataGridView3.Rows[i].Cells["BrandM"] as DataGridViewComboBoxCell).Value.ToString() != "")
+                {
+                    command = new SqlCommand($"UPDATE Excluded_products SET Brand_name = '{dataGridView3.Rows[i].Cells["BrandM"].Value.ToString()}' WHERE KU_id = '{_KU_id}'", _sqlConnection);
+                    command.ExecuteNonQuery();
+                }
 
             }
             
@@ -749,11 +768,7 @@ namespace РасчетКУ
             }
         }
 
-        //Метод сохранения в бд
-        private void BdSave(object sender, KeyPressEventArgs e)
-        {
-
-        }
+       
 
         // Закрытие подключения к БД
         private void InputKUForm_FormClosing(object sender, FormClosingEventArgs e)

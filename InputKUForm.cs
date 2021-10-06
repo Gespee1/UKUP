@@ -274,6 +274,7 @@ namespace РасчетКУ
                     $"Date_from = '{dateTimePicker1.Value.ToShortDateString()}', Date_to = '{dateTimePicker2.Value.ToShortDateString()}', Status = '{status}'" +
                     $" WHERE KU_id = {_KU_id}", _sqlConnection);
             command.ExecuteNonQuery();
+            AddInExBD();
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -527,7 +528,7 @@ namespace РасчетКУ
             //showExInProducts(Convert.ToInt64(_KU_id));
         }
 
-        //Попробовать превратить этот метод в добавление строк на гриды(убрать сохранение в бд, отвязать от ку_id)
+        
         // Добавление строк в таблицы включения и исключения
         private void addLine(string type)
         {
@@ -549,8 +550,7 @@ namespace РасчетКУ
                         }
                         dataGridView2.Rows.Add();
                         dataGridView2.Rows[dataGridView2.RowCount - 1].Cells["TypeP"].Value = "Все";
-                        // command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type) VALUES ({KU_id}, '{type}')", _sqlConnection);
-                        //command.ExecuteNonQuery();
+                    
                     }
                     else
                     {
@@ -573,8 +573,7 @@ namespace РасчетКУ
                             }
                             dataGridView3.Rows.Add();
                             dataGridView3.Rows[dataGridView3.RowCount - 1].Cells["TypeM"].Value = "Все";
-                            // command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type) VALUES ({KU_id}, '{type}')", _sqlConnection);
-                            //command.ExecuteNonQuery();
+                           
                         }
                     }
 
@@ -586,8 +585,7 @@ namespace РасчетКУ
                         dataGridView2.Rows[dataGridView2.RowCount - 1].Cells["TypeP"].Value = type;
                         dataGridView2.Rows[dataGridView2.RowCount - 1].Cells["Attribute1P"].Value = CategoryID[0];
                         dataGridView2.Rows[dataGridView2.RowCount - 1].Cells["Attribute2P"].Value = findNameById(CategoryID[0]);
-                        //  command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                        //    $"{KU_id}, '{type}', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                   
                     }
                     else
                     {
@@ -595,11 +593,9 @@ namespace РасчетКУ
                         dataGridView3.Rows[dataGridView3.RowCount - 1].Cells["TypeM"].Value = type;
                         dataGridView3.Rows[dataGridView3.RowCount - 1].Cells["Attribute1M"].Value = CategoryID[0];
                         dataGridView3.Rows[dataGridView3.RowCount - 1].Cells["Attribute2M"].Value = findNameById(CategoryID[0]);
-                        //  command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                        //    $"{KU_id}, '{type}', '{CategoryID[0]}', '{findNameById(CategoryID[0])}')", _sqlConnection);
+                       
                     }
-                   // command.ExecuteNonQuery();
-
+                   
                     break;
                 case "Товары":
                     for (int i = 0; i < ProdIds.Count; i++)
@@ -619,8 +615,7 @@ namespace РасчетКУ
                                 dataGridView2.Rows[dataGridView2.RowCount - 1].Cells["ProducerP"].ReadOnly = true;
                                 dataGridView2.Rows[dataGridView2.RowCount - 1].Cells["BrandP"].ReadOnly = true;
                             }
-                            //  command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                            //     $"{KU_id}, '{type}', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                           
                         }
                         else
                         {
@@ -636,21 +631,20 @@ namespace РасчетКУ
                                 dataGridView3.Rows[dataGridView3.RowCount - 1].Cells["ProducerM"].ReadOnly = true;
                                 dataGridView3.Rows[dataGridView3.RowCount - 1].Cells["BrandM"].ReadOnly = true;
                             }
-                            // command = new SqlCommand($"INSERT INTO Excluded_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
-                            //  $"{KU_id}, '{type}', '{ProdIds[i]}', (SELECT Name FROM Products WHERE Product_id = {ProdIds[i]}))", _sqlConnection);
+                          
                         }
-                      //сюда запрет на выбор категории и марки вставить из showexin
-                        // command.ExecuteNonQuery();
+                     
                     }
 
                     break;
             }
-            //showExInProducts(Convert.ToInt64(_KU_id));
+          
         }
 
         //Запись в бд для in/ex через создание ку
         private void AddInExBD()
         {
+            //добавить проверку которая будет очищать данные о ку при изменении (if create_button)
             //Int64 KU_id = Convert.ToInt64(_KU_id);
             //Int16 tabPageId = Convert.ToInt16(tabControl1.SelectedIndex);
             SqlCommand command;
@@ -692,6 +686,7 @@ namespace РасчетКУ
                     command.ExecuteNonQuery();
                 }
             }
+            //таблица исключения
             for (int i = 0; i < dataGridView3.RowCount; i++)
             {
                 switch (dataGridView3.Rows[i].Cells["TypeM"].Value.ToString())

@@ -507,7 +507,7 @@ namespace РасчетКУ
                     return;
 
                 dataGridView2.Rows.RemoveAt(dataGridView2.CurrentRow.Index);
-                //command = new SqlCommand($"DELETE FROM Included_products WHERE In_prod_id = {dataGridView2.Rows[dataGridView2.CurrentRow.Index].Cells["In_prod_id"].Value}", _sqlConnection);
+                
             }
             else
             {
@@ -522,7 +522,7 @@ namespace РасчетКУ
                     return;
 
                 dataGridView3.Rows.RemoveAt(dataGridView2.CurrentRow.Index);
-                // command = new SqlCommand($"DELETE FROM Excluded_products WHERE Ex_prod_id = {dataGridView3.Rows[dataGridView3.CurrentRow.Index].Cells["Ex_prod_id"].Value}", _sqlConnection);
+                
             }
             //command.ExecuteNonQuery();
             //showExInProducts(Convert.ToInt64(_KU_id));
@@ -644,9 +644,7 @@ namespace РасчетКУ
         //Запись в бд для in/ex через создание ку
         private void AddInExBD()
         {
-            //добавить проверку которая будет очищать данные о ку при изменении (if create_button)
-            //Int64 KU_id = Convert.ToInt64(_KU_id);
-            //Int16 tabPageId = Convert.ToInt16(tabControl1.SelectedIndex);
+           
             SqlCommand command;
             if (create_button.Text.ToString() == "Изменить")
             {
@@ -834,18 +832,7 @@ namespace РасчетКУ
                     {
                         (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.CurrentCell.ColumnIndex] as DataGridViewComboBoxCell).Value = "";
 
-                        /*/ удаление из БД
-                        if (dgv.CurrentCell.ColumnIndex == dgv.ColumnCount - 2)
-                        {
-                            command = new SqlCommand($"UPDATE {table} SET Producer = NULL WHERE {column} = {dgv.Rows[dgv.CurrentRow.Index].Cells[column].Value}", _sqlConnection);
-                            command.ExecuteNonQuery();
-                        }
-                        else if (dgv.CurrentCell.ColumnIndex == dgv.ColumnCount - 1)
-                        {
-                            command = new SqlCommand($"UPDATE {table} SET Brand_name = NULL WHERE {column} = {dgv.Rows[dgv.CurrentRow.Index].Cells[column].Value}", _sqlConnection);
-                            command.ExecuteNonQuery();
-                        }
-                        */
+                   
                     }
 
                 }

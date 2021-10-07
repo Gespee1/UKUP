@@ -340,7 +340,7 @@ namespace РасчетКУ
             this.tabControl1.Location = new System.Drawing.Point(28, 285);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(860, 291);
+            this.tabControl1.Size = new System.Drawing.Size(751, 308);
             this.tabControl1.TabIndex = 21;
             // 
             // tabPageToAdd
@@ -349,7 +349,7 @@ namespace РасчетКУ
             this.tabPageToAdd.Location = new System.Drawing.Point(4, 25);
             this.tabPageToAdd.Name = "tabPageToAdd";
             this.tabPageToAdd.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageToAdd.Size = new System.Drawing.Size(852, 262);
+            this.tabPageToAdd.Size = new System.Drawing.Size(743, 279);
             this.tabPageToAdd.TabIndex = 0;
             this.tabPageToAdd.Text = "Добавить в расчёт";
             this.tabPageToAdd.UseVisualStyleBackColor = true;
@@ -374,9 +374,8 @@ namespace РасчетКУ
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(840, 253);
+            this.dataGridView2.Size = new System.Drawing.Size(744, 279);
             this.dataGridView2.TabIndex = 0;
-//            this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // In_prod_id
             // 
@@ -464,7 +463,6 @@ namespace РасчетКУ
             this.dataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView3.Size = new System.Drawing.Size(840, 253);
             this.dataGridView3.TabIndex = 0;
- //           this.dataGridView3.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_CellEndEdit);
             // 
             // Ex_prod_id
             // 
@@ -520,9 +518,9 @@ namespace РасчетКУ
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button7.Location = new System.Drawing.Point(731, 582);
+            this.button7.Location = new System.Drawing.Point(781, 507);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(150, 26);
+            this.button7.Size = new System.Drawing.Size(178, 43);
             this.button7.TabIndex = 25;
             this.button7.Text = "Удалить";
             this.button7.UseVisualStyleBackColor = true;
@@ -531,9 +529,9 @@ namespace РасчетКУ
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.Location = new System.Drawing.Point(177, 582);
+            this.button6.Location = new System.Drawing.Point(785, 387);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(190, 26);
+            this.button6.Size = new System.Drawing.Size(178, 50);
             this.button6.TabIndex = 24;
             this.button6.Text = "Добавить категорию";
             this.button6.UseVisualStyleBackColor = true;
@@ -542,9 +540,9 @@ namespace РасчетКУ
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(373, 582);
+            this.button5.Location = new System.Drawing.Point(785, 443);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(150, 26);
+            this.button5.Size = new System.Drawing.Size(178, 37);
             this.button5.TabIndex = 23;
             this.button5.Text = "Добавить товар";
             this.button5.UseVisualStyleBackColor = true;
@@ -553,9 +551,9 @@ namespace РасчетКУ
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(21, 582);
+            this.button4.Location = new System.Drawing.Point(785, 345);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(150, 26);
+            this.button4.Size = new System.Drawing.Size(178, 36);
             this.button4.TabIndex = 22;
             this.button4.Text = "Добавить все";
             this.button4.UseVisualStyleBackColor = true;

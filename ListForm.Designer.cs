@@ -31,7 +31,6 @@ namespace РасчетКУ
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вводКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,6 +38,7 @@ namespace РасчетКУ
             this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -59,20 +59,12 @@ namespace РасчетКУ
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.вводКУToolStripMenuItem,
             this.списокКУToolStripMenuItem,
             this.графикКУToolStripMenuItem,
             this.оПрограммеToolStripMenuItem});
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
             this.открытьToolStripMenuItem.Text = "Открыть";
-            // 
-            // вводКУToolStripMenuItem
-            // 
-            this.вводКУToolStripMenuItem.Name = "вводКУToolStripMenuItem";
-            this.вводКУToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
-            this.вводКУToolStripMenuItem.Text = "Ввод КУ";
-            this.вводКУToolStripMenuItem.Click += new System.EventHandler(this.вводКУToolStripMenuItem_Click);
             // 
             // списокКУToolStripMenuItem
             // 
@@ -132,6 +124,7 @@ namespace РасчетКУ
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControl1.Location = new System.Drawing.Point(21, 67);
             this.tabControl1.Name = "tabControl1";
@@ -149,6 +142,16 @@ namespace РасчетКУ
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Поставщики";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(719, 342);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Оказываемые услуги";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // ListForm
             // 
@@ -179,7 +182,6 @@ namespace РасчетКУ
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вводКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem графикКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
@@ -187,6 +189,7 @@ namespace РасчетКУ
         private ADGV.AdvancedDataGridView advancedDataGridView1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 

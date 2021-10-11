@@ -306,36 +306,7 @@ namespace РасчетКУ
             }
         }
 
-
-
-
-        // КНОПКИ МЕНЮ
-        //
-        //Открытие формы списка КУ с помощью кнопки на верхней панели
-        private void списокКУToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form FormKUList = new KUListForm();
-
-            FormKUList.Show();
-
-        }
-
-        //Открытие формы списка поставщиков с помощью кнопки на верхней панели
-        private void поставщикиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form FormVendorsList = new ListForm();
-
-            FormVendorsList.Show();
-        }
-
-        //Открытие графика КУ с помощью кнопки на верхней панели
-        private void графикКУToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form FormKUGraph = new KUGraphForm();
-
-            FormKUGraph.Show();
-        }
-
+               
         // ПЕРЕНОС
 
         //Отображение производителя и марки в combobox в таблицах искл и вкл товаров
@@ -839,7 +810,32 @@ namespace РасчетКУ
             }
         }
 
-       
+        // КНОПКИ МЕНЮ
+        //
+        //Открытие формы списка КУ с помощью кнопки на верхней панели
+        private void списокКУToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form FormKUList = new KUListForm();
+
+            FormKUList.Show();
+
+        }
+
+        //Открытие формы списка поставщиков с помощью кнопки на верхней панели
+        private void поставщикиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form FormVendorsList = new ListForm();
+
+            FormVendorsList.Show();
+        }
+
+        //Открытие графика КУ с помощью кнопки на верхней панели
+        private void графикКУToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form FormKUGraph = new KUGraphForm();
+
+            FormKUGraph.Show();
+        }
 
         // Закрытие подключения к БД
         private void InputKUForm_FormClosing(object sender, FormClosingEventArgs e)

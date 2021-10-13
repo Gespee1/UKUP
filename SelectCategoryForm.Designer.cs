@@ -74,7 +74,7 @@ namespace РасчетКУ
             this.panel2.Location = new System.Drawing.Point(250, 0);
             this.panel2.MinimumSize = new System.Drawing.Size(50, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(204, 255);
+            this.panel2.Size = new System.Drawing.Size(164, 255);
             this.panel2.TabIndex = 3;
             // 
             // SelectCategoryForm
@@ -82,7 +82,7 @@ namespace РасчетКУ
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(454, 255);
+            this.ClientSize = new System.Drawing.Size(414, 255);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(270, 240);

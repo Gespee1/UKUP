@@ -24,7 +24,7 @@ namespace РасчетКУ
             _sqlConnection.Open();
 
             showKUList();
-            
+            doResize();
 
         }
 
@@ -175,6 +175,19 @@ namespace РасчетКУ
             _sqlConnection.Close();
         }
 
-        
+        // UI
+        //
+        // Вызов метода изменения размера формы
+        private void KUListForm_Resize(object sender, EventArgs e)
+        {
+            doResize();
+        }
+
+        private void doResize()
+        {
+            //panel1.Size = new System.Drawing.Size(Convert.ToInt32(Size.Width * 0.85), Size.Height);
+
+            //btnChoiseCategory.Location = new System.Drawing.Point(Convert.ToInt32(panel2.Width * 0.235), Convert.ToInt32(panel2.Height * 0.45));
+        }
     }
 }

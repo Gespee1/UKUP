@@ -68,7 +68,9 @@ namespace РасчетКУ
                 }
                 treeViewCategory.Nodes[L1].Nodes[L2].Nodes[L3].Nodes.Add(dt.Rows[i][6].ToString(), dt.Rows[i][7].ToString());
             }
-            treeViewCategory.EndUpdate();  
+            treeViewCategory.EndUpdate();
+
+            doResize();
         }
 
         //запись в форму списка КУ
@@ -113,13 +115,19 @@ namespace РасчетКУ
 
         // UI
         //
-        // Изменение размера формы
+        // Вызов метода изменения размера формы
         private void SelectCategoryForm_Resize(object sender, EventArgs e)
+        {
+            doResize();
+        }
+
+        // Изменение размера формы
+        private void doResize()
         {
             //44,5%
             panel1.Size = new System.Drawing.Size(Convert.ToInt32(Size.Width * 44.5 / 100), Size.Height);
 
-            btnChoiseCategory.Location = new System.Drawing.Point(Convert.ToInt32(panel2.Width * 0.1), Convert.ToInt32(panel2.Height * 0.45));
+            btnChoiseCategory.Location = new System.Drawing.Point(Convert.ToInt32(panel2.Width * 0.235), Convert.ToInt32(panel2.Height * 0.45));
         }
 
     }

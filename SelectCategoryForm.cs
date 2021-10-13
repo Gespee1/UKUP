@@ -117,8 +117,10 @@ namespace РасчетКУ
         private void SelectCategoryForm_Resize(object sender, EventArgs e)
         {
             //44,5%
-            //MessageBox.Show(Size.Width.ToString());
             panel1.Size = new System.Drawing.Size(Convert.ToInt32(Size.Width * 44.5 / 100), Size.Height);
+
+            btnChoiseCategory.Location = new System.Drawing.Point(Convert.ToInt32(panel2.Width * 0.1), Convert.ToInt32(panel2.Height * 0.45));
         }
+
     }
 }

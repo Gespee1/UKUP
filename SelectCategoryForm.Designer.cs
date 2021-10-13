@@ -42,13 +42,13 @@ namespace РасчетКУ
             this.treeViewCategory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewCategory.Location = new System.Drawing.Point(0, 0);
             this.treeViewCategory.Name = "treeViewCategory";
-            this.treeViewCategory.Size = new System.Drawing.Size(250, 434);
+            this.treeViewCategory.Size = new System.Drawing.Size(250, 255);
             this.treeViewCategory.TabIndex = 0;
             // 
             // btnChoiseCategory
             // 
             this.btnChoiseCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnChoiseCategory.Location = new System.Drawing.Point(28, 21);
+            this.btnChoiseCategory.Location = new System.Drawing.Point(21, 106);
             this.btnChoiseCategory.Name = "btnChoiseCategory";
             this.btnChoiseCategory.Size = new System.Drawing.Size(86, 32);
             this.btnChoiseCategory.TabIndex = 1;
@@ -64,7 +64,7 @@ namespace РасчетКУ
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(250, 434);
+            this.panel1.Size = new System.Drawing.Size(250, 255);
             this.panel1.TabIndex = 2;
             // 
             // panel2
@@ -74,7 +74,7 @@ namespace РасчетКУ
             this.panel2.Location = new System.Drawing.Point(250, 0);
             this.panel2.MinimumSize = new System.Drawing.Size(50, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(294, 434);
+            this.panel2.Size = new System.Drawing.Size(204, 255);
             this.panel2.TabIndex = 3;
             // 
             // SelectCategoryForm
@@ -82,10 +82,12 @@ namespace РасчетКУ
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(544, 434);
+            this.ClientSize = new System.Drawing.Size(454, 255);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(270, 240);
             this.Name = "SelectCategoryForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор категории";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectCategoryForm_FormClosing);

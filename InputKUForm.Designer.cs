@@ -79,7 +79,6 @@ namespace РасчетКУ
             this.button4 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -88,6 +87,11 @@ namespace РасчетКУ
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageToAdd.SuspendLayout();
@@ -132,7 +136,7 @@ namespace РасчетКУ
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(228, 170);
+            this.label3.Location = new System.Drawing.Point(231, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(154, 18);
             this.label3.TabIndex = 3;
@@ -141,7 +145,7 @@ namespace РасчетКУ
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(231, 191);
+            this.textBox1.Location = new System.Drawing.Point(234, 142);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(157, 24);
             this.textBox1.TabIndex = 4;
@@ -151,7 +155,7 @@ namespace РасчетКУ
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(231, 120);
+            this.label4.Location = new System.Drawing.Point(754, 66);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(157, 18);
             this.label4.TabIndex = 5;
@@ -168,7 +172,7 @@ namespace РасчетКУ
             "Месяц",
             "Квартал",
             "Год"});
-            this.comboBox2.Location = new System.Drawing.Point(234, 141);
+            this.comboBox2.Location = new System.Drawing.Point(757, 87);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(157, 26);
             this.comboBox2.TabIndex = 6;
@@ -177,7 +181,7 @@ namespace РасчетКУ
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(404, 222);
+            this.label5.Location = new System.Drawing.Point(754, 126);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 18);
             this.label5.TabIndex = 8;
@@ -187,7 +191,7 @@ namespace РасчетКУ
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(584, 222);
+            this.label6.Location = new System.Drawing.Point(754, 175);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 18);
             this.label6.TabIndex = 9;
@@ -197,7 +201,7 @@ namespace РасчетКУ
             // 
             this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(407, 244);
+            this.dateTimePicker1.Location = new System.Drawing.Point(757, 148);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(157, 24);
             this.dateTimePicker1.TabIndex = 10;
@@ -206,7 +210,7 @@ namespace РасчетКУ
             // dateTimePicker2
             // 
             this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(587, 244);
+            this.dateTimePicker2.Location = new System.Drawing.Point(757, 197);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(157, 24);
             this.dateTimePicker2.TabIndex = 11;
@@ -249,28 +253,28 @@ namespace РасчетКУ
             // списокКУToolStripMenuItem
             // 
             this.списокКУToolStripMenuItem.Name = "списокКУToolStripMenuItem";
-            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.списокКУToolStripMenuItem.Text = "Список КУ";
             this.списокКУToolStripMenuItem.Click += new System.EventHandler(this.списокКУToolStripMenuItem_Click);
             // 
             // поставщикиToolStripMenuItem
             // 
             this.поставщикиToolStripMenuItem.Name = "поставщикиToolStripMenuItem";
-            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.поставщикиToolStripMenuItem.Text = "Справочники";
             this.поставщикиToolStripMenuItem.Click += new System.EventHandler(this.поставщикиToolStripMenuItem_Click);
             // 
             // графикКУToolStripMenuItem
             // 
             this.графикКУToolStripMenuItem.Name = "графикКУToolStripMenuItem";
-            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.графикКУToolStripMenuItem.Text = "График КУ";
             this.графикКУToolStripMenuItem.Click += new System.EventHandler(this.графикКУToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
             // действияToolStripMenuItem
@@ -291,7 +295,7 @@ namespace РасчетКУ
             // 
             this.status_label.AutoSize = true;
             this.status_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.status_label.Location = new System.Drawing.Point(404, 120);
+            this.status_label.Location = new System.Drawing.Point(404, 121);
             this.status_label.Name = "status_label";
             this.status_label.Size = new System.Drawing.Size(60, 18);
             this.status_label.TabIndex = 16;
@@ -325,7 +329,7 @@ namespace РасчетКУ
             // 
             this.status_textBox.Enabled = false;
             this.status_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.status_textBox.Location = new System.Drawing.Point(407, 141);
+            this.status_textBox.Location = new System.Drawing.Point(407, 142);
             this.status_textBox.Name = "status_textBox";
             this.status_textBox.Size = new System.Drawing.Size(157, 24);
             this.status_textBox.TabIndex = 19;
@@ -590,17 +594,6 @@ namespace РасчетКУ
             this.label7.TabIndex = 27;
             this.label7.Text = "Юр. лицо:";
             // 
-            // comboBox3
-            // 
-            this.comboBox3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(28, 141);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(196, 26);
-            this.comboBox3.TabIndex = 29;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -615,7 +608,7 @@ namespace РасчетКУ
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.checkBox1.Location = new System.Drawing.Point(636, 110);
+            this.checkBox1.Location = new System.Drawing.Point(1077, 99);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(165, 22);
             this.checkBox1.TabIndex = 30;
@@ -626,7 +619,7 @@ namespace РасчетКУ
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox2.Location = new System.Drawing.Point(636, 87);
+            this.checkBox2.Location = new System.Drawing.Point(1077, 76);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(146, 22);
             this.checkBox2.TabIndex = 31;
@@ -637,7 +630,7 @@ namespace РасчетКУ
             // 
             this.checkBox3.AutoSize = true;
             this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.checkBox3.Location = new System.Drawing.Point(636, 133);
+            this.checkBox3.Location = new System.Drawing.Point(1077, 122);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(186, 22);
             this.checkBox3.TabIndex = 32;
@@ -651,11 +644,9 @@ namespace РасчетКУ
             this.comboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Items.AddRange(new object[] {
-            "Неделя",
-            "Месяц",
-            "Квартал",
-            "Год"});
-            this.comboBox4.Location = new System.Drawing.Point(231, 87);
+            "Ретро-бонус",
+            "Маркетинговая услуга"});
+            this.comboBox4.Location = new System.Drawing.Point(234, 87);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(157, 26);
             this.comboBox4.TabIndex = 33;
@@ -687,14 +678,64 @@ namespace РасчетКУ
             this.comboBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox5.FormattingEnabled = true;
             this.comboBox5.Items.AddRange(new object[] {
-            "Неделя",
-            "Месяц",
-            "Квартал",
-            "Год"});
+            "Платеж",
+            "Взаимозачет"});
             this.comboBox5.Location = new System.Drawing.Point(407, 87);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(157, 26);
             this.comboBox5.TabIndex = 35;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label11.Location = new System.Drawing.Point(407, 171);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(80, 18);
+            this.label11.TabIndex = 37;
+            this.label11.Text = "Описание:";
+            this.label11.Visible = false;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Enabled = false;
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox3.Location = new System.Drawing.Point(407, 192);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(257, 24);
+            this.textBox3.TabIndex = 38;
+            this.textBox3.Visible = false;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Enabled = false;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox4.Location = new System.Drawing.Point(28, 143);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(196, 24);
+            this.textBox4.TabIndex = 39;
+            this.textBox4.Visible = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label12.Location = new System.Drawing.Point(231, 171);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(77, 18);
+            this.label12.TabIndex = 40;
+            this.label12.Text = "Контракт:";
+            this.label12.Visible = false;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Enabled = false;
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox5.Location = new System.Drawing.Point(234, 192);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(157, 24);
+            this.textBox5.TabIndex = 41;
+            this.textBox5.Visible = false;
             // 
             // InputKUForm
             // 
@@ -702,6 +743,11 @@ namespace РасчетКУ
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
             this.ClientSize = new System.Drawing.Size(1435, 685);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.comboBox5);
             this.Controls.Add(this.label9);
@@ -709,7 +755,6 @@ namespace РасчетКУ
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBox2);
@@ -808,7 +853,6 @@ namespace РасчетКУ
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
@@ -817,5 +861,10 @@ namespace РасчетКУ
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }

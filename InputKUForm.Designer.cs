@@ -300,7 +300,6 @@ namespace РасчетКУ
             this.status_label.Size = new System.Drawing.Size(60, 18);
             this.status_label.TabIndex = 16;
             this.status_label.Text = "Статус:";
-            this.status_label.Visible = false;
             // 
             // cancel_button
             // 
@@ -333,7 +332,6 @@ namespace РасчетКУ
             this.status_textBox.Name = "status_textBox";
             this.status_textBox.Size = new System.Drawing.Size(157, 24);
             this.status_textBox.TabIndex = 19;
-            this.status_textBox.Visible = false;
             // 
             // close_button
             // 
@@ -582,7 +580,6 @@ namespace РасчетКУ
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(196, 24);
             this.textBox2.TabIndex = 26;
-            this.textBox2.Visible = false;
             // 
             // label7
             // 
@@ -694,7 +691,6 @@ namespace РасчетКУ
             this.label11.Size = new System.Drawing.Size(80, 18);
             this.label11.TabIndex = 37;
             this.label11.Text = "Описание:";
-            this.label11.Visible = false;
             // 
             // textBox3
             // 
@@ -704,7 +700,6 @@ namespace РасчетКУ
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(257, 24);
             this.textBox3.TabIndex = 38;
-            this.textBox3.Visible = false;
             // 
             // textBox4
             // 
@@ -714,7 +709,6 @@ namespace РасчетКУ
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(196, 24);
             this.textBox4.TabIndex = 39;
-            this.textBox4.Visible = false;
             // 
             // label12
             // 
@@ -725,7 +719,6 @@ namespace РасчетКУ
             this.label12.Size = new System.Drawing.Size(77, 18);
             this.label12.TabIndex = 40;
             this.label12.Text = "Контракт:";
-            this.label12.Visible = false;
             // 
             // textBox5
             // 
@@ -735,7 +728,6 @@ namespace РасчетКУ
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(157, 24);
             this.textBox5.TabIndex = 41;
-            this.textBox5.Visible = false;
             // 
             // InputKUForm
             // 

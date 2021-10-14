@@ -153,9 +153,10 @@ namespace РасчетКУ
             {
                 SqlCommand command = new SqlCommand($"UPDATE KU SET Status = 'Закрыто' WHERE KU_id = {_KU_id}", _sqlConnection);
                 command.ExecuteNonQuery();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            
         }
 
         // Нажатие на кнопку отмены при изменении КУ

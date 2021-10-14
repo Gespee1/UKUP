@@ -185,9 +185,9 @@ namespace РасчетКУ
 
         private void doResize()
         {
-            //panel1.Size = new System.Drawing.Size(Convert.ToInt32(Size.Width * 0.85), Size.Height);
+            panel1.Size = new System.Drawing.Size(Size.Width - 170, Size.Height);
 
-            //btnChoiseCategory.Location = new System.Drawing.Point(Convert.ToInt32(panel2.Width * 0.235), Convert.ToInt32(panel2.Height * 0.45));
+            label1.Location = new System.Drawing.Point(Convert.ToInt32(panel4.Width * 0.3), label1.Location.Y) ;
         }
     }
 }

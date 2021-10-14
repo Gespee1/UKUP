@@ -56,8 +56,10 @@ namespace РасчетКУ
             dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
+           // dateTimePicker3.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = " ";
             dateTimePicker2.CustomFormat = " ";
+           // dateTimePicker3.CustomFormat = " ";
 
             if (_showKU)
 
@@ -829,6 +831,7 @@ namespace РасчетКУ
             FormVendorsList.Show();
         }
 
+        
         //Открытие графика КУ с помощью кнопки на верхней панели
         private void графикКУToolStripMenuItem_Click(object sender, EventArgs e)
         {

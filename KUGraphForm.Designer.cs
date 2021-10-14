@@ -47,9 +47,6 @@
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поставщикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.действияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьВсеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вВордToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,7 +165,6 @@
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьToolStripMenuItem,
-            this.действияToolStripMenuItem,
             this.настройкиToolStripMenuItem,
             this.экспортToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -215,27 +211,6 @@
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
-            // действияToolStripMenuItem
-            // 
-            this.действияToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.удалитьToolStripMenuItem,
-            this.удалитьВсеToolStripMenuItem});
-            this.действияToolStripMenuItem.Name = "действияToolStripMenuItem";
-            this.действияToolStripMenuItem.Size = new System.Drawing.Size(89, 25);
-            this.действияToolStripMenuItem.Text = "Действия";
-            // 
-            // удалитьToolStripMenuItem
-            // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
-            this.удалитьToolStripMenuItem.Text = "Удалить";
-            // 
-            // удалитьВсеToolStripMenuItem
-            // 
-            this.удалитьВсеToolStripMenuItem.Name = "удалитьВсеToolStripMenuItem";
-            this.удалитьВсеToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
-            this.удалитьВсеToolStripMenuItem.Text = "Удалить все";
-            // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
@@ -249,20 +224,20 @@
             this.вВордToolStripMenuItem,
             this.вЭксельToolStripMenuItem});
             this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
-            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(81, 25);
-            this.экспортToolStripMenuItem.Text = "Экспорт";
+            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(65, 25);
+            this.экспортToolStripMenuItem.Text = "Отчет";
             // 
             // вВордToolStripMenuItem
             // 
             this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
-            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
+            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.вВордToolStripMenuItem.Text = "Word";
             this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
             // 
             // вЭксельToolStripMenuItem
             // 
             this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
-            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
+            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.вЭксельToolStripMenuItem.Text = "Excel";
             this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
             // 
@@ -341,9 +316,6 @@
         private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вВордToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вЭксельToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem действияToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem удалитьВсеToolStripMenuItem;
     }
 }
 

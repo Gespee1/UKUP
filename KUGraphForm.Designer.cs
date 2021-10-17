@@ -53,6 +53,11 @@
             this.вЭксельToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -230,14 +235,14 @@
             // вВордToolStripMenuItem
             // 
             this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
-            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
             this.вВордToolStripMenuItem.Text = "Word";
             this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
             // 
             // вЭксельToolStripMenuItem
             // 
             this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
-            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
             this.вЭксельToolStripMenuItem.Text = "Excel";
             this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
             // 
@@ -263,12 +268,66 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(185, 565);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(159, 38);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Рассчитать все";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePicker2.Location = new System.Drawing.Point(283, 535);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(183, 24);
+            this.dateTimePicker2.TabIndex = 56;
+            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePicker1.Location = new System.Drawing.Point(57, 535);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(183, 24);
+            this.dateTimePicker1.TabIndex = 57;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(31, 535);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 20);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "С";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(247, 535);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 20);
+            this.label2.TabIndex = 59;
+            this.label2.Text = "По";
+            // 
             // KUGraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(1132, 587);
+            this.ClientSize = new System.Drawing.Size(1132, 662);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.dataGridView1);
@@ -316,6 +375,11 @@
         private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вВордToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вЭксельToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

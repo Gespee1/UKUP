@@ -297,7 +297,7 @@ namespace РасчетКУ
         {
             dateTimePicker2.Format = DateTimePickerFormat.Long;
         }
-        // Изменение значения 2 календаря
+        // Изменение значения 3 календаря
         private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
         {
             dateTimePicker3.Format = DateTimePickerFormat.Long;
@@ -438,15 +438,23 @@ namespace РасчетКУ
         // Открытие формы выбора продуктов
         private void button5_Click(object sender, EventArgs e)
         {
-            int selectedVendorId = Convert.ToInt32(_Vendor_id);
-            ProdIds.Clear();
+            if (_Vendor_id != 0)
+            {
 
-            Form SelectForm = new SelectProductForm(selectedVendorId, ref ProdIds);
-            SelectForm.ShowDialog();
+                int selectedVendorId = Convert.ToInt32(_Vendor_id);
+                ProdIds.Clear();
 
-            // Добавление строк с товарами 
-            if (SelectForm.DialogResult == DialogResult.OK)
-                addLine("Товары");
+                Form SelectForm = new SelectProductForm(selectedVendorId, ref ProdIds);
+                SelectForm.ShowDialog();
+
+                // Добавление строк с товарами 
+                if (SelectForm.DialogResult == DialogResult.OK)
+                    addLine("Товары");
+            }
+            else
+            {
+                MessageBox.Show("Выберите поставщика", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Поиск названия категории

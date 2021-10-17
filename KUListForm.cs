@@ -49,6 +49,16 @@ namespace РасчетКУ
                 showKUList();
         }
 
+        //Изменение выбранного КУ (двойное нажатие)
+        private void advancedDataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["KU_id"].Value), Convert.ToInt64(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value));
+            FormInputKu.ShowDialog();
+
+            if (FormInputKu.DialogResult == DialogResult.OK)
+                showKUList();
+        }
+
         // Удаление выбранного КУ
         private void button3_Click(object sender, EventArgs e)
         {
@@ -189,5 +199,6 @@ namespace РасчетКУ
 
             label1.Location = new System.Drawing.Point(Convert.ToInt32(panel4.Width * 0.3), label1.Location.Y) ;
         }
+                
     }
 }

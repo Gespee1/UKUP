@@ -24,6 +24,12 @@ namespace РасчетКУ
             SqlCon = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             SqlCon.Open();
 
+            dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = " ";
+            dateTimePicker2.CustomFormat = " ";
+           
             ShowGraph();
         }
 
@@ -110,9 +116,54 @@ namespace РасчетКУ
                 }
                 command.ExecuteNonQuery();
             }
+           
             ShowGraph();
         }
 
+        //Расчёт ретро с даты по дату
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < dataGridView1.Rows.Count; ++i)
+            {
+                DataGridViewRow row = dataGridView1.Rows[i];
+                //проверка на соответствие временного периода
+                int result = DateTime.Compare(dateTimePicker1.Value, Convert.ToDateTime(row.Cells["Date_from"].Value));
+                int result1 = DateTime.Compare(dateTimePicker2.Value, Convert.ToDateTime(row.Cells["Date_to"].Value));
+                if (result >= 0 & result1 <= 0)
+                {
+                    // Изменение статуса на "В расчете"
+                    SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    command.ExecuteNonQuery();
+
+                    Actions actions = new Actions();
+                    if (actions.currentRetroCalc(this, row.Index))
+                    {
+                        // Изменение статуса на "Рассчитано" 
+                        command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    }
+                    else
+                    {
+                        // Изменение статуса на "Создан" 
+                        command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    }
+                    command.ExecuteNonQuery();
+                }
+            }
+            ShowGraph();
+        }
+
+        // Изменение минимальной даты окончания, в зависимости от выбранной даты начала
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker2.MinDate = dateTimePicker1.Value.AddDays(1);
+            dateTimePicker1.Format = DateTimePickerFormat.Long;
+        }
+        // Изменение значения 2 календаря
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker2.Format = DateTimePickerFormat.Long;
+        }
 
         // Открытие формы ввода коммерческих условий
         private void вводКУToolStripMenuItem_Click(object sender, EventArgs e)
@@ -144,6 +195,8 @@ namespace РасчетКУ
             Form settings = new SettingsForm();
             settings.ShowDialog();
         }
+
+
 
         // Закрытие соединения с БД
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) 
@@ -268,5 +321,6 @@ namespace РасчетКУ
             ObjExcel.Visible = true;
             ObjExcel.UserControl = true;
         }
+              
     }
 }

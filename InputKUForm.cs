@@ -56,10 +56,10 @@ namespace РасчетКУ
             dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
-           // dateTimePicker3.Format = DateTimePickerFormat.Custom;
+            dateTimePicker3.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = " ";
             dateTimePicker2.CustomFormat = " ";
-           // dateTimePicker3.CustomFormat = " ";
+            dateTimePicker3.CustomFormat = " ";
 
             if (_showKU)
 
@@ -296,6 +296,11 @@ namespace РасчетКУ
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
             dateTimePicker2.Format = DateTimePickerFormat.Long;
+        }
+        // Изменение значения 2 календаря
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker3.Format = DateTimePickerFormat.Long;
         }
 
         // Ограничение ввода процента

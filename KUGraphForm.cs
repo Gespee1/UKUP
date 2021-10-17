@@ -128,10 +128,11 @@ namespace РасчетКУ
             {
                 DataGridViewRow row = dataGridView1.Rows[i];
                 //проверка на соответствие временного периода
-                int result = DateTime.Compare(dateTimePicker1.Value, Convert.ToDateTime(row.Cells["Date_from"].Value));
-                int result1 = DateTime.Compare(dateTimePicker2.Value, Convert.ToDateTime(row.Cells["Date_to"].Value));
-                if (result >= 0 & result1 <= 0)
+                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_from"].Value), dateTimePicker1.Value);
+                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_to"].Value), dateTimePicker2.Value);
+                if (result >= 0 && result1 <= 0)
                 {
+                    
                     // Изменение статуса на "В расчете"
                     SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
                     command.ExecuteNonQuery();

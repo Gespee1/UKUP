@@ -12,15 +12,17 @@ namespace РасчетКУ
             InitializeComponent();
         }
 
+        // Загрузка формы
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             Global_parameters GP = new Global_parameters();
             textBox1.Text = GP.getParameter(name1);
             if (textBox1.Text == "null")
                 textBox1.Text = "";
+            doResize();
         }
 
-
+        // Фильтр вводимых данных
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
@@ -30,7 +32,7 @@ namespace РасчетКУ
             }
         }
 
-
+        // Кнопка сохранения настроек
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text.Equals(""))
@@ -45,19 +47,18 @@ namespace РасчетКУ
                MessageBox.Show("Сохранено!");
               
             }
-            /*if (textBox2.Text.Equals(""))
-            {
-                MessageBox.Show("Строка подключения не введена");
-            }
-            else
-            {
-                string text = textBox2.Text;
-                Global_parameters GP1 = new Global_parameters();
-                GP1.setString(text);
-                MessageBox.Show(GP1.getString());
-            }*/
         }
 
-        
+        // Изменение размера формы
+        private void SettingsForm_Resize(object sender, EventArgs e)
+        {
+            doResize();
+        }
+
+        // Подгонка размеров под форму
+        private void doResize()
+        {
+            panel1.Location = new System.Drawing.Point(Convert.ToInt32((ClientSize.Width - panel1.Width) / 2), Convert.ToInt32((ClientSize.Height - panel1.Height) / 2));
+        }
     }
 }

@@ -197,12 +197,12 @@ namespace РасчетКУ
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.advancedDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.advancedDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advancedDataGridView1.Location = new System.Drawing.Point(0, 94);
+            this.advancedDataGridView1.Location = new System.Drawing.Point(12, 94);
             this.advancedDataGridView1.MultiSelect = false;
             this.advancedDataGridView1.Name = "advancedDataGridView1";
             this.advancedDataGridView1.ReadOnly = true;
             this.advancedDataGridView1.RowHeadersVisible = false;
-            this.advancedDataGridView1.Size = new System.Drawing.Size(1012, 402);
+            this.advancedDataGridView1.Size = new System.Drawing.Size(1000, 390);
             this.advancedDataGridView1.TabIndex = 12;
             this.advancedDataGridView1.TimeFilter = false;
             this.advancedDataGridView1.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
@@ -216,6 +216,7 @@ namespace РасчетКУ
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(12, 0, 0, 12);
             this.panel1.Size = new System.Drawing.Size(1012, 496);
             this.panel1.TabIndex = 13;
             // 
@@ -223,9 +224,9 @@ namespace РасчетКУ
             // 
             this.panel4.Controls.Add(this.label1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Location = new System.Drawing.Point(12, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1012, 94);
+            this.panel4.Size = new System.Drawing.Size(1000, 94);
             this.panel4.TabIndex = 14;
             // 
             // panel2
@@ -250,6 +251,7 @@ namespace РасчетКУ
             this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(600, 342);
             this.Name = "KUListForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

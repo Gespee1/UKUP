@@ -826,6 +826,20 @@ namespace РасчетКУ
             }
         }
 
+        // Условия бонуса
+        //
+        // Добавление строки
+        private void button1_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Add();
+        }
+        //Удаление строки
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.RemoveAt(dataGridView1.CurrentRow.Index);
+        }
+
+
         // КНОПКИ МЕНЮ
         //
         //Открытие формы списка КУ с помощью кнопки на верхней панели
@@ -845,7 +859,7 @@ namespace РасчетКУ
             FormVendorsList.Show();
         }
 
-        
+
         //Открытие графика КУ с помощью кнопки на верхней панели
         private void графикКУToolStripMenuItem_Click(object sender, EventArgs e)
         {

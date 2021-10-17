@@ -19,6 +19,7 @@ namespace РасчетКУ
             InitializeComponent();
         }
 
+        // Загрузка формы
         private void Form1_Load(object sender, EventArgs e)
         {
             SqlCon = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
@@ -31,6 +32,7 @@ namespace РасчетКУ
             dateTimePicker2.CustomFormat = " ";
            
             ShowGraph();
+            doResize();
         }
 
         //Вывод графика из БД
@@ -322,6 +324,17 @@ namespace РасчетКУ
             ObjExcel.Visible = true;
             ObjExcel.UserControl = true;
         }
-              
+
+        // Изменение размеров формы
+        private void KUGraphForm_Resize(object sender, EventArgs e)
+        {
+            doResize();
+        }
+
+        // Изменение размеров панели с гридой
+        private void doResize()
+        {
+            panel1.Height = button1.Location.Y - menuStrip1.Height;
+        }
     }
 }

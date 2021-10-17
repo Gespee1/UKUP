@@ -39,7 +39,7 @@ namespace РасчетКУ
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(110, 79);
+            this.textBox1.Location = new System.Drawing.Point(102, 79);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(124, 26);
             this.textBox1.TabIndex = 1;
@@ -48,7 +48,7 @@ namespace РасчетКУ
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(110, 121);
+            this.button1.Location = new System.Drawing.Point(107, 121);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 36);
             this.button1.TabIndex = 2;
@@ -60,7 +60,7 @@ namespace РасчетКУ
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Book Antiqua", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(40, 12);
+            this.label1.Location = new System.Drawing.Point(33, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(262, 52);
             this.label1.TabIndex = 3;
@@ -84,11 +84,13 @@ namespace РасчетКУ
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
             this.ClientSize = new System.Drawing.Size(329, 186);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(345, 225);
             this.Name = "SettingsForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
+            this.Resize += new System.EventHandler(this.SettingsForm_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

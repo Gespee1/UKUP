@@ -225,6 +225,12 @@ namespace РасчетКУ
             adapt = new SqlDataAdapter(cm);
             adapt.Fill(excluded);
 
+            // Таблица с условиями бонуса
+            DataTable terms = new DataTable();
+            cm = new SqlCommand($"SELECT Fixed, Criteria, [Percent/Amount] FROM Terms WHERE KU_id = {row.Cells["KU_id"].Value} ORDER BY Criteria", _sqlConnection);
+            adapt = new SqlDataAdapter(cm);
+            adapt.Fill(terms);
+
             // Учет включенных и исключенных товаров
             //
             // Создаем список ВКЛ и ИСКЛ товаров по условиям
@@ -350,12 +356,29 @@ namespace РасчетКУ
             // Вывод суммы по накладным и бонуса
             if (InMinusEx.Rows.Count > 0)
             {
-                double summ = 0, bonus;
+                double summ = 0, bonus, percentOrFix = 0;
+                bool fix = false;
+
                 for (int i = 0; i < InMinusEx.Rows.Count; i++)
                 {
                     summ += (double)InMinusEx.Rows[i][1];
                 }
-                bonus = summ * (double)row.Cells["Percent"].Value / 100;
+
+                // Получение величины процента/фиксированной суммы
+                for(int i = 0; i < terms.Rows.Count; i++)
+                {
+                    if(summ > (double)terms.Rows[i][1])
+                    {
+                        fix = (bool)terms.Rows[i][0];
+                        percentOrFix = (double)terms.Rows[i][2];
+                        break;
+                    }
+                }
+
+                if (fix)
+                    bonus = percentOrFix;
+                else
+                    bonus = summ * percentOrFix / 100;
 
                 command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2)}, Sum_bonus = {Math.Round(bonus, 2)} WHERE " +
                     $"Graph_id = {Graph_id}", _sqlConnection);

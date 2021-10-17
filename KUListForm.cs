@@ -25,7 +25,6 @@ namespace РасчетКУ
 
             showKUList();
             doResize();
-
         }
 
         // Добавление КУ
@@ -197,7 +196,7 @@ namespace РасчетКУ
         {
             panel1.Size = new System.Drawing.Size(Size.Width - 170, Size.Height);
 
-            label1.Location = new System.Drawing.Point(Convert.ToInt32(panel4.Width * 0.3), label1.Location.Y) ;
+            label1.Location = new System.Drawing.Point(Convert.ToInt32((panel4.Width - label1.Width) / 2), label1.Location.Y) ;
         }
                 
     }

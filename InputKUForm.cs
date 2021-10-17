@@ -101,6 +101,7 @@ namespace РасчетКУ
             }
             showProducerBrand(_Vendor_id);
             showExInProducts(_KU_id);
+            showTerms(_KU_id);
         }
 
         // Добавление или изменение данных о КУ
@@ -230,6 +231,14 @@ namespace РасчетКУ
             command = new SqlCommand($"SELECT KU_id FROM KU WHERE Vendor_id = (SELECT Vendor_id FROM Vendors WHERE Name = '{comboBox1.SelectedItem}') AND Date_from = '{dateTimePicker1.Value.ToShortDateString()}' AND Date_to = '{dateTimePicker2.Value.ToShortDateString()}'", _sqlConnection);
             _KU_id = Convert.ToInt64(command.ExecuteScalar());
 
+            //Запись условий бонуса в БД
+            for ( int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                command = new SqlCommand(
+              $"INSERT INTO Terms (KU_id, Fixed, Criteria, [Percent/Amount], Total) VALUES ('{_KU_id}', '{dataGridView1.Rows[i].Cells["FixSum"].Value}'," +
+              $" '{dataGridView1.Rows[i].Cells["Criterion"].Value}', '{dataGridView1.Rows[i].Cells["PercentSum"].Value}', '{dataGridView1.Rows[i].Cells["Total"].Value}')", _sqlConnection);
+                command.ExecuteNonQuery();
+            }
             //ПРОБНЫЙ МЕТОД ДЛЯ СОХРАНЕНИЯ iN/EX!!!!!!!!!!!!!!!!!!!
             AddInExBD();
             
@@ -239,6 +248,7 @@ namespace РасчетКУ
             textBox1.Text = "";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
             dataGridView3.Rows.Clear();
         }
@@ -277,6 +287,19 @@ namespace РасчетКУ
                     $"Date_from = '{dateTimePicker1.Value.ToShortDateString()}', Date_to = '{dateTimePicker2.Value.ToShortDateString()}', Status = '{status}'" +
                     $" WHERE KU_id = {_KU_id}", _sqlConnection);
             command.ExecuteNonQuery();
+
+            //Перезапись условий бонуса в БД
+            command = new SqlCommand($"DELETE FROM Terms WHERE KU_id = '{_KU_id}'", _sqlConnection);
+            command.ExecuteNonQuery();
+            
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                command = new SqlCommand(
+              $"INSERT INTO Terms (KU_id, Fixed, Criteria, [Percent/Amount], Total) VALUES ('{_KU_id}', '{dataGridView1.Rows[i].Cells["FixSum"].Value}'," +
+              $" '{dataGridView1.Rows[i].Cells["Criterion"].Value}', '{dataGridView1.Rows[i].Cells["PercentSum"].Value}', '{dataGridView1.Rows[i].Cells["Total"].Value}')", _sqlConnection);
+                command.ExecuteNonQuery();
+            }
+            //Запись добавленных и исключенных
             AddInExBD();
 
             this.DialogResult = DialogResult.OK;
@@ -415,6 +438,24 @@ namespace РасчетКУ
             reader.Close();
         }
 
+        //отображение условий ретро
+        private void showTerms(Int64 KUId)
+        {
+            dataGridView1.Rows.Clear();
+            SqlCommand command = new SqlCommand($"SELECT * FROM Terms WHERE KU_id = {KUId}", _sqlConnection);
+
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                dataGridView1.Rows.Add();
+                (dataGridView1.Rows[dataGridView1.RowCount - 1].Cells["FixSum"] as DataGridViewCheckBoxCell).Value = reader[2];
+                dataGridView1.Rows[dataGridView1.RowCount - 1].Cells["Criterion"].Value = reader[3];
+                dataGridView1.Rows[dataGridView1.RowCount - 1].Cells["PercentSum"].Value = reader[4];
+                dataGridView1.Rows[dataGridView1.RowCount - 1].Cells["Total"].Value = reader[5];
+                           
+            }
+            reader.Close();
+        }
 
         // Кнопка "Добавить все"
         private void button4_Click(object sender, EventArgs e)

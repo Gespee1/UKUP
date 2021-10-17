@@ -203,7 +203,8 @@ namespace РасчетКУ
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             bool state = false;
             _sqlConnection.Open();
-            DataGridView dgv = graph_form.Controls["dataGridView1"] as DataGridView;
+            Panel panelka = graph_form.Controls["panel1"] as Panel;
+            DataGridView dgv = panelka.Controls["dataGridView1"] as DataGridView;
             DataGridViewRow row = dgv.Rows[rowIndex];
             Int64 Graph_id = (Int64)row.Cells["Graph_Id"].Value;
 

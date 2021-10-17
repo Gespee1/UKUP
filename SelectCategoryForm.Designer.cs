@@ -40,15 +40,16 @@ namespace РасчетКУ
             // treeViewCategory
             // 
             this.treeViewCategory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewCategory.Location = new System.Drawing.Point(0, 0);
+            this.treeViewCategory.Location = new System.Drawing.Point(12, 12);
             this.treeViewCategory.Name = "treeViewCategory";
-            this.treeViewCategory.Size = new System.Drawing.Size(250, 255);
+            this.treeViewCategory.Size = new System.Drawing.Size(301, 231);
             this.treeViewCategory.TabIndex = 0;
             // 
             // btnChoiseCategory
             // 
+            this.btnChoiseCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChoiseCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnChoiseCategory.Location = new System.Drawing.Point(21, 106);
+            this.btnChoiseCategory.Location = new System.Drawing.Point(6, 211);
             this.btnChoiseCategory.Name = "btnChoiseCategory";
             this.btnChoiseCategory.Size = new System.Drawing.Size(86, 32);
             this.btnChoiseCategory.TabIndex = 1;
@@ -64,17 +65,19 @@ namespace РасчетКУ
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(250, 255);
+            this.panel1.Padding = new System.Windows.Forms.Padding(12, 12, 0, 12);
+            this.panel1.Size = new System.Drawing.Size(313, 255);
             this.panel1.TabIndex = 2;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnChoiseCategory);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(250, 0);
+            this.panel2.Location = new System.Drawing.Point(313, 0);
             this.panel2.MinimumSize = new System.Drawing.Size(50, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(164, 255);
+            this.panel2.Padding = new System.Windows.Forms.Padding(0, 12, 12, 12);
+            this.panel2.Size = new System.Drawing.Size(101, 255);
             this.panel2.TabIndex = 3;
             // 
             // SelectCategoryForm

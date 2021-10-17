@@ -230,14 +230,14 @@
             // вВордToolStripMenuItem
             // 
             this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
-            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
             this.вВордToolStripMenuItem.Text = "Word";
             this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
             // 
             // вЭксельToolStripMenuItem
             // 
             this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
-            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
             this.вЭксельToolStripMenuItem.Text = "Excel";
             this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
             // 

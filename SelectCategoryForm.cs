@@ -124,10 +124,7 @@ namespace РасчетКУ
         // Изменение размера формы
         private void doResize()
         {
-            //44,5%
-            panel1.Size = new System.Drawing.Size(Convert.ToInt32(Size.Width * 44.5 / 100), Size.Height);
-
-            btnChoiseCategory.Location = new System.Drawing.Point(Convert.ToInt32(panel2.Width * 0.235), Convert.ToInt32(panel2.Height * 0.45));
+            panel1.Width = Convert.ToInt32(ClientSize.Width - 101);
         }
 
     }

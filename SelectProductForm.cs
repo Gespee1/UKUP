@@ -57,6 +57,7 @@ namespace РасчетКУ
             headCell.FilterEnabled = false;
             
             showRowCount();
+            doResize();
         }
 
         // Фильтрация товаров
@@ -118,5 +119,15 @@ namespace РасчетКУ
             _sqlConnection.Close();
         }
 
+        private void SelectProductForm_Resize(object sender, EventArgs e)
+        {
+            doResize();
+        }
+
+        // Изменение размера формы
+        private void doResize()
+        {
+            panel2.Height = button1.Location.Y - panel1.Height;
+        }
     }
 }

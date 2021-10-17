@@ -20,7 +20,7 @@ namespace РасчетКУ
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             _sqlConnection.Open();
 
-            showVendorsList();
+            doResize();
         }
 
         // Закрытие соединения с БД
@@ -29,9 +29,8 @@ namespace РасчетКУ
             _sqlConnection.Close();
         }
 
-
         // Вывод списка поставщиков
-        private void showVendorsList()
+        private void vend_button_Click(object sender, EventArgs e)
         {
             SqlCommand command = new SqlCommand("SELECT Name As 'Поставщик', " +
                 "(SELECT Name FROM Entities Where Entities.Entity_id = Vendors.Entity_id) As 'Юридическое лицо' FROM Vendors", _sqlConnection);
@@ -40,9 +39,15 @@ namespace РасчетКУ
             adapt.SelectCommand = command;
             adapt.Fill(dt);
             advancedDataGridView1.DataSource = dt;
-            //advancedDataGridView1.Columns["Vendor_id"].Visible = false;
-            //advancedDataGridView1.Columns["Entity_id"].Visible = false;
         }
+
+        // Вывод списка оказываемых услуг
+        private void service_button_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         //Фильтр поставщиков
         private void advancedDataGridView1_FilterStringChanged(object sender, EventArgs e)
@@ -82,5 +87,17 @@ namespace РасчетКУ
             FormKUGraph.Show();
         }
 
+        private void ListForm_Resize(object sender, EventArgs e)
+        {
+            doResize();
+        }
+
+        // Изменение размера формы
+        private void doResize()
+        {
+            label1.Location = new System.Drawing.Point(Convert.ToInt32((panel1.Width - label1.Width) / 2), label1.Location.Y);
+
+            panel2.Height = ClientSize.Height - (panel1.Location.Y + panel1.Height);
+        }
     }
 }

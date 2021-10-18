@@ -29,18 +29,6 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_from = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_calc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вводКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +47,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_from = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_calc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -92,82 +92,6 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1108, 476);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // KU_id
-            // 
-            this.KU_id.HeaderText = "Номер КУ";
-            this.KU_id.Name = "KU_id";
-            this.KU_id.ReadOnly = true;
-            // 
-            // Vendor_id
-            // 
-            this.Vendor_id.HeaderText = "Номер поставщика";
-            this.Vendor_id.Name = "Vendor_id";
-            this.Vendor_id.ReadOnly = true;
-            this.Vendor_id.ToolTipText = "Процент КУ";
-            // 
-            // Percent
-            // 
-            this.Percent.HeaderText = "Процент КУ";
-            this.Percent.Name = "Percent";
-            this.Percent.ReadOnly = true;
-            // 
-            // Period
-            // 
-            this.Period.HeaderText = "Период";
-            this.Period.Name = "Period";
-            this.Period.ReadOnly = true;
-            // 
-            // Date_from
-            // 
-            this.Date_from.HeaderText = "Дата С";
-            this.Date_from.Name = "Date_from";
-            this.Date_from.ReadOnly = true;
-            // 
-            // Date_to
-            // 
-            this.Date_to.HeaderText = "Дата По";
-            this.Date_to.Name = "Date_to";
-            this.Date_to.ReadOnly = true;
-            // 
-            // Date_calc
-            // 
-            this.Date_calc.HeaderText = "Дата расчета";
-            this.Date_calc.Name = "Date_calc";
-            this.Date_calc.ReadOnly = true;
-            // 
-            // GraphStatus
-            // 
-            this.GraphStatus.HeaderText = "Статус";
-            this.GraphStatus.Name = "GraphStatus";
-            this.GraphStatus.ReadOnly = true;
-            this.GraphStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GraphStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GraphSumN
-            // 
-            this.GraphSumN.HeaderText = "Сумма по накладным";
-            this.GraphSumN.Name = "GraphSumN";
-            this.GraphSumN.ReadOnly = true;
-            // 
-            // GraphSumP
-            // 
-            this.GraphSumP.HeaderText = "Сумма премии";
-            this.GraphSumP.Name = "GraphSumP";
-            this.GraphSumP.ReadOnly = true;
-            // 
-            // GraphSumS
-            // 
-            this.GraphSumS.HeaderText = "Согласованная сумма премии";
-            this.GraphSumS.Name = "GraphSumS";
-            this.GraphSumS.ReadOnly = true;
-            // 
-            // Graph_Id
-            // 
-            this.Graph_Id.HeaderText = "Graph_Id";
-            this.Graph_Id.Name = "Graph_Id";
-            this.Graph_Id.ReadOnly = true;
-            this.Graph_Id.Visible = false;
             // 
             // menuStrip1
             // 
@@ -338,6 +262,85 @@
             this.panel1.Size = new System.Drawing.Size(1132, 500);
             this.panel1.TabIndex = 60;
             // 
+            // KU_id
+            // 
+            this.KU_id.HeaderText = "Номер КУ";
+            this.KU_id.Name = "KU_id";
+            this.KU_id.ReadOnly = true;
+            // 
+            // Vendor_id
+            // 
+            this.Vendor_id.HeaderText = "Номер поставщика";
+            this.Vendor_id.Name = "Vendor_id";
+            this.Vendor_id.ReadOnly = true;
+            this.Vendor_id.ToolTipText = "Процент КУ";
+            // 
+            // Percent
+            // 
+            this.Percent.HeaderText = "Процент КУ";
+            this.Percent.Name = "Percent";
+            this.Percent.ReadOnly = true;
+            // 
+            // Period
+            // 
+            this.Period.HeaderText = "Период";
+            this.Period.Name = "Period";
+            this.Period.ReadOnly = true;
+            // 
+            // Date_from
+            // 
+            this.Date_from.HeaderText = "Дата С";
+            this.Date_from.Name = "Date_from";
+            this.Date_from.ReadOnly = true;
+            // 
+            // Date_to
+            // 
+            this.Date_to.HeaderText = "Дата По";
+            this.Date_to.Name = "Date_to";
+            this.Date_to.ReadOnly = true;
+            // 
+            // Date_calc
+            // 
+            this.Date_calc.HeaderText = "Дата расчета";
+            this.Date_calc.Name = "Date_calc";
+            this.Date_calc.ReadOnly = true;
+            // 
+            // GraphStatus
+            // 
+            this.GraphStatus.HeaderText = "Статус";
+            this.GraphStatus.Name = "GraphStatus";
+            this.GraphStatus.ReadOnly = true;
+            this.GraphStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GraphStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GraphSumN
+            // 
+            this.GraphSumN.HeaderText = "Сумма по накладным";
+            this.GraphSumN.Name = "GraphSumN";
+            this.GraphSumN.ReadOnly = true;
+            this.GraphSumN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GraphSumP
+            // 
+            this.GraphSumP.HeaderText = "Сумма премии";
+            this.GraphSumP.Name = "GraphSumP";
+            this.GraphSumP.ReadOnly = true;
+            this.GraphSumP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GraphSumS
+            // 
+            this.GraphSumS.HeaderText = "Согласованная сумма премии";
+            this.GraphSumS.Name = "GraphSumS";
+            this.GraphSumS.ReadOnly = true;
+            this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Graph_Id
+            // 
+            this.Graph_Id.HeaderText = "Graph_Id";
+            this.Graph_Id.Name = "Graph_Id";
+            this.Graph_Id.ReadOnly = true;
+            this.Graph_Id.Visible = false;
+            // 
             // KUGraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -381,6 +384,16 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem вВордToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem вЭксельToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn KU_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vendor_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Percent;
@@ -393,16 +406,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumP;
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumS;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
-        private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вВордToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вЭксельToolStripMenuItem;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

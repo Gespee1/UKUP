@@ -521,7 +521,6 @@ namespace РасчетКУ
         private void button7_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            SqlCommand command;
             if (tabControl1.SelectedIndex == 0)
             {
                 if (dataGridView2.RowCount < 1)
@@ -552,7 +551,6 @@ namespace РасчетКУ
                 dataGridView3.Rows.RemoveAt(dataGridView2.CurrentRow.Index);
                 
             }
-            //command.ExecuteNonQuery();
             //showExInProducts(Convert.ToInt64(_KU_id));
         }
 
@@ -686,8 +684,6 @@ namespace РасчетКУ
             {
                 
                 
-              
-               
                  switch (dataGridView2.Rows[i].Cells["TypeP"].Value.ToString())
                  {
                         case "Все":
@@ -835,33 +831,19 @@ namespace РасчетКУ
         private void InputKUForm_KeyPress(object sender, KeyPressEventArgs e)
         {
             DataGridView dgv;
-            SqlCommand command;
-            string table, column;
 
             // Отслеживание нажатия на delete и backspace
             if (e.KeyChar == (char)Keys.Delete || e.KeyChar == (char)Keys.Back)
             {
                 if (tabControl1.SelectedIndex == 0)
-                {
                     dgv = dataGridView2;
-                    table = "Included_products";
-                    column = "In_prod_id";
-                }
                 else
-                {
                     dgv = dataGridView3;
-                    table = "Excluded_products";
-                    column = "Ex_prod_id";
-                }
 
                 if (dgv.Focused)
                 {
                     if (dgv.RowCount > 0 && dgv.CurrentCell.ColumnIndex > dgv.ColumnCount - 3)
-                    {
                         (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.CurrentCell.ColumnIndex] as DataGridViewComboBoxCell).Value = "";
-
-                   
-                    }
 
                 }
             }

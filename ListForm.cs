@@ -20,6 +20,8 @@ namespace РасчетКУ
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             _sqlConnection.Open();
 
+            Size = MinimumSize;
+            panel2.Visible = false;
             doResize();
         }
 
@@ -32,6 +34,9 @@ namespace РасчетКУ
         // Вывод списка поставщиков
         private void vend_button_Click(object sender, EventArgs e)
         {
+            Size = new System.Drawing.Size(776, 489);
+            panel2.Visible = true;
+
             SqlCommand command = new SqlCommand("SELECT Name As 'Поставщик', " +
                 "(SELECT Name FROM Entities Where Entities.Entity_id = Vendors.Entity_id) As 'Юридическое лицо' FROM Vendors", _sqlConnection);
             DataTable dt = new DataTable();

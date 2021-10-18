@@ -33,7 +33,6 @@ namespace РасчетКУ
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
             this.vend_button = new System.Windows.Forms.Button();
@@ -61,8 +60,7 @@ namespace РасчетКУ
             // 
             this.открытьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.списокКУToolStripMenuItem,
-            this.графикКУToolStripMenuItem,
-            this.оПрограммеToolStripMenuItem});
+            this.графикКУToolStripMenuItem});
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
             this.открытьToolStripMenuItem.Text = "Открыть";
@@ -70,22 +68,16 @@ namespace РасчетКУ
             // списокКУToolStripMenuItem
             // 
             this.списокКУToolStripMenuItem.Name = "списокКУToolStripMenuItem";
-            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.списокКУToolStripMenuItem.Text = "Список КУ";
             this.списокКУToolStripMenuItem.Click += new System.EventHandler(this.списокКУToolStripMenuItem_Click);
             // 
             // графикКУToolStripMenuItem
             // 
             this.графикКУToolStripMenuItem.Name = "графикКУToolStripMenuItem";
-            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.графикКУToolStripMenuItem.Text = "График КУ";
             this.графикКУToolStripMenuItem.Click += new System.EventHandler(this.графикКУToolStripMenuItem_Click);
-            // 
-            // оПрограммеToolStripMenuItem
-            // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
             // label1
             // 
@@ -198,7 +190,6 @@ namespace РасчетКУ
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem графикКУToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private ADGV.AdvancedDataGridView advancedDataGridView1;
         private System.Windows.Forms.Button vend_button;

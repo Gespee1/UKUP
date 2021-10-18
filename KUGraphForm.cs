@@ -130,27 +130,51 @@ namespace РасчетКУ
             {
                 DataGridViewRow row = dataGridView1.Rows[i];
                 //проверка на соответствие временного периода
-                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_from"].Value), dateTimePicker1.Value);
-                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_to"].Value), dateTimePicker2.Value);
-                if (result >= 0 && result1 <= 0)
+                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker1.Value);
+                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker2.Value);
+                if (dateTimePicker1.Format == DateTimePickerFormat.Custom && dateTimePicker2.Format != DateTimePickerFormat.Custom)
                 {
-                    
-                    // Изменение статуса на "В расчете"
-                    SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                    command.ExecuteNonQuery();
+                    if (result1 <= 0)
+                    {                        
+                        // Изменение статуса на "В расчете"
+                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        command.ExecuteNonQuery();
 
-                    Actions actions = new Actions();
-                    if (actions.currentRetroCalc(this, row.Index))
-                    {
-                        // Изменение статуса на "Рассчитано" 
-                        command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        Actions actions = new Actions();
+                        if (actions.currentRetroCalc(this, row.Index))
+                        {
+                            // Изменение статуса на "Рассчитано" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        else
+                        {
+                            // Изменение статуса на "Создан" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        command.ExecuteNonQuery();
                     }
-                    else
+                }
+                else
+                {
+                    if (result >= 0 && result1 <= 0)
                     {
-                        // Изменение статуса на "Создан" 
-                        command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        // Изменение статуса на "В расчете"
+                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        command.ExecuteNonQuery();
+
+                        Actions actions = new Actions();
+                        if (actions.currentRetroCalc(this, row.Index))
+                        {
+                            // Изменение статуса на "Рассчитано" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        else
+                        {
+                            // Изменение статуса на "Создан" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        command.ExecuteNonQuery();
                     }
-                    command.ExecuteNonQuery();
                 }
             }
             ShowGraph();

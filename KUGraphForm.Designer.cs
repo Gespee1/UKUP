@@ -31,10 +31,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.вводКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поставщикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вВордToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,15 +47,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VendorNam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContractCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date_from = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date_calc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GraphStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GraphSumP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GraphSumS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -74,15 +75,18 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.KU_id,
             this.Vendor_id,
+            this.VendorAcc,
+            this.VendorNam,
+            this.ContractCode,
             this.Percent,
             this.Period,
             this.Date_from,
             this.Date_to,
             this.Date_calc,
             this.GraphStatus,
-            this.GraphSumN,
             this.GraphSumP,
             this.GraphSumS,
+            this.GraphSumN,
             this.Graph_Id});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
@@ -109,40 +113,25 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.вводКУToolStripMenuItem,
             this.списокКУToolStripMenuItem,
-            this.поставщикиToolStripMenuItem,
-            this.оПрограммеToolStripMenuItem});
+            this.поставщикиToolStripMenuItem});
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
             this.открытьToolStripMenuItem.Text = "Открыть";
             // 
-            // вводКУToolStripMenuItem
-            // 
-            this.вводКУToolStripMenuItem.Name = "вводКУToolStripMenuItem";
-            this.вводКУToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
-            this.вводКУToolStripMenuItem.Text = "Ввод КУ";
-            this.вводКУToolStripMenuItem.Click += new System.EventHandler(this.вводКУToolStripMenuItem_Click);
-            // 
             // списокКУToolStripMenuItem
             // 
             this.списокКУToolStripMenuItem.Name = "списокКУToolStripMenuItem";
-            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.списокКУToolStripMenuItem.Text = "Список КУ";
             this.списокКУToolStripMenuItem.Click += new System.EventHandler(this.списокКУToolStripMenuItem_Click);
             // 
             // поставщикиToolStripMenuItem
             // 
             this.поставщикиToolStripMenuItem.Name = "поставщикиToolStripMenuItem";
-            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.поставщикиToolStripMenuItem.Text = "Поставщики";
             this.поставщикиToolStripMenuItem.Click += new System.EventHandler(this.поставщикиToolStripMenuItem_Click);
-            // 
-            // оПрограммеToolStripMenuItem
-            // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
             // настройкиToolStripMenuItem
             // 
@@ -163,14 +152,14 @@
             // вВордToolStripMenuItem
             // 
             this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
-            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
+            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.вВордToolStripMenuItem.Text = "Word";
             this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
             // 
             // вЭксельToolStripMenuItem
             // 
             this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
-            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(118, 26);
+            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.вЭксельToolStripMenuItem.Text = "Excel";
             this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
             // 
@@ -274,10 +263,29 @@
             this.Vendor_id.Name = "Vendor_id";
             this.Vendor_id.ReadOnly = true;
             this.Vendor_id.ToolTipText = "Процент КУ";
+            this.Vendor_id.Visible = false;
+            // 
+            // VendorAcc
+            // 
+            this.VendorAcc.HeaderText = "Счет поставщика";
+            this.VendorAcc.Name = "VendorAcc";
+            this.VendorAcc.ReadOnly = true;
+            // 
+            // VendorNam
+            // 
+            this.VendorNam.HeaderText = "Имя";
+            this.VendorNam.Name = "VendorNam";
+            this.VendorNam.ReadOnly = true;
+            // 
+            // ContractCode
+            // 
+            this.ContractCode.HeaderText = "Код договора";
+            this.ContractCode.Name = "ContractCode";
+            this.ContractCode.ReadOnly = true;
             // 
             // Percent
             // 
-            this.Percent.HeaderText = "Процент КУ";
+            this.Percent.HeaderText = "Процент";
             this.Percent.Name = "Percent";
             this.Percent.ReadOnly = true;
             // 
@@ -313,13 +321,6 @@
             this.GraphStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.GraphStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // GraphSumN
-            // 
-            this.GraphSumN.HeaderText = "Сумма по накладным";
-            this.GraphSumN.Name = "GraphSumN";
-            this.GraphSumN.ReadOnly = true;
-            this.GraphSumN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // GraphSumP
             // 
             this.GraphSumP.HeaderText = "Сумма премии";
@@ -329,10 +330,17 @@
             // 
             // GraphSumS
             // 
-            this.GraphSumS.HeaderText = "Согласованная сумма премии";
+            this.GraphSumS.HeaderText = "Фактическая сумма премии";
             this.GraphSumS.Name = "GraphSumS";
             this.GraphSumS.ReadOnly = true;
             this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GraphSumN
+            // 
+            this.GraphSumN.HeaderText = "Товарооборот";
+            this.GraphSumN.Name = "GraphSumN";
+            this.GraphSumN.ReadOnly = true;
+            this.GraphSumN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Graph_Id
             // 
@@ -377,10 +385,8 @@
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem вводКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поставщикиToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
         private System.Windows.Forms.Button button1;
@@ -396,15 +402,18 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn KU_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vendor_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VendorAcc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VendorNam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ContractCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn Percent;
         private System.Windows.Forms.DataGridViewTextBoxColumn Period;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date_from;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date_to;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date_calc;
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumN;
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumP;
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumN;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
     }
 }

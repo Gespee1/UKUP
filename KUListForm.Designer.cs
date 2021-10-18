@@ -39,7 +39,6 @@ namespace РасчетКУ
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поставщикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.действияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьГрафикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьГрафикДляВсехToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -114,8 +113,7 @@ namespace РасчетКУ
             // 
             this.открытьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.поставщикиToolStripMenuItem,
-            this.графикКУToolStripMenuItem,
-            this.оПрограммеToolStripMenuItem});
+            this.графикКУToolStripMenuItem});
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
             this.открытьToolStripMenuItem.Text = "Открыть";
@@ -123,22 +121,16 @@ namespace РасчетКУ
             // поставщикиToolStripMenuItem
             // 
             this.поставщикиToolStripMenuItem.Name = "поставщикиToolStripMenuItem";
-            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.поставщикиToolStripMenuItem.Text = "Справочники";
             this.поставщикиToolStripMenuItem.Click += new System.EventHandler(this.поставщикиToolStripMenuItem_Click);
             // 
             // графикКУToolStripMenuItem
             // 
             this.графикКУToolStripMenuItem.Name = "графикКУToolStripMenuItem";
-            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
+            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.графикКУToolStripMenuItem.Text = "График КУ";
             this.графикКУToolStripMenuItem.Click += new System.EventHandler(this.графикКУToolStripMenuItem_Click);
-            // 
-            // оПрограммеToolStripMenuItem
-            // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
             // действияToolStripMenuItem
             // 
@@ -281,7 +273,6 @@ namespace РасчетКУ
         private System.Windows.Forms.ToolStripMenuItem действияToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поставщикиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem графикКУToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьГрафикToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьГрафикДляВсехToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьГрафикToolStripMenuItem;

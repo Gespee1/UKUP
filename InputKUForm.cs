@@ -61,15 +61,20 @@ namespace РасчетКУ
             dateTimePicker2.CustomFormat = " ";
             dateTimePicker3.CustomFormat = " ";
 
+            doResize();
             if (_showKU)
-
                 showSelectedKU();
         }
 
         // Отображение КУ, выбранного из формы списка КУ
         private void showSelectedKU()
         {
-            SqlCommand command = new SqlCommand($"SELECT Vendors.Name, [Percent], Period, Date_from, Date_to, Status FROM KU, Vendors WHERE KU.Vendor_id = Vendors.Vendor_id AND KU_id = {_KU_id}", _sqlConnection);
+            // Загрузка всех параметров КУ
+            SqlCommand command = new SqlCommand($"SELECT Vendors.Name, [Percent], Period, Date_from, Date_to, Status, Description, " +
+                $"(SELECT Name FROM Entities WHERE Entities.Entity_id = KU.Entity_id), Vend_account, Contract, Product_type, " +
+                $"Docu_name, Docu_header, Transfer_to, Docu_account, Docu_title, Docu_code, Docu_date, Docu_subject, " +
+                $"Tax, [Return], Ofactured, Pay_method, KU_type " +
+                $"FROM KU, Vendors WHERE KU.Vendor_id = Vendors.Vendor_id AND KU_id = {_KU_id}", _sqlConnection);
             SqlDataReader reader = command.ExecuteReader();
 
             reader.Read();
@@ -81,6 +86,24 @@ namespace РасчетКУ
             dateTimePicker1.Value = Convert.ToDateTime(reader[3]);
             dateTimePicker2.Value = Convert.ToDateTime(reader[4]);
             status_textBox.Text = reader[5].ToString();
+            richTextBox1.Text = reader[6].ToString();
+            textBox2.Text = reader[7].ToString();
+            textBox4.Text = reader[8].ToString();
+            textBox5.Text = reader[9].ToString();
+            textBox6.Text = reader[10].ToString();
+            textBox7.Text = reader[11].ToString();
+            textBox12.Text = reader[12].ToString();
+            textBox8.Text = reader[13].ToString();
+            textBox9.Text = reader[14].ToString();
+            textBox10.Text = reader[15].ToString();
+            textBox11.Text = reader[16].ToString();
+            dateTimePicker3.Value = Convert.ToDateTime(reader[17]);
+            richTextBox2.Text = reader[18].ToString();
+            checkBox1.Checked = Convert.ToBoolean(reader[19]);
+            checkBox2.Checked = Convert.ToBoolean(reader[20]);
+            checkBox3.Checked = Convert.ToBoolean(reader[21]);
+            comboBox5.SelectedItem = reader[22].ToString();
+            comboBox4.SelectedItem = reader[23].ToString();
             reader.Close();
 
             if (status_textBox.Text == "Утверждено")
@@ -98,6 +121,12 @@ namespace РасчетКУ
                 dateTimePicker1.Enabled = false;
                 dateTimePicker2.Enabled = false;
                 status_textBox.Enabled = false;
+                button4.Enabled = false;
+                button5.Enabled = false;
+                button6.Enabled = false;
+                button7.Enabled = false;
+                dataGridView2.ReadOnly = true;
+                dataGridView3.ReadOnly = true;
             }
             showProducerBrand(_Vendor_id);
             showExInProducts(_KU_id);
@@ -882,7 +911,6 @@ namespace РасчетКУ
             FormVendorsList.Show();
         }
 
-
         //Открытие графика КУ с помощью кнопки на верхней панели
         private void графикКУToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -891,12 +919,40 @@ namespace РасчетКУ
             FormKUGraph.Show();
         }
 
+
+        // Изменение размеров формы
+        private void InputKUForm_Resize(object sender, EventArgs e)
+        {
+            doResize();
+        }
+
+        // Настройки адаптивного UI формы
+        private void doResize()
+        {
+            label1.Location = new System.Drawing.Point(Convert.ToInt32((panel1.Width - label1.Width) / 2), label1.Location.Y);
+
+            panel2.Height = Height - 400;
+            TabPage activePage = tabControl2.SelectedTab;
+            int distance = Convert.ToInt32((activePage.Width - groupBox1.Width - groupBox2.Width - groupBox3.Width - groupBox4.Width) / 5);
+            int distanceY = Convert.ToInt32((activePage.Height - groupBox2.Height) / 2);
+            
+            groupBox1.Location = new System.Drawing.Point(distance, distanceY);
+            groupBox2.Location = new System.Drawing.Point(groupBox1.Location.X + groupBox1.Width + distance, distanceY);
+            groupBox3.Location = new System.Drawing.Point(groupBox2.Location.X + groupBox2.Width + distance, distanceY);
+            groupBox4.Location = new System.Drawing.Point(groupBox3.Location.X + groupBox3.Width + distance, distanceY);
+
+            panel3.Height = panel4.Location.Y - panel3.Location.Y;
+            tabControl1.Height = panel3.Height;
+
+            dataGridView1.Height = activePage.Height - 12;
+        }
+
+
         // Закрытие подключения к БД
         private void InputKUForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             _sqlConnection.Close();
         }
-
 
     }
 }

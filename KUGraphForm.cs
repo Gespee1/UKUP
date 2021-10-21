@@ -25,12 +25,15 @@ namespace РасчетКУ
             SqlCon = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             SqlCon.Open();
 
-            dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
+            
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = " ";
             dateTimePicker2.CustomFormat = " ";
-           
+           if (dateTimePicker1.Format != DateTimePickerFormat.Custom)
+            {
+                dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
+            }
             ShowGraph();
             doResize();
         }
@@ -242,24 +245,22 @@ namespace РасчетКУ
                 $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
             EntitiesName = (string)cm2.ExecuteScalar();
 
-            var helper = new WordHelper("protokol.docx");
+            var helper = new WordHelper("Docs//protokol.docx");
             /*string NameEntities;
             string NameVendors;*/
             var items = new Dictionary<string, string>
             {
-                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[0].Value)},
+                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
                 {"<Entities.Name>",EntitiesName},
                 {"<Vendors.Name>", VendorName},
-                {"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value)},
-                {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[4].Value)},
-                {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[5].Value)},
+                {"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Percent"].Value)},
+                {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value)},
+                {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value)},
             };
             
-
             helper.Process(items);
            // MessageBox.Show("Файл сохранен");
 
-           
         }
 
         //Отчёт эксель

@@ -53,13 +53,17 @@ namespace РасчетКУ
             reader.Close();
 
             // Настройка дат
-            dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
+            
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
             dateTimePicker3.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = " ";
             dateTimePicker2.CustomFormat = " ";
             dateTimePicker3.CustomFormat = " ";
+            if (dateTimePicker1.Format != DateTimePickerFormat.Custom)
+            {
+                dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
+            }
 
             doResize();
             if (_showKU)
@@ -257,8 +261,13 @@ namespace РасчетКУ
 
             // Создание КУ
             command = new SqlCommand(
-           $"INSERT INTO KU (Vendor_id, [Percent], Period, Date_from, Date_to, Status) VALUES ((SELECT Vendor_id FROM Vendors WHERE Name = '{comboBox1.SelectedItem}'), " +
-           $"'{(int)(Convert.ToDouble(textBox1.Text) * 10)}', '{comboBox2.SelectedItem}', '{dateTimePicker1.Value.ToShortDateString()}', '{dateTimePicker2.Value.ToShortDateString()}', '{status}')", _sqlConnection);
+           $"INSERT INTO KU (Vendor_id, [Percent], Period, Date_from, Date_to, Status, Entity_id, Vend_account, Description, Contract, Product_type, Docu_name, Docu_header, " +
+           $"Transfer_to, Docu_account, Docu_title, Docu_code, Docu_date, Docu_subject, Tax, [Return], Ofactured, Pay_Method, KU_type)" +
+           $" VALUES ((SELECT Vendor_id FROM Vendors WHERE Name = '{comboBox1.SelectedItem}'), " +
+           $"'{(int)(Convert.ToDouble(textBox1.Text) * 10)}', '{comboBox2.SelectedItem}', '{dateTimePicker1.Value.ToShortDateString()}', '{dateTimePicker2.Value.ToShortDateString()}', '{status}', " +
+           $"(SELECT Entity_id FROM Entities WHERE Name = '{textBox2.Text}'), '{textBox4.Text}', '{richTextBox1.Text}', '{textBox5.Text}', '{textBox6.Text}', '{textBox7.Text}', " +
+           $"'{textBox12.Text}', '{textBox8.Text}', '{textBox9.Text}', '{textBox10.Text}', '{textBox11.Text}', '{dateTimePicker3.Value.ToShortDateString()}', '{richTextBox2.Text}', " +
+           $"'{checkBox1.Checked}', '{checkBox2.Checked}', '{checkBox3.Checked}', '{comboBox5.SelectedItem}', '{comboBox4.SelectedItem}')", _sqlConnection);
             command.ExecuteNonQuery();
 
             command = new SqlCommand($"SELECT KU_id FROM KU WHERE Vendor_id = (SELECT Vendor_id FROM Vendors WHERE Name = '{comboBox1.SelectedItem}') AND Date_from = '{dateTimePicker1.Value.ToShortDateString()}' AND Date_to = '{dateTimePicker2.Value.ToShortDateString()}'", _sqlConnection);
@@ -317,7 +326,11 @@ namespace РасчетКУ
 
             command = new SqlCommand(
                     $"UPDATE KU SET [Percent] = '{(int)(Convert.ToDouble(textBox1.Text) * 10)}', Period = '{comboBox2.SelectedItem}', " +
-                    $"Date_from = '{dateTimePicker1.Value.ToShortDateString()}', Date_to = '{dateTimePicker2.Value.ToShortDateString()}', Status = '{status}'" +
+                    $"Date_from = '{dateTimePicker1.Value.ToShortDateString()}', Date_to = '{dateTimePicker2.Value.ToShortDateString()}', Status = '{status}', " +
+                    $"Entity_id = (SELECT Entity_id FROM Entities WHERE Name = '{textBox2.Text}'), Vend_account = '{textBox4.Text}', Description = '{richTextBox1.Text}', Contract = '{textBox5.Text}', " +
+                    $"Product_type = '{textBox6.Text}', Docu_name = '{textBox7.Text}', Docu_header = '{textBox12.Text}', Transfer_to = '{textBox8.Text}', Docu_account = '{textBox9.Text}', " +
+                    $"Docu_title = '{textBox10.Text}', Docu_code = '{textBox11.Text}', Docu_date = '{dateTimePicker3.Value.ToShortDateString()}', Docu_subject = '{richTextBox2.Text}', " +
+                    $"Tax = '{checkBox1.Checked}', [Return] = '{checkBox2.Checked}', Ofactured = '{checkBox3.Checked}', Pay_method = '{comboBox5.SelectedItem}', KU_type = '{comboBox4.SelectedItem}'" +
                     $" WHERE KU_id = {_KU_id}", _sqlConnection);
             command.ExecuteNonQuery();
 

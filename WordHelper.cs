@@ -14,13 +14,7 @@ namespace РасчетКУ
     {
         private FileInfo _fileInfo;
         //public string NameEntities;
-        //private SqlConnection SqlCon;
-
-       /* private void Form1_Load(object sender, EventArgs e)
-        {
-            SqlCon = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
-            SqlCon.Open();
-        }*/
+        
         public WordHelper(string fileName)
         {
             if (File.Exists(fileName))
@@ -84,9 +78,5 @@ namespace РасчетКУ
             return false;
         }
 
-        /*public string GetEntitiesName(string NameEntities)
-        {
-            SqlCommand cm = new SqlCommand("SELECT Name from Entities where ");
-        }*/
     }
 }

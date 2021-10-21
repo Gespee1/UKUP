@@ -152,6 +152,8 @@
     <EmbeddedResource Include="ListForm.resx">
       <DependentUpon>ListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Docs\5278_41842_сверка1.xlsx" />
+    <None Include="Docs\5278_41896_сверка2.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -162,9 +164,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="protokol.docx">
+    <None Include="Docs\protokol.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Docs\АКТ.docx" />
+    <None Include="Docs\Приложение.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

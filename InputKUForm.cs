@@ -97,11 +97,15 @@ namespace РасчетКУ
             textBox9.Text = reader[14].ToString();
             textBox10.Text = reader[15].ToString();
             textBox11.Text = reader[16].ToString();
-            dateTimePicker3.Value = Convert.ToDateTime(reader[17]);
+            if(reader[17].ToString() != "")
+                dateTimePicker3.Value = Convert.ToDateTime(reader[17]);
             richTextBox2.Text = reader[18].ToString();
-            checkBox1.Checked = Convert.ToBoolean(reader[19]);
-            checkBox2.Checked = Convert.ToBoolean(reader[20]);
-            checkBox3.Checked = Convert.ToBoolean(reader[21]);
+            if(reader[19].ToString() != "")
+                checkBox1.Checked = Convert.ToBoolean(reader[19]);
+            if (reader[20].ToString() != "")
+                checkBox2.Checked = Convert.ToBoolean(reader[20]);
+            if (reader[21].ToString() != "")
+                checkBox3.Checked = Convert.ToBoolean(reader[21]);
             comboBox5.SelectedItem = reader[22].ToString();
             comboBox4.SelectedItem = reader[23].ToString();
             reader.Close();

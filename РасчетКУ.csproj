@@ -152,8 +152,8 @@
     <EmbeddedResource Include="ListForm.resx">
       <DependentUpon>ListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Docs\5278_41842_сверка1.xlsx" />
-    <None Include="Docs\5278_41896_сверка2.xlsx" />
+    <None Include="Docs\Отчет_сверка1.xlsx" />
+    <None Include="Docs\Отчет_сверка2.xlsx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -167,8 +167,8 @@
     <None Include="Docs\protokol.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Docs\АКТ.docx" />
-    <None Include="Docs\Приложение.docx" />
+    <None Include="Docs\АКТ-счет.docx" />
+    <None Include="Docs\Приложение_к_договору.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

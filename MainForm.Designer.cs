@@ -110,6 +110,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
             this.ClientSize = new System.Drawing.Size(426, 323);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(317, 284);
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

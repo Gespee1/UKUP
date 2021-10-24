@@ -14,7 +14,6 @@ namespace РасчетКУ
         private Int64 _KU_id, _Vendor_id;
         private List<Int64> ProdIds = new List<Int64>();
         private List<string> CategoryID = new List<string>();
-        //private Int64 _Vendor_id;
 
         public InputKUForm()
         {

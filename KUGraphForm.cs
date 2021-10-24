@@ -5,12 +5,14 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Threading;
 
 namespace РасчетКУ
 {
     public partial class KUGraphForm : Form
     {
         private SqlConnection SqlCon;
+        private DataGridViewSelectedRowCollection dgvSelectedRows;
         public string VendorName;
         public string EntitiesName;
 
@@ -38,7 +40,7 @@ namespace РасчетКУ
             doResize();
         }
 
-        //Вывод графика из БД
+        //Загрузка графика из БД
         private void ShowGraph()
         {
             DataTable graphs = new DataTable();
@@ -80,49 +82,13 @@ namespace РасчетКУ
         // Расчет БОНУСА
         private void button1_Click(object sender, EventArgs e)
         {
-            // Проверка есть ли рассчет в выбранных строчках или нет
-            for (int i = 0; i < dataGridView1.SelectedRows.Count; ++i)
+            if (!backgroundWorker1.IsBusy)
             {
-                DataGridViewRow row = dataGridView1.SelectedRows[i];
-                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано")
-                {
-                    DialogResult result;
-                    result = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.No)
-                        return;
-                }
-                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                command.ExecuteNonQuery();
-                command = new SqlCommand($"DELETE FROM Included_products_list WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                command.ExecuteNonQuery();
-                command = new SqlCommand($"DELETE FROM Excluded_products_list WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                command.ExecuteNonQuery();
+                dgvSelectedRows = dataGridView1.SelectedRows;
+                progressBar1.Visible = true;
+                progressLabel.Visible = true;
+                backgroundWorker1.RunWorkerAsync();
             }
-
-            // Расчет бонуса для каждой выделенной строки
-            for (int i = 0; i < dataGridView1.SelectedRows.Count; ++i)
-            {
-                DataGridViewRow row = dataGridView1.SelectedRows[i];
-
-                // Изменение статуса на "В расчете"
-                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                command.ExecuteNonQuery();
-
-                Actions actions = new Actions();
-                if(actions.currentRetroCalc(this, row.Index))
-                {
-                    // Изменение статуса на "Рассчитано" 
-                    command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                }
-                else
-                {
-                    // Изменение статуса на "Создан" 
-                    command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                }
-                command.ExecuteNonQuery();
-            }
-           
-            ShowGraph();
         }
 
         //Расчёт ретро с даты по дату
@@ -195,14 +161,7 @@ namespace РасчетКУ
             dateTimePicker2.Format = DateTimePickerFormat.Long;
         }
 
-        // Открытие формы ввода коммерческих условий
-        private void вводКУToolStripMenuItem_Click(object sender, EventArgs e)
-          {
-            Form FormInputKU = new InputKUForm();
-
-            FormInputKU.Show();
-          }
-
+        
         //Открытие формы списка КУ с помощью кнопки на верхней панели
         private void списокКУToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -226,13 +185,6 @@ namespace РасчетКУ
             settings.ShowDialog();
         }
 
-
-
-        // Закрытие соединения с БД
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e) 
-        {
-            SqlCon.Close();
-        }
 
         //Отчёт ворд
         private void WordToolStripMenuItem_Click(object sender, EventArgs e)
@@ -350,6 +302,74 @@ namespace РасчетКУ
             ObjExcel.UserControl = true;
         }
 
+
+
+        // Асинхронный расчет бонуса
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            // Проверка есть ли рассчет в выбранных строчках или нет
+            for (int i = 0; i < dgvSelectedRows.Count; ++i)
+            {
+                DataGridViewRow row = dgvSelectedRows[i];
+                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано")
+                {
+                    DialogResult result;
+                    result = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                        return;
+                }
+                // Очистка значений ретро в графике
+                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                command.ExecuteNonQuery();
+                command = new SqlCommand($"DELETE FROM Included_products_list WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                command.ExecuteNonQuery();
+                command = new SqlCommand($"DELETE FROM Excluded_products_list WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                command.ExecuteNonQuery();
+            }
+
+            // Расчет бонуса для каждой выделенной строки
+            for (int i = 0; i < dgvSelectedRows.Count; ++i)
+            {
+                Thread.Sleep(500);
+                DataGridViewRow row = dgvSelectedRows[i];
+
+                // Изменение статуса на "В расчете"
+                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                command.ExecuteNonQuery();
+
+                Actions actions = new Actions();
+                if (actions.currentRetroCalc(this, row.Index))
+                {
+                    // Изменение статуса на "Рассчитано" 
+                    command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                }
+                else
+                {
+                    // Изменение статуса на "Создан" 
+                    command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                }
+                command.ExecuteNonQuery();
+
+                backgroundWorker1.ReportProgress(Convert.ToInt32((i+1) * 100 / dgvSelectedRows.Count));
+            }
+        }
+        // Изменение прогресса асинхронного расчета бонуса
+        private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+            progressLabel.Text = e.ProgressPercentage + "%";
+        }
+        // Завершение асинхронного расчета
+        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            progressBar1.Value = 0;
+            progressLabel.Text = "0%";
+            progressBar1.Visible = false;
+            progressLabel.Visible = false;
+            ShowGraph();
+        }
+
+
         // Изменение размеров формы
         private void KUGraphForm_Resize(object sender, EventArgs e)
         {
@@ -361,5 +381,13 @@ namespace РасчетКУ
         {
             panel1.Height = button1.Location.Y - menuStrip1.Height;
         }
+
+        // Закрытие соединения с БД
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SqlCon.Close();
+        }
+
+        
     }
 }

@@ -286,9 +286,28 @@ namespace РасчетКУ
 
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
+            comboBox4.SelectedIndex = -1;
+            comboBox5.SelectedIndex = -1;
             textBox1.Text = "";
+            textBox2.Text = "";
+            textBox4.Text = "";
+            textBox5.Text = "";
+            textBox6.Text = "";
+            textBox7.Text = "";
+            textBox8.Text = "";
+            textBox9.Text = "";
+            textBox10.Text = "";
+            textBox11.Text = "";
+            textBox12.Text = "";
+            richTextBox1.Text = "";
+            richTextBox2.Text = "";
+            checkBox1.Checked = Convert.ToBoolean(0);
+            checkBox2.Checked = Convert.ToBoolean(0);
+            checkBox3.Checked = Convert.ToBoolean(0);
+            status_textBox.Text = "";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dateTimePicker3.Format = DateTimePickerFormat.Custom;
             dataGridView1.Rows.Clear();
             dataGridView2.Rows.Clear();
             dataGridView3.Rows.Clear();

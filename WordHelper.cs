@@ -13,10 +13,10 @@ namespace РасчетКУ
     class WordHelper
     {
         private FileInfo _fileInfo;
-        //public string NameEntities;
-        
+
         public WordHelper(string fileName)
         {
+
             if (File.Exists(fileName))
             {
                 _fileInfo = new FileInfo(fileName);

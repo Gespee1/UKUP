@@ -48,10 +48,9 @@ namespace РасчетКУ
         private void ShowGraph()
         {
             DataTable graphs = new DataTable();
-            SqlCommand cm1 = new SqlCommand("SELECT * FROM KU_graph", SqlCon);
-            SqlDataAdapter adt1 = new SqlDataAdapter();
-            adt1.SelectCommand = cm1;
-            adt1.Fill(graphs);
+            SqlCommand command = new SqlCommand("SELECT * FROM KU_graph", SqlCon);
+            SqlDataAdapter adapt = new SqlDataAdapter(command);
+            adapt.Fill(graphs);
 
             dataGridView1.Rows.Clear();
             for (int i = 0; i < graphs.Rows.Count; i++)
@@ -59,7 +58,13 @@ namespace РасчетКУ
                 dataGridView1.Rows.Add();
                 dataGridView1.Rows[i].Cells["Graph_Id"].Value = graphs.Rows[i][0];
                 dataGridView1.Rows[i].Cells["KU_id"].Value = graphs.Rows[i][1];
+                command = new SqlCommand($"SELECT Vend_account FROM KU WHERE KU_id = {graphs.Rows[i][1]}", SqlCon);
+                dataGridView1.Rows[i].Cells["VendorAcc"].Value = command.ExecuteScalar();
+                command = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = {graphs.Rows[i][1]}", SqlCon);
+                dataGridView1.Rows[i].Cells["ContractCode"].Value = command.ExecuteScalar();
                 dataGridView1.Rows[i].Cells["Vendor_id"].Value = graphs.Rows[i][2];
+                command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = {graphs.Rows[i][2]}", SqlCon);
+                dataGridView1.Rows[i].Cells["VendorNam"].Value = command.ExecuteScalar();
                 dataGridView1.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][3]) / 10;
                 dataGridView1.Rows[i].Cells["Period"].Value = graphs.Rows[i][4];
                 dataGridView1.Rows[i].Cells["Date_from"].Value = Convert.ToDateTime(graphs.Rows[i][5]).ToShortDateString();
@@ -407,6 +412,18 @@ namespace РасчетКУ
             }
         }
 
+        // Открытие формы редактирования КУ
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Int64 VendorId, KU_id = Convert.ToInt64(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value);
+            SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM KU WHERE KU_id = {KU_id}", SqlCon);
+            VendorId = Convert.ToInt64(command.ExecuteScalar());
+
+            Form FormInputKu = new InputKUForm(KU_id, VendorId);
+            FormInputKu.ShowDialog();
+            if (FormInputKu.DialogResult == DialogResult.OK)
+                ShowGraph();
+        }
 
         // Изменение размеров формы
         private void KUGraphForm_Resize(object sender, EventArgs e)
@@ -426,6 +443,5 @@ namespace РасчетКУ
             SqlCon.Close();
         }
 
-        
     }
 }

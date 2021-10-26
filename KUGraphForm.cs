@@ -13,6 +13,8 @@ namespace РасчетКУ
     {
         private SqlConnection SqlCon;
         private DataGridViewSelectedRowCollection dgvSelectedRows;
+        private bool byDate = false;
+        // Дима, зачем здесь паблик?
         public string VendorName;
         public string EntitiesName;
         public string DocNum;
@@ -81,11 +83,12 @@ namespace РасчетКУ
             ShowGraph();
         }
 
-        // Расчет БОНУСА
+        // Расчет БОНУСА выделенных строк
         private void button1_Click(object sender, EventArgs e)
         {
             if (!backgroundWorker1.IsBusy)
             {
+                byDate = false;
                 dgvSelectedRows = dataGridView1.SelectedRows;
                 progressBar1.Visible = true;
                 progressLabel.Visible = true;
@@ -93,62 +96,16 @@ namespace РасчетКУ
             }
         }
 
-        //Расчёт ретро с даты по дату
+        //Расчёт БОНУСА с даты по дату
         private void button2_Click(object sender, EventArgs e)
         {
-
-            for (int i = 0; i < dataGridView1.Rows.Count; ++i)
+            if (!backgroundWorker1.IsBusy)
             {
-                DataGridViewRow row = dataGridView1.Rows[i];
-                //проверка на соответствие временного периода
-                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker1.Value);
-                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker2.Value);
-                if (dateTimePicker1.Format == DateTimePickerFormat.Custom && dateTimePicker2.Format != DateTimePickerFormat.Custom)
-                {
-                    if (result1 <= 0)
-                    {                        
-                        // Изменение статуса на "В расчете"
-                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        command.ExecuteNonQuery();
-
-                        Actions actions = new Actions();
-                        if (actions.currentRetroCalc(this, row.Index))
-                        {
-                            // Изменение статуса на "Рассчитано" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        }
-                        else
-                        {
-                            // Изменение статуса на "Создан" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        }
-                        command.ExecuteNonQuery();
-                    }
-                }
-                else
-                {
-                    if (result >= 0 && result1 <= 0)
-                    {
-                        // Изменение статуса на "В расчете"
-                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        command.ExecuteNonQuery();
-
-                        Actions actions = new Actions();
-                        if (actions.currentRetroCalc(this, row.Index))
-                        {
-                            // Изменение статуса на "Рассчитано" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        }
-                        else
-                        {
-                            // Изменение статуса на "Создан" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        }
-                        command.ExecuteNonQuery();
-                    }
-                }
+                byDate = true;
+                progressBar1.Visible = true;
+                progressLabel.Visible = true;
+                backgroundWorker1.RunWorkerAsync();
             }
-            ShowGraph();
         }
 
         // Изменение минимальной даты окончания, в зависимости от выбранной даты начала
@@ -320,6 +277,31 @@ namespace РасчетКУ
         // Асинхронный расчет бонуса
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            if (byDate)
+                bonusCalcByDates();
+            else
+                bonusCalc();
+
+        }
+        // Изменение прогресса асинхронного расчета бонуса
+        private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+            progressLabel.Text = e.ProgressPercentage + "%";
+        }
+        // Завершение асинхронного расчета
+        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            progressBar1.Value = 0;
+            progressLabel.Text = "0%";
+            progressBar1.Visible = false;
+            progressLabel.Visible = false;
+            dgvSelectedRows = null;
+            ShowGraph();
+        }
+        // Метод расчета бонуса выделенных строк
+        private void bonusCalc()
+        {
             // Проверка есть ли рассчет в выбранных строчках или нет
             for (int i = 0; i < dgvSelectedRows.Count; ++i)
             {
@@ -363,23 +345,66 @@ namespace РасчетКУ
                 }
                 command.ExecuteNonQuery();
 
-                backgroundWorker1.ReportProgress(Convert.ToInt32((i+1) * 100 / dgvSelectedRows.Count));
+                backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dgvSelectedRows.Count));
             }
         }
-        // Изменение прогресса асинхронного расчета бонуса
-        private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        // Метод расчета бонуса по датам
+        private void bonusCalcByDates()
         {
-            progressBar1.Value = e.ProgressPercentage;
-            progressLabel.Text = e.ProgressPercentage + "%";
-        }
-        // Завершение асинхронного расчета
-        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            progressBar1.Value = 0;
-            progressLabel.Text = "0%";
-            progressBar1.Visible = false;
-            progressLabel.Visible = false;
-            ShowGraph();
+            for (int i = 0; i < dataGridView1.Rows.Count; ++i)
+            {
+                DataGridViewRow row = dataGridView1.Rows[i];
+                //проверка на соответствие временного периода
+                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker1.Value);
+                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker2.Value);
+                if (dateTimePicker1.Format == DateTimePickerFormat.Custom && dateTimePicker2.Format != DateTimePickerFormat.Custom)
+                {
+                    if (result1 <= 0)
+                    {
+                        Thread.Sleep(1000);
+                        // Изменение статуса на "В расчете"
+                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        command.ExecuteNonQuery();
+
+                        Actions actions = new Actions();
+                        if (actions.currentRetroCalc(this, row.Index))
+                        {
+                            // Изменение статуса на "Рассчитано" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        else
+                        {
+                            // Изменение статуса на "Создан" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        command.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    if (result >= 0 && result1 <= 0)
+                    {
+                        Thread.Sleep(1000);
+                        // Изменение статуса на "В расчете"
+                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        command.ExecuteNonQuery();
+
+                        Actions actions = new Actions();
+                        if (actions.currentRetroCalc(this, row.Index))
+                        {
+                            // Изменение статуса на "Рассчитано" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        else
+                        {
+                            // Изменение статуса на "Создан" 
+                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                        }
+                        command.ExecuteNonQuery();
+                    }
+                }
+                backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dataGridView1.Rows.Count));
+            }
         }
 
 

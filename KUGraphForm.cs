@@ -14,7 +14,8 @@ namespace РасчетКУ
         private SqlConnection SqlCon;
         private DataGridViewSelectedRowCollection dgvSelectedRows;
         private bool byDate = false;
-        // Дима, зачем здесь паблик?
+        // Дима, зачем здесь паблик?    |                                          ?????????????
+        //                              V
         public string VendorName;
         public string EntitiesName;
         public string DocNum;

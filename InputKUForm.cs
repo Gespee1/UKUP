@@ -14,6 +14,7 @@ namespace РасчетКУ
         private Int64 _KU_id, _Vendor_id;
         private List<Int64> ProdIds = new List<Int64>();
         private List<string> CategoryID = new List<string>();
+        private DataTable BrandProd = new DataTable();
 
         public InputKUForm()
         {
@@ -73,7 +74,7 @@ namespace РасчетКУ
         private void showSelectedKU()
         {
             // Загрузка всех параметров КУ
-            SqlCommand command = new SqlCommand($"SELECT Vendors.Name, [Percent], Period, Date_from, Date_to, Status, Description, " +
+            SqlCommand command = new SqlCommand($"SELECT Vendors.Name, Period, Date_from, Date_to, Status, Description, " +
                 $"(SELECT Name FROM Entities WHERE Entities.Entity_id = KU.Entity_id), Vend_account, Contract, Product_type, " +
                 $"Docu_name, Docu_header, Transfer_to, Docu_account, Docu_title, Docu_code, Docu_date, Docu_subject, " +
                 $"Tax, [Return], Ofactured, Pay_method, KU_type " +
@@ -82,35 +83,34 @@ namespace РасчетКУ
 
             reader.Read();
             comboBox1.SelectedItem = reader[0].ToString();
-            textBox1.Text = (Convert.ToDouble(reader[1]) / 10).ToString();
-            comboBox2.SelectedItem = reader[2].ToString();
+            comboBox2.SelectedItem = reader[1].ToString();
             dateTimePicker1.Format = DateTimePickerFormat.Long;
             dateTimePicker2.Format = DateTimePickerFormat.Long;
-            dateTimePicker1.Value = Convert.ToDateTime(reader[3]);
-            dateTimePicker2.Value = Convert.ToDateTime(reader[4]);
-            status_textBox.Text = reader[5].ToString();
-            richTextBox1.Text = reader[6].ToString();
-            textBox2.Text = reader[7].ToString();
-            textBox4.Text = reader[8].ToString();
-            textBox5.Text = reader[9].ToString();
-            textBox6.Text = reader[10].ToString();
-            textBox7.Text = reader[11].ToString();
-            textBox12.Text = reader[12].ToString();
-            textBox8.Text = reader[13].ToString();
-            textBox9.Text = reader[14].ToString();
-            textBox10.Text = reader[15].ToString();
-            textBox11.Text = reader[16].ToString();
-            if(reader[17].ToString() != "")
-                dateTimePicker3.Value = Convert.ToDateTime(reader[17]);
-            richTextBox2.Text = reader[18].ToString();
-            if(reader[19].ToString() != "")
-                checkBox1.Checked = Convert.ToBoolean(reader[19]);
+            dateTimePicker1.Value = Convert.ToDateTime(reader[2]);
+            dateTimePicker2.Value = Convert.ToDateTime(reader[3]);
+            status_textBox.Text = reader[4].ToString();
+            richTextBox1.Text = reader[5].ToString();
+            textBox2.Text = reader[6].ToString();
+            textBox4.Text = reader[7].ToString();
+            textBox5.Text = reader[8].ToString();
+            textBox6.Text = reader[9].ToString();
+            textBox7.Text = reader[10].ToString();
+            textBox12.Text = reader[11].ToString();
+            textBox8.Text = reader[12].ToString();
+            textBox9.Text = reader[13].ToString();
+            textBox10.Text = reader[14].ToString();
+            textBox11.Text = reader[15].ToString();
+            if(reader[16].ToString() != "")
+                dateTimePicker3.Value = Convert.ToDateTime(reader[16]);
+            richTextBox2.Text = reader[17].ToString();
+            if(reader[18].ToString() != "")
+                checkBox1.Checked = Convert.ToBoolean(reader[18]);
+            if (reader[19].ToString() != "")
+                checkBox2.Checked = Convert.ToBoolean(reader[19]);
             if (reader[20].ToString() != "")
-                checkBox2.Checked = Convert.ToBoolean(reader[20]);
-            if (reader[21].ToString() != "")
-                checkBox3.Checked = Convert.ToBoolean(reader[21]);
-            comboBox5.SelectedItem = reader[22].ToString();
-            comboBox4.SelectedItem = reader[23].ToString();
+                checkBox3.Checked = Convert.ToBoolean(reader[20]);
+            comboBox5.SelectedItem = reader[21].ToString();
+            comboBox4.SelectedItem = reader[22].ToString();
             reader.Close();
 
             if (status_textBox.Text == "Утверждено")
@@ -135,7 +135,7 @@ namespace РасчетКУ
                 dataGridView2.ReadOnly = true;
                 dataGridView3.ReadOnly = true;
             }
-            showProducerBrand(_Vendor_id);
+            showProducerBrand();
             showExInProducts(_KU_id);
             showTerms(_KU_id);
         }
@@ -269,7 +269,9 @@ namespace РасчетКУ
            $"'{checkBox1.Checked}', '{checkBox2.Checked}', '{checkBox3.Checked}', '{comboBox5.SelectedItem}', '{comboBox4.SelectedItem}')", _sqlConnection);
             command.ExecuteNonQuery();
 
-            command = new SqlCommand($"SELECT KU_id FROM KU WHERE Vendor_id = (SELECT Vendor_id FROM Vendors WHERE Name = '{comboBox1.SelectedItem}') AND Date_from = '{dateTimePicker1.Value.ToShortDateString()}' AND Date_to = '{dateTimePicker2.Value.ToShortDateString()}'", _sqlConnection);
+            command = new SqlCommand($"SELECT KU_id FROM KU WHERE Vendor_id = " +
+                $"(SELECT Vendor_id FROM Vendors WHERE Name = '{comboBox1.SelectedItem}') AND Date_from = '{dateTimePicker1.Value.ToShortDateString()}' AND " +
+                $"Date_to = '{dateTimePicker2.Value.ToShortDateString()}'", _sqlConnection);
             _KU_id = Convert.ToInt64(command.ExecuteScalar());
 
             //Запись условий бонуса в БД
@@ -407,27 +409,23 @@ namespace РасчетКУ
         //Отображение производителя и марки в combobox в таблицах искл и вкл товаров
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             if (comboBox1.SelectedIndex > -1 & _showKU == false)
             {
                 dataGridView2.Rows.Clear();
                 dataGridView3.Rows.Clear();
                 //Вызываю метод отображения Производителя и марки
-                SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM Vendors WHERE Vendors.Name = '{comboBox1.SelectedItem}'", _sqlConnection);
-                _Vendor_id = Convert.ToInt64(command.ExecuteScalar());
-                showProducerBrand(_Vendor_id);
+                //SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM Vendors WHERE Vendors.Name = '{comboBox1.SelectedItem}'", _sqlConnection);
+                //_Vendor_id = Convert.ToInt64(command.ExecuteScalar());
+                //showProducerBrand(_Vendor_id);
 
                 //Добавление условия "Все" при создании ку
-                dataGridView2.Rows.Clear();
                 dataGridView2.Rows.Add();
                 dataGridView2.Rows[0].Cells["TypeP"].Value = "Все";
-
             }
-
         }
 
         //Включение производителя и марки в combobox в таблицах искл и вкл товаров
-        private void showProducerBrand(Int64 VendorId)
+        private void showProducerBrand()
         {
             DataGridViewComboBoxColumn combo1 = dataGridView2.Columns["ProducerP"] as DataGridViewComboBoxColumn;
             DataGridViewComboBoxColumn combo2 = dataGridView2.Columns["BrandP"] as DataGridViewComboBoxColumn;
@@ -438,17 +436,17 @@ namespace РасчетКУ
             combo3.Items.Clear();
             combo4.Items.Clear();
 
-            SqlCommand command = new SqlCommand($"SELECT DISTINCT Producer, Brand_name FROM Products, Assortment Where Products.Product_id = Assortment.Product_id AND Vendor_id = {VendorId} ", _sqlConnection);
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            SqlCommand command = new SqlCommand("SELECT ID, Brand, Producer FROM BrandProducer", _sqlConnection);
+            SqlDataAdapter adapt = new SqlDataAdapter(command);
+            adapt.Fill(BrandProd);
+            
+            for (int i = 0; i < BrandProd.Rows.Count; i++)
             {
-                combo1.Items.Add(reader[0]);
-                combo2.Items.Add(reader[1]);
-                combo3.Items.Add(reader[0]);
-                combo4.Items.Add(reader[1]);
-
+                combo1.Items.Add(BrandProd.Rows[i][1]);
+                combo2.Items.Add(BrandProd.Rows[i][2]);
+                combo3.Items.Add(BrandProd.Rows[i][1]);
+                combo4.Items.Add(BrandProd.Rows[i][2]);
             }
-            reader.Close();
         }
 
         // Отображение добавленных и исключенных из расчета продуктов
@@ -467,9 +465,19 @@ namespace РасчетКУ
                 dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[2].Value = reader[2];
                 dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[3].Value = reader[3];
                 dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[4].Value = reader[4];
-                (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = reader[5].ToString();
-                (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = reader[6].ToString();
-
+                if (reader[5].ToString() != "")
+                {
+                    for (int i = 0; i < BrandProd.Rows.Count; i++)
+                    {
+                        if ((Int64)reader[5] == (Int64)BrandProd.Rows[i][0])
+                        {
+                            (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][2].ToString();
+                            (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][1].ToString();
+                            break;
+                        }
+                    }
+                }
+                
                 // Запрет выбора произв и торг марки для товаров
                 if (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[2].Value.ToString() == "Товары")
                 {
@@ -478,8 +486,9 @@ namespace РасчетКУ
                 }
             }
             reader.Close();
-
-            command = new SqlCommand($"SELECT * FROM Excluded_products WHERE KU_id = {KUId}", _sqlConnection);
+            return;
+            command = new SqlCommand($"SELECT Ex_prod_id, KU_id, Type, Attribute_1, Attribute_2, Producer, Brand FROM Excluded_products LEFT JOIN " +
+                $"BrandProducer ON BrandProducer.ID = Excluded_products.BrandProdID WHERE Excluded_products.KU_id = {KUId}", _sqlConnection);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -489,8 +498,10 @@ namespace РасчетКУ
                 dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[2].Value = reader[2];
                 dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[3].Value = reader[3];
                 dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[4].Value = reader[4];
-                (dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = reader[5].ToString();
-                (dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = reader[6].ToString();
+                if (reader[5].ToString() != "")
+                    (dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = reader[5].ToString();
+                if (reader[6].ToString() != "")
+                    (dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = reader[6].ToString();
 
                 // Запрет выбора произв и торг марки для товаров
                 if (dataGridView3.Rows[dataGridView3.RowCount - 1].Cells[2].Value.ToString() == "Товары")
@@ -622,6 +633,7 @@ namespace РасчетКУ
         // Добавление строк в таблицы включения и исключения
         private void addLine(string type)
         {
+            // А тут зачем тип Int64 ты приводишь к типу Int64??))                           ?????????????
             Int64 KU_id = Convert.ToInt64(_KU_id);
             Int16 tabPageId = Convert.ToInt16(tabControl1.SelectedIndex);
             SqlCommand command;

@@ -103,17 +103,18 @@ namespace РасчетКУ
         // Вывод списка КУ
         private void showKUList()
         {
-            SqlCommand command = new SqlCommand("SELECT KU.KU_id, Vendors.Vendor_id, Vendors.Name, KU.[Percent], KU.Date_from, KU.Date_to, KU.Period, Status FROM KU, Vendors WHERE KU.Vendor_id = Vendors.Vendor_id", _sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT KU.KU_id, Vendors.Vendor_id, Vendors.Name, KU.Date_from, KU.Date_to, KU.Period, Status FROM KU, Vendors " +
+                "WHERE KU.Vendor_id = Vendors.Vendor_id", _sqlConnection);
 
             DataTable dt = new DataTable();
             SqlDataAdapter adapt = new SqlDataAdapter();
             adapt.SelectCommand = command;
             adapt.Fill(dt);
             // Изменение данных о процентах для правильного отображения
-            for(int i = 0; i < dt.Rows.Count; i++)
-            {
-                dt.Rows[i][3] = Convert.ToDouble(dt.Rows[i][3]) / 10;
-            }
+            //for(int i = 0; i < dt.Rows.Count; i++)
+            //{
+                //dt.Rows[i][3] = Convert.ToDouble(dt.Rows[i][3]) / 10;
+            //}
             advancedDataGridView1.DataSource = dt;
             advancedDataGridView1.Columns["Vendor_id"].Visible = false;
         }

@@ -14,12 +14,11 @@ namespace РасчетКУ
         private SqlConnection SqlCon;
         private DataGridViewSelectedRowCollection dgvSelectedRows;
         private bool byDate = false;
-        // Дима, зачем здесь паблик?    |                                          ?????????????
-        //                              V
-        public string VendorName;
-        public string EntitiesName;
-        public string DocNum;
-        public string DocDate;
+
+        private string VendorName;
+        private string EntitiesName;
+        private string DocNum;
+        private string DocDate;
 
         public KUGraphForm()
         {
@@ -66,14 +65,14 @@ namespace РасчетКУ
                 dataGridView1.Rows[i].Cells["Vendor_id"].Value = graphs.Rows[i][2];
                 command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = {graphs.Rows[i][2]}", SqlCon);
                 dataGridView1.Rows[i].Cells["VendorNam"].Value = command.ExecuteScalar();
-                dataGridView1.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][3]) / 10;
-                dataGridView1.Rows[i].Cells["Period"].Value = graphs.Rows[i][4];
-                dataGridView1.Rows[i].Cells["Date_from"].Value = Convert.ToDateTime(graphs.Rows[i][5]).ToShortDateString();
-                dataGridView1.Rows[i].Cells["Date_to"].Value = Convert.ToDateTime(graphs.Rows[i][6]).ToShortDateString();
-                dataGridView1.Rows[i].Cells["Date_calc"].Value = Convert.ToDateTime(graphs.Rows[i][7]).ToShortDateString();
-                dataGridView1.Rows[i].Cells["GraphStatus"].Value = graphs.Rows[i][8];
-                dataGridView1.Rows[i].Cells["GraphSumN"].Value = graphs.Rows[i][9];
-                dataGridView1.Rows[i].Cells["GraphSumP"].Value = graphs.Rows[i][10];
+                dataGridView1.Rows[i].Cells["Period"].Value = graphs.Rows[i][3];
+                dataGridView1.Rows[i].Cells["Date_from"].Value = Convert.ToDateTime(graphs.Rows[i][4]).ToShortDateString();
+                dataGridView1.Rows[i].Cells["Date_to"].Value = Convert.ToDateTime(graphs.Rows[i][5]).ToShortDateString();
+                dataGridView1.Rows[i].Cells["Date_calc"].Value = Convert.ToDateTime(graphs.Rows[i][6]).ToShortDateString();
+                dataGridView1.Rows[i].Cells["GraphStatus"].Value = graphs.Rows[i][7];
+                dataGridView1.Rows[i].Cells["GraphSumN"].Value = graphs.Rows[i][8];
+                dataGridView1.Rows[i].Cells["GraphSumP"].Value = graphs.Rows[i][9];
+                //dataGridView1.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][10]) / 10;
                 dataGridView1.Rows[i].Cells["GraphSumS"].Value = graphs.Rows[i][11];
             }
         }

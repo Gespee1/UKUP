@@ -45,7 +45,6 @@ namespace РасчетКУ
             // Загрузка переменной сдвига дат
             Global_parameters gb = new Global_parameters();
             int sdvig = Convert.ToInt32(gb.getParameter("delta"));
-            //MessageBox.Show($"kol-vo dney:  {sdvig}");
 
             // Проверка, создан ли график для выбранного КУ
             SqlCommand command = new SqlCommand($"SELECT * FROM KU_graph WHERE KU_id = {KU_id}", _sqlConnection);
@@ -84,17 +83,15 @@ namespace РасчетКУ
                 reader.Close();
             // Запрос на выборку конкретного КУ
             DataTable KU_table = new DataTable(), graph_table = new DataTable();
-            command = new SqlCommand($"SELECT * FROM KU WHERE KU_id = {KU_id} AND Status = 'Утверждено'", _sqlConnection);
+            command = new SqlCommand($"SELECT KU_id, Vendor_id, Period, Date_from, Date_to FROM KU WHERE KU_id = {KU_id} AND Status = 'Утверждено'", _sqlConnection);
             SqlDataAdapter adt = new SqlDataAdapter(command);
             adt.Fill(KU_table);
 
-            //int j = 0;
             DateTime dateFrom, dateTo;
 
             // Настройка таблицы графика в коде
             graph_table.Columns.Add("KU_id", typeof(Int64));
             graph_table.Columns.Add("Vendor_id", typeof(Int64));
-            graph_table.Columns.Add("KU_percent", typeof(int));
             graph_table.Columns.Add("Period", typeof(string));
             graph_table.Columns.Add("Date_from", typeof(DateTime));
             graph_table.Columns.Add("Date_to", typeof(DateTime));
@@ -105,19 +102,18 @@ namespace РасчетКУ
             // Цикл по строкам КУ
             for (int i = 0; i < KU_table.Rows.Count; i++)
             {
-                dateFrom = Convert.ToDateTime(KU_table.Rows[i][4]);
+                dateFrom = Convert.ToDateTime(KU_table.Rows[i]["Date_from"]);
                 dateTo = dateFrom;
-                while (dateFrom < Convert.ToDateTime(KU_table.Rows[i][5]))
+                while (dateFrom < Convert.ToDateTime(KU_table.Rows[i]["Date_to"]))
                 {
-                    graph_table.Rows[0][0] = KU_table.Rows[i][0];
-                    graph_table.Rows[0][1] = KU_table.Rows[i][1];
-                    graph_table.Rows[0][2] = KU_table.Rows[i][2];
-                    graph_table.Rows[0][3] = KU_table.Rows[i][3];
-                    graph_table.Rows[0][4] = dateFrom.ToShortDateString();
-                    graph_table.Rows[0][7] = "Создан";
+                    graph_table.Rows[0]["KU_id"] = KU_table.Rows[i]["KU_id"];
+                    graph_table.Rows[0]["Vendor_id"] = KU_table.Rows[i]["Vendor_id"];
+                    graph_table.Rows[0]["Period"] = KU_table.Rows[i]["Period"];
+                    graph_table.Rows[0]["Date_from"] = dateFrom.ToShortDateString();
+                    graph_table.Rows[0]["Status"] = "Создан";
 
                     // Прибавление, в зависимости от периода
-                    switch (KU_table.Rows[i][3].ToString())
+                    switch (KU_table.Rows[i]["Period"].ToString())
                     {
                         case "Год":
                             dateTo = dateFrom.AddYears(1).AddDays(-dateFrom.DayOfYear + 1);
@@ -133,22 +129,22 @@ namespace РасчетКУ
                             break;
                     }
 
-                    if (dateTo < Convert.ToDateTime(KU_table.Rows[i][5]))
+                    if (dateTo < Convert.ToDateTime(KU_table.Rows[i]["Date_to"]))
                     {
-                        graph_table.Rows[0][5] = dateTo.ToShortDateString();
-                        graph_table.Rows[0][6] = Convert.ToDateTime(graph_table.Rows[0][5]).AddDays(sdvig).ToShortDateString();
+                        graph_table.Rows[0]["Date_to"] = dateTo.ToShortDateString();
+                        graph_table.Rows[0]["Date_calc"] = Convert.ToDateTime(graph_table.Rows[0]["Date_to"]).AddDays(sdvig).ToShortDateString();
                     }
                     else
                     {
-                        graph_table.Rows[0][5] = Convert.ToDateTime(KU_table.Rows[i][5]).ToShortDateString();
-                        graph_table.Rows[0][6] = Convert.ToDateTime(graph_table.Rows[0][5]).AddDays(sdvig).ToShortDateString();
+                        graph_table.Rows[0]["Date_to"] = Convert.ToDateTime(KU_table.Rows[i]["Date_to"]).ToShortDateString();
+                        graph_table.Rows[0]["Date_calc"] = Convert.ToDateTime(graph_table.Rows[0]["Date_to"]).AddDays(sdvig).ToShortDateString();
                     }
 
                     // Запрос на запись в БД в таблицу Графика
-                    command = new SqlCommand($"INSERT INTO KU_graph (KU_id, Vendor_id, KU_percent, Period, Date_from, Date_to, Date_calc, Status) VALUES " +
-                        $"({graph_table.Rows[0][0]}, {graph_table.Rows[0][1]}, {graph_table.Rows[0][2]}, " +
-                        $"'{graph_table.Rows[0][3]}', '{graph_table.Rows[0][4]}', '{graph_table.Rows[0][5]}', " +
-                        $"'{graph_table.Rows[0][6]}', '{graph_table.Rows[0][7]}')", _sqlConnection);
+                    command = new SqlCommand($"INSERT INTO KU_graph (KU_id, Vendor_id, Period, Date_from, Date_to, Date_calc, Status) VALUES " +
+                        $"({graph_table.Rows[0]["KU_id"]}, {graph_table.Rows[0]["Vendor_id"]}, " +
+                        $"'{graph_table.Rows[0]["Period"]}', '{graph_table.Rows[0]["Date_from"]}', '{graph_table.Rows[0]["Date_to"]}', " +
+                        $"'{graph_table.Rows[0]["Date_calc"]}', '{graph_table.Rows[0]["Status"]}')", _sqlConnection);
                     command.ExecuteNonQuery();
 
                     dateFrom = dateTo;

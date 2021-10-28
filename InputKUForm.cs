@@ -66,6 +66,7 @@ namespace РасчетКУ
             }
 
             doResize();
+            showProducerBrand();
             if (_showKU)
                 showSelectedKU();
         }
@@ -135,7 +136,7 @@ namespace РасчетКУ
                 dataGridView2.ReadOnly = true;
                 dataGridView3.ReadOnly = true;
             }
-            showProducerBrand();
+            
             showExInProducts(_KU_id);
             showTerms(_KU_id);
         }
@@ -416,7 +417,7 @@ namespace РасчетКУ
                 //Вызываю метод отображения Производителя и марки
                 //SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM Vendors WHERE Vendors.Name = '{comboBox1.SelectedItem}'", _sqlConnection);
                 //_Vendor_id = Convert.ToInt64(command.ExecuteScalar());
-                //showProducerBrand(_Vendor_id);
+                //showProducerBrand();
 
                 //Добавление условия "Все" при создании ку
                 dataGridView2.Rows.Add();
@@ -436,7 +437,7 @@ namespace РасчетКУ
             combo3.Items.Clear();
             combo4.Items.Clear();
 
-            SqlCommand command = new SqlCommand("SELECT ID, Brand, Producer FROM BrandProducer", _sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT ID, Producer, Brand FROM BrandProducer", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(BrandProd);
             
@@ -471,8 +472,8 @@ namespace РасчетКУ
                     {
                         if ((Int64)reader[5] == (Int64)BrandProd.Rows[i][0])
                         {
-                            (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][2].ToString();
-                            (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][1].ToString();
+                            (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][1].ToString();
+                            (dataGridView2.Rows[dataGridView2.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][2].ToString();
                             break;
                         }
                     }
@@ -486,7 +487,7 @@ namespace РасчетКУ
                 }
             }
             reader.Close();
-            return;
+            
             command = new SqlCommand($"SELECT Ex_prod_id, KU_id, Type, Attribute_1, Attribute_2, Producer, Brand FROM Excluded_products LEFT JOIN " +
                 $"BrandProducer ON BrandProducer.ID = Excluded_products.BrandProdID WHERE Excluded_products.KU_id = {KUId}", _sqlConnection);
             reader = command.ExecuteReader();
@@ -633,8 +634,8 @@ namespace РасчетКУ
         // Добавление строк в таблицы включения и исключения
         private void addLine(string type)
         {
-            // А тут зачем тип Int64 ты приводишь к типу Int64??))                           ?????????????
-            Int64 KU_id = Convert.ToInt64(_KU_id);
+            
+            Int64 KU_id = _KU_id;
             Int16 tabPageId = Convert.ToInt16(tabControl1.SelectedIndex);
             SqlCommand command;
             switch (type)

@@ -20,6 +20,7 @@ namespace РасчетКУ
             if (File.Exists(fileName))
             {
                 _fileInfo = new FileInfo(fileName);
+               
             }
             else
             {
@@ -58,11 +59,8 @@ namespace РасчетКУ
 
                 }
 
-               // Object newFileName = Path.Combine(_fileInfo.DirectoryName, _fileInfo.Name);
-                app.Visible = true;
-                //app.ActiveDocument.SaveAs2(newFileName);
-                //app.ActiveDocument.Close();
-
+               app.Visible = true;
+              
                 return true;
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -71,9 +69,6 @@ namespace РасчетКУ
                 if (app != null)
                     app.Visible = true;
 
-                 //app.Quit();
-
-                 //app.Documents.Open(file);
             }
             return false;
         }

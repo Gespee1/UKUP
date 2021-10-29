@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Threading;
+using System.IO;
 
 namespace РасчетКУ
 {
@@ -170,7 +171,8 @@ namespace РасчетКУ
             EntitiesName = (string)cm3.ExecuteScalar();
 
             
-            WordHelper helper = new WordHelper(/*Environment.CurrentDirectory + */"Docs\\АКТ-счет.docx");
+            File.Copy("Docs\\АКТ-счет.docx", "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx", true);
+            WordHelper helper = new WordHelper(/*Environment.CurrentDirectory + */"C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx");
             var items = new Dictionary<string, string>
             {
                 {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},

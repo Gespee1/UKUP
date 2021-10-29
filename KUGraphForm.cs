@@ -170,7 +170,7 @@ namespace РасчетКУ
             EntitiesName = (string)cm3.ExecuteScalar();
 
             
-            WordHelper helper = new WordHelper(Environment.CurrentDirectory + "\\Docs\\АКТ-счет.docx");
+            WordHelper helper = new WordHelper(/*Environment.CurrentDirectory + */"Docs\\АКТ-счет.docx");
             var items = new Dictionary<string, string>
             {
                 {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},

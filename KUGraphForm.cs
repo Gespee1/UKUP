@@ -209,6 +209,29 @@ namespace РасчетКУ
             // MessageBox.Show("Файл сохранен");
 
         }
+
+        //Отчёт эксель <====пока чисто накидал макет, завтра буду дорабатывать
+        private void ExcelDoc(string docname, string newdocpath)
+        {
+            // File.Copy(docname, newdocpath, true);
+            //ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
+            //var items = new Dictionary<string, string>;
+           
+            try
+            {
+                using (ExcelHelper helper = new ExcelHelper())
+                {
+                    if(helper.Open(filePath: Path.Combine(Environment.CurrentDirectory, "Test.xlsx")));
+                    {
+                        helper.Set(column: "A", row: 1, data: "sheesh");
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+        }
+
         //Отчёт эксель
         private void ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {

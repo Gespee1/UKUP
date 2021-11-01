@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelHelper.cs" />
     <Compile Include="WordHelper.cs" />
     <Compile Include="Actions.cs" />
     <Compile Include="Global_parameters.cs" />

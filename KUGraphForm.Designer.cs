@@ -52,6 +52,8 @@
             this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вВордToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вЭксельToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.word2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excel2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -63,8 +65,6 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.progressLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.word2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excel2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -258,16 +258,29 @@
             // вВордToolStripMenuItem
             // 
             this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
-            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.вВордToolStripMenuItem.Text = "Word";
             this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
             // 
             // вЭксельToolStripMenuItem
             // 
             this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
-            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.вЭксельToolStripMenuItem.Text = "Excel";
             this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
+            // 
+            // word2ToolStripMenuItem
+            // 
+            this.word2ToolStripMenuItem.Name = "word2ToolStripMenuItem";
+            this.word2ToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.word2ToolStripMenuItem.Text = "Word 2";
+            this.word2ToolStripMenuItem.Click += new System.EventHandler(this.word2ToolStripMenuItem_Click);
+            // 
+            // excel2ToolStripMenuItem
+            // 
+            this.excel2ToolStripMenuItem.Name = "excel2ToolStripMenuItem";
+            this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.excel2ToolStripMenuItem.Text = "Excel 2";
             // 
             // button3
             // 
@@ -387,19 +400,6 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // word2ToolStripMenuItem
-            // 
-            this.word2ToolStripMenuItem.Name = "word2ToolStripMenuItem";
-            this.word2ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.word2ToolStripMenuItem.Text = "Word 2";
-            this.word2ToolStripMenuItem.Click += new System.EventHandler(this.word2ToolStripMenuItem_Click);
-            // 
-            // excel2ToolStripMenuItem
-            // 
-            this.excel2ToolStripMenuItem.Name = "excel2ToolStripMenuItem";
-            this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.excel2ToolStripMenuItem.Text = "Excel 2";
             // 
             // KUGraphForm
             // 

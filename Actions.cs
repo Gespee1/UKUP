@@ -5,7 +5,6 @@ using System.Text;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace РасчетКУ
@@ -83,7 +82,7 @@ namespace РасчетКУ
                 reader.Close();
             // Запрос на выборку конкретного КУ
             DataTable KU_table = new DataTable(), graph_table = new DataTable();
-            command = new SqlCommand($"SELECT KU_id, Vendor_id, Period, Date_from, Date_to FROM KU WHERE KU_id = {KU_id} AND Status = 'Утверждено'", _sqlConnection);
+            command = new SqlCommand($"SELECT KU_id, Vendor_id, Period, Date_from, Date_to, [Percent] FROM KU WHERE KU_id = {KU_id} AND Status = 'Утверждено'", _sqlConnection);
             SqlDataAdapter adt = new SqlDataAdapter(command);
             adt.Fill(KU_table);
 
@@ -141,10 +140,16 @@ namespace РасчетКУ
                     }
 
                     // Запрос на запись в БД в таблицу Графика
-                    command = new SqlCommand($"INSERT INTO KU_graph (KU_id, Vendor_id, Period, Date_from, Date_to, Date_calc, Status) VALUES " +
-                        $"({graph_table.Rows[0]["KU_id"]}, {graph_table.Rows[0]["Vendor_id"]}, " +
-                        $"'{graph_table.Rows[0]["Period"]}', '{graph_table.Rows[0]["Date_from"]}', '{graph_table.Rows[0]["Date_to"]}', " +
-                        $"'{graph_table.Rows[0]["Date_calc"]}', '{graph_table.Rows[0]["Status"]}')", _sqlConnection);
+                    if(KU_table.Rows[i]["Percent"].ToString() != "")
+                        command = new SqlCommand($"INSERT INTO KU_graph (KU_id, Vendor_id, Period, Date_from, Date_to, Date_calc, Status, [Percent]) VALUES " +
+                            $"({graph_table.Rows[0]["KU_id"]}, {graph_table.Rows[0]["Vendor_id"]}, " +
+                            $"'{graph_table.Rows[0]["Period"]}', '{graph_table.Rows[0]["Date_from"]}', '{graph_table.Rows[0]["Date_to"]}', " +
+                            $"'{graph_table.Rows[0]["Date_calc"]}', '{graph_table.Rows[0]["Status"]}', {KU_table.Rows[i]["Percent"]})", _sqlConnection);
+                    else
+                        command = new SqlCommand($"INSERT INTO KU_graph (KU_id, Vendor_id, Period, Date_from, Date_to, Date_calc, Status) VALUES " +
+                            $"({graph_table.Rows[0]["KU_id"]}, {graph_table.Rows[0]["Vendor_id"]}, " +
+                            $"'{graph_table.Rows[0]["Period"]}', '{graph_table.Rows[0]["Date_from"]}', '{graph_table.Rows[0]["Date_to"]}', " +
+                            $"'{graph_table.Rows[0]["Date_calc"]}', '{graph_table.Rows[0]["Status"]}')", _sqlConnection);
                     command.ExecuteNonQuery();
 
                     dateFrom = dateTo;
@@ -199,8 +204,7 @@ namespace РасчетКУ
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             bool state = false;
             _sqlConnection.Open();
-            Panel panelka = graph_form.Controls["panel1"] as Panel;
-            DataGridView dgv = panelka.Controls["dataGridView1"] as DataGridView;
+            DataGridView dgv = graph_form.Controls["panel1"].Controls["dataGridView1"] as DataGridView;
             DataGridViewRow row = dgv.Rows[rowIndex];
             Int64 Graph_id = (Int64)row.Cells["Graph_Id"].Value;
 
@@ -211,14 +215,12 @@ namespace РасчетКУ
             adapt.Fill(invoicesProducts);
 
             DataTable included = new DataTable();
-            cm = new SqlCommand($"SELECT Type, Attribute_1, Attribute_2, Producer, Brand_name FROM Included_products WHERE KU_id = " +
-                $"{row.Cells["KU_id"].Value}", _sqlConnection);
+            cm = new SqlCommand($"SELECT Type, Attribute_1, Attribute_2, BrandProdID FROM Included_products WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
             adapt = new SqlDataAdapter(cm);
             adapt.Fill(included);
 
             DataTable excluded = new DataTable();
-            cm = new SqlCommand($"SELECT Type, Attribute_1, Attribute_2, Producer, Brand_name FROM Excluded_products WHERE KU_id = " +
-                $"{row.Cells["KU_id"].Value}", _sqlConnection);
+            cm = new SqlCommand($"SELECT Type, Attribute_1, Attribute_2, BrandProdID FROM Excluded_products WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
             adapt = new SqlDataAdapter(cm);
             adapt.Fill(excluded);
 
@@ -234,13 +236,12 @@ namespace РасчетКУ
             int repeater = 0;
             string type, tableName = "Included_products_list";
             SqlCommand command;
-            SqlDataReader reader;
             DataTable currTable = included;
             while(repeater < 2)
             {
                 for (int i = 0; i < currTable.Rows.Count; i++)
                 {
-                    type = currTable.Rows[i][0].ToString();
+                    type = currTable.Rows[i]["Type"].ToString();
                     switch (type)
                     {
                         case "Все":
@@ -253,18 +254,12 @@ namespace РасчетКУ
                                     continue;
 
                                 // Если имеются фильтры произв. и торг. марки
-                                if (currTable.Rows[i][3].ToString() != "" && currTable.Rows[i][4].ToString() != "")
+                                if (currTable.Rows[i]["BrandProdID"].ToString() != "")
                                 {
                                     // Проверка товара на соответствие условиям произв и торг марки
-                                    command = new SqlCommand($"SELECT Producer, Brand_name FROM Products WHERE Product_id = {invoicesProducts.Rows[j][0]}", _sqlConnection);
-                                    reader = command.ExecuteReader();
-                                    reader.Read();
-                                    if (reader[0].ToString() != currTable.Rows[i][3].ToString() || reader[1].ToString() != currTable.Rows[i][4].ToString())
-                                    {
-                                        reader.Close();
+                                    command = new SqlCommand($"SELECT BrandProdID FROM Products WHERE Product_id = {invoicesProducts.Rows[j][0]}", _sqlConnection);
+                                    if (command.ExecuteScalar().ToString() != currTable.Rows[i]["BrandProdID"].ToString())
                                         continue;
-                                    }
-                                    reader.Close();
                                 }
 
                                 // Добавление
@@ -277,7 +272,7 @@ namespace РасчетКУ
 
                             // Отбор товаров выбранной категории
                             command = new SqlCommand($"SELECT Product_id FROM Invoices, Products WHERE Vendor_id = {row.Cells["Vendor_id"].Value} AND Date >= '{row.Cells["Date_from"].Value}' " +
-                                $"AND Date < '{row.Cells["Date_to"].Value}' AND Classifier_id LIKE '{currTable.Rows[i][1]}*'", _sqlConnection);
+                                $"AND Date < '{row.Cells["Date_to"].Value}' AND Classifier_id LIKE '{currTable.Rows[i]["Attribute_1"]}*'", _sqlConnection);
                             adapt = new SqlDataAdapter(command);
                             DataTable categotyProducts = new DataTable();
                             adapt.Fill(categotyProducts);
@@ -290,18 +285,12 @@ namespace РасчетКУ
                                     continue;
 
                                 // Если имеются фильтры произв. и торг. марки
-                                if (currTable.Rows[i][3].ToString() != "" && currTable.Rows[i][4].ToString() != "")
+                                if (currTable.Rows[i]["BrandProdID"].ToString() != "")
                                 {
                                     // Проверка товара на соответствие условиям произв и торг марки
-                                    command = new SqlCommand($"SELECT Producer, Brand_name FROM Products WHERE Product_id = {categotyProducts.Rows[j][0]}", _sqlConnection);
-                                    reader = command.ExecuteReader();
-                                    reader.Read();
-                                    if (reader[0].ToString() != currTable.Rows[i][3].ToString() || reader[1].ToString() != currTable.Rows[i][4].ToString())
-                                    {
-                                        reader.Close();
+                                    command = new SqlCommand($"SELECT BrandProdID FROM Products WHERE Product_id = {categotyProducts.Rows[j][0]}", _sqlConnection);
+                                    if (command.ExecuteScalar().ToString() != currTable.Rows[i]["BrandProdID"].ToString())
                                         continue;
-                                    }
-                                    reader.Close();
                                 }
 
                                 // Добавление
@@ -314,15 +303,15 @@ namespace РасчетКУ
                         case "Товары":
 
                             // Проверка, не добавлен ли уже этот товар
-                            if (duplicateCheck(Graph_id, Convert.ToInt64(currTable.Rows[i][1]), tableName))
+                            if (duplicateCheck(Graph_id, Convert.ToInt64(currTable.Rows[i]["Attribute_1"]), tableName))
                                 break;
 
                             // Проверка наличия товара в списке товаров по накладным
-                            if (!productCheck(invoicesProducts, Convert.ToInt64(currTable.Rows[i][1])))
+                            if (!productCheck(invoicesProducts, Convert.ToInt64(currTable.Rows[i]["Attribute_1"])))
                                 break;
                             
                             // Добавление
-                            command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id) VALUES ({Graph_id}, {currTable.Rows[i][1]})", _sqlConnection);
+                            command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id) VALUES ({Graph_id}, {currTable.Rows[i]["Attribute_1"]})", _sqlConnection);
                             command.ExecuteNonQuery();
 
                             break;
@@ -379,6 +368,11 @@ namespace РасчетКУ
 
                 command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2)}, Sum_bonus = {Math.Round(bonus, 2)} WHERE " +
                     $"Graph_id = {Graph_id}", _sqlConnection);
+                command.ExecuteNonQuery();
+                if (fix)
+                    command = new SqlCommand($"UPDATE KU SET [Percent] = {Convert.ToInt32(percentOrFix * 1000 / summ)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                else
+                    command = new SqlCommand($"UPDATE KU SET [Percent] = {Convert.ToInt32(percentOrFix * 10)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
                 command.ExecuteNonQuery();
                 state = true;
             }

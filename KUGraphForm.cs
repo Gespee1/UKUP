@@ -72,7 +72,8 @@ namespace РасчетКУ
                 dataGridView1.Rows[i].Cells["GraphStatus"].Value = graphs.Rows[i][7];
                 dataGridView1.Rows[i].Cells["GraphSumN"].Value = graphs.Rows[i][8];
                 dataGridView1.Rows[i].Cells["GraphSumP"].Value = graphs.Rows[i][9];
-                //dataGridView1.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][10]) / 10;
+                if(graphs.Rows[i][10].ToString() != "")
+                    dataGridView1.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][10]) / 10;
                 dataGridView1.Rows[i].Cells["GraphSumS"].Value = graphs.Rows[i][11];
             }
         }
@@ -453,6 +454,9 @@ namespace РасчетКУ
         // Открытие формы редактирования КУ
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            if (e.RowIndex < 0) // DoubleClick по заголовку
+                return;
+
             Int64 VendorId, KU_id = Convert.ToInt64(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value);
             SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM KU WHERE KU_id = {KU_id}", SqlCon);
             VendorId = Convert.ToInt64(command.ExecuteScalar());
@@ -481,6 +485,5 @@ namespace РасчетКУ
             SqlCon.Close();
         }
 
-       
     }
 }

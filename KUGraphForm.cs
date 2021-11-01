@@ -153,48 +153,24 @@ namespace РасчетКУ
 
         //Отчёт ворд
         private void WordToolStripMenuItem_Click(object sender, EventArgs e)
-        { 
-            SqlCommand cm = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
-            VendorName = (string)cm.ExecuteScalar();
-
-            SqlCommand cm1 = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
-            DocNum = Convert.ToString(cm1.ExecuteScalar());
-
-            SqlCommand cm2 = new SqlCommand($"SELECT Docu_date FROM KU WHERE KU_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
-            DocDate = Convert.ToString(cm1.ExecuteScalar());
-
-            SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
-            EntitiesName = (string)cm3.ExecuteScalar();
-
-            
-            File.Copy("Docs\\АКТ-счет.docx", "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx", true);
-            WordHelper helper = new WordHelper(/*Environment.CurrentDirectory + */"C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx");
-            var items = new Dictionary<string, string>
-            {
-                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
-                {"<Doc.Num>", DocNum},
-                {"<Doc.Date>", DocDate},
-                {"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},
-                {"<GraphSumS>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumS"].Value)},
-                {"<Entities.Name>",EntitiesName},
-                {"<Vendors.Name>", VendorName},
-                {"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Percent"].Value)},
-                {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value)},
-                {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value)},
-            };
-            
-            helper.Process(items);
-           // MessageBox.Show("Файл сохранен");
-
+        {
+            string docname = "Docs\\АКТ-счет.docx";
+            string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
+            WordDoc(docname, newdocpath);
         }
 
         //отчет ворд 2
         private void word2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string docname = "Docs\\Приложение_к_договору.docx";
+            string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
+            WordDoc(docname, newdocpath);
+            
+        }
+
+        //Общий метод вызова отчёта word
+        private void WordDoc(string docname, string newdocpath)
+        {
             SqlCommand cm = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
                 $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
             VendorName = (string)cm.ExecuteScalar();
@@ -205,14 +181,15 @@ namespace РасчетКУ
 
             SqlCommand cm2 = new SqlCommand($"SELECT Docu_date FROM KU WHERE KU_id = " +
                 $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
-            DocDate = Convert.ToString(cm1.ExecuteScalar());
+            DocDate = Convert.ToString(cm2.ExecuteScalar());
 
             SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
                 $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
             EntitiesName = (string)cm3.ExecuteScalar();
 
 
-            WordHelper helper = new WordHelper(Environment.CurrentDirectory + "\\Docs\\Приложение_к_договору.docx");
+            File.Copy(docname, newdocpath, true);
+            WordHelper helper = new WordHelper(/*Environment.CurrentDirectory + */ newdocpath);
             var items = new Dictionary<string, string>
             {
                 {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
@@ -228,19 +205,20 @@ namespace РасчетКУ
             };
 
             helper.Process(items);
-        }
+            // MessageBox.Show("Файл сохранен");
 
+        }
         //Отчёт эксель
         private void ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Excel.Application ObjExcel = new Excel.Application();
+            
             SqlCommand commanda = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
                  $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
             string VendorName1 = (string)commanda.ExecuteScalar();
 
-
+            Excel.Application ObjExcel = new Excel.Application();
             Excel.Workbook ObjWorkBook;
-             Excel.Worksheet ObjWorkSheet;
+            Excel.Worksheet ObjWorkSheet;
             //Книга.
              ObjWorkBook = ObjExcel.Workbooks.Add(System.Reflection.Missing.Value);
             //Таблица.

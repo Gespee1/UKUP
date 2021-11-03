@@ -213,21 +213,34 @@ namespace РасчетКУ
         //Отчёт эксель <====пока чисто накидал макет, завтра буду дорабатывать
         private void ExcelDoc(string docname, string newdocpath)
         {
-            // File.Copy(docname, newdocpath, true);
-            //ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
-            //var items = new Dictionary<string, string>;
-           
-            try
+             File.Copy(docname, newdocpath, true);
+            ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
+            var items = new Dictionary<string, string>
             {
+                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
+                {"<Doc.Num>", DocNum},
+                {"<Doc.Date>", DocDate},
+                {"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},
+                {"<GraphSumS>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumS"].Value)},
+                {"<Entities.Name>",EntitiesName},
+                {"<Vendors.Name>", VendorName},
+                {"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Percent"].Value)},
+                {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value)},
+                {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value)},
+            };
+            helper.Process(items);
+            /*try
+            {
+                
                 using (ExcelHelper helper = new ExcelHelper())
                 {
-                    if(helper.Open(filePath: Path.Combine(Environment.CurrentDirectory, "Test.xlsx")));
+                    if (helper.Open(filePath: Path.Combine(Environment.CurrentDirectory, "Test.xlsx")));
                     {
                         helper.Set(column: "A", row: 1, data: "sheesh");
                     }
                 }
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }*/
 
 
         }

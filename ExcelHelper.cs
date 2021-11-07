@@ -8,7 +8,7 @@ using System.Configuration;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
-using ClosedXML.Excel;
+//using ClosedXML.Excel;
 
 namespace РасчетКУ
 {
@@ -18,7 +18,7 @@ namespace РасчетКУ
         private Excel.Workbook _workbook;
         private string _filePath;
         private FileInfo _fileInfo;
-        private XLWorkbook xlWorkbook;
+  //      private XLWorkbook xlWorkbook;
         
         public ExcelHelper(string fileName)
         {
@@ -39,7 +39,7 @@ namespace РасчетКУ
             Excel.Application app = null;
             try
             {
-                app = new Application();
+                app = new Excel.Application();
                 string file = _fileInfo.FullName;
                 Object missing = Type.Missing;
 
@@ -47,16 +47,19 @@ namespace РасчетКУ
 
                 foreach (var item in items)
                 {
+
+                    app.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
+                    app.Visible = true;
                     //Excel.Find find = app.Selection.Find;
-                   // find.Text = item.Key;
-                   // find.Replacement.Text = item.Value;
+                    // find.Text = item.Key;
+                    // find.Replacement.Text = item.Value;
 
                     //Object wrap = Excel. //WdFindWrap.wdFindContinue;
                     //Object replace = Excel. //WdReplace.wdReplaceAll;
 
-                   // xlWorkbook = app.Workbooks.Open(_filePath, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                   // xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-                   // _Worksheet.Cells.Replace("SENDER_NAME", "FEDEX", missingValue, missingValue, missingValue, missingValue, missingValue, missingValue);
+                    // xlWorkbook = app.Workbooks.Open(_filePath, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                    // xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                    // _Worksheet.Cells.Replace("SENDER_NAME", "FEDEX", missingValue, missingValue, missingValue, missingValue, missingValue, missingValue);
 
                     /*find.Execute(FindText: Type.Missing,
                         MatchCase: false,

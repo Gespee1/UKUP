@@ -215,16 +215,33 @@ namespace РасчетКУ
         {
              File.Copy(docname, newdocpath, true);
             ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
+
+            SqlCommand cm = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+            VendorName = (string)cm.ExecuteScalar();
+
+            SqlCommand cm1 = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = " +
+                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
+            DocNum = Convert.ToString(cm1.ExecuteScalar());
+
+            SqlCommand cm2 = new SqlCommand($"SELECT Docu_date FROM KU WHERE KU_id = " +
+                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
+            DocDate = Convert.ToString(cm2.ExecuteScalar());
+
+            SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
+            EntitiesName = (string)cm3.ExecuteScalar();
+
             var items = new Dictionary<string, string>
             {
-                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
-                {"<Doc.Num>", DocNum},
-                {"<Doc.Date>", DocDate},
-                {"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},
-                {"<GraphSumS>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumS"].Value)},
-                {"<Entities.Name>",EntitiesName},
+                //{"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
+                //{"<Doc.Num>", DocNum},
+                //{"<Doc.Date>", DocDate},
+                //{"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},
+                //{"<GraphSumS>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumS"].Value)},
+                {"<Entities.Name>", EntitiesName},
                 {"<Vendors.Name>", VendorName},
-                {"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Percent"].Value)},
+                //{"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Percent"].Value)},
                 {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value)},
                 {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value)},
             };
@@ -248,8 +265,11 @@ namespace РасчетКУ
         //Отчёт эксель
         private void ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            SqlCommand commanda = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
+            string docname = "Docs\\Отчет_сверка1.xlsx";
+            string newdocpath = "D:\\Documents\\Тест.docx";
+            ExcelDoc(docname, newdocpath);
+
+            /*SqlCommand commanda = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
                  $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
             string VendorName1 = (string)commanda.ExecuteScalar();
 
@@ -329,7 +349,8 @@ namespace РасчетКУ
 
             //  ObjWorkSheet.Rows.AutoFit();
             ObjExcel.Visible = true;
-            ObjExcel.UserControl = true;
+            ObjExcel.UserControl = true;*/
+
         }
 
 

@@ -210,7 +210,7 @@ namespace РасчетКУ
 
         }
 
-        //Отчёт эксель <====пока чисто накидал макет, завтра буду дорабатывать
+        
         private void ExcelDoc(string docname, string newdocpath)
         {
              File.Copy(docname, newdocpath, true);
@@ -245,20 +245,9 @@ namespace РасчетКУ
                 {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value)},
                 {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value)},
             };
-            helper.Process(items);
-            /*try
-            {
-                
-                using (ExcelHelper helper = new ExcelHelper())
-                {
-                    if (helper.Open(filePath: Path.Combine(Environment.CurrentDirectory, "Test.xlsx")));
-                    {
-                        helper.Set(column: "A", row: 1, data: "sheesh");
-                    }
-                }
-            }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }*/
 
+            helper.Process(items);
+         
 
         }
 
@@ -266,8 +255,27 @@ namespace РасчетКУ
         private void ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string docname = "Docs\\Отчет_сверка1.xlsx";
-            string newdocpath = "D:\\Documents\\Тест.docx";
+            string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
             ExcelDoc(docname, newdocpath);
+
+            //заполнение табличной части
+            DataTable tb = new DataTable();
+            SqlCommand command1 = new SqlCommand($"SELECT Product_id, Name, FROM Included_products_list, Products WHERE Included_products_list.Product_id = Products.Product_id = " +
+                $"Included_product_list.Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}", SqlCon);
+            SqlDataAdapter adapt1 = new SqlDataAdapter(command1);
+            adapt1.Fill(tb);
+
+           /* DataTable ProdInfo = new DataTable();
+            SqlCommand command2 = new SqlCommand($"SELECT Name, BrandProdID, Classifier_id FROM Products WHERE Product_id = {tb}", SqlCon);
+            SqlDataAdapter adapt2 = new SqlDataAdapter(command2);
+            adapt2.Fill(ProdInfo);
+
+            DataTable invoicesProducts = new DataTable();
+            SqlCommand command3 = new SqlCommand($"SELECT Product_id, Summ FROM Invoices, Invoices_products WHERE Invoices.Invoice_id = Invoices_products.Invoice_id AND " +
+                $"Vendor_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value} AND Date >= '{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value}'" +
+                $" AND Date < '{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value}'", SqlCon);
+            SqlDataAdapter adapt3 = new SqlDataAdapter(command3);
+            adapt3.Fill(invoicesProducts);*/
 
             /*SqlCommand commanda = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
                  $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);

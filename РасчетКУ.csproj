@@ -187,9 +187,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Docs\protokol.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Docs\АКТ-счет.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

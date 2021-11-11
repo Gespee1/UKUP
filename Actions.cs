@@ -420,5 +420,18 @@ namespace РасчетКУ
             return false;
         }
 
+
+        public string getFilepath()
+        {
+            SaveFileDialog saveFlDlg = new SaveFileDialog();
+            saveFlDlg.DefaultExt = ".docx";
+
+            if (saveFlDlg.ShowDialog() == DialogResult.OK)
+                return saveFlDlg.FileName;
+            else
+                return "";
+        }
+
+
     }
 }

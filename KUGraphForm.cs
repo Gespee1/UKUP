@@ -156,17 +156,21 @@ namespace РасчетКУ
         private void WordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string docname = "Docs\\АКТ-счет.docx";
-            string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
-            WordDoc(docname, newdocpath);
+            //string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
+            //WordDoc(docname, newdocpath);
+            Actions actions = new Actions();
+            WordDoc(docname, actions.getFilepath());
         }
 
         //отчет ворд 2
         private void word2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string docname = "Docs\\Приложение_к_договору.docx";
-            string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
-            WordDoc(docname, newdocpath);
-            
+            //string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
+            //WordDoc(docname, newdocpath);
+
+            Actions actions = new Actions();
+            WordDoc(docname, actions.getFilepath());
         }
 
         //Общий метод вызова отчёта word

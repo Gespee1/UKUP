@@ -159,7 +159,7 @@ namespace РасчетКУ
             //string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
             //WordDoc(docname, newdocpath);
             Actions actions = new Actions();
-            WordDoc(docname, actions.getFilepath());
+            WordDoc(docname, actions.getFilepath(".docx"));
         }
 
         //отчет ворд 2
@@ -170,7 +170,7 @@ namespace РасчетКУ
             //WordDoc(docname, newdocpath);
 
             Actions actions = new Actions();
-            WordDoc(docname, actions.getFilepath());
+            WordDoc(docname, actions.getFilepath(".docx"));
         }
 
         //Общий метод вызова отчёта word
@@ -259,15 +259,20 @@ namespace РасчетКУ
         private void ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string docname = "Docs\\Отчет_сверка1.xlsx";
-            string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
-            ExcelDoc(docname, newdocpath);
+            /* string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
+             ExcelDoc(docname, newdocpath);*/
+            Actions actions = new Actions();
+            ExcelDoc(docname, actions.getFilepath(".xlsx"));
 
             //заполнение табличной части
-            DataTable tb = new DataTable();
-            SqlCommand command1 = new SqlCommand($"SELECT Product_id, Name, FROM Included_products_list, Products WHERE Included_products_list.Product_id = Products.Product_id = " +
+           /* DataTable tb = new DataTable();
+            SqlCommand command1 = new SqlCommand($"SELECT Product_id, Name, FROM Included_products_list, Products WHERE Included_products_list.Product_id = Products.Product_id AND " +
                 $"Included_product_list.Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}", SqlCon);
             SqlDataAdapter adapt1 = new SqlDataAdapter(command1);
-            adapt1.Fill(tb);
+            adapt1.Fill(tb);*/
+
+
+
 
            /* DataTable ProdInfo = new DataTable();
             SqlCommand command2 = new SqlCommand($"SELECT Name, BrandProdID, Classifier_id FROM Products WHERE Product_id = {tb}", SqlCon);

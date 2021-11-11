@@ -421,10 +421,10 @@ namespace РасчетКУ
         }
 
 
-        public string getFilepath()
+        public string getFilepath(string ext)
         {
             SaveFileDialog saveFlDlg = new SaveFileDialog();
-            saveFlDlg.DefaultExt = ".docx";
+            saveFlDlg.DefaultExt = ext;
 
             if (saveFlDlg.ShowDialog() == DialogResult.OK)
                 return saveFlDlg.FileName;

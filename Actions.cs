@@ -208,11 +208,19 @@ namespace РасчетКУ
             DataGridViewRow row = dgv.Rows[rowIndex];
             Int64 Graph_id = (Int64)row.Cells["Graph_Id"].Value;
 
+
+
             DataTable invoicesProducts = new DataTable();
             SqlCommand cm = new SqlCommand($"SELECT Product_id, Summ FROM Invoices, Invoices_products WHERE Invoices.Invoice_id = Invoices_products.Invoice_id AND " +
                 $"Vendor_id = {row.Cells["Vendor_id"].Value} AND Date >= '{row.Cells["Date_from"].Value}' AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(cm);
             adapt.Fill(invoicesProducts);
+
+            DataTable InvoicesID = new DataTable();
+            cm = new SqlCommand($"SELECT Invoice_id FROM Invoices WHERE Vendor_id = {row.Cells["Vendor_id"].Value} AND Date >= '{row.Cells["Date_from"].Value}' " +
+                                $"AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
+            adapt = new SqlDataAdapter(cm);
+            adapt.Fill(InvoicesID);
 
             DataTable included = new DataTable();
             cm = new SqlCommand($"SELECT Type, Attribute_1, Attribute_2, BrandProdID FROM Included_products WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
@@ -263,7 +271,7 @@ namespace РасчетКУ
                                 }
 
                                 // Добавление
-                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id) VALUES ({Graph_id}, {invoicesProducts.Rows[j][0]})", _sqlConnection);
+                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {invoicesProducts.Rows[j][0]}, {InvoicesID.Rows[i][0]})", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
 
@@ -276,6 +284,8 @@ namespace РасчетКУ
                             adapt = new SqlDataAdapter(command);
                             DataTable categotyProducts = new DataTable();
                             adapt.Fill(categotyProducts);
+
+                            
 
                             // Цикл по товарам выбранной категории
                             for (int j = 0; j < categotyProducts.Rows.Count; j++)
@@ -294,7 +304,7 @@ namespace РасчетКУ
                                 }
 
                                 // Добавление
-                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id) VALUES ({Graph_id}, {categotyProducts.Rows[j][0]})", _sqlConnection);
+                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {categotyProducts.Rows[j][0]}, {InvoicesID.Rows[i][0]})", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
                             categotyProducts.Clear();
@@ -311,7 +321,7 @@ namespace РасчетКУ
                                 break;
                             
                             // Добавление
-                            command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id) VALUES ({Graph_id}, {currTable.Rows[i]["Attribute_1"]})", _sqlConnection);
+                            command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {currTable.Rows[i]["Attribute_1"]}, {InvoicesID.Rows[i][0]})", _sqlConnection);
                             command.ExecuteNonQuery();
 
                             break;

@@ -263,21 +263,22 @@ namespace РасчетКУ
              ExcelDoc(docname, newdocpath);*/
             Actions actions = new Actions();
             ExcelDoc(docname, actions.getFilepath(".xlsx"));
-
+            return;
             //заполнение табличной части
             DataTable tb = new DataTable();
-            SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_lists WHERE Included_products_list.Product_id = Products.Product_id AND " +
-                $"Included_product_list.Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}", SqlCon);
+            SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_list WHERE Included_product_list.Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}", SqlCon);
             SqlDataAdapter adapt1 = new SqlDataAdapter(command1);
             adapt1.Fill(tb);
 
             DataTable tableExcel = new DataTable();
             SqlCommand command = new SqlCommand($"SELECT Included_products_list.Product_id, Included_products_list.Invoice_id Name, L2_name, L3_name, L4_name, Producer, Quantity, Summ " +
-                $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON L4 = (Select Classifier_id FROM Products WHERE Product_id = {tb})" +
-                $" LEFT JOIN BrandProducer ON ID = (SELECT BrandProdID FROM Products WHERE Product_id = {tb} ) WHERE Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
+                $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON L4 = (Select Classifier_id FROM Products WHERE Product_id = (SELECT Product_id FROM Included_products_list WHERE Included_product_list.Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}))" +
+                $" LEFT JOIN BrandProducer ON ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
+                $"(SELECT Product_id FROM Included_products_list WHERE Included_product_list.Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}) )" +
+                $" WHERE Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
                 $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id  AND Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
-            adapt1.Fill(tableExcel);
+            adapt.Fill(tableExcel);
 
             
             /* DataTable ProdInfo = new DataTable();

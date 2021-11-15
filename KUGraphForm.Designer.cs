@@ -258,29 +258,29 @@
             // вВордToolStripMenuItem
             // 
             this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
-            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
-            this.вВордToolStripMenuItem.Text = "Word";
+            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.вВордToolStripMenuItem.Text = "АКТ-счет";
             this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
             // 
             // вЭксельToolStripMenuItem
             // 
             this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
-            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
-            this.вЭксельToolStripMenuItem.Text = "Excel";
+            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.вЭксельToolStripMenuItem.Text = "Отчет-сверка 1";
             this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
             // 
             // word2ToolStripMenuItem
             // 
             this.word2ToolStripMenuItem.Name = "word2ToolStripMenuItem";
-            this.word2ToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
-            this.word2ToolStripMenuItem.Text = "Word 2";
+            this.word2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.word2ToolStripMenuItem.Text = "Приложение к договору";
             this.word2ToolStripMenuItem.Click += new System.EventHandler(this.word2ToolStripMenuItem_Click);
             // 
             // excel2ToolStripMenuItem
             // 
             this.excel2ToolStripMenuItem.Name = "excel2ToolStripMenuItem";
-            this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
-            this.excel2ToolStripMenuItem.Text = "Excel 2";
+            this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.excel2ToolStripMenuItem.Text = "Отчет-сверка 2";
             // 
             // button3
             // 

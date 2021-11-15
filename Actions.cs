@@ -12,7 +12,8 @@ namespace РасчетКУ
     class Actions
     {
         private SqlConnection _sqlConnection;
-        
+        private DialogResult result = DialogResult.None;
+
         // Создание графиков для всех КУ
         public bool addGraphs()
         {
@@ -50,8 +51,9 @@ namespace РасчетКУ
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
-                DialogResult result;
-                result = MessageBox.Show($"Для КУ с номером {KU_id} уже создан график, пересоздать?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.None)
+                    result = MessageBox.Show("Для выбранного(-ых) КУ уже создан график, пересоздать?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
                 if (result == DialogResult.Yes)
                 {
                     reader.Close();

@@ -121,14 +121,14 @@ namespace РасчетКУ
             // поставщикиToolStripMenuItem
             // 
             this.поставщикиToolStripMenuItem.Name = "поставщикиToolStripMenuItem";
-            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.поставщикиToolStripMenuItem.Text = "Справочники";
             this.поставщикиToolStripMenuItem.Click += new System.EventHandler(this.поставщикиToolStripMenuItem_Click);
             // 
             // графикКУToolStripMenuItem
             // 
             this.графикКУToolStripMenuItem.Name = "графикКУToolStripMenuItem";
-            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.графикКУToolStripMenuItem.Text = "График КУ";
             this.графикКУToolStripMenuItem.Click += new System.EventHandler(this.графикКУToolStripMenuItem_Click);
             // 

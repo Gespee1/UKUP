@@ -31,7 +31,7 @@ namespace РасчетКУ
 
             _sqlConnection.Open();
 
-            SqlCommand command = new SqlCommand("SELECT * FROM Classifier", _sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT L1, L1_name, L2, L2_name, L3, L3_name, L4, L4_name FROM Classifier ORDER BY L4", _sqlConnection);
             SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
             dataAdapter.Fill(dt);

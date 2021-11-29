@@ -277,7 +277,7 @@ namespace РасчетКУ
                 {
                     DataTable tableExcel = new DataTable();
                     SqlCommand command = new SqlCommand($"SELECT Included_products_list.Product_id, Included_products_list.Invoice_id Name, L2_name, L3_name, L4_name, Producer, Quantity, Summ " +
-                        $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON L4 = (Select Classifier_id FROM Products WHERE Product_id = {tb[i][j]})" +
+                        $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON L4 = (Select Classifier_id FROM Products WHERE Product_id = {tb})" +
                         $" LEFT JOIN BrandProducer ON ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
                         $"(SELECT Product_id FROM Included_products_list WHERE Included_products_list.Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}) )" +
                         $" WHERE Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +

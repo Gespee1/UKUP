@@ -49,6 +49,7 @@ namespace РасчетКУ
                 {
 
                     app.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
+                   // string str = app.Cells.Find(item.Key, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns).Address["zalupa"];
                     app.Visible = true;
                     
 

@@ -260,7 +260,7 @@ namespace РасчетКУ
                             for (int j = 0; j < invoicesProducts.Rows.Count; j++)
                             {
                                 // Проверка, не добавлен ли уже этот товар
-                                if (duplicateCheck(Graph_id, (Int64)invoicesProducts.Rows[j][0], tableName))
+                                if (duplicateCheck(Graph_id, Convert.ToInt64(invoicesProducts.Rows[j][0]), tableName))
                                     continue;
 
                                 // Если имеются фильтры произв. и торг. марки

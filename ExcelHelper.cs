@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 
@@ -45,13 +46,24 @@ namespace РасчетКУ
 
                 app.Workbooks.Open(file);
 
+                //Табличная часть
+                Excel.Range findTxt = app.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
+                if (findTxt != null)
+                {
+
+                    MessageBox.Show("Текст найден в ячейке: " + findTxt.Address, "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    findTxt.Select();
+                }
+                else
+                {
+                    MessageBox.Show("Текст  не найден!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 foreach (var item in items)
                 {
 
                     app.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
-                   // string str = app.Cells.Find(item.Key, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns).Address["zalupa"];
-                    app.Visible = true;
-                    
+                    app.Visible = true;                
 
                 }
 

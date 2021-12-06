@@ -48,6 +48,10 @@ namespace РасчетКУ
 
                 //Табличная часть
                 Excel.Range findTxt = app.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
+                app.Range[findTxt.Address].Value = "aa";
+                Excel.Range range = findTxt.EntireRow;
+                range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
+
                 if (findTxt != null)
                 {
 
@@ -58,6 +62,7 @@ namespace РасчетКУ
                 {
                     MessageBox.Show("Текст  не найден!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                //
 
                 foreach (var item in items)
                 {

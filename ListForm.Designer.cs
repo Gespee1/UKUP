@@ -68,14 +68,14 @@ namespace РасчетКУ
             // списокКУToolStripMenuItem
             // 
             this.списокКУToolStripMenuItem.Name = "списокКУToolStripMenuItem";
-            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.списокКУToolStripMenuItem.Text = "Список КУ";
             this.списокКУToolStripMenuItem.Click += new System.EventHandler(this.списокКУToolStripMenuItem_Click);
             // 
             // графикКУToolStripMenuItem
             // 
             this.графикКУToolStripMenuItem.Name = "графикКУToolStripMenuItem";
-            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.графикКУToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.графикКУToolStripMenuItem.Text = "График КУ";
             this.графикКУToolStripMenuItem.Click += new System.EventHandler(this.графикКУToolStripMenuItem_Click);
             // 
@@ -171,6 +171,7 @@ namespace РасчетКУ
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочники";
+            this.Activated += new System.EventHandler(this.ListForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VendorsListForm_FormClosing);
             this.Load += new System.EventHandler(this.VendorsListForm_Load);
             this.Resize += new System.EventHandler(this.ListForm_Resize);

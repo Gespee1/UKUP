@@ -8,11 +8,19 @@ namespace РасчетКУ
 {
     public partial class MainForm : Form
     {
+        private string message;
+
         public MainForm()
         {
             InitializeComponent();
         }
 
+        // Загрузка формы
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (!backgroundWorker1.IsBusy)
+                backgroundWorker1.RunWorkerAsync();
+        }
 
         // Открытие формы со списком коммерческих условий
         private void KUListButton_Click(object sender, EventArgs e)
@@ -38,29 +46,39 @@ namespace РасчетКУ
             FormKUGraph.Show();
             
         }
-        // Обновление данных в БД из ПБД
-        private void RefreshButton_Click(object sender, EventArgs e)
+
+        // Асинхронный мёрж базы
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            SqlConnection sqlcon = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
-            sqlcon.Open();
-            SqlCommand command = new SqlCommand("EXEC MergeDataBases;", sqlcon);
+            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             
-            try
-            {
-                if (command.ExecuteNonQuery() > 0)
-                    MessageBox.Show("Данные в базе успешно обновлены!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch(SqlException ex)
-            {
-                MessageBox.Show(ex.Message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            
-            sqlcon.Close();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("EXEC MergeProcedure", connection);
+            message = $"Кол-во задействованных в слиянии строк: {command.ExecuteNonQuery()}";
+
+            connection.Close();            
+        }
+        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            notifyLabel.Text = message;
+            notifyLabel.Visible = true;
+            waitTimer.Interval = 7000;
+            waitTimer.Start();
+        }
+        // Тик таймера
+        private void waitTimer_Tick(object sender, EventArgs e)
+        {
+            notifyLabel.Visible = false;
+            waitTimer.Stop();
         }
 
+        // Изменения размера формы
         private void MainForm_Resize(object sender, EventArgs e)
         {
             panel1.Location = new System.Drawing.Point(Convert.ToInt32((ClientSize.Width - panel1.Width) / 2), Convert.ToInt32((ClientSize.Height - panel1.Height) / 2));
         }
+
+        
     }
 }

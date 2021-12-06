@@ -554,5 +554,10 @@ namespace РасчетКУ
             SqlCon.Close();
         }
 
+
+        private void KUGraphForm_Activated(object sender, EventArgs e)
+        {
+            //MessageBox.Show("sfawfawfawf");
+        }
     }
 }

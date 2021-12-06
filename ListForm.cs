@@ -24,7 +24,7 @@ namespace РасчетКУ
             panel2.Visible = false;
             doResize();
         }
-
+        
         // Закрытие соединения с БД
         private void VendorsListForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -104,5 +104,8 @@ namespace РасчетКУ
 
             panel2.Height = ClientSize.Height - (panel1.Location.Y + panel1.Height);
         }
+
+        
+
     }
 }

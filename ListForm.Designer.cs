@@ -171,7 +171,6 @@ namespace РасчетКУ
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочники";
-            this.Activated += new System.EventHandler(this.ListForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VendorsListForm_FormClosing);
             this.Load += new System.EventHandler(this.VendorsListForm_Load);
             this.Resize += new System.EventHandler(this.ListForm_Resize);

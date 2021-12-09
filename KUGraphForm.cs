@@ -214,7 +214,7 @@ namespace РасчетКУ
 
         }
 
-        
+        //общий метод вызова отчётов Excel
         private void ExcelDoc(string docname, string newdocpath)
         {
              File.Copy(docname, newdocpath, true);
@@ -238,7 +238,7 @@ namespace РасчетКУ
 
             var items = new Dictionary<string, string>
             {
-                //{"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
+                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
                 //{"<Doc.Num>", DocNum},
                 //{"<Doc.Date>", DocDate},
                 //{"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},

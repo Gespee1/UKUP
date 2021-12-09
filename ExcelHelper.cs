@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 
@@ -17,9 +18,10 @@ namespace РасчетКУ
     {
         private Excel.Application _excel;
         private Excel.Workbook _workbook;
+        private Excel.Worksheet _worksheet;
         private string _filePath;
         private FileInfo _fileInfo;
-  
+        
         
         public ExcelHelper(string fileName)
         {
@@ -43,14 +45,17 @@ namespace РасчетКУ
                 app = new Excel.Application();
                 string file = _fileInfo.FullName;
                 Object missing = Type.Missing;
-
+                
                 app.Workbooks.Open(file);
+                //_worksheet = _workbook.ActiveSheet as Excel.Worksheet;
 
                 //Табличная часть
                 Excel.Range findTxt = app.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
                 app.Range[findTxt.Address].Value = "aa";
                 Excel.Range range = findTxt.EntireRow;
                 range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
+                
+               // Excel.Range range1 = findTxt.EntireRow.Count;
 
                 if (findTxt != null)
                 {
@@ -71,6 +76,21 @@ namespace РасчетКУ
                     app.Visible = true;                
 
                 }
+                for(int j = 0; j < 10; j++)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        app.Range[Convert.ToChar(Convert.ToByte(65 + i)) + "11"].Value = 0;
+                    }
+                    for (int i = 0; i < 6; i++)
+                    {
+                        // 2 часть табличной хрени
+                        //app.Range[Convert.ToChar(Convert.ToByte(65 + i)) + "11"].Value = 0;
+                    }
+                    // добавление строки
+                }
+                
+
 
                 app.Visible = true;
 

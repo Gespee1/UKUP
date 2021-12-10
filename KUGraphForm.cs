@@ -294,7 +294,7 @@ namespace РасчетКУ
 
 
 
-            helper.Process(items);
+            helper.Process(items, tableExcel);
 
             
 

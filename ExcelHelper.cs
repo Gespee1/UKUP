@@ -37,7 +37,7 @@ namespace РасчетКУ
             }
         }
 
-        internal bool Process(Dictionary<string, string> items)
+        internal bool Process(Dictionary<string, string> items, System.Data.DataTable Table)
         {
             Excel.Application app = null;
             try
@@ -51,22 +51,21 @@ namespace РасчетКУ
 
                 //Табличная часть
                 Excel.Range findTxt = app.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
-                app.Range[findTxt.Address].Value = "aa";
+                //app.Range[findTxt.Address].Value = "aa";
                 Excel.Range range = findTxt.EntireRow;
-                range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
-                
-               // Excel.Range range1 = findTxt.EntireRow.Count;
 
-                if (findTxt != null)
-                {
+                // Excel.Range range1 = findTxt.EntireRow.Count;
 
-                    MessageBox.Show("Текст найден в ячейке: " + findTxt.Address, "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    findTxt.Select();
-                }
-                else
-                {
-                    MessageBox.Show("Текст  не найден!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                 if (findTxt != null)
+                 {
+
+                     //MessageBox.Show("Текст найден в ячейке: " + findTxt.Address, "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                     findTxt.Select();
+                 }
+                 //else
+                 //{
+                    // MessageBox.Show("Текст  не найден!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                 //}
                 //
 
                 foreach (var item in items)
@@ -76,18 +75,23 @@ namespace РасчетКУ
                     app.Visible = true;                
 
                 }
-                for(int j = 0; j < 10; j++)
+                
+                for (int i = 0; i < Table.Rows.Count; i++)
                 {
-                    for (int i = 0; i < 6; i++)
+                    
+                    for (int j = 0; j < 6; j++)
                     {
-                        app.Range[Convert.ToChar(Convert.ToByte(65 + i)) + "11"].Value = 0;
+
+                        app.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "11"].Value = Table.Rows[i][j];
                     }
-                    for (int i = 0; i < 6; i++)
+                    for (int j = 6; j < 8; j++)
                     {
                         // 2 часть табличной хрени
-                        //app.Range[Convert.ToChar(Convert.ToByte(65 + i)) + "11"].Value = 0;
+                        app.Range[Convert.ToChar(Convert.ToByte(81 + j - 6)) + "11"].Value = Table.Rows[i][j];
                     }
                     // добавление строки
+                   
+                    range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
                 }
                 
 

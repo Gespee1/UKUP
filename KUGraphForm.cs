@@ -268,8 +268,8 @@ namespace РасчетКУ
             {
                                 
                 SqlCommand command = new SqlCommand($"SELECT Included_products_list.Product_id, Included_products_list.Invoice_id, Name, L2_name, L3_name, L4_name, Producer, Quantity, Summ " +
-                    $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON L4 = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i][0]})" +
-                    $" LEFT JOIN BrandProducer ON ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
+                    $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i][0]})" +
+                    $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
                     $"{tb.Rows[i][0]} )" +
                     $" WHERE Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
                     $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
@@ -285,6 +285,7 @@ namespace РасчетКУ
                 tableExcel.Rows[i]["Producer"] = reader[6];
                 tableExcel.Rows[i]["Quantity"] = reader[7];
                 tableExcel.Rows[i]["Summ"] = reader[8];
+                reader.Close();
 
             }
              var items_table = new Dictionary<string, string>

@@ -47,14 +47,11 @@ namespace РасчетКУ
                 Object missing = Type.Missing;
                 
                 app.Workbooks.Open(file);
-                //_worksheet = _workbook.ActiveSheet as Excel.Worksheet;
+                
 
                 //Табличная часть
                 Excel.Range findTxt = app.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
-                //app.Range[findTxt.Address].Value = "aa";
-                Excel.Range range = findTxt.EntireRow;
-
-                // Excel.Range range1 = findTxt.EntireRow.Count;
+                Excel.Range range = findTxt.EntireRow;              
 
                  if (findTxt != null)
                  {
@@ -67,7 +64,7 @@ namespace РасчетКУ
                     // MessageBox.Show("Текст  не найден!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
                  //}
                 //
-
+                //замена маркеров
                 foreach (var item in items)
                 {
 
@@ -81,7 +78,6 @@ namespace РасчетКУ
                     
                     for (int j = 0; j < 6; j++)
                     {
-
                         app.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "11"].Value = Table.Rows[i][j];
                     }
                     for (int j = 6; j < 8; j++)
@@ -90,8 +86,11 @@ namespace РасчетКУ
                         app.Range[Convert.ToChar(Convert.ToByte(81 + j - 6)) + "11"].Value = Table.Rows[i][j];
                     }
                     // добавление строки
-                   
-                    range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
+                    if (i != Table.Rows.Count - 1)
+                    {
+                        range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
+                    }
+                    range = app.Range[Convert.ToChar(Convert.ToByte(65)) + "11"].EntireRow; //возвращаем выделение на А11
                 }
                 
 

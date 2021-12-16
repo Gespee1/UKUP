@@ -251,40 +251,40 @@ namespace РасчетКУ
             };
             //заполнение табличной части
             DataTable tb = new DataTable();
-            SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_list WHERE Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value}", SqlCon);
+            SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_list WHERE Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value} " +
+                $"ORDER BY Product_id DESC", SqlCon);
             SqlDataAdapter adapt1 = new SqlDataAdapter(command1);
             adapt1.Fill(tb);
             DataTable tableExcel = new DataTable();
-            tableExcel.Columns.Add("Included_products_list.Product_id", typeof(int));
-            tableExcel.Columns.Add("Included_products_list.Invoice_id", typeof(int));
-            tableExcel.Columns.Add("Name", typeof(string));
             tableExcel.Columns.Add("L2_name", typeof(string));
             tableExcel.Columns.Add("L3_name", typeof(string));
             tableExcel.Columns.Add("L4_name", typeof(string));
+            tableExcel.Columns.Add("Included_products_list.Product_id", typeof(int));
+            tableExcel.Columns.Add("Name", typeof(string));
             tableExcel.Columns.Add("Producer", typeof(string));
             tableExcel.Columns.Add("Quantity", typeof(int));
             tableExcel.Columns.Add("Summ", typeof(int));
             for (int i = 0; i < tb.Rows.Count; i++)
-            {
+             {
                                 
-                SqlCommand command = new SqlCommand($"SELECT Included_products_list.Product_id, Included_products_list.Invoice_id, Name, L2_name, L3_name, L4_name, Producer, Quantity, Summ " +
-                    $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i][0]})" +
+                SqlCommand command = new SqlCommand($"SELECT L2_name, L3_name, L4_name, Included_products_list.Product_id, Name, Producer, Quantity, Summ " +
+                    $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i]["Product_id"]})" +
                     $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
-                    $"{tb.Rows[i][0]} )" +
-                    $" WHERE Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
+                    $"{tb.Rows[i]["Product_id"]} )" +
+                    $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
                     $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
                 SqlDataReader reader = command.ExecuteReader();
 
                 reader.Read();
-                tableExcel.Rows[i]["Included_products_list.Product_id"] = reader[0];
-                tableExcel.Rows[i]["Included_products_list.Invoice_id"] = reader[1];
-                tableExcel.Rows[i]["Name"] = reader[2];
-                tableExcel.Rows[i]["L2_Name"] = reader[3];
-                tableExcel.Rows[i]["L3_Name"] = reader[4];
-                tableExcel.Rows[i]["L4_Name"] = reader[5];
-                tableExcel.Rows[i]["Producer"] = reader[6];
-                tableExcel.Rows[i]["Quantity"] = reader[7];
-                tableExcel.Rows[i]["Summ"] = reader[8];
+                tableExcel.Rows.Add();
+                tableExcel.Rows[i]["L2_Name"] = reader[0];
+                tableExcel.Rows[i]["L3_Name"] = reader[1];
+                tableExcel.Rows[i]["L4_Name"] = reader[2];
+                tableExcel.Rows[i]["Included_products_list.Product_id"] = reader[3];
+                tableExcel.Rows[i]["Name"] = reader[4];
+                tableExcel.Rows[i]["Producer"] = reader[5];
+                tableExcel.Rows[i]["Quantity"] = reader[6];
+                tableExcel.Rows[i]["Summ"] = reader[7];
                 reader.Close();
 
             }

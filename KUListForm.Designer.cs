@@ -194,6 +194,7 @@ namespace РасчетКУ
             this.advancedDataGridView1.Name = "advancedDataGridView1";
             this.advancedDataGridView1.ReadOnly = true;
             this.advancedDataGridView1.RowHeadersVisible = false;
+            this.advancedDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.advancedDataGridView1.Size = new System.Drawing.Size(1000, 390);
             this.advancedDataGridView1.TabIndex = 12;
             this.advancedDataGridView1.TimeFilter = false;

@@ -773,6 +773,11 @@ namespace РасчетКУ
             this.label13.TabIndex = 43;
             this.label13.Text = "Тип товаров:";
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dateTimePicker2);

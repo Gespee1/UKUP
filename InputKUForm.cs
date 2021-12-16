@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace РасчетКУ
 {
@@ -15,6 +16,8 @@ namespace РасчетКУ
         private List<Int64> ProdIds = new List<Int64>();
         private List<string> CategoryID = new List<string>();
         private DataTable BrandProd = new DataTable();
+        private Stopwatch _timer = new Stopwatch();
+        delegate void _del(string item);
 
         public InputKUForm()
         {
@@ -36,24 +39,43 @@ namespace РасчетКУ
             cancel_button.Visible = true;
         }
 
+        // Отдельные потоки
+        //
+        // Поток 1. Загрузка поставщиков
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            
+            //Загрузка данных о поставщиках в комбобокс
+            SqlCommand command = new SqlCommand("SELECT DISTINCT Name FROM Vendors", _sqlConnection);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                if (comboBox1.InvokeRequired)
+                    comboBox1.Invoke(new _del((s) => comboBox1.Items.Add(s)), reader[0]);
+            }
+            reader.Close();
+            
+            showProducerBrand();
+        }
+        // Поток 1. Отображение данных о КУ
+        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            if (_showKU)
+                showSelectedKU();
+        }
+
+
         // Подключение к БД при открытии формы
         private void InputKUForm_Load(object sender, EventArgs e)
         {
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             _sqlConnection.Open();
 
-            //Загрузка данных о поставщиках в комбобокс
-            SqlCommand command = new SqlCommand("SELECT Name FROM Vendors", _sqlConnection);
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                comboBox1.Items.Add(reader[0]);
-            }
-            reader.Close();
+            if (!backgroundWorker1.IsBusy)
+                backgroundWorker1.RunWorkerAsync();
 
             // Настройка дат
-            
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
             dateTimePicker3.Format = DateTimePickerFormat.Custom;
@@ -64,11 +86,8 @@ namespace РасчетКУ
             {
                 dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
             }
-
+            
             doResize();
-            showProducerBrand();
-            if (_showKU)
-                showSelectedKU();
         }
 
         // Отображение КУ, выбранного из формы списка КУ
@@ -435,7 +454,7 @@ namespace РасчетКУ
             combo3.Items.Clear();
             combo4.Items.Clear();
 
-            SqlCommand command = new SqlCommand("SELECT ID, Producer, Brand FROM BrandProducer", _sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT DISTINCT ID, Producer, Brand FROM BrandProducer ORDER BY Producer", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(BrandProd);
             
@@ -965,13 +984,14 @@ namespace РасчетКУ
             FormKUGraph.Show();
         }
 
-
+        
         // Изменение размеров формы
         private void InputKUForm_Resize(object sender, EventArgs e)
         {
             doResize();
         }
 
+        
         // Настройки адаптивного UI формы
         private void doResize()
         {

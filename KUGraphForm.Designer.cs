@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewKUGraph = new System.Windows.Forms.DataGridView();
             this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,30 +54,30 @@
             this.вЭксельToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.word2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excel2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.buttonApprove = new System.Windows.Forms.Button();
+            this.buttonCalcBonus = new System.Windows.Forms.Button();
+            this.buttonCalcAll = new System.Windows.Forms.Button();
+            this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
+            this.labelFrom = new System.Windows.Forms.Label();
+            this.labelTo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.progressLabel = new System.Windows.Forms.Label();
+            this.progressBarForAsincBonus = new System.Windows.Forms.ProgressBar();
+            this.labelProgress = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewKUGraph
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewKUGraph.AllowUserToAddRows = false;
+            this.dataGridViewKUGraph.AllowUserToDeleteRows = false;
+            this.dataGridViewKUGraph.AllowUserToResizeRows = false;
+            this.dataGridViewKUGraph.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewKUGraph.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewKUGraph.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.KU_id,
             this.Vendor_id,
             this.VendorAcc,
@@ -93,15 +93,15 @@
             this.GraphSumS,
             this.GraphSumN,
             this.Graph_Id});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1108, 476);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridViewKUGraph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewKUGraph.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewKUGraph.Name = "dataGridViewKUGraph";
+            this.dataGridViewKUGraph.ReadOnly = true;
+            this.dataGridViewKUGraph.RowHeadersVisible = false;
+            this.dataGridViewKUGraph.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewKUGraph.Size = new System.Drawing.Size(1108, 476);
+            this.dataGridViewKUGraph.TabIndex = 0;
+            this.dataGridViewKUGraph.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
             // KU_id
             // 
@@ -282,87 +282,87 @@
             this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
             this.excel2ToolStripMenuItem.Text = "Отчет-сверка 2";
             // 
-            // button3
+            // buttonApprove
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(1001, 535);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(119, 38);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Согласовать";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.buttonApprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonApprove.Location = new System.Drawing.Point(1001, 535);
+            this.buttonApprove.Name = "buttonApprove";
+            this.buttonApprove.Size = new System.Drawing.Size(119, 38);
+            this.buttonApprove.TabIndex = 5;
+            this.buttonApprove.Text = "Согласовать";
+            this.buttonApprove.UseVisualStyleBackColor = true;
+            this.buttonApprove.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button1
+            // buttonCalcBonus
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(742, 535);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(253, 38);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Рассчёт ретро-бонуса";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonCalcBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCalcBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCalcBonus.Location = new System.Drawing.Point(742, 535);
+            this.buttonCalcBonus.Name = "buttonCalcBonus";
+            this.buttonCalcBonus.Size = new System.Drawing.Size(253, 38);
+            this.buttonCalcBonus.TabIndex = 7;
+            this.buttonCalcBonus.Text = "Рассчёт ретро-бонуса";
+            this.buttonCalcBonus.UseVisualStyleBackColor = true;
+            this.buttonCalcBonus.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // buttonCalcAll
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(185, 565);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(159, 38);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Рассчитать все";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonCalcAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCalcAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCalcAll.Location = new System.Drawing.Point(185, 565);
+            this.buttonCalcAll.Name = "buttonCalcAll";
+            this.buttonCalcAll.Size = new System.Drawing.Size(159, 38);
+            this.buttonCalcAll.TabIndex = 8;
+            this.buttonCalcAll.Text = "Рассчитать все";
+            this.buttonCalcAll.UseVisualStyleBackColor = true;
+            this.buttonCalcAll.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dateTimePicker2
+            // dateTimePickerTo
             // 
-            this.dateTimePicker2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(283, 535);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(183, 24);
-            this.dateTimePicker2.TabIndex = 56;
-            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+            this.dateTimePickerTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dateTimePickerTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePickerTo.Location = new System.Drawing.Point(283, 535);
+            this.dateTimePickerTo.Name = "dateTimePickerTo";
+            this.dateTimePickerTo.Size = new System.Drawing.Size(183, 24);
+            this.dateTimePickerTo.TabIndex = 56;
+            this.dateTimePickerTo.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
-            // dateTimePicker1
+            // dateTimePickerFrom
             // 
-            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(57, 535);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(183, 24);
-            this.dateTimePicker1.TabIndex = 57;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            this.dateTimePickerFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dateTimePickerFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(57, 535);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(183, 24);
+            this.dateTimePickerFrom.TabIndex = 57;
+            this.dateTimePickerFrom.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
-            // label1
+            // labelFrom
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(31, 535);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 20);
-            this.label1.TabIndex = 58;
-            this.label1.Text = "С";
+            this.labelFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelFrom.AutoSize = true;
+            this.labelFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFrom.Location = new System.Drawing.Point(31, 535);
+            this.labelFrom.Name = "labelFrom";
+            this.labelFrom.Size = new System.Drawing.Size(20, 20);
+            this.labelFrom.TabIndex = 58;
+            this.labelFrom.Text = "С";
             // 
-            // label2
+            // labelTo
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(247, 535);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 20);
-            this.label2.TabIndex = 59;
-            this.label2.Text = "По";
+            this.labelTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTo.AutoSize = true;
+            this.labelTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelTo.Location = new System.Drawing.Point(247, 535);
+            this.labelTo.Name = "labelTo";
+            this.labelTo.Size = new System.Drawing.Size(30, 20);
+            this.labelTo.TabIndex = 59;
+            this.labelTo.Text = "По";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Controls.Add(this.dataGridViewKUGraph);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Name = "panel1";
@@ -370,29 +370,29 @@
             this.panel1.Size = new System.Drawing.Size(1132, 500);
             this.panel1.TabIndex = 60;
             // 
-            // progressBar1
+            // progressBarForAsincBonus
             // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(797, 0);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(323, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 61;
-            this.progressBar1.Visible = false;
+            this.progressBarForAsincBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarForAsincBonus.Location = new System.Drawing.Point(797, 0);
+            this.progressBarForAsincBonus.Name = "progressBarForAsincBonus";
+            this.progressBarForAsincBonus.Size = new System.Drawing.Size(323, 23);
+            this.progressBarForAsincBonus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarForAsincBonus.TabIndex = 61;
+            this.progressBarForAsincBonus.Visible = false;
             // 
-            // progressLabel
+            // labelProgress
             // 
-            this.progressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressLabel.AutoSize = true;
-            this.progressLabel.BackColor = System.Drawing.Color.Gainsboro;
-            this.progressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.progressLabel.Location = new System.Drawing.Point(759, 3);
-            this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(20, 16);
-            this.progressLabel.TabIndex = 62;
-            this.progressLabel.Text = "%";
-            this.progressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.progressLabel.Visible = false;
+            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.BackColor = System.Drawing.Color.Gainsboro;
+            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelProgress.Location = new System.Drawing.Point(759, 3);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(20, 16);
+            this.labelProgress.TabIndex = 62;
+            this.labelProgress.Text = "%";
+            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelProgress.Visible = false;
             // 
             // backgroundWorker1
             // 
@@ -407,16 +407,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
             this.ClientSize = new System.Drawing.Size(1132, 612);
-            this.Controls.Add(this.progressLabel);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.labelProgress);
+            this.Controls.Add(this.progressBarForAsincBonus);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.labelTo);
+            this.Controls.Add(this.labelFrom);
+            this.Controls.Add(this.dateTimePickerFrom);
+            this.Controls.Add(this.dateTimePickerTo);
+            this.Controls.Add(this.buttonCalcAll);
+            this.Controls.Add(this.buttonCalcBonus);
+            this.Controls.Add(this.buttonApprove);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(884, 510);
@@ -428,7 +428,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.KUGraphForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -442,19 +442,19 @@
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поставщикиToolStripMenuItem;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button buttonApprove;
         private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCalcBonus;
         private System.Windows.Forms.ToolStripMenuItem экспортToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вВордToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вЭксельToolStripMenuItem;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonCalcAll;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTo;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
+        private System.Windows.Forms.Label labelFrom;
+        private System.Windows.Forms.Label labelTo;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewKUGraph;
         private System.Windows.Forms.DataGridViewTextBoxColumn KU_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vendor_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn VendorAcc;
@@ -470,8 +470,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumS;
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumN;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label progressLabel;
+        private System.Windows.Forms.ProgressBar progressBarForAsincBonus;
+        private System.Windows.Forms.Label labelProgress;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem word2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excel2ToolStripMenuItem;

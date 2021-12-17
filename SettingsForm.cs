@@ -16,9 +16,9 @@ namespace РасчетКУ
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             Global_parameters GP = new Global_parameters();
-            textBox1.Text = GP.getParameter(name1);
-            if (textBox1.Text == "null")
-                textBox1.Text = "";
+            textBoxSdvig.Text = GP.getParameter(name1);
+            if (textBoxSdvig.Text == "null")
+                textBoxSdvig.Text = "";
             doResize();
         }
 
@@ -35,13 +35,13 @@ namespace РасчетКУ
         // Кнопка сохранения настроек
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Equals(""))
+            if (textBoxSdvig.Text.Equals(""))
             {
                 MessageBox.Show("Количество дней для сдвига даты расчёта не введено! Попробуйте снова");
             }
             else
             {
-               string text = textBox1.Text;
+               string text = textBoxSdvig.Text;
                Global_parameters GP1 = new Global_parameters();
                GP1.setParameter(name1, text);
                MessageBox.Show("Сохранено!");

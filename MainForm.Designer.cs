@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelMain = new System.Windows.Forms.Label();
             this.KUListButton = new System.Windows.Forms.Button();
             this.VendorsListButton = new System.Windows.Forms.Button();
             this.KUGraphButton = new System.Windows.Forms.Button();
@@ -40,15 +40,15 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelMain
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(137, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 24);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Главное меню";
+            this.labelMain.AutoSize = true;
+            this.labelMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMain.Location = new System.Drawing.Point(137, 30);
+            this.labelMain.Name = "labelMain";
+            this.labelMain.Size = new System.Drawing.Size(151, 24);
+            this.labelMain.TabIndex = 2;
+            this.labelMain.Text = "Главное меню";
             // 
             // KUListButton
             // 
@@ -86,7 +86,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.notifyLabel);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelMain);
             this.panel1.Controls.Add(this.KUListButton);
             this.panel1.Controls.Add(this.KUGraphButton);
             this.panel1.Controls.Add(this.VendorsListButton);
@@ -136,7 +136,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelMain;
         private System.Windows.Forms.Button KUListButton;
         private System.Windows.Forms.Button VendorsListButton;
         private System.Windows.Forms.Button KUGraphButton;

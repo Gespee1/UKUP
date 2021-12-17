@@ -29,88 +29,88 @@ namespace РасчетКУ
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelMain = new System.Windows.Forms.Label();
+            this.buttonAddSelected = new System.Windows.Forms.Button();
+            this.advancedDataGridViewProducts = new ADGV.AdvancedDataGridView();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelShownProducts = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridViewProducts)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelMain
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(15, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(213, 25);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Товары поставщика";
+            this.labelMain.AutoSize = true;
+            this.labelMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMain.Location = new System.Drawing.Point(15, 12);
+            this.labelMain.Name = "labelMain";
+            this.labelMain.Size = new System.Drawing.Size(213, 25);
+            this.labelMain.TabIndex = 1;
+            this.labelMain.Text = "Товары поставщика";
             // 
-            // button1
+            // buttonAddSelected
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(732, 488);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(194, 32);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Добавить выбранное";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAddSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAddSelected.Location = new System.Drawing.Point(732, 488);
+            this.buttonAddSelected.Name = "buttonAddSelected";
+            this.buttonAddSelected.Size = new System.Drawing.Size(194, 32);
+            this.buttonAddSelected.TabIndex = 3;
+            this.buttonAddSelected.Text = "Добавить выбранное";
+            this.buttonAddSelected.UseVisualStyleBackColor = true;
+            this.buttonAddSelected.Click += new System.EventHandler(this.button1_Click);
             // 
-            // advancedDataGridView1
+            // advancedDataGridViewProducts
             // 
-            this.advancedDataGridView1.AllowUserToAddRows = false;
-            this.advancedDataGridView1.AllowUserToDeleteRows = false;
-            this.advancedDataGridView1.AllowUserToResizeRows = false;
-            this.advancedDataGridView1.AutoGenerateContextFilters = true;
-            this.advancedDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.advancedDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.advancedDataGridView1.DateWithTime = false;
-            this.advancedDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advancedDataGridView1.Location = new System.Drawing.Point(12, 0);
-            this.advancedDataGridView1.MultiSelect = false;
-            this.advancedDataGridView1.Name = "advancedDataGridView1";
-            this.advancedDataGridView1.RowHeadersVisible = false;
-            this.advancedDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.advancedDataGridView1.Size = new System.Drawing.Size(914, 427);
-            this.advancedDataGridView1.TabIndex = 5;
-            this.advancedDataGridView1.TimeFilter = false;
-            this.advancedDataGridView1.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
-            this.advancedDataGridView1.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
+            this.advancedDataGridViewProducts.AllowUserToAddRows = false;
+            this.advancedDataGridViewProducts.AllowUserToDeleteRows = false;
+            this.advancedDataGridViewProducts.AllowUserToResizeRows = false;
+            this.advancedDataGridViewProducts.AutoGenerateContextFilters = true;
+            this.advancedDataGridViewProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.advancedDataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.advancedDataGridViewProducts.DateWithTime = false;
+            this.advancedDataGridViewProducts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advancedDataGridViewProducts.Location = new System.Drawing.Point(12, 0);
+            this.advancedDataGridViewProducts.MultiSelect = false;
+            this.advancedDataGridViewProducts.Name = "advancedDataGridViewProducts";
+            this.advancedDataGridViewProducts.RowHeadersVisible = false;
+            this.advancedDataGridViewProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.advancedDataGridViewProducts.Size = new System.Drawing.Size(914, 427);
+            this.advancedDataGridViewProducts.TabIndex = 5;
+            this.advancedDataGridViewProducts.TimeFilter = false;
+            this.advancedDataGridViewProducts.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
+            this.advancedDataGridViewProducts.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
             // 
-            // button2
+            // buttonCancel
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(632, 488);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 32);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Отмена";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancel.Location = new System.Drawing.Point(632, 488);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(94, 32);
+            this.buttonCancel.TabIndex = 6;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label2
+            // labelShownProducts
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(12, 494);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(175, 20);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Отображено товаров:";
+            this.labelShownProducts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelShownProducts.AutoSize = true;
+            this.labelShownProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelShownProducts.Location = new System.Drawing.Point(12, 494);
+            this.labelShownProducts.Name = "labelShownProducts";
+            this.labelShownProducts.Size = new System.Drawing.Size(175, 20);
+            this.labelShownProducts.TabIndex = 7;
+            this.labelShownProducts.Text = "Отображено товаров:";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelMain);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -120,7 +120,7 @@ namespace РасчетКУ
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.advancedDataGridView1);
+            this.panel2.Controls.Add(this.advancedDataGridViewProducts);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 52);
             this.panel2.Name = "panel2";
@@ -136,9 +136,9 @@ namespace РасчетКУ
             this.ClientSize = new System.Drawing.Size(938, 532);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.labelShownProducts);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonAddSelected);
             this.MinimumSize = new System.Drawing.Size(540, 260);
             this.Name = "SelectProductForm";
             this.ShowIcon = false;
@@ -147,7 +147,7 @@ namespace РасчетКУ
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectForm_FormClosing);
             this.Load += new System.EventHandler(this.SelectForm_Load);
             this.Resize += new System.EventHandler(this.SelectProductForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridViewProducts)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -157,11 +157,11 @@ namespace РасчетКУ
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private ADGV.AdvancedDataGridView advancedDataGridView1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelMain;
+        private System.Windows.Forms.Button buttonAddSelected;
+        private ADGV.AdvancedDataGridView advancedDataGridViewProducts;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelShownProducts;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;

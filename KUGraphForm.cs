@@ -33,13 +33,13 @@ namespace РасчетКУ
             SqlCon.Open();
 
             
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker2.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.CustomFormat = " ";
-            dateTimePicker2.CustomFormat = " ";
-           if (dateTimePicker1.Format != DateTimePickerFormat.Custom)
+            dateTimePickerFrom.Format = DateTimePickerFormat.Custom;
+            dateTimePickerTo.Format = DateTimePickerFormat.Custom;
+            dateTimePickerFrom.CustomFormat = " ";
+            dateTimePickerTo.CustomFormat = " ";
+           if (dateTimePickerFrom.Format != DateTimePickerFormat.Custom)
             {
-                dateTimePicker2.MinDate = DateTime.Today.AddDays(1);
+                dateTimePickerTo.MinDate = DateTime.Today.AddDays(1);
             }
             ShowGraph();
             doResize();
@@ -53,38 +53,38 @@ namespace РасчетКУ
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(graphs);
 
-            dataGridView1.Rows.Clear();
+            dataGridViewKUGraph.Rows.Clear();
             for (int i = 0; i < graphs.Rows.Count; i++)
             {
-                dataGridView1.Rows.Add();
-                dataGridView1.Rows[i].Cells["Graph_Id"].Value = graphs.Rows[i][0];
-                dataGridView1.Rows[i].Cells["KU_id"].Value = graphs.Rows[i][1];
+                dataGridViewKUGraph.Rows.Add();
+                dataGridViewKUGraph.Rows[i].Cells["Graph_Id"].Value = graphs.Rows[i][0];
+                dataGridViewKUGraph.Rows[i].Cells["KU_id"].Value = graphs.Rows[i][1];
                 command = new SqlCommand($"SELECT Vend_account FROM KU WHERE KU_id = {graphs.Rows[i][1]}", SqlCon);
-                dataGridView1.Rows[i].Cells["VendorAcc"].Value = command.ExecuteScalar();
+                dataGridViewKUGraph.Rows[i].Cells["VendorAcc"].Value = command.ExecuteScalar();
                 command = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = {graphs.Rows[i][1]}", SqlCon);
-                dataGridView1.Rows[i].Cells["ContractCode"].Value = command.ExecuteScalar();
-                dataGridView1.Rows[i].Cells["Vendor_id"].Value = graphs.Rows[i][2];
+                dataGridViewKUGraph.Rows[i].Cells["ContractCode"].Value = command.ExecuteScalar();
+                dataGridViewKUGraph.Rows[i].Cells["Vendor_id"].Value = graphs.Rows[i][2];
                 command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = {graphs.Rows[i][2]}", SqlCon);
-                dataGridView1.Rows[i].Cells["VendorNam"].Value = command.ExecuteScalar();
-                dataGridView1.Rows[i].Cells["Period"].Value = graphs.Rows[i][3];
-                dataGridView1.Rows[i].Cells["Date_from"].Value = Convert.ToDateTime(graphs.Rows[i][4]).ToShortDateString();
-                dataGridView1.Rows[i].Cells["Date_to"].Value = Convert.ToDateTime(graphs.Rows[i][5]).ToShortDateString();
-                dataGridView1.Rows[i].Cells["Date_calc"].Value = Convert.ToDateTime(graphs.Rows[i][6]).ToShortDateString();
-                dataGridView1.Rows[i].Cells["GraphStatus"].Value = graphs.Rows[i][7];
-                dataGridView1.Rows[i].Cells["GraphSumN"].Value = graphs.Rows[i][8];
-                dataGridView1.Rows[i].Cells["GraphSumP"].Value = graphs.Rows[i][9];
+                dataGridViewKUGraph.Rows[i].Cells["VendorNam"].Value = command.ExecuteScalar();
+                dataGridViewKUGraph.Rows[i].Cells["Period"].Value = graphs.Rows[i][3];
+                dataGridViewKUGraph.Rows[i].Cells["Date_from"].Value = Convert.ToDateTime(graphs.Rows[i][4]).ToShortDateString();
+                dataGridViewKUGraph.Rows[i].Cells["Date_to"].Value = Convert.ToDateTime(graphs.Rows[i][5]).ToShortDateString();
+                dataGridViewKUGraph.Rows[i].Cells["Date_calc"].Value = Convert.ToDateTime(graphs.Rows[i][6]).ToShortDateString();
+                dataGridViewKUGraph.Rows[i].Cells["GraphStatus"].Value = graphs.Rows[i][7];
+                dataGridViewKUGraph.Rows[i].Cells["GraphSumN"].Value = graphs.Rows[i][8];
+                dataGridViewKUGraph.Rows[i].Cells["GraphSumP"].Value = graphs.Rows[i][9];
                 if(graphs.Rows[i][10].ToString() != "")
-                    dataGridView1.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][10]) / 10;
-                dataGridView1.Rows[i].Cells["GraphSumS"].Value = graphs.Rows[i][11];
+                    dataGridViewKUGraph.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][10]) / 10;
+                dataGridViewKUGraph.Rows[i].Cells["GraphSumS"].Value = graphs.Rows[i][11];
             }
         }
 
         // Кнопка согласовать (статус)
         private void button3_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridView1.SelectedRows.Count; ++i)
+            for (int i = 0; i < dataGridViewKUGraph.SelectedRows.Count; ++i)
             {
-                SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Согласовано' WHERE Graph_id = {dataGridView1.SelectedRows[i].Cells["Graph_Id"].Value}", SqlCon);
+                SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Согласовано' WHERE Graph_id = {dataGridViewKUGraph.SelectedRows[i].Cells["Graph_Id"].Value}", SqlCon);
                 comm.ExecuteNonQuery();
             }
             ShowGraph();
@@ -96,11 +96,13 @@ namespace РасчетКУ
             if (!backgroundWorker1.IsBusy)
             {
                 byDate = false;
-                dgvSelectedRows = dataGridView1.SelectedRows;
-                progressBar1.Visible = true;
-                progressLabel.Visible = true;
+                dgvSelectedRows = dataGridViewKUGraph.SelectedRows;
+                progressBarForAsincBonus.Visible = true;
+                labelProgress.Visible = true;
                 backgroundWorker1.RunWorkerAsync();
             }
+            else
+                MessageBox.Show("Расчет ретро-бонуса уже запущен, ожидайте.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         //Расчёт БОНУСА с даты по дату
@@ -109,22 +111,24 @@ namespace РасчетКУ
             if (!backgroundWorker1.IsBusy)
             {
                 byDate = true;
-                progressBar1.Visible = true;
-                progressLabel.Visible = true;
+                progressBarForAsincBonus.Visible = true;
+                labelProgress.Visible = true;
                 backgroundWorker1.RunWorkerAsync();
             }
+            else
+                MessageBox.Show("Расчет ретро-бонуса уже запущен, ожидайте.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         // Изменение минимальной даты окончания, в зависимости от выбранной даты начала
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            dateTimePicker2.MinDate = dateTimePicker1.Value.AddDays(1);
-            dateTimePicker1.Format = DateTimePickerFormat.Long;
+            dateTimePickerTo.MinDate = dateTimePickerFrom.Value.AddDays(1);
+            dateTimePickerFrom.Format = DateTimePickerFormat.Long;
         }
         // Изменение значения 2 календаря
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-            dateTimePicker2.Format = DateTimePickerFormat.Long;
+            dateTimePickerTo.Format = DateTimePickerFormat.Long;
         }
 
         
@@ -177,19 +181,19 @@ namespace РасчетКУ
         private void WordDoc(string docname, string newdocpath)
         {
             SqlCommand cm = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
             VendorName = (string)cm.ExecuteScalar();
 
             SqlCommand cm1 = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocNum = Convert.ToString(cm1.ExecuteScalar());
 
             SqlCommand cm2 = new SqlCommand($"SELECT Docu_date FROM KU WHERE KU_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocDate = Convert.ToString(cm2.ExecuteScalar());
 
             SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
             EntitiesName = (string)cm3.ExecuteScalar();
 
 
@@ -197,16 +201,16 @@ namespace РасчетКУ
             WordHelper helper = new WordHelper(/*Environment.CurrentDirectory + */ newdocpath);
             var items = new Dictionary<string, string>
             {
-                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
+                {"<num>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value)},
                 {"<Doc.Num>", DocNum},
                 {"<Doc.Date>", DocDate},
-                {"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},
-                {"<GraphSumS>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumS"].Value)},
+                {"<GraphSumN>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumN"].Value)},
+                {"<GraphSumS>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumS"].Value)},
                 {"<Entities.Name>",EntitiesName},
                 {"<Vendors.Name>", VendorName},
-                {"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Percent"].Value)},
-                {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value)},
-                {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value)},
+                {"<KU_graph.Percent>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Percent"].Value)},
+                {"<KU_graph.Date_from>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_from"].Value)},
+                {"<KU_graph.Date_to>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_to"].Value)},
             };
 
             helper.Process(items);
@@ -221,24 +225,24 @@ namespace РасчетКУ
             ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
 
             SqlCommand cm = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
             VendorName = (string)cm.ExecuteScalar();
 
             SqlCommand cm1 = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocNum = Convert.ToString(cm1.ExecuteScalar());
 
             SqlCommand cm2 = new SqlCommand($"SELECT Docu_date FROM KU WHERE KU_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocDate = Convert.ToString(cm2.ExecuteScalar());
 
             SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
             EntitiesName = (string)cm3.ExecuteScalar();
 
             var items = new Dictionary<string, string>
             {
-                {"<num>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value)},
+                {"<num>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value)},
                 //{"<Doc.Num>", DocNum},
                 //{"<Doc.Date>", DocDate},
                 //{"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},
@@ -246,12 +250,12 @@ namespace РасчетКУ
                 {"<Entities.Name>", EntitiesName},
                 {"<Vendors.Name>", VendorName},
                 //{"<KU_graph.Percent>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Percent"].Value)},
-                {"<KU_graph.Date_from>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value)},
-                {"<KU_graph.Date_to>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value)},
+                {"<KU_graph.Date_from>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_from"].Value)},
+                {"<KU_graph.Date_to>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_to"].Value)},
             };
             //заполнение табличной части
             DataTable tb = new DataTable();
-            SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_list WHERE Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value} " +
+            SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_list WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} " +
                 $"ORDER BY Product_id DESC", SqlCon);
             SqlDataAdapter adapt1 = new SqlDataAdapter(command1);
             adapt1.Fill(tb);
@@ -272,7 +276,7 @@ namespace РасчетКУ
                     $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
                     $"{tb.Rows[i]["Product_id"]} )" +
                     $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
-                    $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Graph_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
+                    $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
                 SqlDataReader reader = command.ExecuteReader();
 
                 reader.Read();
@@ -424,16 +428,16 @@ namespace РасчетКУ
         // Изменение прогресса асинхронного расчета бонуса
         private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            progressBar1.Value = e.ProgressPercentage;
-            progressLabel.Text = e.ProgressPercentage + "%";
+            progressBarForAsincBonus.Value = e.ProgressPercentage;
+            labelProgress.Text = e.ProgressPercentage + "%";
         }
         // Завершение асинхронного расчета
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            progressBar1.Value = 0;
-            progressLabel.Text = "0%";
-            progressBar1.Visible = false;
-            progressLabel.Visible = false;
+            progressBarForAsincBonus.Value = 0;
+            labelProgress.Text = "0%";
+            progressBarForAsincBonus.Visible = false;
+            labelProgress.Visible = false;
             dgvSelectedRows = null;
             ShowGraph();
         }
@@ -463,7 +467,7 @@ namespace РасчетКУ
             // Расчет бонуса для каждой выделенной строки
             for (int i = 0; i < dgvSelectedRows.Count; ++i)
             {
-                Thread.Sleep(500);
+                //Thread.Sleep(500);
                 DataGridViewRow row = dgvSelectedRows[i];
 
                 // Изменение статуса на "В расчете"
@@ -489,17 +493,17 @@ namespace РасчетКУ
         // Метод расчета бонуса по датам
         private void bonusCalcByDates()
         {
-            for (int i = 0; i < dataGridView1.Rows.Count; ++i)
+            for (int i = 0; i < dataGridViewKUGraph.Rows.Count; ++i)
             {
-                DataGridViewRow row = dataGridView1.Rows[i];
+                DataGridViewRow row = dataGridViewKUGraph.Rows[i];
                 //проверка на соответствие временного периода
-                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker1.Value);
-                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePicker2.Value);
-                if (dateTimePicker1.Format == DateTimePickerFormat.Custom && dateTimePicker2.Format != DateTimePickerFormat.Custom)
+                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerFrom.Value);
+                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerTo.Value);
+                if (dateTimePickerFrom.Format == DateTimePickerFormat.Custom && dateTimePickerTo.Format != DateTimePickerFormat.Custom)
                 {
                     if (result1 <= 0)
                     {
-                        Thread.Sleep(1000);
+                        //Thread.Sleep(1000);
                         // Изменение статуса на "В расчете"
                         SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
                         command.ExecuteNonQuery();
@@ -522,7 +526,7 @@ namespace РасчетКУ
                 {
                     if (result >= 0 && result1 <= 0)
                     {
-                        Thread.Sleep(1000);
+                        //Thread.Sleep(1000);
                         // Изменение статуса на "В расчете"
                         SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
                         command.ExecuteNonQuery();
@@ -541,7 +545,7 @@ namespace РасчетКУ
                         command.ExecuteNonQuery();
                     }
                 }
-                backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dataGridView1.Rows.Count));
+                backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dataGridViewKUGraph.Rows.Count));
             }
         }
 
@@ -551,7 +555,7 @@ namespace РасчетКУ
             if (e.RowIndex < 0) // DoubleClick по заголовку
                 return;
 
-            Int64 VendorId, KU_id = Convert.ToInt64(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["KU_id"].Value);
+            Int64 VendorId, KU_id = Convert.ToInt64(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value);
             SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM KU WHERE KU_id = {KU_id}", SqlCon);
             VendorId = Convert.ToInt64(command.ExecuteScalar());
 
@@ -570,7 +574,7 @@ namespace РасчетКУ
         // Изменение размеров панели с гридой
         private void doResize()
         {
-            panel1.Height = button1.Location.Y - menuStrip1.Height;
+            panel1.Height = buttonCalcBonus.Location.Y - menuStrip1.Height;
         }
 
         // Закрытие соединения с БД

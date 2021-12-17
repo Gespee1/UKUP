@@ -33,14 +33,14 @@ namespace РасчетКУ
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
-            this.vend_button = new System.Windows.Forms.Button();
+            this.labelMain = new System.Windows.Forms.Label();
+            this.advancedDataGridView = new ADGV.AdvancedDataGridView();
+            this.buttonVendors = new System.Windows.Forms.Button();
             this.service_button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -79,49 +79,49 @@ namespace РасчетКУ
             this.графикКУToolStripMenuItem.Text = "График КУ";
             this.графикКУToolStripMenuItem.Click += new System.EventHandler(this.графикКУToolStripMenuItem_Click);
             // 
-            // label1
+            // labelMain
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Book Antiqua", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(305, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 26);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Справочники";
+            this.labelMain.AutoSize = true;
+            this.labelMain.Font = new System.Drawing.Font("Book Antiqua", 15.75F, System.Drawing.FontStyle.Bold);
+            this.labelMain.Location = new System.Drawing.Point(305, 12);
+            this.labelMain.Name = "labelMain";
+            this.labelMain.Size = new System.Drawing.Size(157, 26);
+            this.labelMain.TabIndex = 11;
+            this.labelMain.Text = "Справочники";
             // 
-            // advancedDataGridView1
+            // advancedDataGridView
             // 
-            this.advancedDataGridView1.AllowUserToAddRows = false;
-            this.advancedDataGridView1.AllowUserToDeleteRows = false;
-            this.advancedDataGridView1.AllowUserToResizeRows = false;
-            this.advancedDataGridView1.AutoGenerateContextFilters = true;
-            this.advancedDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.advancedDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.advancedDataGridView1.DateWithTime = false;
-            this.advancedDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advancedDataGridView1.Location = new System.Drawing.Point(12, 0);
-            this.advancedDataGridView1.MultiSelect = false;
-            this.advancedDataGridView1.Name = "advancedDataGridView1";
-            this.advancedDataGridView1.ReadOnly = true;
-            this.advancedDataGridView1.RowHeadersVisible = false;
-            this.advancedDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.advancedDataGridView1.Size = new System.Drawing.Size(736, 296);
-            this.advancedDataGridView1.TabIndex = 13;
-            this.advancedDataGridView1.Tag = "";
-            this.advancedDataGridView1.TimeFilter = false;
-            this.advancedDataGridView1.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
-            this.advancedDataGridView1.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
+            this.advancedDataGridView.AllowUserToAddRows = false;
+            this.advancedDataGridView.AllowUserToDeleteRows = false;
+            this.advancedDataGridView.AllowUserToResizeRows = false;
+            this.advancedDataGridView.AutoGenerateContextFilters = true;
+            this.advancedDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.advancedDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.advancedDataGridView.DateWithTime = false;
+            this.advancedDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advancedDataGridView.Location = new System.Drawing.Point(12, 0);
+            this.advancedDataGridView.MultiSelect = false;
+            this.advancedDataGridView.Name = "advancedDataGridView";
+            this.advancedDataGridView.ReadOnly = true;
+            this.advancedDataGridView.RowHeadersVisible = false;
+            this.advancedDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.advancedDataGridView.Size = new System.Drawing.Size(736, 296);
+            this.advancedDataGridView.TabIndex = 13;
+            this.advancedDataGridView.Tag = "";
+            this.advancedDataGridView.TimeFilter = false;
+            this.advancedDataGridView.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
+            this.advancedDataGridView.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
             // 
-            // vend_button
+            // buttonVendors
             // 
-            this.vend_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.vend_button.Location = new System.Drawing.Point(12, 72);
-            this.vend_button.Name = "vend_button";
-            this.vend_button.Size = new System.Drawing.Size(113, 27);
-            this.vend_button.TabIndex = 19;
-            this.vend_button.Text = "Поставщики";
-            this.vend_button.UseVisualStyleBackColor = true;
-            this.vend_button.Click += new System.EventHandler(this.vend_button_Click);
+            this.buttonVendors.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonVendors.Location = new System.Drawing.Point(12, 72);
+            this.buttonVendors.Name = "buttonVendors";
+            this.buttonVendors.Size = new System.Drawing.Size(113, 27);
+            this.buttonVendors.TabIndex = 19;
+            this.buttonVendors.Text = "Поставщики";
+            this.buttonVendors.UseVisualStyleBackColor = true;
+            this.buttonVendors.Click += new System.EventHandler(this.vend_button_Click);
             // 
             // service_button
             // 
@@ -136,7 +136,7 @@ namespace РасчетКУ
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.advancedDataGridView1);
+            this.panel2.Controls.Add(this.advancedDataGridView);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 142);
             this.panel2.Name = "panel2";
@@ -146,9 +146,9 @@ namespace РасчетКУ
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.vend_button);
+            this.panel1.Controls.Add(this.buttonVendors);
             this.panel1.Controls.Add(this.service_button);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.labelMain);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Name = "panel1";
@@ -176,7 +176,7 @@ namespace РасчетКУ
             this.Resize += new System.EventHandler(this.ListForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -190,9 +190,9 @@ namespace РасчетКУ
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem графикКУToolStripMenuItem;
-        private System.Windows.Forms.Label label1;
-        private ADGV.AdvancedDataGridView advancedDataGridView1;
-        private System.Windows.Forms.Button vend_button;
+        private System.Windows.Forms.Label labelMain;
+        private ADGV.AdvancedDataGridView advancedDataGridView;
+        private System.Windows.Forms.Button buttonVendors;
         private System.Windows.Forms.Button service_button;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;

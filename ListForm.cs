@@ -43,7 +43,7 @@ namespace РасчетКУ
             SqlDataAdapter adapt = new SqlDataAdapter();
             adapt.SelectCommand = command;
             adapt.Fill(dt);
-            advancedDataGridView1.DataSource = dt;
+            advancedDataGridView.DataSource = dt;
         }
 
         // Вывод списка оказываемых услуг
@@ -57,13 +57,13 @@ namespace РасчетКУ
         //Фильтр поставщиков
         private void advancedDataGridView1_FilterStringChanged(object sender, EventArgs e)
         {
-            (advancedDataGridView1.DataSource as DataTable).DefaultView.RowFilter = advancedDataGridView1.FilterString;
+            (advancedDataGridView.DataSource as DataTable).DefaultView.RowFilter = advancedDataGridView.FilterString;
         }
 
         // Сортировка поставщиков
         private void advancedDataGridView1_SortStringChanged(object sender, EventArgs e)
         {
-            (advancedDataGridView1.DataSource as DataTable).DefaultView.Sort = advancedDataGridView1.SortString;
+            (advancedDataGridView.DataSource as DataTable).DefaultView.Sort = advancedDataGridView.SortString;
         }
 
 
@@ -100,7 +100,7 @@ namespace РасчетКУ
         // Изменение размера формы
         private void doResize()
         {
-            label1.Location = new System.Drawing.Point(Convert.ToInt32((panel1.Width - label1.Width) / 2), label1.Location.Y);
+            labelMain.Location = new System.Drawing.Point(Convert.ToInt32((panel1.Width - labelMain.Width) / 2), labelMain.Location.Y);
 
             panel2.Height = ClientSize.Height - (panel1.Location.Y + panel1.Height);
         }

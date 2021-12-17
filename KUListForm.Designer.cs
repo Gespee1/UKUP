@@ -31,10 +31,10 @@ namespace РасчетКУ
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonChange = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.labelMain = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поставщикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,59 +43,59 @@ namespace РасчетКУ
             this.создатьГрафикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьГрафикДляВсехToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьГрафикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
+            this.advancedDataGridViewKUList = new ADGV.AdvancedDataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridViewKUList)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // buttonAdd
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(35, 94);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 29);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Добавить";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAdd.Location = new System.Drawing.Point(35, 94);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(95, 29);
+            this.buttonAdd.TabIndex = 1;
+            this.buttonAdd.Text = "Добавить";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // buttonChange
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(35, 164);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(95, 29);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Изменить";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonChange.Location = new System.Drawing.Point(35, 164);
+            this.buttonChange.Name = "buttonChange";
+            this.buttonChange.Size = new System.Drawing.Size(95, 29);
+            this.buttonChange.TabIndex = 2;
+            this.buttonChange.Text = "Изменить";
+            this.buttonChange.UseVisualStyleBackColor = true;
+            this.buttonChange.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // buttonDelete
             // 
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(36, 234);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(95, 29);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Удалить";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonDelete.Location = new System.Drawing.Point(36, 234);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(95, 29);
+            this.buttonDelete.TabIndex = 3;
+            this.buttonDelete.Text = "Удалить";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.button3_Click);
             // 
-            // label1
+            // labelMain
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Book Antiqua", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(356, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(313, 26);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Список КУ для поставщиков";
+            this.labelMain.AutoSize = true;
+            this.labelMain.Font = new System.Drawing.Font("Book Antiqua", 15.75F, System.Drawing.FontStyle.Bold);
+            this.labelMain.Location = new System.Drawing.Point(356, 35);
+            this.labelMain.Name = "labelMain";
+            this.labelMain.Size = new System.Drawing.Size(313, 26);
+            this.labelMain.TabIndex = 4;
+            this.labelMain.Text = "Список КУ для поставщиков";
             // 
             // menuStrip1
             // 
@@ -163,13 +163,13 @@ namespace РасчетКУ
             this.показатьГрафикToolStripMenuItem.Text = "Показать график";
             this.показатьГрафикToolStripMenuItem.Click += new System.EventHandler(this.показатьГрафикToolStripMenuItem_Click);
             // 
-            // advancedDataGridView1
+            // advancedDataGridViewKUList
             // 
-            this.advancedDataGridView1.AllowUserToAddRows = false;
-            this.advancedDataGridView1.AllowUserToDeleteRows = false;
-            this.advancedDataGridView1.AllowUserToResizeRows = false;
-            this.advancedDataGridView1.AutoGenerateContextFilters = true;
-            this.advancedDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.advancedDataGridViewKUList.AllowUserToAddRows = false;
+            this.advancedDataGridViewKUList.AllowUserToDeleteRows = false;
+            this.advancedDataGridViewKUList.AllowUserToResizeRows = false;
+            this.advancedDataGridViewKUList.AutoGenerateContextFilters = true;
+            this.advancedDataGridViewKUList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -177,9 +177,9 @@ namespace РасчетКУ
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.advancedDataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.advancedDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.advancedDataGridView1.DateWithTime = false;
+            this.advancedDataGridViewKUList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.advancedDataGridViewKUList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.advancedDataGridViewKUList.DateWithTime = false;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -187,24 +187,24 @@ namespace РасчетКУ
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.advancedDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.advancedDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advancedDataGridView1.Location = new System.Drawing.Point(12, 94);
-            this.advancedDataGridView1.MultiSelect = false;
-            this.advancedDataGridView1.Name = "advancedDataGridView1";
-            this.advancedDataGridView1.ReadOnly = true;
-            this.advancedDataGridView1.RowHeadersVisible = false;
-            this.advancedDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.advancedDataGridView1.Size = new System.Drawing.Size(1000, 390);
-            this.advancedDataGridView1.TabIndex = 12;
-            this.advancedDataGridView1.TimeFilter = false;
-            this.advancedDataGridView1.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
-            this.advancedDataGridView1.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
-            this.advancedDataGridView1.DoubleClick += new System.EventHandler(this.advancedDataGridView1_DoubleClick);
+            this.advancedDataGridViewKUList.DefaultCellStyle = dataGridViewCellStyle2;
+            this.advancedDataGridViewKUList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advancedDataGridViewKUList.Location = new System.Drawing.Point(12, 94);
+            this.advancedDataGridViewKUList.MultiSelect = false;
+            this.advancedDataGridViewKUList.Name = "advancedDataGridViewKUList";
+            this.advancedDataGridViewKUList.ReadOnly = true;
+            this.advancedDataGridViewKUList.RowHeadersVisible = false;
+            this.advancedDataGridViewKUList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.advancedDataGridViewKUList.Size = new System.Drawing.Size(1000, 390);
+            this.advancedDataGridViewKUList.TabIndex = 12;
+            this.advancedDataGridViewKUList.TimeFilter = false;
+            this.advancedDataGridViewKUList.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
+            this.advancedDataGridViewKUList.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
+            this.advancedDataGridViewKUList.DoubleClick += new System.EventHandler(this.advancedDataGridView1_DoubleClick);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.advancedDataGridView1);
+            this.panel1.Controls.Add(this.advancedDataGridViewKUList);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 29);
@@ -215,7 +215,7 @@ namespace РасчетКУ
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.label1);
+            this.panel4.Controls.Add(this.labelMain);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(12, 0);
             this.panel4.Name = "panel4";
@@ -224,9 +224,9 @@ namespace РасчетКУ
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.buttonAdd);
+            this.panel2.Controls.Add(this.buttonChange);
+            this.panel2.Controls.Add(this.buttonDelete);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(1012, 29);
             this.panel2.Name = "panel2";
@@ -254,7 +254,7 @@ namespace РасчетКУ
             this.Resize += new System.EventHandler(this.KUListForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridViewKUList)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -265,10 +265,10 @@ namespace РасчетКУ
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.Button buttonChange;
+        private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Label labelMain;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem действияToolStripMenuItem;
@@ -277,7 +277,7 @@ namespace РасчетКУ
         private System.Windows.Forms.ToolStripMenuItem создатьГрафикToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьГрафикДляВсехToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьГрафикToolStripMenuItem;
-        private ADGV.AdvancedDataGridView advancedDataGridView1;
+        private ADGV.AdvancedDataGridView advancedDataGridViewKUList;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel4;

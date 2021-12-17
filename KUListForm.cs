@@ -10,8 +10,8 @@ namespace РасчетКУ
     public partial class KUListForm : Form
     {
         private SqlConnection _sqlConnection;
-        private List<Int64> ProdIds = new List<Int64>();
-        private List<string> CategoryID = new List<string>();
+        //private List<Int64> ProdIds = new List<Int64>();
+        //private List<string> CategoryID = new List<string>();
         public KUListForm()
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace РасчетКУ
         // Изменение выбранного КУ
         private void button2_Click(object sender, EventArgs e)
         {
-            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["KU_id"].Value), Convert.ToInt64(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value));
+            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value), Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Vendor_id"].Value));
             FormInputKu.ShowDialog();
 
             if(FormInputKu.DialogResult == DialogResult.OK)
@@ -51,8 +51,8 @@ namespace РасчетКУ
         //Изменение выбранного КУ (двойное нажатие)
         private void advancedDataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["KU_id"].Value), 
-                Convert.ToInt64(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value));
+            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value), 
+                Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Vendor_id"].Value));
             FormInputKu.ShowDialog();
 
             if (FormInputKu.DialogResult == DialogResult.OK)
@@ -63,7 +63,7 @@ namespace РасчетКУ
         private void button3_Click(object sender, EventArgs e)
         {
             DialogResult result;
-            DataGridViewRow row = advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index];
+            DataGridViewRow row = advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index];
 
             result = MessageBox.Show("Вы уверены, что хотите удалить информацию о коммерческих условиях с поставщиком " + row.Cells["Name"].Value.ToString() + " ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No)
@@ -87,14 +87,14 @@ namespace РасчетКУ
         //Фильтр товаров
         private void advancedDataGridView1_FilterStringChanged(object sender, EventArgs e)
         {
-            (advancedDataGridView1.DataSource as DataTable).DefaultView.RowFilter = advancedDataGridView1.FilterString;
+            (advancedDataGridViewKUList.DataSource as DataTable).DefaultView.RowFilter = advancedDataGridViewKUList.FilterString;
 
         }
 
         // Сортировка товаров
         private void advancedDataGridView1_SortStringChanged(object sender, EventArgs e)
         {
-            (advancedDataGridView1.DataSource as DataTable).DefaultView.Sort = advancedDataGridView1.SortString;
+            (advancedDataGridViewKUList.DataSource as DataTable).DefaultView.Sort = advancedDataGridViewKUList.SortString;
 
         }
             
@@ -116,8 +116,8 @@ namespace РасчетКУ
             //{
                 //dt.Rows[i][3] = Convert.ToDouble(dt.Rows[i][3]) / 10;
             //}
-            advancedDataGridView1.DataSource = dt;
-            advancedDataGridView1.Columns["Vendor_id"].Visible = false;
+            advancedDataGridViewKUList.DataSource = dt;
+            advancedDataGridViewKUList.Columns["Vendor_id"].Visible = false;
         }
           
              
@@ -153,15 +153,15 @@ namespace РасчетКУ
         private void создатьГрафикToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Проверка статуса выбранного КУ
-            if(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["Status"].Value.ToString() != "Утверждено")
+            if(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Status"].Value.ToString() != "Утверждено")
             {
                 MessageBox.Show("КУ должно быть утверждено, чтобы создать по нему график!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             Actions actions = new Actions();
-            if(actions.addGraphToCurrentKU(Convert.ToInt64(advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["KU_id"].Value)) == true)
-                MessageBox.Show($"Для КУ с номером: {advancedDataGridView1.Rows[advancedDataGridView1.CurrentRow.Index].Cells["KU_id"].Value} успешно создан график.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if(actions.addGraphToCurrentKU(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value)) == true)
+                MessageBox.Show($"Для КУ с номером: {advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value} успешно создан график.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Кнопка меню для создания графика по всем КУ
@@ -198,7 +198,7 @@ namespace РасчетКУ
         {
             panel1.Size = new System.Drawing.Size(Size.Width - 170, Size.Height);
 
-            label1.Location = new System.Drawing.Point(Convert.ToInt32((panel4.Width - label1.Width) / 2), label1.Location.Y) ;
+            labelMain.Location = new System.Drawing.Point(Convert.ToInt32((panel4.Width - labelMain.Width) / 2), labelMain.Location.Y) ;
         }
                 
     }

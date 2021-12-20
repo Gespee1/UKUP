@@ -17,7 +17,7 @@ namespace РасчетКУ
         private List<string> CategoryID = new List<string>();
         private DataTable BrandProd = new DataTable();
         private Stopwatch _timer = new Stopwatch();
-        private delegate void _del(string item);
+        private delegate void _del(string item); // Делегат для обращения к объектам одного потока из другого потока
 
         public InputKUForm()
         {
@@ -652,7 +652,7 @@ namespace РасчетКУ
         private void addLine(string type)
         {
             
-            Int64 KU_id = _KU_id;
+            //Int64 KU_id = _KU_id;
             Int16 tabPageId = Convert.ToInt16(tabControlInEx.SelectedIndex);
             SqlCommand command;
             switch (type)
@@ -787,15 +787,19 @@ namespace РасчетКУ
                             //производитель и марка
                             if (!((dataGridViewIncluded.Rows[i].Cells["ProducerP"] as DataGridViewComboBoxCell).Value is null))
                             {
-                                command = new SqlCommand($"UPDATE Included_products SET Producer = '{dataGridViewIncluded.Rows[i].Cells["ProducerP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'", _sqlConnection);
+                                command = new SqlCommand($"UPDATE Included_products SET BrandProdID = " +
+                                    $"'{findBrandProdId(dataGridViewIncluded.Rows[i].Cells["ProducerP"].Value.ToString(), 1)}' WHERE KU_id = '{_KU_id}' AND Type = " +
+                                    $"'{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
 
-                            if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
+                            /*if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
                             {
-                                command = new SqlCommand($"UPDATE Included_products SET Brand_name = '{dataGridViewIncluded.Rows[i].Cells["BrandP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'", _sqlConnection);
+                                command = new SqlCommand($"UPDATE Included_products SET Brand_name = " +
+                                    $"'{dataGridViewIncluded.Rows[i].Cells["BrandP"].Value}' WHERE KU_id = '{_KU_id}' AND Type = " +
+                                    $"'{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'", _sqlConnection);
                                 command.ExecuteNonQuery();
-                            }
+                            }*/
                                 break;
 
                         case "Категория":
@@ -807,17 +811,19 @@ namespace РасчетКУ
                             //производитель и марка
                             if (!((dataGridViewIncluded.Rows[i].Cells["ProducerP"] as DataGridViewComboBoxCell).Value is null))
                             {
-                                command = new SqlCommand($"UPDATE Included_products SET Producer = '{dataGridViewIncluded.Rows[i].Cells["ProducerP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'" +
-                                    $" AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
+                                command = new SqlCommand($"UPDATE Included_products SET BrandProdID = " +
+                                    $"'{findBrandProdId(dataGridViewIncluded.Rows[i].Cells["ProducerP"].Value.ToString(), 1)}' WHERE KU_id = '{_KU_id}' AND Type = " +
+                                    $"'{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}' AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' " +
+                                    $"AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
 
-                            if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
+                            /*if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
                             {
                                 command = new SqlCommand($"UPDATE Included_products SET Brand_name = '{dataGridViewIncluded.Rows[i].Cells["BrandP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}' " +
                                     $" AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
                                 command.ExecuteNonQuery();
-                            }
+                            }*/
                                 break;
 
                         case "Товары":
@@ -829,17 +835,19 @@ namespace РасчетКУ
                             //производитель и марка
                              if (!((dataGridViewIncluded.Rows[i].Cells["ProducerP"] as DataGridViewComboBoxCell).Value is null))
                              {
-                            command = new SqlCommand($"UPDATE Included_products SET Producer = '{dataGridViewIncluded.Rows[i].Cells["ProducerP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'" +
-                                $" AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
-                            command.ExecuteNonQuery();
+                                command = new SqlCommand($"UPDATE Included_products SET BrandProdID = " +
+                                    $"'{findBrandProdId(dataGridViewIncluded.Rows[i].Cells["ProducerP"].Value.ToString(), 1)}' WHERE KU_id = '{_KU_id}' AND Type = " +
+                                    $"'{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}' AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' " +
+                                    $"AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
+                                command.ExecuteNonQuery();
                              }
 
-                             if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
+                             /*if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
                              {
                             command = new SqlCommand($"UPDATE Included_products SET Brand_name = '{dataGridViewIncluded.Rows[i].Cells["BrandP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}' " +
                                 $" AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
                             command.ExecuteNonQuery();
-                             }
+                             }*/
                                 break;
 
                  }
@@ -920,7 +928,52 @@ namespace РасчетКУ
             
         }
 
-    
+
+        // Поиск ID пары производитель-торговая марка
+        private long findBrandProdId(string brandProdValue, int brandOrProd = 0) // brandOrProd = 0 - поиск по бренду, ...= 1 - поиск по производителю
+        {
+            for (int i = 0; i < BrandProd.Rows.Count; i++)
+            {
+                if (brandOrProd == 0 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
+                    return Convert.ToInt64(BrandProd.Rows[i]["ID"]);
+                else if (BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
+                    return Convert.ToInt64(BrandProd.Rows[i]["ID"]);
+            }
+            return 0;
+        }
+
+        // Поиск произв. или торг. марки по паре
+        private string findBrandProdByThemselfs(string brandProdValue, int brandOrProd = 0) // brandOrProd = 0 - поиск по бренду, ...= 1 - поиск по производителю
+        {
+            for (int i = 0; i < BrandProd.Rows.Count; i++)
+            {
+                if (brandOrProd == 0 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
+                    return BrandProd.Rows[i]["Producer"].ToString();
+                else if (BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
+                    return BrandProd.Rows[i]["Brand"].ToString();
+            }
+            return "";
+        }
+
+
+        // Изменение значения ячеек производителя и торг. марки
+        private void dataGridViewInEx_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = tabControlInEx.SelectedIndex == 0 ? dataGridViewIncluded : dataGridViewExcluded;
+            string producer = tabControlInEx.SelectedIndex == 0 ? "ProducerP" : "ProducerM";
+            string brand = tabControlInEx.SelectedIndex == 0 ? "BrandP" : "BrandM";
+
+            if (dgv.CurrentCell.OwningColumn.Name == producer || dgv.CurrentCell.OwningColumn.Name == brand) // Если произошло изменение в целевых столбцах
+            {
+                if (dgv.CurrentCell.OwningColumn.Name == producer)
+                    dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.Columns[brand].Index].Value = findBrandProdByThemselfs($"{dgv.CurrentCell.Value}");
+                else
+                    dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.Columns[producer].Index].Value = findBrandProdByThemselfs($"{dgv.CurrentCell.Value}", 1);
+            }
+        }
+        
+
+
         // Удаление данных из комбобоксов в таблицах
         private void InputKUForm_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -953,7 +1006,10 @@ namespace РасчетКУ
         //Удаление строки
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridViewTerms.Rows.RemoveAt(dataGridViewTerms.CurrentRow.Index);
+            if (dataGridViewTerms.RowCount > 0)
+                dataGridViewTerms.Rows.RemoveAt(dataGridViewTerms.CurrentRow.Index);
+            else
+                MessageBox.Show("Отсутствуют строки для удаления!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
 
@@ -992,6 +1048,8 @@ namespace РасчетКУ
         }
 
         
+
+
         // Настройки адаптивного UI формы
         private void doResize()
         {

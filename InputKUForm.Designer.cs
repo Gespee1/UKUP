@@ -87,6 +87,8 @@ namespace РасчетКУ
             this.labelContract = new System.Windows.Forms.Label();
             this.textBoxContract = new System.Windows.Forms.TextBox();
             this.groupBoxDescription = new System.Windows.Forms.GroupBox();
+            this.labelKUCode = new System.Windows.Forms.Label();
+            this.textBoxKUCode = new System.Windows.Forms.TextBox();
             this.richTextBoxDescription = new System.Windows.Forms.RichTextBox();
             this.textBoxProductType = new System.Windows.Forms.TextBox();
             this.labelProductType = new System.Windows.Forms.Label();
@@ -124,8 +126,6 @@ namespace РасчетКУ
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.textBoxKUCode = new System.Windows.Forms.TextBox();
-            this.labelKUCode = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControlInEx.SuspendLayout();
             this.tabPageToInclude.SuspendLayout();
@@ -399,6 +399,7 @@ namespace РасчетКУ
             this.dataGridViewIncluded.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewIncluded.Size = new System.Drawing.Size(964, 183);
             this.dataGridViewIncluded.TabIndex = 0;
+            this.dataGridViewIncluded.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInEx_CellEndEdit);
             // 
             // In_prod_id
             // 
@@ -483,6 +484,7 @@ namespace РасчетКУ
             this.dataGridViewExcluded.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewExcluded.Size = new System.Drawing.Size(964, 183);
             this.dataGridViewExcluded.TabIndex = 0;
+            this.dataGridViewExcluded.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInEx_CellEndEdit);
             // 
             // Ex_prod_id
             // 
@@ -749,6 +751,25 @@ namespace РасчетКУ
             this.groupBoxDescription.TabIndex = 43;
             this.groupBoxDescription.TabStop = false;
             this.groupBoxDescription.Text = "Описание";
+            // 
+            // labelKUCode
+            // 
+            this.labelKUCode.AutoSize = true;
+            this.labelKUCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelKUCode.Location = new System.Drawing.Point(6, 28);
+            this.labelKUCode.Name = "labelKUCode";
+            this.labelKUCode.Size = new System.Drawing.Size(64, 18);
+            this.labelKUCode.TabIndex = 49;
+            this.labelKUCode.Text = "Код КУ:";
+            // 
+            // textBoxKUCode
+            // 
+            this.textBoxKUCode.Enabled = false;
+            this.textBoxKUCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxKUCode.Location = new System.Drawing.Point(6, 49);
+            this.textBoxKUCode.Name = "textBoxKUCode";
+            this.textBoxKUCode.Size = new System.Drawing.Size(180, 24);
+            this.textBoxKUCode.TabIndex = 48;
             // 
             // richTextBoxDescription
             // 
@@ -1136,25 +1157,6 @@ namespace РасчетКУ
             this.panel4.Padding = new System.Windows.Forms.Padding(12, 0, 12, 12);
             this.panel4.Size = new System.Drawing.Size(1294, 51);
             this.panel4.TabIndex = 50;
-            // 
-            // textBoxKUCode
-            // 
-            this.textBoxKUCode.Enabled = false;
-            this.textBoxKUCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxKUCode.Location = new System.Drawing.Point(6, 49);
-            this.textBoxKUCode.Name = "textBoxKUCode";
-            this.textBoxKUCode.Size = new System.Drawing.Size(180, 24);
-            this.textBoxKUCode.TabIndex = 48;
-            // 
-            // labelKUCode
-            // 
-            this.labelKUCode.AutoSize = true;
-            this.labelKUCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelKUCode.Location = new System.Drawing.Point(6, 28);
-            this.labelKUCode.Name = "labelKUCode";
-            this.labelKUCode.Size = new System.Drawing.Size(64, 18);
-            this.labelKUCode.TabIndex = 49;
-            this.labelKUCode.Text = "Код КУ:";
             // 
             // InputKUForm
             // 

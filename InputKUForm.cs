@@ -55,12 +55,11 @@ namespace РасчетКУ
                     comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.Items.Add(s)), reader[0]);
             }
             reader.Close();
-            
-            showProducerBrand();
         }
         // Поток 1. Отображение данных о КУ
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
+            loadProducerBrand();
             if (_showKU)
                 showSelectedKU();
         }
@@ -86,7 +85,7 @@ namespace РасчетКУ
             {
                 dateTimePickerDateTo.MinDate = DateTime.Today.AddDays(1);
             }
-            
+
             doResize();
         }
 
@@ -154,7 +153,7 @@ namespace РасчетКУ
                 dataGridViewIncluded.ReadOnly = true;
                 dataGridViewExcluded.ReadOnly = true;
             }
-            
+
             showExInProducts(_KU_id);
             showTerms(_KU_id);
         }
@@ -443,7 +442,7 @@ namespace РасчетКУ
         }
 
         //Включение производителя и марки в combobox в таблицах искл и вкл товаров
-        private void showProducerBrand()
+        private void loadProducerBrand()
         {
             DataGridViewComboBoxColumn combo1 = dataGridViewIncluded.Columns["ProducerP"] as DataGridViewComboBoxColumn;
             DataGridViewComboBoxColumn combo2 = dataGridViewIncluded.Columns["BrandP"] as DataGridViewComboBoxColumn;
@@ -454,8 +453,9 @@ namespace РасчетКУ
             combo3.Items.Clear();
             combo4.Items.Clear();
 
-            SqlCommand command = new SqlCommand("SELECT DISTINCT ID, Producer, Brand FROM BrandProducer ORDER BY Producer", _sqlConnection);
-            SqlDataAdapter adapt = new SqlDataAdapter(command);
+            SqlCommand comm = new SqlCommand("SELECT DISTINCT ID, Producer, Brand FROM BrandProducer ORDER BY Producer", _sqlConnection);
+            SqlDataAdapter adapt = new SqlDataAdapter(comm);
+            
             adapt.Fill(BrandProd);
             
             for (int i = 0; i < BrandProd.Rows.Count; i++)
@@ -468,67 +468,59 @@ namespace РасчетКУ
         }
 
         // Отображение добавленных и исключенных из расчета продуктов
-        private void showExInProducts(Int64 KUId)
+        private void showExInProducts(Int64 KUId) // was: 470-532, mow: 470-524
         {
-            dataGridViewIncluded.Rows.Clear();
-            dataGridViewExcluded.Rows.Clear();
-            SqlCommand command = new SqlCommand($"SELECT * FROM Included_products WHERE KU_id = {KUId}", _sqlConnection);
+            int idx = 0;
+            DataGridView dgv;
+            SqlCommand command;
+            SqlDataReader reader;
 
-            SqlDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            while (idx < 2)
             {
-                dataGridViewIncluded.Rows.Add();
-                dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[0].Value = reader[0];
-                dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[1].Value = reader[1];
-                dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[2].Value = reader[2];
-                dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[3].Value = reader[3];
-                dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[4].Value = reader[4];
-                if (reader[5].ToString() != "")
+                if(idx == 0)
                 {
-                    for (int i = 0; i < BrandProd.Rows.Count; i++)
+                    dgv = dataGridViewIncluded;
+                    command = new SqlCommand($"SELECT * FROM Included_products WHERE KU_id = {KUId}", _sqlConnection);
+                }
+                else
+                {
+                    dgv = dataGridViewExcluded;
+                    command = new SqlCommand($"SELECT * FROM Excluded_products WHERE KU_id = {KUId}", _sqlConnection);
+                }
+                dgv.Rows.Clear();
+
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    dgv.Rows.Add();
+                    dgv.Rows[dgv.RowCount - 1].Cells[0].Value = reader[0];
+                    dgv.Rows[dgv.RowCount - 1].Cells[1].Value = reader[1];
+                    dgv.Rows[dgv.RowCount - 1].Cells[2].Value = reader[2];
+                    dgv.Rows[dgv.RowCount - 1].Cells[3].Value = reader[3];
+                    dgv.Rows[dgv.RowCount - 1].Cells[4].Value = reader[4];
+                    if (reader[5].ToString() != "")
                     {
-                        if ((Int64)reader[5] == (Int64)BrandProd.Rows[i][0])
+                        for (int i = 0; i < BrandProd.Rows.Count; i++)
                         {
-                            (dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][1].ToString();
-                            (dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][2].ToString();
-                            break;
+                            if ((Int64)reader[5] == (Int64)BrandProd.Rows[i][0])
+                            {
+                                (dgv.Rows[dgv.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][1].ToString();
+                                (dgv.Rows[dgv.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = BrandProd.Rows[i][2].ToString();
+                                break;
+                            }
                         }
                     }
-                }
-                
-                // Запрет выбора произв и торг марки для товаров
-                if (dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[2].Value.ToString() == "Товары")
-                {
-                    dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[5].ReadOnly = true;
-                    dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells[6].ReadOnly = true;
-                }
-            }
-            reader.Close();
-            
-            command = new SqlCommand($"SELECT Ex_prod_id, KU_id, Type, Attribute_1, Attribute_2, Producer, Brand FROM Excluded_products LEFT JOIN " +
-                $"BrandProducer ON BrandProducer.ID = Excluded_products.BrandProdID WHERE Excluded_products.KU_id = {KUId}", _sqlConnection);
-            reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                dataGridViewExcluded.Rows.Add();
-                dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[0].Value = reader[0];
-                dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[1].Value = reader[1];
-                dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[2].Value = reader[2];
-                dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[3].Value = reader[3];
-                dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[4].Value = reader[4];
-                if (reader[5].ToString() != "")
-                    (dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[5] as DataGridViewComboBoxCell).Value = reader[5].ToString();
-                if (reader[6].ToString() != "")
-                    (dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[6] as DataGridViewComboBoxCell).Value = reader[6].ToString();
 
-                // Запрет выбора произв и торг марки для товаров
-                if (dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[2].Value.ToString() == "Товары")
-                {
-                    dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[5].ReadOnly = true;
-                    dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells[6].ReadOnly = true;
+                    // Запрет выбора произв и торг марки для товаров
+                    if (dgv.Rows[dgv.RowCount - 1].Cells[2].Value.ToString() == "Товары")
+                    {
+                        dgv.Rows[dgv.RowCount - 1].Cells[5].ReadOnly = true;
+                        dgv.Rows[dgv.RowCount - 1].Cells[6].ReadOnly = true;
+                    }
                 }
+                reader.Close();
+                idx++;
             }
-            reader.Close();
         }
 
         //отображение условий ретро
@@ -611,40 +603,33 @@ namespace РасчетКУ
         }
 
         //кнопка удаления вкл/иск
-        private void button7_Click(object sender, EventArgs e)
+        private void button7_Click(object sender, EventArgs e) // was: 606-640, now: 606-633
         {
             DialogResult result;
+            DataGridView dgv;
+            string type = "";
             if (tabControlInEx.SelectedIndex == 0)
             {
-                if (dataGridViewIncluded.RowCount < 1)
-                {
-                    MessageBox.Show("Нечего удалять", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                result = MessageBox.Show($"Вы уверены, что хотите удалить условие '{dataGridViewIncluded.Rows[dataGridViewIncluded.CurrentRow.Index].Cells["TypeP"].Value}' ?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.No)
-                    return;
-
-                dataGridViewIncluded.Rows.RemoveAt(dataGridViewIncluded.CurrentRow.Index);
-                
+                dgv = dataGridViewIncluded;
+                type = "TypeP";
             }
             else
             {
-                if (dataGridViewExcluded.RowCount < 1)
-                {
-                    MessageBox.Show("Нечего удалять", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                result = MessageBox.Show($"Вы уверены, что хотите удалить условие '{dataGridViewExcluded.Rows[dataGridViewExcluded.CurrentRow.Index].Cells["TypeM"].Value}' ?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.No)
-                    return;
-
-                dataGridViewExcluded.Rows.RemoveAt(dataGridViewIncluded.CurrentRow.Index);
-                
+                dgv = dataGridViewExcluded;
+                type = "TypeM";
             }
-            //showExInProducts(Convert.ToInt64(_KU_id));
+
+            if (dgv.RowCount < 1)
+            {
+                MessageBox.Show("Нечего удалять", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            result = MessageBox.Show($"Вы уверены, что хотите удалить условие '{dgv.Rows[dgv.CurrentRow.Index].Cells[type].Value}' ?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.No)
+                return;
+
+            dgv.Rows.RemoveAt(dgv.CurrentRow.Index);
         }
 
         
@@ -762,13 +747,12 @@ namespace РасчетКУ
         }
 
         //Запись в бд для in/ex через создание ку
-        private void AddInExBD()
+        private void AddInExBD() // was: 750-914, now: 750-869
         {
            
             SqlCommand command;
             if (buttonCreate.Text.ToString() == "Изменить")
             {
-        
                 command = new SqlCommand($"DELETE FROM Included_products WHERE KU_id = '{_KU_id}'", _sqlConnection);
                 command.ExecuteNonQuery();
                 command = new SqlCommand($"DELETE FROM Excluded_products WHERE KU_id = '{_KU_id}'", _sqlConnection);
@@ -776,8 +760,6 @@ namespace РасчетКУ
             }
             for (int i = 0; i < dataGridViewIncluded.RowCount; i++)
             {
-                
-                
                  switch (dataGridViewIncluded.Rows[i].Cells["TypeP"].Value.ToString())
                  {
                         case "Все":
@@ -792,19 +774,11 @@ namespace РасчетКУ
                                     $"'{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
-
-                            /*if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
-                            {
-                                command = new SqlCommand($"UPDATE Included_products SET Brand_name = " +
-                                    $"'{dataGridViewIncluded.Rows[i].Cells["BrandP"].Value}' WHERE KU_id = '{_KU_id}' AND Type = " +
-                                    $"'{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}'", _sqlConnection);
-                                command.ExecuteNonQuery();
-                            }*/
-                                break;
+                        break;
 
                         case "Категория":
 
-                           command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
+                            command = new SqlCommand($"INSERT INTO Included_products (KU_id, Type, Attribute_1, Attribute_2) VALUES (" +
                             $"{_KU_id}, 'Категория', '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}', '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}')", _sqlConnection);
                             command.ExecuteNonQuery();
 
@@ -817,14 +791,7 @@ namespace РасчетКУ
                                     $"AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
-
-                            /*if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
-                            {
-                                command = new SqlCommand($"UPDATE Included_products SET Brand_name = '{dataGridViewIncluded.Rows[i].Cells["BrandP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}' " +
-                                    $" AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
-                                command.ExecuteNonQuery();
-                            }*/
-                                break;
+                        break;
 
                         case "Товары":
 
@@ -841,18 +808,9 @@ namespace РасчетКУ
                                     $"AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
                                 command.ExecuteNonQuery();
                              }
-
-                             /*if (!((dataGridViewIncluded.Rows[i].Cells["BrandP"] as DataGridViewComboBoxCell).Value is null))
-                             {
-                            command = new SqlCommand($"UPDATE Included_products SET Brand_name = '{dataGridViewIncluded.Rows[i].Cells["BrandP"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewIncluded.Rows[i].Cells["TypeP"].Value}' " +
-                                $" AND Attribute_1 = '{dataGridViewIncluded.Rows[i].Cells["Attribute1P"].Value}' AND Attribute_2 = '{dataGridViewIncluded.Rows[i].Cells["Attribute2P"].Value}'", _sqlConnection);
-                            command.ExecuteNonQuery();
-                             }*/
-                                break;
-
+                         break;
                  }
                 
-              
             }
             //таблица исключения
             for (int i = 0; i < dataGridViewExcluded.RowCount; i++)
@@ -866,13 +824,9 @@ namespace РасчетКУ
                         //производитель и марка
                         if (!((dataGridViewExcluded.Rows[i].Cells["ProducerM"] as DataGridViewComboBoxCell).Value is null))
                         {
-                            command = new SqlCommand($"UPDATE Excluded_products SET Producer = '{dataGridViewExcluded.Rows[i].Cells["ProducerM"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}'", _sqlConnection);
-                            command.ExecuteNonQuery();
-                        }
-
-                        if (!((dataGridViewExcluded.Rows[i].Cells["BrandM"] as DataGridViewComboBoxCell).Value is null))
-                        {
-                            command = new SqlCommand($"UPDATE Excluded_products SET Brand_name = '{dataGridViewExcluded.Rows[i].Cells["BrandM"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}'", _sqlConnection);
+                            command = new SqlCommand($"UPDATE Excluded_products SET BrandProdID = " +
+                                $"'{findBrandProdId(dataGridViewExcluded.Rows[i].Cells["ProducerM"].Value.ToString(), 1)}' WHERE KU_id = '{_KU_id}' AND Type = " +
+                                $"'{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}'", _sqlConnection);
                             command.ExecuteNonQuery();
                         }
                         break;
@@ -886,15 +840,10 @@ namespace РасчетКУ
                         //производитель и марка
                         if (!((dataGridViewExcluded.Rows[i].Cells["ProducerM"] as DataGridViewComboBoxCell).Value is null))
                         {
-                            command = new SqlCommand($"UPDATE Excluded_products SET Producer = '{dataGridViewExcluded.Rows[i].Cells["ProducerM"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}'" +
-                                $" AND Attribute_1 = '{dataGridViewExcluded.Rows[i].Cells["Attribute1M"].Value}' AND Attribute_2 = '{dataGridViewExcluded.Rows[i].Cells["Attribute2M"].Value}'", _sqlConnection);
-                            command.ExecuteNonQuery();
-                        }
-
-                        if (!((dataGridViewExcluded.Rows[i].Cells["BrandM"] as DataGridViewComboBoxCell).Value is null))
-                        {
-                            command = new SqlCommand($"UPDATE Excluded_products SET Brand_name = '{dataGridViewExcluded.Rows[i].Cells["BrandM"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}' " +
-                                $" AND Attribute_1 = '{dataGridViewExcluded.Rows[i].Cells["Attribute1M"].Value}' AND Attribute_2 = '{dataGridViewExcluded.Rows[i].Cells["Attribute2M"].Value}'", _sqlConnection);
+                            command = new SqlCommand($"UPDATE Excluded_products SET BrandProdID = " +
+                                    $"'{findBrandProdId(dataGridViewExcluded.Rows[i].Cells["ProducerM"].Value.ToString(), 1)}' WHERE KU_id = '{_KU_id}' AND Type = " +
+                                    $"'{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}' AND Attribute_1 = '{dataGridViewExcluded.Rows[i].Cells["Attribute1M"].Value}' " +
+                                    $"AND Attribute_2 = '{dataGridViewExcluded.Rows[i].Cells["Attribute2M"].Value}'", _sqlConnection);
                             command.ExecuteNonQuery();
                         }
                         break;
@@ -908,24 +857,15 @@ namespace РасчетКУ
                         //производитель и марка
                         if (!((dataGridViewExcluded.Rows[i].Cells["ProducerM"] as DataGridViewComboBoxCell).Value is null))
                         {
-                            command = new SqlCommand($"UPDATE Excluded_products SET Producer = '{dataGridViewExcluded.Rows[i].Cells["ProducerM"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}'" +
-                                $" AND Attribute_1 = '{dataGridViewExcluded.Rows[i].Cells["Attribute1M"].Value}' AND Attribute_2 = '{dataGridViewExcluded.Rows[i].Cells["Attribute2M"].Value}'", _sqlConnection);
-                            command.ExecuteNonQuery();
-                        }
-
-                        if (!((dataGridViewExcluded.Rows[i].Cells["BrandM"] as DataGridViewComboBoxCell).Value is null))
-                        {
-                            command = new SqlCommand($"UPDATE Excluded_products SET Brand_name = '{dataGridViewExcluded.Rows[i].Cells["BrandM"].Value.ToString()}' WHERE KU_id = '{_KU_id}' AND Type = '{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}' " +
-                                $" AND Attribute_1 = '{dataGridViewExcluded.Rows[i].Cells["Attribute1M"].Value}' AND Attribute_2 = '{dataGridViewExcluded.Rows[i].Cells["Attribute2M"].Value}'", _sqlConnection);
+                            command = new SqlCommand($"UPDATE Excluded_products SET BrandProdID = " +
+                                    $"'{findBrandProdId(dataGridViewExcluded.Rows[i].Cells["ProducerM"].Value.ToString(), 1)}' WHERE KU_id = '{_KU_id}' AND Type = " +
+                                    $"'{dataGridViewExcluded.Rows[i].Cells["TypeM"].Value}' AND Attribute_1 = '{dataGridViewExcluded.Rows[i].Cells["Attribute1M"].Value}' " +
+                                    $"AND Attribute_2 = '{dataGridViewExcluded.Rows[i].Cells["Attribute2M"].Value}'", _sqlConnection);
                             command.ExecuteNonQuery();
                         }
                         break;
-
-
                 }
-               
             }
-            
         }
 
 

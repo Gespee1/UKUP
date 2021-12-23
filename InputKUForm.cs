@@ -15,7 +15,7 @@ namespace РасчетКУ
         private Int64 _KU_id, _Vendor_id;
         private List<Int64> ProdIds = new List<Int64>();
         private List<string> CategoryID = new List<string>();
-        private DataTable BrandProd = new DataTable();
+        private DataTable BrandProd = new DataTable(), _Vendors = new DataTable();
         private Stopwatch _timer = new Stopwatch();
         private delegate void _del(string item); // Делегат для обращения к объектам одного потока из другого потока
 
@@ -44,17 +44,16 @@ namespace РасчетКУ
         // Поток 1. Загрузка поставщиков
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            
             //Загрузка данных о поставщиках в комбобокс
-            SqlCommand command = new SqlCommand("SELECT DISTINCT Name FROM Vendors", _sqlConnection);
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            SqlCommand command = new SqlCommand("SELECT Name, max(Vendor_id) AS 'id' FROM Vendors GROUP BY Name ORDER BY max(Vendor_id)", _sqlConnection);
+            SqlDataAdapter adapt = new SqlDataAdapter(command);
+            adapt.Fill(_Vendors);
+            
+            for (int i = 0; i < _Vendors.Rows.Count; i++)
             {
                 if (comboBoxVendor.InvokeRequired)
-                    comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.Items.Add(s)), reader[0]);
+                    comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.Items.Add(s)), _Vendors.Rows[i][0]);
             }
-            reader.Close();
         }
         // Поток 1. Отображение данных о КУ
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -566,7 +565,6 @@ namespace РасчетКУ
         {
             if (_Vendor_id != 0)
             {
-
                 int selectedVendorId = Convert.ToInt32(_Vendor_id);
                 ProdIds.Clear();
 
@@ -586,7 +584,8 @@ namespace РасчетКУ
         // Поиск названия категории
         private string findNameById(string id)
         {
-            SqlCommand command = new SqlCommand($"SELECT * FROM Classifier WHERE L1 = '{id}' OR L2 = '{id}' OR L3 = '{id}' OR L4 = '{id}'", _sqlConnection);
+            SqlCommand command = new SqlCommand($"SELECT L1, L1_name, L2, L2_name, L3, L3_name, L4, L4_name FROM Classifier " +
+                $"WHERE L1 = '{id}' OR L2 = '{id}' OR L3 = '{id}' OR L4 = '{id}'", _sqlConnection);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
@@ -986,9 +985,6 @@ namespace РасчетКУ
         {
             doResize();
         }
-
-        
-
 
         // Настройки адаптивного UI формы
         private void doResize()

@@ -180,10 +180,7 @@ namespace РасчетКУ
         //Общий метод вызова отчёта word
         private void WordDoc(string docname, string newdocpath)
         {
-            SqlCommand cm = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
-            VendorName = (string)cm.ExecuteScalar();
-
+            
             SqlCommand cm1 = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = " +
                 $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocNum = Convert.ToString(cm1.ExecuteScalar());
@@ -192,10 +189,24 @@ namespace РасчетКУ
                 $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocDate = Convert.ToString(cm2.ExecuteScalar());
 
-            SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
-                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
-            EntitiesName = (string)cm3.ExecuteScalar();
+            DataTable tb1 = new DataTable();
+            SqlCommand command1 = new SqlCommand($"SELECT Name, [INN\\KPP], Urastic_address, Account, Bank_name, Bank_bik, Corr_account FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+            SqlDataAdapter adapt1 = new SqlDataAdapter(command1);
+            adapt1.Fill(tb1);
 
+            DataTable tb2 = new DataTable();
+            SqlCommand command2 = new SqlCommand($"SELECT Name, [INN\\KPP], Urastic_address, Account, Bank_name, Bank_bik, Corr_account  FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
+            SqlDataAdapter adapt2 = new SqlDataAdapter(command2);
+            adapt2.Fill(tb2);
+
+            if (tb2.Rows.Count == 0)
+            {
+                MessageBox.Show("Отсутствует Юридическое лицо", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+                
 
             File.Copy(docname, newdocpath, true);
             WordHelper helper = new WordHelper(/*Environment.CurrentDirectory + */ newdocpath);
@@ -206,8 +217,20 @@ namespace РасчетКУ
                 {"<Doc.Date>", DocDate},
                 {"<GraphSumN>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumN"].Value)},
                 {"<GraphSumS>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumS"].Value)},
-                {"<Entities.Name>",EntitiesName},
-                {"<Vendors.Name>", VendorName},
+                {"<Vendors.Name>", Convert.ToString(tb1.Rows[0]["Name"])},
+                {"<Vendors.INN\\KPP>", Convert.ToString(tb1.Rows[0]["INN\\KPP"])},
+                {"<Vendors.Urastic_address>", Convert.ToString(tb1.Rows[0]["Urastic_address"])},
+                {"<Vendors.Account>", Convert.ToString(tb1.Rows[0]["Account"])},
+                {"<Vendors.Bank_name>", Convert.ToString(tb1.Rows[0]["Bank_name"])},
+                {"<Vendors.Bank_bik>", Convert.ToString(tb1.Rows[0]["Bank_bik"])},
+                {"<Vendors.Corr_account>", Convert.ToString(tb1.Rows[0]["Corr_account"])},
+                {"<Entities.Name>", Convert.ToString(tb2.Rows[0]["Name"])},
+                {"<Entities.INN\\KPP>", Convert.ToString(tb2.Rows[0]["INN\\KPP"])},
+                {"<Entities.Urastic_address>", Convert.ToString(tb2.Rows[0]["Urastic_address"])},
+                {"<Entities.Account>", Convert.ToString(tb2.Rows[0]["Account"])},
+                {"<Entities.Bank_name>", Convert.ToString(tb2.Rows[0]["Bank_name"])},
+                {"<Entities.Bank_bik>", Convert.ToString(tb2.Rows[0]["Bank_bik"])},
+                {"<Entities.Corr_account>", Convert.ToString(tb2.Rows[0]["Corr_account"])},
                 {"<KU_graph.Percent>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Percent"].Value)},
                 {"<KU_graph.Date_from>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_from"].Value)},
                 {"<KU_graph.Date_to>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_to"].Value)},
@@ -240,12 +263,14 @@ namespace РасчетКУ
                 $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
             EntitiesName = (string)cm3.ExecuteScalar();
 
+            
+
             var items = new Dictionary<string, string>
             {
                 {"<num>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value)},
                 //{"<Doc.Num>", DocNum},
-                //{"<Doc.Date>", DocDate},
-                //{"<GraphSumN>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumN"].Value)},
+                {"<Doc.Date.Now>", Convert.ToString(DateTime.Now)},
+                {"<Sum>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumN"].Value)},
                 //{"<GraphSumS>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumS"].Value)},
                 {"<Entities.Name>", EntitiesName},
                 {"<Vendors.Name>", VendorName},
@@ -292,13 +317,7 @@ namespace РасчетКУ
                 reader.Close();
 
             }
-             var items_table = new Dictionary<string, string>
-            {
-                {"<Table>", "table"},
-            };
-
-
-
+             
             helper.Process(items, tableExcel);
 
             
@@ -317,101 +336,6 @@ namespace РасчетКУ
             ExcelDoc(docname, actions.getFilepath(".xlsx"));
             
          
-            
-            /* DataTable ProdInfo = new DataTable();
-             SqlCommand command2 = new SqlCommand($"SELECT Name, BrandProdID, Classifier_id FROM Products WHERE Product_id = {tb}", SqlCon);
-             SqlDataAdapter adapt2 = new SqlDataAdapter(command2);
-             adapt2.Fill(ProdInfo);
-
-             DataTable invoicesProducts = new DataTable();
-             SqlCommand command3 = new SqlCommand($"SELECT Product_id, Summ FROM Invoices, Invoices_products WHERE Invoices.Invoice_id = Invoices_products.Invoice_id AND " +
-                 $"Vendor_id = {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value} AND Date >= '{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_from"].Value}'" +
-                 $" AND Date < '{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Date_to"].Value}'", SqlCon);
-             SqlDataAdapter adapt3 = new SqlDataAdapter(command3);
-             adapt3.Fill(invoicesProducts);*/
-
-            /*SqlCommand commanda = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
-                 $"{dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
-            string VendorName1 = (string)commanda.ExecuteScalar();
-
-            Excel.Application ObjExcel = new Excel.Application();
-            Excel.Workbook ObjWorkBook;
-            Excel.Worksheet ObjWorkSheet;
-            //Книга.
-             ObjWorkBook = ObjExcel.Workbooks.Add(System.Reflection.Missing.Value);
-            //Таблица.
-            ObjWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)ObjWorkBook.Sheets[1];
-            
-            //Значения y - строка,x - столбец
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[1, 1], ObjWorkSheet.Cells[1, 6]].Merge(Type.Missing);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[1, 1], ObjWorkSheet.Cells[1, 6]] = "Отчёт по расчёту размера Ретро-Бонуса для поставщика:";
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[1, 7], ObjWorkSheet.Cells[1, 8]].Merge(Type.Missing);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[1, 7], ObjWorkSheet.Cells[1, 8]] = VendorName1;
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[1, 1], ObjWorkSheet.Cells[1, 9]].HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[1, 1], ObjWorkSheet.Cells[1, 9]].Font.Bold = true;
-
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[4, 1], ObjWorkSheet.Cells[4, 4]].Merge(Type.Missing);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[4, 1], ObjWorkSheet.Cells[4, 4]] = "Размер премии составил: ";
-            ObjWorkSheet.Cells[4, 5] = Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[9].Value);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[4, 1], ObjWorkSheet.Cells[4, 4]].HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[3, 1], ObjWorkSheet.Cells[3, 8]].Merge(Type.Missing);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[3, 1], ObjWorkSheet.Cells[3, 8]] = "Расчет премии был произведен на основании суммы по накладным в размере: ";
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[3, 1], ObjWorkSheet.Cells[3, 8]].HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-            ObjWorkSheet.Cells[3, 9] = Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[8].Value);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[3, 1], ObjWorkSheet.Cells[3, 9]].HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignLeft;
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[3, 10], ObjWorkSheet.Cells[3, 11]].Merge(Type.Missing);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[3, 10], ObjWorkSheet.Cells[3, 11]] = "и процента КУ: ";
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[3, 10], ObjWorkSheet.Cells[3, 11]].HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-            ObjWorkSheet.Cells[3, 12] = Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value);
-
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[5, 1], ObjWorkSheet.Cells[5, 4]].Merge(Type.Missing);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[5, 1], ObjWorkSheet.Cells[5, 4]] = "Согласованный размер премии равен: ";
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[5, 1], ObjWorkSheet.Cells[5, 4]].HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-            ObjWorkSheet.Cells[5, 5] = Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[10].Value);
-
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[7, 1], ObjWorkSheet.Cells[8, 3]].Merge(Type.Missing);
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[7, 1], ObjWorkSheet.Cells[8, 3]].WrapText = true;
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[7, 1], ObjWorkSheet.Cells[8, 3]] = "Накладные, использованные для расчета:";
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[7, 1], ObjWorkSheet.Cells[8, 3]].HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-            ObjWorkSheet.Range[ObjWorkSheet.Cells[7, 1], ObjWorkSheet.Cells[8, 3]].Font.Bold = true;
-
-            ObjWorkSheet.Cells[9, 1] = "Код накладной";
-            ObjWorkSheet.Cells[9, 1].WrapText = true;
-            ObjWorkSheet.Cells[9, 1].ColumnWidth = 10.15;
-            ObjWorkSheet.Cells[9, 2] = "Сумма по накладной";
-            ObjWorkSheet.Cells[9, 2].WrapText = true;
-            ObjWorkSheet.Cells[9, 2].ColumnWidth = 10.15;
-
-
-            DataTable invoice1 = new DataTable();
-            SqlCommand command = new SqlCommand($"SELECT Invoice_id FROM Invoices WHERE Vendor_id = " + $" {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value} ", SqlCon);
-            SqlDataAdapter adt2 = new SqlDataAdapter();
-            adt2.SelectCommand = command;
-            adt2.Fill(invoice1);
-
-            for (int i = 0; i < invoice1.Rows.Count; i++)
-            {
-                ObjWorkSheet.Cells[i + 10, 1] = invoice1.Rows[i][0];
-            }
-
-            DataTable sum_inv = new DataTable();
-            SqlCommand comm = new SqlCommand($"SELECT SUM(Summ) FROM Invoices_products, Invoices WHERE Invoices.Invoice_id = Invoices_products.Invoice_id AND" +
-                                $" Invoices.Vendor_id =  {dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
-            SqlDataAdapter adt3 = new SqlDataAdapter();
-            adt3.SelectCommand = comm;
-            adt3.Fill(sum_inv);
-
-            for (int j = 0; j < sum_inv.Rows.Count; j++)
-            {
-                ObjWorkSheet.Cells[j + 10, 2] = sum_inv.Rows[j][0];
-            }
-
-
-            //  ObjWorkSheet.Rows.AutoFit();
-            ObjExcel.Visible = true;
-            ObjExcel.UserControl = true;*/
-
         }
 
 

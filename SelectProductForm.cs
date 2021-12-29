@@ -38,7 +38,7 @@ namespace РасчетКУ
             labelMain.Text = $"Товары поставщика {reader[0]}";
             reader.Close();
 
-            command = new SqlCommand($"SELECT Name, Classifier_id, Producer, Brand_name FROM Assortment, Products " +
+            command = new SqlCommand($"SELECT Name AS 'Наименование', Classifier_id AS 'Ид классификатора', BrandProdID AS 'Ид произв. и торг. марки' FROM Assortment, Products " +
                 $"WHERE Assortment.Product_id = Products.Product_id AND Assortment.Vendor_id = {VendorId}", _sqlConnection);
 
             DataTable dt = new DataTable();
@@ -50,7 +50,7 @@ namespace РасчетКУ
                 advancedDataGridViewProducts.Columns[i].ReadOnly = true;
 
             advancedDataGridViewProducts.Columns.AddRange(new DataGridViewCheckBoxColumn());
-            advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].HeaderText = "Check";
+            advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].HeaderText = "Выбрать";
             advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].Name = "checkBoxes";
 
             ADGV.ADGVColumnHeaderCell headCell = advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].HeaderCell as ADGV.ADGVColumnHeaderCell;

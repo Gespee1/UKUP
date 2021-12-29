@@ -45,7 +45,7 @@ namespace РасчетКУ
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             //Загрузка данных о поставщиках в комбобокс
-            SqlCommand command = new SqlCommand("SELECT Name, max(Vendor_id) AS 'id' FROM Vendors GROUP BY Name ORDER BY max(Vendor_id)", _sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT Name, max(Vendor_id) AS 'ID' FROM Vendors GROUP BY Name ORDER BY max(Vendor_id)", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(_Vendors);
             
@@ -563,6 +563,14 @@ namespace РасчетКУ
         // Открытие формы выбора продуктов
         private void button5_Click(object sender, EventArgs e)
         {
+            // Поиск id поставщика по имени
+            if(comboBoxVendor.SelectedIndex == -1)
+            {
+                MessageBox.Show("Не выбран поставщик!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            _Vendor_id = findVendorIdByName(comboBoxVendor.SelectedItem.ToString());
+
             if (_Vendor_id != 0)
             {
                 int selectedVendorId = Convert.ToInt32(_Vendor_id);
@@ -581,8 +589,19 @@ namespace РасчетКУ
             }
         }
 
+        // Поиск id поставщика по имени
+        private Int64 findVendorIdByName(string vendName)
+        {
+            for (int i = 0; i < _Vendors.Rows.Count; i++)
+            {
+                if (_Vendors.Rows[i]["Name"].ToString() == vendName)
+                    return Convert.ToInt64(_Vendors.Rows[i]["ID"]);
+            }
+            return 0;
+        }
+
         // Поиск названия категории
-        private string findNameById(string id)
+        private string findCategoryNameById(string id)
         {
             SqlCommand command = new SqlCommand($"SELECT L1, L1_name, L2, L2_name, L3, L3_name, L4, L4_name FROM Classifier " +
                 $"WHERE L1 = '{id}' OR L2 = '{id}' OR L3 = '{id}' OR L4 = '{id}'", _sqlConnection);
@@ -688,7 +707,7 @@ namespace РасчетКУ
                         dataGridViewIncluded.Rows.Add();
                         dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells["TypeP"].Value = type;
                         dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells["Attribute1P"].Value = CategoryID[0];
-                        dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells["Attribute2P"].Value = findNameById(CategoryID[0]);
+                        dataGridViewIncluded.Rows[dataGridViewIncluded.RowCount - 1].Cells["Attribute2P"].Value = findCategoryNameById(CategoryID[0]);
                    
                     }
                     else
@@ -696,7 +715,7 @@ namespace РасчетКУ
                         dataGridViewExcluded.Rows.Add();
                         dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells["TypeM"].Value = type;
                         dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells["Attribute1M"].Value = CategoryID[0];
-                        dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells["Attribute2M"].Value = findNameById(CategoryID[0]);
+                        dataGridViewExcluded.Rows[dataGridViewExcluded.RowCount - 1].Cells["Attribute2M"].Value = findCategoryNameById(CategoryID[0]);
                        
                     }
                    

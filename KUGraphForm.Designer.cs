@@ -281,6 +281,7 @@
             this.excel2ToolStripMenuItem.Name = "excel2ToolStripMenuItem";
             this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
             this.excel2ToolStripMenuItem.Text = "Отчет-сверка 2";
+            this.excel2ToolStripMenuItem.Click += new System.EventHandler(this.excel2ToolStripMenuItem_Click);
             // 
             // buttonApprove
             // 

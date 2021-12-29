@@ -242,7 +242,7 @@ namespace РасчетКУ
         }
 
         //общий метод вызова отчётов Excel
-        private void ExcelDoc(string docname, string newdocpath)
+        private void ExcelDoc(string docname, string newdocpath, int ex_num)
         {
              File.Copy(docname, newdocpath, true);
             ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
@@ -278,7 +278,10 @@ namespace РасчетКУ
                 {"<KU_graph.Date_from>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_from"].Value)},
                 {"<KU_graph.Date_to>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Date_to"].Value)},
             };
+
+
             //заполнение табличной части
+            
             DataTable tb = new DataTable();
             SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_list WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} " +
                 $"ORDER BY Product_id DESC", SqlCon);
@@ -293,51 +296,75 @@ namespace РасчетКУ
             tableExcel.Columns.Add("Producer", typeof(string));
             tableExcel.Columns.Add("Quantity", typeof(int));
             tableExcel.Columns.Add("Summ", typeof(int));
-            for (int i = 0; i < tb.Rows.Count; i++)
-             {
-                                
-                SqlCommand command = new SqlCommand($"SELECT L2_name, L3_name, L4_name, Included_products_list.Product_id, Name, Producer, Quantity, Summ " +
-                    $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i]["Product_id"]})" +
-                    $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
-                    $"{tb.Rows[i]["Product_id"]} )" +
-                    $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
-                    $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
-                SqlDataReader reader = command.ExecuteReader();
 
-                reader.Read();
-                tableExcel.Rows.Add();
-                tableExcel.Rows[i]["L2_Name"] = reader[0];
-                tableExcel.Rows[i]["L3_Name"] = reader[1];
-                tableExcel.Rows[i]["L4_Name"] = reader[2];
-                tableExcel.Rows[i]["Included_products_list.Product_id"] = reader[3];
-                tableExcel.Rows[i]["Name"] = reader[4];
-                tableExcel.Rows[i]["Producer"] = reader[5];
-                tableExcel.Rows[i]["Quantity"] = reader[6];
-                tableExcel.Rows[i]["Summ"] = reader[7];
-                reader.Close();
+           
 
+
+                for (int i = 0; i < tb.Rows.Count; i++)
+                {
+
+                    SqlCommand command = new SqlCommand($"SELECT L2_name, L3_name, L4_name, Included_products_list.Product_id, Name, Producer, Quantity, Summ " +
+                        $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i]["Product_id"]})" +
+                        $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
+                        $"{tb.Rows[i]["Product_id"]} )" +
+                        $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
+                        $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    reader.Read();
+                    tableExcel.Rows.Add();
+                    tableExcel.Rows[i]["L2_Name"] = reader[0];
+                    tableExcel.Rows[i]["L3_Name"] = reader[1];
+                    tableExcel.Rows[i]["L4_Name"] = reader[2];
+                    tableExcel.Rows[i]["Included_products_list.Product_id"] = reader[3];
+                    tableExcel.Rows[i]["Name"] = reader[4];
+                    tableExcel.Rows[i]["Producer"] = reader[5];
+                    tableExcel.Rows[i]["Quantity"] = reader[6];
+                    tableExcel.Rows[i]["Summ"] = reader[7];
+                    reader.Close();
+
+                }
+            //Если 1-й документ
+            if (ex_num == 1)
+            {
+                helper.Process(items, tableExcel);
             }
-             
-            helper.Process(items, tableExcel);
 
-            
+            //Если второй документ
+            if (ex_num == 2)
+            {
+                helper.Process2(items, tableExcel);
+            }
 
+          //  helper.Dispose();
         }
 
-        //Отчёт эксель
+        //Отчёт Excel1
         private void ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-         
+
+            int docnum = 1; 
 
             string docname = "Docs\\Отчет_сверка1.xlsx";
             /* string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
              ExcelDoc(docname, newdocpath);*/
             Actions actions = new Actions();
-            ExcelDoc(docname, actions.getFilepath(".xlsx"));
+            ExcelDoc(docname, actions.getFilepath(".xlsx"), docnum);
             
          
         }
 
+        //Отчёт Excel2
+        private void excel2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int docnum = 2;
+
+            string docname = "Docs\\Отчет_сверка2.xlsx";
+            /* string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
+             ExcelDoc(docname, newdocpath);*/
+            Actions actions = new Actions();
+            ExcelDoc(docname, actions.getFilepath(".xlsx"), docnum);
+        }
 
 
         // Асинхронный расчет бонуса
@@ -512,5 +539,7 @@ namespace РасчетКУ
         {
             //MessageBox.Show("sfawfawfawf");
         }
+
+        
     }
 }

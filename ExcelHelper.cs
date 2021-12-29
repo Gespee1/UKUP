@@ -17,7 +17,7 @@ namespace РасчетКУ
     class ExcelHelper : IDisposable 
     {
         private Excel.Application _excel;
-        private Excel.Workbook _workbook;
+        //private Excel.Workbook _workbook;
         private Excel.Worksheet _worksheet;
         private string _filePath;
         private FileInfo _fileInfo;
@@ -39,18 +39,18 @@ namespace РасчетКУ
 
         internal bool Process(Dictionary<string, string> items, System.Data.DataTable Table)
         {
-            Excel.Application app = null;
+            //Excel.Application app = null;
             try
             {
-                app = new Excel.Application();
+                _excel = new Excel.Application();
                 string file = _fileInfo.FullName;
                 Object missing = Type.Missing;
-                
-                app.Workbooks.Open(file);
+
+                _excel.Workbooks.Open(file);
                 
 
                 //Табличная часть
-                Excel.Range findTxt = app.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
+                Excel.Range findTxt = _excel.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
                 Excel.Range range = findTxt.EntireRow;              
 
                  if (findTxt != null)
@@ -59,17 +59,13 @@ namespace РасчетКУ
                      //MessageBox.Show("Текст найден в ячейке: " + findTxt.Address, "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
                      findTxt.Select();
                  }
-                 //else
-                 //{
-                    // MessageBox.Show("Текст  не найден!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                 //}
-                //
+                 
                 //замена маркеров
                 foreach (var item in items)
                 {
 
-                    app.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
-                    app.Visible = true;                
+                    _excel.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
+                    _excel.Visible = true;                
 
                 }
                 
@@ -78,47 +74,115 @@ namespace РасчетКУ
                     
                     for (int j = 0; j < 6; j++)
                     {
-                        app.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "11"].Value = Table.Rows[i][j];
+                        _excel.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "11"].Value = Table.Rows[i][j];
                     }
                     for (int j = 6; j < 8; j++)
                     {
                         // 2 часть табличной хрени
-                        app.Range[Convert.ToChar(Convert.ToByte(81 + j - 6)) + "11"].Value = Table.Rows[i][j];
+                        _excel.Range[Convert.ToChar(Convert.ToByte(81 + j - 6)) + "11"].Value = Table.Rows[i][j];
                     }
                     // добавление строки
                     if (i != Table.Rows.Count - 1)
                     {
                         range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
                     }
-                    range = app.Range[Convert.ToChar(Convert.ToByte(65)) + "11"].EntireRow; //возвращаем выделение на А11
+                    range = _excel.Range[Convert.ToChar(Convert.ToByte(65)) + "11"].EntireRow; //возвращаем выделение на А11
                 }
-                
 
 
-                app.Visible = true;
+
+                _excel.Visible = true;
 
                 return true;
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
             finally
             {
-                if (app != null)
-                    app.Visible = true;
+                if (_excel != null)
+                    _excel.Visible = true;
 
             }
             return false;
         }
 
+        internal bool Process2(Dictionary<string, string> items, System.Data.DataTable Table)
+        {
+            //Excel.Application app = null;
+            try
+            {
+                _excel = new Excel.Application();
+                string file = _fileInfo.FullName;
+                Object missing = Type.Missing;
+
+                _excel.Workbooks.Open(file);
+
+
+                //Табличная часть
+                Excel.Range findTxt = _excel.Cells.Find("<Table>", Type.Missing, Excel.XlFindLookIn.xlValues, Excel.XlLookAt.xlPart);
+                Excel.Range range = findTxt.EntireRow;
+
+                if (findTxt != null)
+                {
+
+                    //MessageBox.Show("Текст найден в ячейке: " + findTxt.Address, "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    findTxt.Select();
+                }
+             
+                //замена маркеров
+                foreach (var item in items)
+                {
+
+                    _excel.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
+                    _excel.Visible = true;
+
+                }
+
+                for (int i = 0; i < Table.Rows.Count; i++)
+                {
+
+                    for (int j = 0; j < 6; j++)
+                    {
+                        _excel.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "11"].Value = Table.Rows[i][j];
+                    }
+                    for (int j = 6; j < 8; j++)
+                    {
+                        // 2 часть табличной хрени
+                        _excel.Range[Convert.ToChar(Convert.ToByte(81 + j - 6)) + "11"].Value = Table.Rows[i][j];
+                    }
+                    // добавление строки
+                    if (i != Table.Rows.Count - 1)
+                    {
+                        range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
+                    }
+                    range = _excel.Range[Convert.ToChar(Convert.ToByte(65)) + "11"].EntireRow; //возвращаем выделение на А11
+                }
+
+
+
+                _excel.Visible = true;
+
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            finally
+            {
+                if (_excel != null)
+                    _excel.Visible = true;
+
+            }
+            return false;
+        }
 
         public void Dispose()
         {
             try
             {
-                _workbook.Close();
+                _excel.Quit();
+                //_workbook.Close();
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-            _excel.Quit();
+            
         }
 
         

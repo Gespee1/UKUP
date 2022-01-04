@@ -140,21 +140,21 @@ namespace РасчетКУ
                 for (int i = 0; i < Table.Rows.Count; i++)
                 {
 
-                    for (int j = 0; j < 6; j++)
+                    for (int j = 0; j < 4; j++)
                     {
-                        _excel.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "11"].Value = Table.Rows[i][j];
+                        _excel.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "10"].Value = Table.Rows[i][j];
                     }
-                    for (int j = 6; j < 8; j++)
+                    for (int j = 4; j < 6; j++)
                     {
                         // 2 часть табличной хрени
-                        _excel.Range[Convert.ToChar(Convert.ToByte(81 + j - 6)) + "11"].Value = Table.Rows[i][j];
+                        _excel.Range[Convert.ToChar(Convert.ToByte(80 + j - 4)) + "10"].Value = Table.Rows[i][j];
                     }
                     // добавление строки
                     if (i != Table.Rows.Count - 1)
                     {
                         range.Insert(Excel.XlInsertShiftDirection.xlShiftDown, false);
                     }
-                    range = _excel.Range[Convert.ToChar(Convert.ToByte(65)) + "11"].EntireRow; //возвращаем выделение на А11
+                    range = _excel.Range[Convert.ToChar(Convert.ToByte(65)) + "10"].EntireRow; //возвращаем выделение на А10
                 }
 
 

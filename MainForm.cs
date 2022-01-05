@@ -51,13 +51,21 @@ namespace РасчетКУ
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
-            
             connection.Open();
 
-            SqlCommand command = new SqlCommand("EXEC MergeProcedure", connection);
-            message = $"Кол-во задействованных в слиянии строк: {command.ExecuteNonQuery()}";
-
-            connection.Close();            
+            SqlCommand command = new SqlCommand("USE DataBaseKU EXEC MergeProcedure @RowCount OUTPUT", connection);
+            SqlParameter RowCount = new SqlParameter
+            {
+                ParameterName = "@RowCount",
+                SqlDbType = SqlDbType.BigInt,
+                Direction = ParameterDirection.Output
+            };
+            command.Parameters.Add(RowCount);
+            command.ExecuteNonQuery();
+            
+            message = $"Кол-во задействованных в слиянии строк: {RowCount.Value}";
+            
+            connection.Close();
         }
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {

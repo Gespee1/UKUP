@@ -124,15 +124,6 @@ namespace РасчетКУ
         //
         // МЕНЮ
         //
-        // Открытие формы ввода коммерческих условий
-
-      /*  private void вводКУToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form FormInputKU = new InputKUForm();
-
-            FormInputKU.Show();
-        }*/
-
         //Открытие формы списка поставщиков с помощью кнопки на верхней панели
         private void поставщикиToolStripMenuItem_Click(object sender, EventArgs e)
         {

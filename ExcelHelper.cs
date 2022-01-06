@@ -144,10 +144,10 @@ namespace РасчетКУ
                     {
                         _excel.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "10"].Value = Table.Rows[i][j];
                     }
-                    for (int j = 4; j < 6; j++)
+                    for (int j = 4; j < 7; j++)
                     {
                         // 2 часть табличной хрени
-                        _excel.Range[Convert.ToChar(Convert.ToByte(80 + j - 4)) + "10"].Value = Table.Rows[i][j];
+                        _excel.Range[Convert.ToChar(Convert.ToByte(79 + j - 4)) + "10"].Value = Table.Rows[i][j];
                     }
                     // добавление строки
                     if (i != Table.Rows.Count - 1)

@@ -57,7 +57,7 @@ namespace РасчетКУ
                 if (result == DialogResult.Yes)
                 {
                     reader.Close();
-                    command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL WHERE KU_id = {KU_id}", _sqlConnection);
+                    command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL, Turnover = NULL WHERE KU_id = {KU_id}", _sqlConnection);
                     command.ExecuteNonQuery();
 
                     command = new SqlCommand($"SELECT Graph_id FROM KU_graph WHERE KU_id = {KU_id}", _sqlConnection);
@@ -344,22 +344,27 @@ namespace РасчетКУ
             adapt.Fill(InMinusEx);
 
             InMinusEx.Columns.Add("Summ", typeof(double));
-            for(int i = 0; i < InMinusEx.Rows.Count; i++)
+            InMinusEx.Columns.Add("Turnover", typeof(double));
+            for (int i = 0; i < InMinusEx.Rows.Count; i++)
             {
                 command = new SqlCommand($"SELECT Summ FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = {row.Cells["Vendor_id"].Value}) " +
                     $"AND Product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
                 InMinusEx.Rows[i][1] = command.ExecuteScalar();
+                command = new SqlCommand($"SELECT Quantity FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = {row.Cells["Vendor_id"].Value}) " +
+                    $"AND Product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
+                InMinusEx.Rows[i][2] = command.ExecuteScalar();
             }
             
             // Вывод суммы по накладным и бонуса
             if (InMinusEx.Rows.Count > 0)
             {
-                double summ = 0, bonus, percentOrFix = 0;
+                double summ = 0, turnover = 0, bonus, percentOrFix = 0;
                 bool fix = false;
 
                 for (int i = 0; i < InMinusEx.Rows.Count; i++)
                 {
                     summ += (double)InMinusEx.Rows[i][1];
+                    turnover += (double)InMinusEx.Rows[i][2];
                 }
 
                 // Получение величины процента/фиксированной суммы
@@ -378,7 +383,7 @@ namespace РасчетКУ
                 else
                     bonus = summ * percentOrFix / 100;
 
-                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2)}, Sum_bonus = {Math.Round(bonus, 2)} WHERE " +
+                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2)}, Sum_bonus = {Math.Round(bonus, 2)},  Turnover = {Math.Round(turnover, 2)} WHERE " +
                     $"Graph_id = {Graph_id}", _sqlConnection);
                 command.ExecuteNonQuery();
                 if (fix)

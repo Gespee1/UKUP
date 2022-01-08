@@ -76,6 +76,7 @@ namespace РасчетКУ
                 if(graphs.Rows[i][10].ToString() != "")
                     dataGridViewKUGraph.Rows[i].Cells["Percent"].Value = Convert.ToDouble(graphs.Rows[i][10]) / 10;
                 dataGridViewKUGraph.Rows[i].Cells["GraphSumS"].Value = graphs.Rows[i][11];
+                dataGridViewKUGraph.Rows[i].Cells["Turnover"].Value = graphs.Rows[i][12];
             }
         }
 
@@ -216,6 +217,7 @@ namespace РасчетКУ
                 {"<Doc.Num>", DocNum},
                 {"<Doc.Date>", DocDate},
                 {"<GraphSumN>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumN"].Value)},
+                {"<Kol-vo>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Turnover"].Value)},
                 {"<GraphSumS>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumS"].Value)},
                 {"<Vendors.Name>", Convert.ToString(tb1.Rows[0]["Name"])},
                 {"<Vendors.INN\\KPP>", Convert.ToString(tb1.Rows[0]["INN\\KPP"])},
@@ -271,6 +273,7 @@ namespace РасчетКУ
                 //{"<Doc.Num>", DocNum},
                 {"<Doc.Date.Now>", Convert.ToString(DateTime.Now)},
                 {"<Sum>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumN"].Value)},
+                {"<Kol-vo>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Turnover"].Value)},
                 //{"<GraphSumS>", Convert.ToString(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells["GraphSumS"].Value)},
                 {"<Entities.Name>", EntitiesName},
                 {"<Vendors.Name>", VendorName},

@@ -126,6 +126,7 @@ namespace РасчетКУ
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.buttonUnapprove = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControlInEx.SuspendLayout();
             this.tabPageToInclude.SuspendLayout();
@@ -1147,6 +1148,7 @@ namespace РасчетКУ
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.buttonUnapprove);
             this.panel4.Controls.Add(this.buttonCancel);
             this.panel4.Controls.Add(this.buttonCreateNApprove);
             this.panel4.Controls.Add(this.buttonCreate);
@@ -1157,6 +1159,19 @@ namespace РасчетКУ
             this.panel4.Padding = new System.Windows.Forms.Padding(12, 0, 12, 12);
             this.panel4.Size = new System.Drawing.Size(1294, 51);
             this.panel4.TabIndex = 50;
+            // 
+            // buttonUnapprove
+            // 
+            this.buttonUnapprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUnapprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonUnapprove.Location = new System.Drawing.Point(105, 12);
+            this.buttonUnapprove.Name = "buttonUnapprove";
+            this.buttonUnapprove.Size = new System.Drawing.Size(167, 27);
+            this.buttonUnapprove.TabIndex = 21;
+            this.buttonUnapprove.Text = "Отмена утверждения";
+            this.buttonUnapprove.UseVisualStyleBackColor = true;
+            this.buttonUnapprove.Visible = false;
+            this.buttonUnapprove.Click += new System.EventHandler(this.buttonUnapprove_Click);
             // 
             // InputKUForm
             // 
@@ -1307,5 +1322,6 @@ namespace РасчетКУ
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label labelKUCode;
         private System.Windows.Forms.TextBox textBoxKUCode;
+        private System.Windows.Forms.Button buttonUnapprove;
     }
 }

@@ -29,6 +29,22 @@
         private void InitializeComponent()
         {
             this.dataGridViewKUGraph = new System.Windows.Forms.DataGridView();
+            this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VendorNam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContractCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_from = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_calc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,22 +66,7 @@
             this.progressBarForAsincBonus = new System.Windows.Forms.ProgressBar();
             this.labelProgress = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VendorNam = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContractCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_from = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_calc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.сдвигДатыРасчётаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -105,6 +106,110 @@
             this.dataGridViewKUGraph.TabIndex = 0;
             this.dataGridViewKUGraph.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
+            // KU_id
+            // 
+            this.KU_id.HeaderText = "Номер КУ";
+            this.KU_id.Name = "KU_id";
+            this.KU_id.ReadOnly = true;
+            // 
+            // Vendor_id
+            // 
+            this.Vendor_id.HeaderText = "Номер поставщика";
+            this.Vendor_id.Name = "Vendor_id";
+            this.Vendor_id.ReadOnly = true;
+            this.Vendor_id.ToolTipText = "Процент КУ";
+            this.Vendor_id.Visible = false;
+            // 
+            // VendorAcc
+            // 
+            this.VendorAcc.HeaderText = "Счет поставщика";
+            this.VendorAcc.Name = "VendorAcc";
+            this.VendorAcc.ReadOnly = true;
+            // 
+            // VendorNam
+            // 
+            this.VendorNam.HeaderText = "Имя";
+            this.VendorNam.Name = "VendorNam";
+            this.VendorNam.ReadOnly = true;
+            // 
+            // ContractCode
+            // 
+            this.ContractCode.HeaderText = "Код договора";
+            this.ContractCode.Name = "ContractCode";
+            this.ContractCode.ReadOnly = true;
+            // 
+            // Percent
+            // 
+            this.Percent.HeaderText = "Процент";
+            this.Percent.Name = "Percent";
+            this.Percent.ReadOnly = true;
+            // 
+            // Period
+            // 
+            this.Period.HeaderText = "Период";
+            this.Period.Name = "Period";
+            this.Period.ReadOnly = true;
+            // 
+            // Date_from
+            // 
+            this.Date_from.HeaderText = "Дата С";
+            this.Date_from.Name = "Date_from";
+            this.Date_from.ReadOnly = true;
+            // 
+            // Date_to
+            // 
+            this.Date_to.HeaderText = "Дата По";
+            this.Date_to.Name = "Date_to";
+            this.Date_to.ReadOnly = true;
+            // 
+            // Date_calc
+            // 
+            this.Date_calc.HeaderText = "Дата расчета";
+            this.Date_calc.Name = "Date_calc";
+            this.Date_calc.ReadOnly = true;
+            // 
+            // GraphStatus
+            // 
+            this.GraphStatus.HeaderText = "Статус";
+            this.GraphStatus.Name = "GraphStatus";
+            this.GraphStatus.ReadOnly = true;
+            this.GraphStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GraphStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GraphSumP
+            // 
+            this.GraphSumP.HeaderText = "Сумма премии";
+            this.GraphSumP.Name = "GraphSumP";
+            this.GraphSumP.ReadOnly = true;
+            this.GraphSumP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GraphSumS
+            // 
+            this.GraphSumS.HeaderText = "Фактическая сумма премии";
+            this.GraphSumS.Name = "GraphSumS";
+            this.GraphSumS.ReadOnly = true;
+            this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GraphSumN
+            // 
+            this.GraphSumN.HeaderText = "Сумма по накладным";
+            this.GraphSumN.Name = "GraphSumN";
+            this.GraphSumN.ReadOnly = true;
+            this.GraphSumN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Turnover
+            // 
+            this.Turnover.HeaderText = "Товарооборот";
+            this.Turnover.Name = "Turnover";
+            this.Turnover.ReadOnly = true;
+            // 
+            // Graph_Id
+            // 
+            this.Graph_Id.HeaderText = "Graph_Id";
+            this.Graph_Id.Name = "Graph_Id";
+            this.Graph_Id.ReadOnly = true;
+            this.Graph_Id.Visible = false;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -143,10 +248,12 @@
             // 
             // настройкиToolStripMenuItem
             // 
+            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сдвигДатыРасчётаToolStripMenuItem});
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(99, 25);
             this.настройкиToolStripMenuItem.Text = "Настройки";
-            this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
+//            this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
             // экспортToolStripMenuItem
             // 
@@ -306,109 +413,12 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // KU_id
+            // сдвигДатыРасчётаToolStripMenuItem
             // 
-            this.KU_id.HeaderText = "Номер КУ";
-            this.KU_id.Name = "KU_id";
-            this.KU_id.ReadOnly = true;
-            // 
-            // Vendor_id
-            // 
-            this.Vendor_id.HeaderText = "Номер поставщика";
-            this.Vendor_id.Name = "Vendor_id";
-            this.Vendor_id.ReadOnly = true;
-            this.Vendor_id.ToolTipText = "Процент КУ";
-            this.Vendor_id.Visible = false;
-            // 
-            // VendorAcc
-            // 
-            this.VendorAcc.HeaderText = "Счет поставщика";
-            this.VendorAcc.Name = "VendorAcc";
-            this.VendorAcc.ReadOnly = true;
-            // 
-            // VendorNam
-            // 
-            this.VendorNam.HeaderText = "Имя";
-            this.VendorNam.Name = "VendorNam";
-            this.VendorNam.ReadOnly = true;
-            // 
-            // ContractCode
-            // 
-            this.ContractCode.HeaderText = "Код договора";
-            this.ContractCode.Name = "ContractCode";
-            this.ContractCode.ReadOnly = true;
-            // 
-            // Percent
-            // 
-            this.Percent.HeaderText = "Процент";
-            this.Percent.Name = "Percent";
-            this.Percent.ReadOnly = true;
-            // 
-            // Period
-            // 
-            this.Period.HeaderText = "Период";
-            this.Period.Name = "Period";
-            this.Period.ReadOnly = true;
-            // 
-            // Date_from
-            // 
-            this.Date_from.HeaderText = "Дата С";
-            this.Date_from.Name = "Date_from";
-            this.Date_from.ReadOnly = true;
-            // 
-            // Date_to
-            // 
-            this.Date_to.HeaderText = "Дата По";
-            this.Date_to.Name = "Date_to";
-            this.Date_to.ReadOnly = true;
-            // 
-            // Date_calc
-            // 
-            this.Date_calc.HeaderText = "Дата расчета";
-            this.Date_calc.Name = "Date_calc";
-            this.Date_calc.ReadOnly = true;
-            // 
-            // GraphStatus
-            // 
-            this.GraphStatus.HeaderText = "Статус";
-            this.GraphStatus.Name = "GraphStatus";
-            this.GraphStatus.ReadOnly = true;
-            this.GraphStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GraphStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GraphSumP
-            // 
-            this.GraphSumP.HeaderText = "Сумма премии";
-            this.GraphSumP.Name = "GraphSumP";
-            this.GraphSumP.ReadOnly = true;
-            this.GraphSumP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GraphSumS
-            // 
-            this.GraphSumS.HeaderText = "Фактическая сумма премии";
-            this.GraphSumS.Name = "GraphSumS";
-            this.GraphSumS.ReadOnly = true;
-            this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GraphSumN
-            // 
-            this.GraphSumN.HeaderText = "Сумма по накладным";
-            this.GraphSumN.Name = "GraphSumN";
-            this.GraphSumN.ReadOnly = true;
-            this.GraphSumN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Turnover
-            // 
-            this.Turnover.HeaderText = "Товарооборот";
-            this.Turnover.Name = "Turnover";
-            this.Turnover.ReadOnly = true;
-            // 
-            // Graph_Id
-            // 
-            this.Graph_Id.HeaderText = "Graph_Id";
-            this.Graph_Id.Name = "Graph_Id";
-            this.Graph_Id.ReadOnly = true;
-            this.Graph_Id.Visible = false;
+            this.сдвигДатыРасчётаToolStripMenuItem.Name = "сдвигДатыРасчётаToolStripMenuItem";
+            this.сдвигДатыРасчётаToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
+            this.сдвигДатыРасчётаToolStripMenuItem.Text = "Сдвиг даты расчёта";
+            this.сдвигДатыРасчётаToolStripMenuItem.Click += new System.EventHandler(this.сдвигДатыРасчётаToolStripMenuItem_Click);
             // 
             // KUGraphForm
             // 
@@ -485,6 +495,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumN;
         private System.Windows.Forms.DataGridViewTextBoxColumn Turnover;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
+        private System.Windows.Forms.ToolStripMenuItem сдвигДатыРасчётаToolStripMenuItem;
     }
 }
 

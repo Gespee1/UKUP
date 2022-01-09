@@ -150,12 +150,11 @@ namespace РасчетКУ
             FormVendorsList.Show();
         }
         // Открытие формы настроек
-        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
+        private void сдвигДатыРасчётаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form settings = new SettingsForm();
             settings.ShowDialog();
         }
-
 
         //Отчёт ворд
         private void WordToolStripMenuItem_Click(object sender, EventArgs e)
@@ -592,6 +591,6 @@ namespace РасчетКУ
             //MessageBox.Show("sfawfawfawf");
         }
 
-        
+       
     }
 }

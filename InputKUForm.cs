@@ -78,7 +78,7 @@ namespace РасчетКУ
                 comboBoxEntity.Invoke(new _delObj((s) => comboBoxEntity.DataSource = s), _Entities);
                 comboBoxEntity.Invoke(new _del((s) => comboBoxEntity.DisplayMember = s), "Director_name");
                 comboBoxEntity.Invoke(new _del((s) => comboBoxEntity.ValueMember = s), "Director_name");
-                //comboBoxEntity.Invoke(new _delInt((s) => comboBoxEntity.SelectedIndex = s), -1);
+                comboBoxEntity.Invoke(new _delInt((s) => comboBoxEntity.SelectedIndex = s), -1);
             }
             loadProducerBrand();
         }
@@ -128,6 +128,7 @@ namespace РасчетКУ
             {
                 dateTimePickerDateTo.MinDate = DateTime.Today.AddDays(1);
             }
+            doResize();
 
             if (_showKU)
                 showSelectedKU();
@@ -137,7 +138,6 @@ namespace РасчетКУ
                     backgroundWorker1.RunWorkerAsync();
             }
 
-            doResize();
         }
 
 
@@ -746,8 +746,12 @@ namespace РасчетКУ
 
                 if (dgv.Focused)
                 {
-                    if (dgv.RowCount > 0 && dgv.CurrentCell.ColumnIndex > dgv.ColumnCount - 3)
-                        (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.CurrentCell.ColumnIndex] as DataGridViewComboBoxCell).Value = "";
+                    if (dgv.RowCount > 0 && dgv.CurrentCell.ColumnIndex > dgv.ColumnCount - 3) // Проверка наличия строк в таблице и фокуса на целевых столбцах
+                    {
+                        (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.ColumnCount - 2] as DataGridViewComboBoxCell).Value = "";
+                        (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.ColumnCount - 1] as DataGridViewComboBoxCell).Value = "";
+                    }
+                        
 
                 }
             }
@@ -983,7 +987,7 @@ namespace РасчетКУ
             {
                 if (brandOrProd == 0 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
                     return Convert.ToInt64(BrandProd.Rows[i]["ID"]);
-                else if (BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
+                else if (brandOrProd == 1 && BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
                     return Convert.ToInt64(BrandProd.Rows[i]["ID"]);
             }
             return 0;
@@ -994,9 +998,9 @@ namespace РасчетКУ
         {
             for (int i = 0; i < BrandProd.Rows.Count; i++)
             {
-                if (brandOrProd == 0 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
+                if (brandOrProd == 1 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
                     return BrandProd.Rows[i]["Producer"].ToString();
-                else if (BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
+                else if (brandOrProd == 0 && BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
                     return BrandProd.Rows[i]["Brand"].ToString();
             }
             return "";

@@ -931,9 +931,10 @@ namespace РасчетКУ
                 MessageBox.Show("Введите данные!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if ((dateTimePickerDateFrom.Format == DateTimePickerFormat.Custom) || (dateTimePickerDateTo.Format == DateTimePickerFormat.Custom))
+            //Убрал проверку на ввод конечной даты КУ, надо будет доработать
+            if ((dateTimePickerDateFrom.Format == DateTimePickerFormat.Custom)) //|| (dateTimePickerDateTo.Format == DateTimePickerFormat.Custom))
             {
-                MessageBox.Show("Введите даты!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Введите дату начала КУ!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 

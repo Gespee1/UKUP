@@ -307,33 +307,7 @@ namespace РасчетКУ
             tableExcel2.Columns.Add("Status", typeof(string));
             tableExcel2.Columns.Add("Quantity", typeof(int));
             tableExcel2.Columns.Add("Summ", typeof(int));
-
-
-          /*  for (int i = 0; i < tb.Rows.Count; i++)
-                {
-
-                    SqlCommand command = new SqlCommand($"SELECT L2_name, L3_name, L4_name, Included_products_list.Product_id, Name, Producer, Quantity, Summ " +
-                        $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i]["Product_id"]})" +
-                        $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
-                        $"{tb.Rows[i]["Product_id"]} )" +
-                        $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Included_products_list.Product_id = Products.Product_id AND Included_products_list.Product_id = Invoices_products.Product_id " +
-                        $"AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    reader.Read();
-                    tableExcel.Rows.Add();
-                    tableExcel.Rows[i]["L2_Name"] = reader[0];
-                    tableExcel.Rows[i]["L3_Name"] = reader[1];
-                    tableExcel.Rows[i]["L4_Name"] = reader[2];
-                    tableExcel.Rows[i]["Included_products_list.Product_id"] = reader[3];
-                    tableExcel.Rows[i]["Name"] = reader[4];
-                    tableExcel.Rows[i]["Producer"] = reader[5];
-                    tableExcel.Rows[i]["Quantity"] = reader[6];
-                    tableExcel.Rows[i]["Summ"] = reader[7];
-                    reader.Close();
-
-                }   */
-
+       
             //Если 1-й документ
             if (ex_num == 1)
             {
@@ -364,7 +338,7 @@ namespace РасчетКУ
                 helper.Process(items, tableExcel);
             }
 
-            //Если второй документ
+            //Если 2-й документ
             if (ex_num == 2)
             {
                 for (int i = 0; i < tb.Rows.Count; i++)

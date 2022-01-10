@@ -177,7 +177,8 @@ namespace РасчетКУ
             this.comboBoxVendor.Name = "comboBoxVendor";
             this.comboBoxVendor.Size = new System.Drawing.Size(180, 26);
             this.comboBoxVendor.TabIndex = 2;
-            this.comboBoxVendor.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBoxVendor.SelectedIndexChanged += new System.EventHandler(this.comboBoxVendor_SelectedIndexChanged);
+            this.comboBoxVendor.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelPeriod
             // 
@@ -204,6 +205,7 @@ namespace РасчетКУ
             this.comboBoxPeriod.Name = "comboBoxPeriod";
             this.comboBoxPeriod.Size = new System.Drawing.Size(180, 26);
             this.comboBoxPeriod.TabIndex = 6;
+            this.comboBoxPeriod.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDateFrom
             // 
@@ -401,6 +403,9 @@ namespace РасчетКУ
             this.dataGridViewIncluded.Size = new System.Drawing.Size(964, 183);
             this.dataGridViewIncluded.TabIndex = 0;
             this.dataGridViewIncluded.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInEx_CellEndEdit);
+            this.dataGridViewIncluded.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
+            this.dataGridViewIncluded.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_RowsAdded);
+            this.dataGridViewIncluded.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView_RowsRemoved);
             // 
             // In_prod_id
             // 
@@ -486,6 +491,9 @@ namespace РасчетКУ
             this.dataGridViewExcluded.Size = new System.Drawing.Size(964, 183);
             this.dataGridViewExcluded.TabIndex = 0;
             this.dataGridViewExcluded.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInEx_CellEndEdit);
+            this.dataGridViewExcluded.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
+            this.dataGridViewExcluded.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_RowsAdded);
+            this.dataGridViewExcluded.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView_RowsRemoved);
             // 
             // Ex_prod_id
             // 
@@ -610,6 +618,7 @@ namespace РасчетКУ
             this.checkBoxReturn.TabIndex = 30;
             this.checkBoxReturn.Text = "Исключить возврат";
             this.checkBoxReturn.UseVisualStyleBackColor = true;
+            this.checkBoxReturn.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // checkBoxTax
             // 
@@ -621,6 +630,7 @@ namespace РасчетКУ
             this.checkBoxTax.TabIndex = 31;
             this.checkBoxTax.Text = "Учитывать налог";
             this.checkBoxTax.UseVisualStyleBackColor = true;
+            this.checkBoxTax.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // checkBoxOfactured
             // 
@@ -632,6 +642,7 @@ namespace РасчетКУ
             this.checkBoxOfactured.TabIndex = 32;
             this.checkBoxOfactured.Text = "Только офактуренные";
             this.checkBoxOfactured.UseVisualStyleBackColor = true;
+            this.checkBoxOfactured.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
             // 
             // comboBoxKUType
             // 
@@ -646,6 +657,7 @@ namespace РасчетКУ
             this.comboBoxKUType.Name = "comboBoxKUType";
             this.comboBoxKUType.Size = new System.Drawing.Size(180, 26);
             this.comboBoxKUType.TabIndex = 33;
+            this.comboBoxKUType.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelKUType
             // 
@@ -680,6 +692,7 @@ namespace РасчетКУ
             this.comboBoxPayMethod.Name = "comboBoxPayMethod";
             this.comboBoxPayMethod.Size = new System.Drawing.Size(180, 26);
             this.comboBoxPayMethod.TabIndex = 35;
+            this.comboBoxPayMethod.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDescription
             // 
@@ -717,6 +730,7 @@ namespace РасчетКУ
             this.textBoxContract.Name = "textBoxContract";
             this.textBoxContract.Size = new System.Drawing.Size(180, 24);
             this.textBoxContract.TabIndex = 41;
+            this.textBoxContract.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // groupBoxDescription
             // 
@@ -755,6 +769,7 @@ namespace РасчетКУ
             this.comboBoxEntity.Name = "comboBoxEntity";
             this.comboBoxEntity.Size = new System.Drawing.Size(300, 26);
             this.comboBoxEntity.TabIndex = 50;
+            this.comboBoxEntity.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelKUCode
             // 
@@ -783,6 +798,7 @@ namespace РасчетКУ
             this.richTextBoxDescription.Size = new System.Drawing.Size(377, 56);
             this.richTextBoxDescription.TabIndex = 47;
             this.richTextBoxDescription.Text = "";
+            this.richTextBoxDescription.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // textBoxProductType
             // 
@@ -791,6 +807,7 @@ namespace РасчетКУ
             this.textBoxProductType.Name = "textBoxProductType";
             this.textBoxProductType.Size = new System.Drawing.Size(180, 24);
             this.textBoxProductType.TabIndex = 44;
+            this.textBoxProductType.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelProductType
             // 
@@ -875,6 +892,7 @@ namespace РасчетКУ
             this.richTextBoxDocSubject.Size = new System.Drawing.Size(180, 74);
             this.richTextBoxDocSubject.TabIndex = 58;
             this.richTextBoxDocSubject.Text = "";
+            this.richTextBoxDocSubject.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocSubject
             // 
@@ -912,6 +930,7 @@ namespace РасчетКУ
             this.textBoxDocHeader.Name = "textBoxDocHeader";
             this.textBoxDocHeader.Size = new System.Drawing.Size(180, 24);
             this.textBoxDocHeader.TabIndex = 53;
+            this.textBoxDocHeader.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocHeader
             // 
@@ -930,6 +949,7 @@ namespace РасчетКУ
             this.textBoxDocCode.Name = "textBoxDocCode";
             this.textBoxDocCode.Size = new System.Drawing.Size(180, 24);
             this.textBoxDocCode.TabIndex = 51;
+            this.textBoxDocCode.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocCode
             // 
@@ -948,6 +968,7 @@ namespace РасчетКУ
             this.textBoxDocTitle.Name = "textBoxDocTitle";
             this.textBoxDocTitle.Size = new System.Drawing.Size(180, 24);
             this.textBoxDocTitle.TabIndex = 49;
+            this.textBoxDocTitle.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocTitle
             // 
@@ -966,6 +987,7 @@ namespace РасчетКУ
             this.textBoxDocAccount.Name = "textBoxDocAccount";
             this.textBoxDocAccount.Size = new System.Drawing.Size(180, 24);
             this.textBoxDocAccount.TabIndex = 47;
+            this.textBoxDocAccount.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocAccount
             // 
@@ -984,6 +1006,7 @@ namespace РасчетКУ
             this.textBoxTransferTo.Name = "textBoxTransferTo";
             this.textBoxTransferTo.Size = new System.Drawing.Size(180, 24);
             this.textBoxTransferTo.TabIndex = 45;
+            this.textBoxTransferTo.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelTransferTo
             // 
@@ -1002,6 +1025,7 @@ namespace РасчетКУ
             this.textBoxDocName.Name = "textBoxDocName";
             this.textBoxDocName.Size = new System.Drawing.Size(180, 24);
             this.textBoxDocName.TabIndex = 43;
+            this.textBoxDocName.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocName
             // 
@@ -1092,6 +1116,9 @@ namespace РасчетКУ
             this.dataGridViewTerms.RowHeadersVisible = false;
             this.dataGridViewTerms.Size = new System.Drawing.Size(544, 303);
             this.dataGridViewTerms.TabIndex = 0;
+            this.dataGridViewTerms.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
+            this.dataGridViewTerms.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_RowsAdded);
+            this.dataGridViewTerms.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView_RowsRemoved);
             // 
             // FixSum
             // 

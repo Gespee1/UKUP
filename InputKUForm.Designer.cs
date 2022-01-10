@@ -72,7 +72,6 @@ namespace РасчетКУ
             this.buttonAddCategory = new System.Windows.Forms.Button();
             this.buttonAddProduct = new System.Windows.Forms.Button();
             this.buttonAddAll = new System.Windows.Forms.Button();
-            this.textBoxEntity = new System.Windows.Forms.TextBox();
             this.labelEntity = new System.Windows.Forms.Label();
             this.labelVendAccount = new System.Windows.Forms.Label();
             this.checkBoxReturn = new System.Windows.Forms.CheckBox();
@@ -87,6 +86,7 @@ namespace РасчетКУ
             this.labelContract = new System.Windows.Forms.Label();
             this.textBoxContract = new System.Windows.Forms.TextBox();
             this.groupBoxDescription = new System.Windows.Forms.GroupBox();
+            this.comboBoxEntity = new System.Windows.Forms.ComboBox();
             this.labelKUCode = new System.Windows.Forms.Label();
             this.textBoxKUCode = new System.Windows.Forms.TextBox();
             this.richTextBoxDescription = new System.Windows.Forms.RichTextBox();
@@ -161,7 +161,7 @@ namespace РасчетКУ
             // 
             this.labelVendor.AutoSize = true;
             this.labelVendor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVendor.Location = new System.Drawing.Point(6, 144);
+            this.labelVendor.Location = new System.Drawing.Point(6, 153);
             this.labelVendor.Name = "labelVendor";
             this.labelVendor.Size = new System.Drawing.Size(90, 18);
             this.labelVendor.TabIndex = 1;
@@ -173,7 +173,7 @@ namespace РасчетКУ
             this.comboBoxVendor.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxVendor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBoxVendor.FormattingEnabled = true;
-            this.comboBoxVendor.Location = new System.Drawing.Point(6, 165);
+            this.comboBoxVendor.Location = new System.Drawing.Point(6, 174);
             this.comboBoxVendor.Name = "comboBoxVendor";
             this.comboBoxVendor.Size = new System.Drawing.Size(180, 26);
             this.comboBoxVendor.TabIndex = 2;
@@ -302,7 +302,7 @@ namespace РасчетКУ
             // 
             this.labelStatus.AutoSize = true;
             this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelStatus.Location = new System.Drawing.Point(203, 200);
+            this.labelStatus.Location = new System.Drawing.Point(203, 28);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(60, 18);
             this.labelStatus.TabIndex = 16;
@@ -337,7 +337,7 @@ namespace РасчетКУ
             // 
             this.textBoxStatus.Enabled = false;
             this.textBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxStatus.Location = new System.Drawing.Point(203, 221);
+            this.textBoxStatus.Location = new System.Drawing.Point(203, 49);
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.Size = new System.Drawing.Size(180, 24);
             this.textBoxStatus.TabIndex = 19;
@@ -580,20 +580,11 @@ namespace РасчетКУ
             this.buttonAddAll.UseVisualStyleBackColor = true;
             this.buttonAddAll.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBoxEntity
-            // 
-            this.textBoxEntity.Enabled = false;
-            this.textBoxEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxEntity.Location = new System.Drawing.Point(203, 49);
-            this.textBoxEntity.Name = "textBoxEntity";
-            this.textBoxEntity.Size = new System.Drawing.Size(180, 24);
-            this.textBoxEntity.TabIndex = 26;
-            // 
             // labelEntity
             // 
             this.labelEntity.AutoSize = true;
             this.labelEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelEntity.Location = new System.Drawing.Point(205, 28);
+            this.labelEntity.Location = new System.Drawing.Point(6, 258);
             this.labelEntity.Name = "labelEntity";
             this.labelEntity.Size = new System.Drawing.Size(77, 18);
             this.labelEntity.TabIndex = 27;
@@ -603,7 +594,7 @@ namespace РасчетКУ
             // 
             this.labelVendAccount.AutoSize = true;
             this.labelVendAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVendAccount.Location = new System.Drawing.Point(6, 198);
+            this.labelVendAccount.Location = new System.Drawing.Point(6, 202);
             this.labelVendAccount.Name = "labelVendAccount";
             this.labelVendAccount.Size = new System.Drawing.Size(133, 18);
             this.labelVendAccount.TabIndex = 28;
@@ -704,7 +695,7 @@ namespace РасчетКУ
             // 
             this.textBoxVendAccount.Enabled = false;
             this.textBoxVendAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxVendAccount.Location = new System.Drawing.Point(6, 221);
+            this.textBoxVendAccount.Location = new System.Drawing.Point(6, 225);
             this.textBoxVendAccount.Name = "textBoxVendAccount";
             this.textBoxVendAccount.Size = new System.Drawing.Size(180, 24);
             this.textBoxVendAccount.TabIndex = 39;
@@ -713,7 +704,7 @@ namespace РасчетКУ
             // 
             this.labelContract.AutoSize = true;
             this.labelContract.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelContract.Location = new System.Drawing.Point(205, 96);
+            this.labelContract.Location = new System.Drawing.Point(205, 156);
             this.labelContract.Name = "labelContract";
             this.labelContract.Size = new System.Drawing.Size(77, 18);
             this.labelContract.TabIndex = 40;
@@ -722,17 +713,20 @@ namespace РасчетКУ
             // textBoxContract
             // 
             this.textBoxContract.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxContract.Location = new System.Drawing.Point(203, 117);
+            this.textBoxContract.Location = new System.Drawing.Point(203, 177);
             this.textBoxContract.Name = "textBoxContract";
             this.textBoxContract.Size = new System.Drawing.Size(180, 24);
             this.textBoxContract.TabIndex = 41;
             // 
             // groupBoxDescription
             // 
+            this.groupBoxDescription.Controls.Add(this.comboBoxEntity);
             this.groupBoxDescription.Controls.Add(this.labelKUCode);
             this.groupBoxDescription.Controls.Add(this.textBoxKUCode);
             this.groupBoxDescription.Controls.Add(this.richTextBoxDescription);
             this.groupBoxDescription.Controls.Add(this.textBoxProductType);
+            this.groupBoxDescription.Controls.Add(this.textBoxStatus);
+            this.groupBoxDescription.Controls.Add(this.labelStatus);
             this.groupBoxDescription.Controls.Add(this.labelProductType);
             this.groupBoxDescription.Controls.Add(this.labelDescription);
             this.groupBoxDescription.Controls.Add(this.textBoxContract);
@@ -740,18 +734,27 @@ namespace РасчетКУ
             this.groupBoxDescription.Controls.Add(this.labelVendor);
             this.groupBoxDescription.Controls.Add(this.textBoxVendAccount);
             this.groupBoxDescription.Controls.Add(this.comboBoxVendor);
-            this.groupBoxDescription.Controls.Add(this.textBoxEntity);
             this.groupBoxDescription.Controls.Add(this.labelEntity);
             this.groupBoxDescription.Controls.Add(this.labelVendAccount);
-            this.groupBoxDescription.Controls.Add(this.labelStatus);
-            this.groupBoxDescription.Controls.Add(this.textBoxStatus);
             this.groupBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBoxDescription.Location = new System.Drawing.Point(6, 6);
             this.groupBoxDescription.Name = "groupBoxDescription";
-            this.groupBoxDescription.Size = new System.Drawing.Size(401, 260);
+            this.groupBoxDescription.Size = new System.Drawing.Size(401, 293);
             this.groupBoxDescription.TabIndex = 43;
             this.groupBoxDescription.TabStop = false;
             this.groupBoxDescription.Text = "Описание";
+            // 
+            // comboBoxEntity
+            // 
+            this.comboBoxEntity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxEntity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxEntity.Enabled = false;
+            this.comboBoxEntity.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxEntity.FormattingEnabled = true;
+            this.comboBoxEntity.Location = new System.Drawing.Point(83, 255);
+            this.comboBoxEntity.Name = "comboBoxEntity";
+            this.comboBoxEntity.Size = new System.Drawing.Size(300, 26);
+            this.comboBoxEntity.TabIndex = 50;
             // 
             // labelKUCode
             // 
@@ -777,14 +780,14 @@ namespace РасчетКУ
             this.richTextBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.richTextBoxDescription.Location = new System.Drawing.Point(6, 97);
             this.richTextBoxDescription.Name = "richTextBoxDescription";
-            this.richTextBoxDescription.Size = new System.Drawing.Size(180, 44);
+            this.richTextBoxDescription.Size = new System.Drawing.Size(377, 56);
             this.richTextBoxDescription.TabIndex = 47;
             this.richTextBoxDescription.Text = "";
             // 
             // textBoxProductType
             // 
             this.textBoxProductType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxProductType.Location = new System.Drawing.Point(203, 165);
+            this.textBoxProductType.Location = new System.Drawing.Point(203, 225);
             this.textBoxProductType.Name = "textBoxProductType";
             this.textBoxProductType.Size = new System.Drawing.Size(180, 24);
             this.textBoxProductType.TabIndex = 44;
@@ -793,7 +796,7 @@ namespace РасчетКУ
             // 
             this.labelProductType.AutoSize = true;
             this.labelProductType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelProductType.Location = new System.Drawing.Point(205, 144);
+            this.labelProductType.Location = new System.Drawing.Point(205, 204);
             this.labelProductType.Name = "labelProductType";
             this.labelProductType.Size = new System.Drawing.Size(98, 18);
             this.labelProductType.TabIndex = 43;
@@ -801,6 +804,7 @@ namespace РасчетКУ
             // 
             // backgroundWorker1
             // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
@@ -1268,7 +1272,6 @@ namespace РасчетКУ
         private System.Windows.Forms.Button buttonAddCategory;
         private System.Windows.Forms.Button buttonAddProduct;
         private System.Windows.Forms.Button buttonAddAll;
-        private System.Windows.Forms.TextBox textBoxEntity;
         private System.Windows.Forms.Label labelEntity;
         private System.Windows.Forms.Label labelVendAccount;
         private System.Windows.Forms.CheckBox checkBoxReturn;
@@ -1323,5 +1326,6 @@ namespace РасчетКУ
         private System.Windows.Forms.Label labelKUCode;
         private System.Windows.Forms.TextBox textBoxKUCode;
         private System.Windows.Forms.Button buttonUnapprove;
+        private System.Windows.Forms.ComboBox comboBoxEntity;
     }
 }

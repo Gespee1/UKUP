@@ -15,10 +15,13 @@ namespace РасчетКУ
         private Int64 _KU_id, _Vendor_id;
         private List<Int64> ProdIds = new List<Int64>();
         private List<string> CategoryID = new List<string>();
-        private DataTable BrandProd = new DataTable(), _Vendors = new DataTable();
+        private DataTable BrandProd = new DataTable(), _Vendors = new DataTable(), _Entities = new DataTable();
         private Stopwatch _timer = new Stopwatch();
-        private delegate void _del(string item); // Делегат для обращения к объектам одного потока из другого потока
+        private delegate void _del(string item); // Делегаты для обращения к объектам одного потока из другого потока
+        private delegate void _delInt(int item);
+        private delegate void _delObj(object item);
         
+
         //
         // Конструкторы
         //
@@ -34,6 +37,7 @@ namespace РасчетКУ
             _Vendor_id = VendorId;
             _showKU = true;
 
+            textBoxKUCode.Text = _KU_id.ToString();
             buttonCreate.Text = "Изменить";
             buttonCreateNApprove.Text = "Изменить и утвердить";
             comboBoxVendor.Enabled = false;
@@ -46,37 +50,58 @@ namespace РасчетКУ
 
         // Отдельные потоки
         //
-        // Поток 1. Загрузка поставщиков
+        // Поток 1. Загрузка комбобоксов
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            //Загрузка данных о поставщиках в комбобокс
+            _timer.Start();
+
+            // Загрузка данных о поставщиках в комбобокс
             SqlCommand command = new SqlCommand("SELECT Name, max(Vendor_id) AS 'ID' FROM Vendors GROUP BY Name ORDER BY max(Vendor_id)", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(_Vendors);
             
-            for (int i = 0; i < _Vendors.Rows.Count; i++)
+            if (comboBoxVendor.InvokeRequired)
             {
-                if (comboBoxVendor.InvokeRequired)
-                    comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.Items.Add(s)), _Vendors.Rows[i][0]);
+                comboBoxVendor.Invoke(new _delObj((s) => comboBoxVendor.DataSource = s), _Vendors);
+                comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.DisplayMember = s), "Name");
+                comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.ValueMember = s), "Name");
+                comboBoxVendor.Invoke(new _delInt((s) => comboBoxVendor.SelectedIndex = s), -1);
             }
+
+            // Загрузка данных о юр. лицах в комбобокс
+            command = new SqlCommand("SELECT Entity_id, Director_name FROM Entities WHERE Director_name != 'NULL'", _sqlConnection);
+            adapt.SelectCommand = command;
+            adapt.Fill(_Entities);
+
+            if (comboBoxEntity.InvokeRequired)
+            {
+                comboBoxEntity.Invoke(new _delObj((s) => comboBoxEntity.DataSource = s), _Entities);
+                comboBoxEntity.Invoke(new _del((s) => comboBoxEntity.DisplayMember = s), "Director_name");
+                comboBoxEntity.Invoke(new _del((s) => comboBoxEntity.ValueMember = s), "Director_name");
+                comboBoxEntity.Invoke(new _delInt((s) => comboBoxEntity.SelectedIndex = s), -1);
+            }
+            loadProducerBrand();
         }
-        // Поток 1. Отображение данных о КУ
+        
+        // Поток 1. Завершение и отображение данных о КУ
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            loadProducerBrand();
-
-            if (!_approved)
+            if (!_approved) // Если не утверждено
             {
                 comboBoxVendor.Enabled = true;
+                comboBoxEntity.Enabled = true;
                 tabControlInEx.Enabled = true;
                 dataGridViewIncluded.Enabled = true;
                 dataGridViewExcluded.Enabled = true;
             }
-            if (_showKU)
+            if (_showKU) // Если КУ уже создано
             {
                 SqlCommand command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = {_Vendor_id}", _sqlConnection);
-                comboBoxVendor.SelectedItem = command.ExecuteScalar().ToString();
+                comboBoxVendor.SelectedText = command.ExecuteScalar().ToString();
             }
+
+            _timer.Stop();
+            Console.WriteLine("Время загрузки комбобоксов: " + _timer.Elapsed);
         }
 
 
@@ -92,11 +117,6 @@ namespace РасчетКУ
 
             _sqlConnection.Open();
 
-            if (_showKU)
-                showSelectedKU();
-            if (!backgroundWorker1.IsBusy)
-                backgroundWorker1.RunWorkerAsync();
-
             // Настройка дат
             dateTimePickerDateFrom.Format = DateTimePickerFormat.Custom;
             dateTimePickerDateTo.Format = DateTimePickerFormat.Custom;
@@ -109,6 +129,15 @@ namespace РасчетКУ
                 dateTimePickerDateTo.MinDate = DateTime.Today.AddDays(1);
             }
             doResize();
+
+            if (_showKU)
+                showSelectedKU();
+            else
+            {
+                if (!backgroundWorker1.IsBusy)
+                    backgroundWorker1.RunWorkerAsync();
+            }
+
         }
 
 
@@ -122,7 +151,7 @@ namespace РасчетКУ
         {
             // Загрузка всех параметров КУ
             SqlCommand command = new SqlCommand($"SELECT Period, Date_from, Date_to, Status, Description, " +
-                $"(SELECT Name FROM Entities WHERE Entities.Entity_id = KU.Entity_id), Vend_account, Contract, Product_type, " +
+                $"(SELECT Director_name FROM Entities WHERE Entities.Entity_id = KU.Entity_id), Vend_account, Contract, Product_type, " +
                 $"Docu_name, Docu_header, Transfer_to, Docu_account, Docu_title, Docu_code, Docu_date, Docu_subject, " +
                 $"Tax, [Return], Ofactured, Pay_method, KU_type " +
                 $"FROM KU, Vendors WHERE KU.Vendor_id = Vendors.Vendor_id AND KU_id = {_KU_id}", _sqlConnection);
@@ -137,7 +166,7 @@ namespace РасчетКУ
             dateTimePickerDateTo.Value = Convert.ToDateTime(reader[2]);
             textBoxStatus.Text = reader[3].ToString();
             richTextBoxDescription.Text = reader[4].ToString();
-            textBoxEntity.Text = reader[5].ToString();
+            comboBoxEntity.SelectedItem = reader[5].ToString();
             textBoxVendAccount.Text = reader[6].ToString();
             textBoxContract.Text = reader[7].ToString();
             textBoxProductType.Text = reader[8].ToString();
@@ -185,17 +214,22 @@ namespace РасчетКУ
 
             showExInProducts(_KU_id);
             showTerms(_KU_id);
+            // Запуск потока по загрузке данных
+            if (!backgroundWorker1.IsBusy)
+                backgroundWorker1.RunWorkerAsync();
         }
 
-        // Добавление КУ в БД
-        private void addKU(string status)
+        // Добавление/изменение КУ в БД
+        private void addOrUpdateKU(string status, bool addOrUpdate = true) // addOrUpdate: true -> add, false -> update
         {
             // Проверка на неповторность временного периода
             List<DateTime> dateFrom = new List<DateTime>(), dateTo = new List<DateTime>();
             DateTime currDateFrom = dateTimePickerDateFrom.Value, currDateTo = dateTimePickerDateTo.Value;
 
-            SqlCommand command = new SqlCommand($"SELECT Date_from, Date_to FROM KU WHERE Vendor_id = " +
-                $"(SELECT Vendor_id FROM Vendors WHERE Name = '{comboBoxVendor.SelectedItem}')", _sqlConnection);
+            SqlCommand command = 
+                addOrUpdate == true ? new SqlCommand($"SELECT Date_from, Date_to FROM KU WHERE Vendor_id = {findVendorIdByName(comboBoxVendor.Text)}", _sqlConnection)
+                : new SqlCommand($"SELECT Date_from, Date_to FROM KU WHERE Vendor_id = " +
+                $"{findVendorIdByName(comboBoxVendor.Text)} AND KU_id != {_KU_id}", _sqlConnection);
             SqlDataReader reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -210,123 +244,93 @@ namespace РасчетКУ
             {
                 if (dateFrom[i] < currDateTo && currDateFrom < dateTo[i])
                 {
-                    MessageBox.Show($"В базе данных уже содержится информация о коммерческих условиях поставщика '{comboBoxVendor.SelectedItem}' в обозначенный период с " +
+                    MessageBox.Show($"В базе данных уже содержится информация о коммерческих условиях поставщика '{comboBoxVendor.Text}' в обозначенный период с " +
                         $"{currDateFrom.ToShortDateString()} по {currDateTo.ToShortDateString()}", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
             // Создание КУ
-            command = new SqlCommand(
-           $"INSERT INTO KU (Vendor_id, Period, Date_from, Date_to, Status, Entity_id, Vend_account, Description, Contract, Product_type, Docu_name, Docu_header, " +
-           $"Transfer_to, Docu_account, Docu_title, Docu_code, Docu_date, Docu_subject, Tax, [Return], Ofactured, Pay_Method, KU_type)" +
-           $" VALUES ((SELECT Vendor_id FROM Vendors WHERE Name = '{comboBoxVendor.SelectedItem}'), " +
-           $"'{comboBoxPeriod.SelectedItem}', '{dateTimePickerDateFrom.Value.ToShortDateString()}', '{dateTimePickerDateTo.Value.ToShortDateString()}', '{status}', " +
-           $"(SELECT Entity_id FROM Entities WHERE Name = '{textBoxEntity.Text}'), '{textBoxVendAccount.Text}', '{richTextBoxDescription.Text}', '{textBoxContract.Text}', '{textBoxProductType.Text}', '{textBoxDocName.Text}', " +
-           $"'{textBoxDocHeader.Text}', '{textBoxTransferTo.Text}', '{textBoxDocAccount.Text}', '{textBoxDocTitle.Text}', '{textBoxDocCode.Text}', '{dateTimePickerDocDate.Value.ToShortDateString()}', '{richTextBoxDocSubject.Text}', " +
-           $"'{checkBoxTax.Checked}', '{checkBoxReturn.Checked}', '{checkBoxOfactured.Checked}', '{comboBoxPayMethod.SelectedItem}', '{comboBoxKUType.SelectedItem}')", _sqlConnection);
+            command = addOrUpdate == true ? new SqlCommand(
+                $"INSERT INTO KU (Vendor_id, Period, Date_from, Date_to, Status, Entity_id, Vend_account, Description, Contract, Product_type, Docu_name, Docu_header, " +
+                $"Transfer_to, Docu_account, Docu_title, Docu_code, Docu_date, Docu_subject, Tax, [Return], Ofactured, Pay_Method, KU_type)" +
+                $" VALUES ({findVendorIdByName(comboBoxVendor.Text)}, '{comboBoxPeriod.SelectedItem}', '{dateTimePickerDateFrom.Value.ToShortDateString()}', " +
+                $"'{dateTimePickerDateTo.Value.ToShortDateString()}', '{status}', (SELECT Entity_id FROM Entities WHERE Director_name = '{comboBoxEntity.SelectedItem}'), " +
+                $"'{textBoxVendAccount.Text}', '{richTextBoxDescription.Text}', '{textBoxContract.Text}', '{textBoxProductType.Text}', '{textBoxDocName.Text}', " +
+                $"'{textBoxDocHeader.Text}', '{textBoxTransferTo.Text}', '{textBoxDocAccount.Text}', '{textBoxDocTitle.Text}', '{textBoxDocCode.Text}', " +
+                $"'{dateTimePickerDocDate.Value.ToShortDateString()}', '{richTextBoxDocSubject.Text}', '{checkBoxTax.Checked}', '{checkBoxReturn.Checked}', " +
+                $"'{checkBoxOfactured.Checked}', '{comboBoxPayMethod.SelectedItem}', '{comboBoxKUType.SelectedItem}')", _sqlConnection)
+                : new SqlCommand( // Изменение КУ
+                $"UPDATE KU SET Period = '{comboBoxPeriod.SelectedItem}', Date_from = '{dateTimePickerDateFrom.Value.ToShortDateString()}', " +
+                $"Date_to = '{dateTimePickerDateTo.Value.ToShortDateString()}', Status = '{status}', Entity_id = " +
+                $"(SELECT Entity_id FROM Entities WHERE Director_name = '{comboBoxEntity.SelectedItem}'), Vend_account = '{textBoxVendAccount.Text}', " +
+                $"Description = '{richTextBoxDescription.Text}', Contract = '{textBoxContract.Text}', Product_type = '{textBoxProductType.Text}', Docu_name = '{textBoxDocName.Text}', " +
+                $"Docu_header = '{textBoxDocHeader.Text}', Transfer_to = '{textBoxTransferTo.Text}', Docu_account = '{textBoxDocAccount.Text}', " +
+                $"Docu_title = '{textBoxDocTitle.Text}', Docu_code = '{textBoxDocCode.Text}', Docu_date = '{dateTimePickerDocDate.Value.ToShortDateString()}', " +
+                $"Docu_subject = '{richTextBoxDocSubject.Text}', Tax = '{checkBoxTax.Checked}', [Return] = '{checkBoxReturn.Checked}', Ofactured = '{checkBoxOfactured.Checked}', " +
+                $"Pay_method = '{comboBoxPayMethod.SelectedItem}', KU_type = '{comboBoxKUType.SelectedItem}' WHERE KU_id = {_KU_id}", _sqlConnection);
             command.ExecuteNonQuery();
 
-            command = new SqlCommand($"SELECT KU_id FROM KU WHERE Vendor_id = " +
-                $"(SELECT Vendor_id FROM Vendors WHERE Name = '{comboBoxVendor.SelectedItem}') AND Date_from = '{dateTimePickerDateFrom.Value.ToShortDateString()}' AND " +
-                $"Date_to = '{dateTimePickerDateTo.Value.ToShortDateString()}'", _sqlConnection);
-            _KU_id = Convert.ToInt64(command.ExecuteScalar());
+            if(addOrUpdate == true)
+            {
+                // Получение номера только что созданного КУ
+                command = new SqlCommand($"SELECT KU_id FROM KU WHERE Vendor_id = {findVendorIdByName(comboBoxVendor.Text)} AND Date_from = " +
+                    $"'{dateTimePickerDateFrom.Value.ToShortDateString()}' AND Date_to = '{dateTimePickerDateTo.Value.ToShortDateString()}'", _sqlConnection);
+                _KU_id = Convert.ToInt64(command.ExecuteScalar());
+            }
+            else
+            {
+                //Удаление условий бонуса в БД для последующей перезаписи
+                command = new SqlCommand($"DELETE FROM Terms WHERE KU_id = '{_KU_id}'", _sqlConnection);
+                command.ExecuteNonQuery();
+            }
 
             //Запись условий бонуса в БД
             for (int i = 0; i < dataGridViewTerms.RowCount; i++)
             {
                 command = new SqlCommand(
-              $"INSERT INTO Terms (KU_id, Fixed, Criteria, [Percent/Amount], Total) VALUES ('{_KU_id}', '{dataGridViewTerms.Rows[i].Cells["FixSum"].Value}'," +
-              $" '{dataGridViewTerms.Rows[i].Cells["Criterion"].Value}', '{dataGridViewTerms.Rows[i].Cells["PercentSum"].Value}', '{dataGridViewTerms.Rows[i].Cells["Total"].Value}')", _sqlConnection);
+                    $"INSERT INTO Terms (KU_id, Fixed, Criteria, [Percent/Amount], Total) VALUES ('{_KU_id}', '{dataGridViewTerms.Rows[i].Cells["FixSum"].Value}'," +
+                    $" '{dataGridViewTerms.Rows[i].Cells["Criterion"].Value}', '{dataGridViewTerms.Rows[i].Cells["PercentSum"].Value}', " +
+                    $"'{dataGridViewTerms.Rows[i].Cells["Total"].Value}')", _sqlConnection);
                 command.ExecuteNonQuery();
             }
-            //ПРОБНЫЙ МЕТОД ДЛЯ СОХРАНЕНИЯ iN/EX!!!!!!!!!!!!!!!!!!!
+            // МЕТОД ДЛЯ СОХРАНЕНИЯ iN/EX
             AddInExBD();
 
-
-            comboBoxVendor.SelectedIndex = -1;
-            comboBoxPeriod.SelectedIndex = -1;
-            comboBoxKUType.SelectedIndex = -1;
-            comboBoxPayMethod.SelectedIndex = -1;
-            textBoxEntity.Text = "";
-            textBoxVendAccount.Text = "";
-            textBoxContract.Text = "";
-            textBoxProductType.Text = "";
-            textBoxDocName.Text = "";
-            textBoxTransferTo.Text = "";
-            textBoxDocAccount.Text = "";
-            textBoxDocTitle.Text = "";
-            textBoxDocCode.Text = "";
-            textBoxDocHeader.Text = "";
-            richTextBoxDescription.Text = "";
-            richTextBoxDocSubject.Text = "";
-            checkBoxTax.Checked = Convert.ToBoolean(0);
-            checkBoxReturn.Checked = Convert.ToBoolean(0);
-            checkBoxOfactured.Checked = Convert.ToBoolean(0);
-            textBoxStatus.Text = "";
-            dateTimePickerDateFrom.Format = DateTimePickerFormat.Custom;
-            dateTimePickerDateTo.Format = DateTimePickerFormat.Custom;
-            dateTimePickerDocDate.Format = DateTimePickerFormat.Custom;
-            dataGridViewTerms.Rows.Clear();
-            dataGridViewIncluded.Rows.Clear();
-            dataGridViewExcluded.Rows.Clear();
-        }
-
-        // Изменение КУ в БД
-        private void updateKU(string status)
-        {
-            // Проверка на неповторность временного периода
-            List<DateTime> dateFrom = new List<DateTime>(), dateTo = new List<DateTime>();
-            DateTime currDateFrom = dateTimePickerDateFrom.Value, currDateTo = dateTimePickerDateTo.Value;
-
-            SqlCommand command = new SqlCommand($"SELECT Date_from, Date_to FROM KU WHERE Vendor_id = " +
-                $"(SELECT Vendor_id FROM Vendors WHERE Name = '{comboBoxVendor.SelectedItem}') AND KU_id != {_KU_id}", _sqlConnection);
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            if (addOrUpdate == true)
             {
-                dateFrom.Add(Convert.ToDateTime(reader[0]));
-                dateTo.Add(Convert.ToDateTime(reader[1]));
+                comboBoxVendor.SelectedIndex = -1;
+                comboBoxPeriod.SelectedIndex = -1;
+                comboBoxKUType.SelectedIndex = -1;
+                comboBoxPayMethod.SelectedIndex = -1;
+                comboBoxEntity.SelectedIndex = -1;
+                textBoxVendAccount.Text = "";
+                textBoxContract.Text = "";
+                textBoxProductType.Text = "";
+                textBoxDocName.Text = "";
+                textBoxTransferTo.Text = "";
+                textBoxDocAccount.Text = "";
+                textBoxDocTitle.Text = "";
+                textBoxDocCode.Text = "";
+                textBoxDocHeader.Text = "";
+                richTextBoxDescription.Text = "";
+                richTextBoxDocSubject.Text = "";
+                checkBoxTax.Checked = Convert.ToBoolean(0);
+                checkBoxReturn.Checked = Convert.ToBoolean(0);
+                checkBoxOfactured.Checked = Convert.ToBoolean(0);
+                textBoxStatus.Text = "";
+                dateTimePickerDateFrom.Format = DateTimePickerFormat.Custom;
+                dateTimePickerDateTo.Format = DateTimePickerFormat.Custom;
+                dateTimePickerDocDate.Format = DateTimePickerFormat.Custom;
+                dataGridViewTerms.Rows.Clear();
+                dataGridViewIncluded.Rows.Clear();
+                dataGridViewExcluded.Rows.Clear();
             }
-            reader.Close();
-
-            // цикл с проверкой
-            for (int i = 0; i < dateFrom.Count; i++)
+            else
             {
-                if (dateFrom[i] < currDateTo && currDateFrom < dateTo[i])
-                {
-                    MessageBox.Show($"В базе данных уже содержится информация о коммерческих условиях поставщика '{comboBoxVendor.SelectedItem}' в обозначенный период с " +
-                        $"{currDateFrom.ToShortDateString()} по {currDateTo.ToShortDateString()}", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-
-            command = new SqlCommand(
-                    $"UPDATE KU SET Period = '{comboBoxPeriod.SelectedItem}', Date_from = '{dateTimePickerDateFrom.Value.ToShortDateString()}', " +
-                    $"Date_to = '{dateTimePickerDateTo.Value.ToShortDateString()}', Status = '{status}', Entity_id = (SELECT Entity_id FROM Entities WHERE Name = '{textBoxEntity.Text}'), " +
-                    $"Vend_account = '{textBoxVendAccount.Text}', Description = '{richTextBoxDescription.Text}', Contract = '{textBoxContract.Text}', " +
-                    $"Product_type = '{textBoxProductType.Text}', Docu_name = '{textBoxDocName.Text}', Docu_header = '{textBoxDocHeader.Text}', Transfer_to = '{textBoxTransferTo.Text}', Docu_account = '{textBoxDocAccount.Text}', " +
-                    $"Docu_title = '{textBoxDocTitle.Text}', Docu_code = '{textBoxDocCode.Text}', Docu_date = '{dateTimePickerDocDate.Value.ToShortDateString()}', Docu_subject = '{richTextBoxDocSubject.Text}', " +
-                    $"Tax = '{checkBoxTax.Checked}', [Return] = '{checkBoxReturn.Checked}', Ofactured = '{checkBoxOfactured.Checked}', Pay_method = '{comboBoxPayMethod.SelectedItem}', " +
-                    $"KU_type = '{comboBoxKUType.SelectedItem}' WHERE KU_id = {_KU_id}", _sqlConnection);
-            command.ExecuteNonQuery();
-
-            //Перезапись условий бонуса в БД
-            command = new SqlCommand($"DELETE FROM Terms WHERE KU_id = '{_KU_id}'", _sqlConnection);
-            command.ExecuteNonQuery();
-
-            for (int i = 0; i < dataGridViewTerms.RowCount; i++)
-            {
-                command = new SqlCommand(
-              $"INSERT INTO Terms (KU_id, Fixed, Criteria, [Percent/Amount], Total) VALUES ('{_KU_id}', '{dataGridViewTerms.Rows[i].Cells["FixSum"].Value}'," +
-              $" '{dataGridViewTerms.Rows[i].Cells["Criterion"].Value}', '{dataGridViewTerms.Rows[i].Cells["PercentSum"].Value}', '{dataGridViewTerms.Rows[i].Cells["Total"].Value}')", _sqlConnection);
-                command.ExecuteNonQuery();
-            }
-            //Запись добавленных и исключенных
-            AddInExBD();
-
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
 
         // Изменение минимальной даты окончания, в зависимости от выбранной даты начала
@@ -375,19 +379,15 @@ namespace РасчетКУ
         //
         // Таблицы вкл. и искл. товаров
         //
-        // Отображение производителя и марки в combobox в таблицах искл и вкл товаров
+        // Очистка таблиц вкл и искл товаров + доб. строки по умолчанию
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxVendor.SelectedIndex > -1 & _showKU == false)
             {
                 dataGridViewIncluded.Rows.Clear();
                 dataGridViewExcluded.Rows.Clear();
-                //Вызываю метод отображения Производителя и марки
-                //SqlCommand command = new SqlCommand($"SELECT Vendor_id FROM Vendors WHERE Vendors.Name = '{comboBox1.SelectedItem}'", _sqlConnection);
-                //_Vendor_id = Convert.ToInt64(command.ExecuteScalar());
-                //showProducerBrand();
 
-                //Добавление условия "Все" при создании ку
+                //Добавление условия "Все" при создании КУ
                 dataGridViewIncluded.Rows.Add();
                 dataGridViewIncluded.Rows[0].Cells["TypeP"].Value = "Все";
             }
@@ -410,13 +410,18 @@ namespace РасчетКУ
 
             adapt.Fill(BrandProd);
 
-            for (int i = 0; i < BrandProd.Rows.Count; i++)
-            {
-                combo1.Items.Add(BrandProd.Rows[i][1]);
-                combo2.Items.Add(BrandProd.Rows[i][2]);
-                combo3.Items.Add(BrandProd.Rows[i][1]);
-                combo4.Items.Add(BrandProd.Rows[i][2]);
-            }
+            combo1.DataSource = BrandProd;
+            combo1.DisplayMember = "Producer";
+            combo1.ValueMember = "Producer";
+            combo2.DataSource = BrandProd;
+            combo2.DisplayMember = "Brand";
+            combo2.ValueMember = "Brand";
+            combo3.DataSource = BrandProd;
+            combo3.DisplayMember = "Producer";
+            combo3.ValueMember = "Producer";
+            combo4.DataSource = BrandProd;
+            combo4.DisplayMember = "Brand";
+            combo4.ValueMember = "Brand";
         }
 
         // Отображение добавленных и исключенных из расчета продуктов
@@ -741,8 +746,12 @@ namespace РасчетКУ
 
                 if (dgv.Focused)
                 {
-                    if (dgv.RowCount > 0 && dgv.CurrentCell.ColumnIndex > dgv.ColumnCount - 3)
-                        (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.CurrentCell.ColumnIndex] as DataGridViewComboBoxCell).Value = "";
+                    if (dgv.RowCount > 0 && dgv.CurrentCell.ColumnIndex > dgv.ColumnCount - 3) // Проверка наличия строк в таблице и фокуса на целевых столбцах
+                    {
+                        (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.ColumnCount - 2] as DataGridViewComboBoxCell).Value = "";
+                        (dgv.Rows[dgv.CurrentRow.Index].Cells[dgv.ColumnCount - 1] as DataGridViewComboBoxCell).Value = "";
+                    }
+                        
 
                 }
             }
@@ -763,11 +772,11 @@ namespace РасчетКУ
             // Добавление или изменение информаци о коммерческих условиях
             if (buttonCreate.Text == "Создать")
             {
-                addKU("Создано");
+                addOrUpdateKU("Создано");
             }
             else
             {
-                updateKU("Создано");
+                addOrUpdateKU("Создано", false);
             }
         }
         // Нажатие на кнопку создания(изменения) и утверждения
@@ -784,12 +793,12 @@ namespace РасчетКУ
                 if (buttonCreateNApprove.Text == "Создать и утвердить")
                 {
                     // Создание и утверждение
-                    addKU("Утверждено");
+                    addOrUpdateKU("Утверждено");
                 }
                 else
                 {
                     // Изменение и утверждение
-                    updateKU("Утверждено");
+                    addOrUpdateKU("Утверждено", false);
                 }
             }
         }
@@ -855,7 +864,7 @@ namespace РасчетКУ
                 MessageBox.Show("Не выбран поставщик!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            _Vendor_id = findVendorIdByName(comboBoxVendor.SelectedItem.ToString());
+            _Vendor_id = findVendorIdByName(comboBoxVendor.Text);
 
             if (_Vendor_id != 0)
             {
@@ -920,8 +929,7 @@ namespace РасчетКУ
         // Проверка на пустые поля при нажатии на кнопки
         private bool nullCheck()
         {
-            // Проверка, выбран ли поставщик + введены ли данные
-            if (comboBoxVendor.SelectedIndex == -1)
+            if (comboBoxVendor.SelectedIndex == -1)// Поставщик
             {
                 MessageBox.Show("Поставщик не выбран!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -980,7 +988,7 @@ namespace РасчетКУ
             {
                 if (brandOrProd == 0 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
                     return Convert.ToInt64(BrandProd.Rows[i]["ID"]);
-                else if (BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
+                else if (brandOrProd == 1 && BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
                     return Convert.ToInt64(BrandProd.Rows[i]["ID"]);
             }
             return 0;
@@ -991,9 +999,9 @@ namespace РасчетКУ
         {
             for (int i = 0; i < BrandProd.Rows.Count; i++)
             {
-                if (brandOrProd == 0 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
+                if (brandOrProd == 1 && BrandProd.Rows[i]["Brand"].ToString() == brandProdValue)
                     return BrandProd.Rows[i]["Producer"].ToString();
-                else if (BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
+                else if (brandOrProd == 0 && BrandProd.Rows[i]["Producer"].ToString() == brandProdValue)
                     return BrandProd.Rows[i]["Brand"].ToString();
             }
             return "";
@@ -1026,7 +1034,7 @@ namespace РасчетКУ
             dataGridViewTerms.Height = activePage.Height - 12;
         }
 
-
+        
         //
         // КНОПКИ МЕНЮ
         //

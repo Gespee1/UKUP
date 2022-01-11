@@ -90,7 +90,6 @@ namespace РасчетКУ
             this.labelKUCode = new System.Windows.Forms.Label();
             this.textBoxKUCode = new System.Windows.Forms.TextBox();
             this.richTextBoxDescription = new System.Windows.Forms.RichTextBox();
-            this.textBoxProductType = new System.Windows.Forms.TextBox();
             this.labelProductType = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBoxPeriod = new System.Windows.Forms.GroupBox();
@@ -127,6 +126,7 @@ namespace РасчетКУ
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.buttonUnapprove = new System.Windows.Forms.Button();
+            this.comboBoxProductType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tabControlInEx.SuspendLayout();
             this.tabPageToInclude.SuspendLayout();
@@ -734,11 +734,11 @@ namespace РасчетКУ
             // 
             // groupBoxDescription
             // 
+            this.groupBoxDescription.Controls.Add(this.comboBoxProductType);
             this.groupBoxDescription.Controls.Add(this.comboBoxEntity);
             this.groupBoxDescription.Controls.Add(this.labelKUCode);
             this.groupBoxDescription.Controls.Add(this.textBoxKUCode);
             this.groupBoxDescription.Controls.Add(this.richTextBoxDescription);
-            this.groupBoxDescription.Controls.Add(this.textBoxProductType);
             this.groupBoxDescription.Controls.Add(this.textBoxStatus);
             this.groupBoxDescription.Controls.Add(this.labelStatus);
             this.groupBoxDescription.Controls.Add(this.labelProductType);
@@ -799,15 +799,6 @@ namespace РасчетКУ
             this.richTextBoxDescription.TabIndex = 47;
             this.richTextBoxDescription.Text = "";
             this.richTextBoxDescription.TextChanged += new System.EventHandler(this.control_TextChanged);
-            // 
-            // textBoxProductType
-            // 
-            this.textBoxProductType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxProductType.Location = new System.Drawing.Point(203, 225);
-            this.textBoxProductType.Name = "textBoxProductType";
-            this.textBoxProductType.Size = new System.Drawing.Size(180, 24);
-            this.textBoxProductType.TabIndex = 44;
-            this.textBoxProductType.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelProductType
             // 
@@ -1204,6 +1195,20 @@ namespace РасчетКУ
             this.buttonUnapprove.Visible = false;
             this.buttonUnapprove.Click += new System.EventHandler(this.buttonUnapprove_Click);
             // 
+            // comboBoxProductType
+            // 
+            this.comboBoxProductType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxProductType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxProductType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxProductType.FormattingEnabled = true;
+            this.comboBoxProductType.Items.AddRange(new object[] {
+            "Продовльственные",
+            "Непродовольственные"});
+            this.comboBoxProductType.Location = new System.Drawing.Point(203, 223);
+            this.comboBoxProductType.Name = "comboBoxProductType";
+            this.comboBoxProductType.Size = new System.Drawing.Size(180, 26);
+            this.comboBoxProductType.TabIndex = 51;
+            // 
             // InputKUForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1313,7 +1318,6 @@ namespace РасчетКУ
         private System.Windows.Forms.Label labelContract;
         private System.Windows.Forms.TextBox textBoxContract;
         private System.Windows.Forms.GroupBox groupBoxDescription;
-        private System.Windows.Forms.TextBox textBoxProductType;
         private System.Windows.Forms.Label labelProductType;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox groupBoxPeriod;
@@ -1354,5 +1358,6 @@ namespace РасчетКУ
         private System.Windows.Forms.TextBox textBoxKUCode;
         private System.Windows.Forms.Button buttonUnapprove;
         private System.Windows.Forms.ComboBox comboBoxEntity;
+        private System.Windows.Forms.ComboBox comboBoxProductType;
     }
 }

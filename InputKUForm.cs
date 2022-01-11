@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 
 namespace РасчетКУ
 {
@@ -53,21 +54,24 @@ namespace РасчетКУ
         // Поток 1. Загрузка комбобоксов
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            _timer.Start();
+            //_timer.Start();
 
             // Загрузка данных о поставщиках в комбобокс
             SqlCommand command = new SqlCommand("SELECT Name, max(Vendor_id) AS 'ID' FROM Vendors GROUP BY Name ORDER BY max(Vendor_id)", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(_Vendors);
             
-            if (comboBoxVendor.InvokeRequired)
+            _timer.Start();
+            Thread.Sleep(8000);
+            /*if (comboBoxVendor.InvokeRequired)
             {
                 comboBoxVendor.Invoke(new _delObj((s) => comboBoxVendor.DataSource = s), _Vendors);
                 comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.DisplayMember = s), "Name");
                 comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.ValueMember = s), "Name");
                 comboBoxVendor.Invoke(new _delInt((s) => comboBoxVendor.SelectedIndex = s), -1);
-            }
-
+            }*/
+            _timer.Stop();
+            Console.WriteLine("Время загрузки комбобокса с поставщиками: " + _timer.Elapsed);
             // Загрузка данных о юр. лицах в комбобокс
             command = new SqlCommand("SELECT Entity_id, Director_name FROM Entities WHERE Director_name != 'NULL'", _sqlConnection);
             adapt.SelectCommand = command;
@@ -105,8 +109,8 @@ namespace РасчетКУ
                 }
             }
 
-            _timer.Stop();
-            Console.WriteLine("Время загрузки комбобоксов: " + _timer.Elapsed);
+            //_timer.Stop();
+            //Console.WriteLine("Время загрузки комбобокса с поставщиками: " + _timer.Elapsed);
 
             _formLoadDone = true;
         }
@@ -432,6 +436,7 @@ namespace РасчетКУ
 
             adapt.Fill(_BrandProd);
 
+            _timer.Restart();
             combo1.DataSource = _BrandProd;
             combo1.DisplayMember = "Producer";
             combo1.ValueMember = "Producer";
@@ -444,6 +449,9 @@ namespace РасчетКУ
             combo4.DataSource = _BrandProd;
             combo4.DisplayMember = "Brand";
             combo4.ValueMember = "Brand";
+
+            _timer.Stop();
+            Console.WriteLine("Время загрузки комбобоксов произв. и торг. марки: " + _timer.Elapsed);
         }
 
         // Отображение добавленных и исключенных из расчета продуктов

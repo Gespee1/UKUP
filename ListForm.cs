@@ -25,11 +25,7 @@ namespace РасчетКУ
             doResize();
         }
         
-        // Закрытие соединения с БД
-        private void VendorsListForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _sqlConnection.Close();
-        }
+        
 
         // Вывод списка поставщиков
         private void vend_button_Click(object sender, EventArgs e)
@@ -37,8 +33,9 @@ namespace РасчетКУ
             Size = new System.Drawing.Size(776, 489);
             panel2.Visible = true;
 
-            SqlCommand command = new SqlCommand("SELECT Name As 'Поставщик', " +
-                "(SELECT Name FROM Entities Where Entities.Entity_id = Vendors.Entity_id) As 'Юридическое лицо' FROM Vendors", _sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT Entity_id As 'Код юр. лица', Vendor_foreign_id As 'Внешний код поставщика', Name As 'Поставщик', " +
+                "Urastic_name As 'Юридическое имя', [INN\\KPP] As 'ИНН\\КПП', Director_name As 'Директор', Urastic_address As 'Юр. адрес', Account As 'Счет', " +
+                "Bank_name As 'Наименование банка', Bank_bik As 'Поставщик', Corr_account As 'Корр. аккаунт', Dir_party FROM Vendors", _sqlConnection);
             DataTable dt = new DataTable();
             SqlDataAdapter adapt = new SqlDataAdapter();
             adapt.SelectCommand = command;
@@ -91,12 +88,11 @@ namespace РасчетКУ
 
             FormKUGraph.Show();
         }
-
+        // Изменение размера формы
         private void ListForm_Resize(object sender, EventArgs e)
         {
             doResize();
         }
-
         // Изменение размера формы
         private void doResize()
         {
@@ -105,7 +101,11 @@ namespace РасчетКУ
             panel2.Height = ClientSize.Height - (panel1.Location.Y + panel1.Height);
         }
 
-        
+        // Закрытие соединения с БД
+        private void VendorsListForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _sqlConnection.Close();
+        }
 
     }
 }

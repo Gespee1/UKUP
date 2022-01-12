@@ -50,6 +50,7 @@
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поставщикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сдвигДатыРасчётаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вВордToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.вЭксельToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +67,7 @@
             this.progressBarForAsincBonus = new System.Windows.Forms.ProgressBar();
             this.labelProgress = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.сдвигДатыРасчётаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonCancelCalc = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -253,7 +254,13 @@
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
             this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(99, 25);
             this.настройкиToolStripMenuItem.Text = "Настройки";
-//            this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
+            // 
+            // сдвигДатыРасчётаToolStripMenuItem
+            // 
+            this.сдвигДатыРасчётаToolStripMenuItem.Name = "сдвигДатыРасчётаToolStripMenuItem";
+            this.сдвигДатыРасчётаToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
+            this.сдвигДатыРасчётаToolStripMenuItem.Text = "Сдвиг даты расчёта";
+            this.сдвигДатыРасчётаToolStripMenuItem.Click += new System.EventHandler(this.сдвигДатыРасчётаToolStripMenuItem_Click);
             // 
             // экспортToolStripMenuItem
             // 
@@ -298,7 +305,7 @@
             // 
             this.buttonApprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonApprove.Location = new System.Drawing.Point(1001, 535);
+            this.buttonApprove.Location = new System.Drawing.Point(995, 545);
             this.buttonApprove.Name = "buttonApprove";
             this.buttonApprove.Size = new System.Drawing.Size(119, 38);
             this.buttonApprove.TabIndex = 5;
@@ -310,7 +317,7 @@
             // 
             this.buttonCalcBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCalcBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCalcBonus.Location = new System.Drawing.Point(742, 535);
+            this.buttonCalcBonus.Location = new System.Drawing.Point(736, 545);
             this.buttonCalcBonus.Name = "buttonCalcBonus";
             this.buttonCalcBonus.Size = new System.Drawing.Size(253, 38);
             this.buttonCalcBonus.TabIndex = 7;
@@ -322,7 +329,7 @@
             // 
             this.buttonCalcAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCalcAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCalcAll.Location = new System.Drawing.Point(185, 565);
+            this.buttonCalcAll.Location = new System.Drawing.Point(179, 575);
             this.buttonCalcAll.Name = "buttonCalcAll";
             this.buttonCalcAll.Size = new System.Drawing.Size(159, 38);
             this.buttonCalcAll.TabIndex = 8;
@@ -334,7 +341,7 @@
             // 
             this.dateTimePickerTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dateTimePickerTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerTo.Location = new System.Drawing.Point(283, 535);
+            this.dateTimePickerTo.Location = new System.Drawing.Point(277, 545);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(183, 24);
             this.dateTimePickerTo.TabIndex = 56;
@@ -344,7 +351,7 @@
             // 
             this.dateTimePickerFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dateTimePickerFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(57, 535);
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(51, 545);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(183, 24);
             this.dateTimePickerFrom.TabIndex = 57;
@@ -355,7 +362,7 @@
             this.labelFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelFrom.AutoSize = true;
             this.labelFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFrom.Location = new System.Drawing.Point(31, 535);
+            this.labelFrom.Location = new System.Drawing.Point(25, 545);
             this.labelFrom.Name = "labelFrom";
             this.labelFrom.Size = new System.Drawing.Size(20, 20);
             this.labelFrom.TabIndex = 58;
@@ -366,7 +373,7 @@
             this.labelTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTo.AutoSize = true;
             this.labelTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTo.Location = new System.Drawing.Point(247, 535);
+            this.labelTo.Location = new System.Drawing.Point(241, 545);
             this.labelTo.Name = "labelTo";
             this.labelTo.Size = new System.Drawing.Size(30, 20);
             this.labelTo.TabIndex = 59;
@@ -413,19 +420,25 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // сдвигДатыРасчётаToolStripMenuItem
+            // buttonCancelCalc
             // 
-            this.сдвигДатыРасчётаToolStripMenuItem.Name = "сдвигДатыРасчётаToolStripMenuItem";
-            this.сдвигДатыРасчётаToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
-            this.сдвигДатыРасчётаToolStripMenuItem.Text = "Сдвиг даты расчёта";
-            this.сдвигДатыРасчётаToolStripMenuItem.Click += new System.EventHandler(this.сдвигДатыРасчётаToolStripMenuItem_Click);
+            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelCalc.Location = new System.Drawing.Point(562, 545);
+            this.buttonCancelCalc.Name = "buttonCancelCalc";
+            this.buttonCancelCalc.Size = new System.Drawing.Size(159, 38);
+            this.buttonCancelCalc.TabIndex = 63;
+            this.buttonCancelCalc.Text = "Отменить расчёт";
+            this.buttonCancelCalc.UseVisualStyleBackColor = true;
+            this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
             // 
             // KUGraphForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(1132, 612);
+            this.ClientSize = new System.Drawing.Size(1132, 634);
+            this.Controls.Add(this.buttonCancelCalc);
             this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.progressBarForAsincBonus);
             this.Controls.Add(this.panel1);
@@ -496,6 +509,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Turnover;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
         private System.Windows.Forms.ToolStripMenuItem сдвигДатыРасчётаToolStripMenuItem;
+        private System.Windows.Forms.Button buttonCancelCalc;
     }
 }
 

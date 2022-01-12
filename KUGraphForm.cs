@@ -432,7 +432,7 @@ namespace РасчетКУ
                         return;
                 }
                 // Очистка значений ретро в графике
-                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL, Turnover = NULL, [Percent] = NULL WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
                 command.ExecuteNonQuery();
                 command = new SqlCommand($"DELETE FROM Included_products_list WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
                 command.ExecuteNonQuery();
@@ -533,6 +533,40 @@ namespace РасчетКУ
                 backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dataGridViewKUGraph.Rows.Count));
             }
         }
+
+        //Отмена расчёта бонуса
+        private void buttonCancelCalc_Click(object sender, EventArgs e)
+        {
+            dgvSelectedRows = dataGridViewKUGraph.SelectedRows;
+            // Проверка есть ли рассчет в выбранных строчках или нет
+            for (int i = 0; i < dgvSelectedRows.Count; ++i)
+            {
+                DataGridViewRow row = dgvSelectedRows[i];
+
+                if ((row.Cells["GraphStatus"].Value.ToString() == "Рассчитано") || (row.Cells["GraphStatus"].Value.ToString() == "В расчете"))
+                {
+                    DialogResult result;
+                    result = MessageBox.Show("Вы уверены что хотите отменить расчёт?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                        return;
+                }
+                else
+                {
+                    MessageBox.Show("В выбранной строке не существует рассчитаной премии", "Внимание", MessageBoxButtons.OK);
+                    return;
+                }
+                // Очистка значений ретро в графике
+                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL,  Turnover = NULL, Status = 'Создан', [Percent] = NULL  WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                command.ExecuteNonQuery();
+                command = new SqlCommand($"DELETE FROM Included_products_list WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                command.ExecuteNonQuery();
+                command = new SqlCommand($"DELETE FROM Excluded_products_list WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                command.ExecuteNonQuery();
+                
+            }
+            ShowGraph();
+        }
+
 
         // Открытие формы редактирования КУ
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

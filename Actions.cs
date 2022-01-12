@@ -411,6 +411,19 @@ namespace РасчетКУ
                 command.ExecuteNonQuery();
                 state = true;
             }
+           else
+            {
+
+                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {0}, Sum_bonus = {0},  Turnover = {0} WHERE " +
+                    $"Graph_id = {Graph_id}", _sqlConnection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand($"UPDATE KU SET [Percent] = {0} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                command.ExecuteNonQuery();
+                command = new SqlCommand($"UPDATE KU_graph SET [Percent] = {0} WHERE KU_id = {row.Cells["KU_id"].Value} AND Graph_id = {Graph_id}" , _sqlConnection);
+                command.ExecuteNonQuery();
+                state = true;
+            } 
 
             invoicesProducts.Clear();
             included.Clear();

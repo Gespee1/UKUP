@@ -12,7 +12,7 @@ namespace РасчетКУ
     public partial class InputKUForm : Form
     {
         private SqlConnection _sqlConnection;
-        private bool _showKU = false, _approved = false, _wasChanged = false, _formLoadDone = false;
+        private bool _showKU = false, _approved = false, _wasChanged = false, _formLoadDone = false, _allowFormClose = false;
         private Int64 _KU_id, _Vendor_id, _Entity_id;
         private List<Int64> _ProdIds = new List<Int64>();
         private List<string> _CategoryID = new List<string>();
@@ -54,15 +54,11 @@ namespace РасчетКУ
         // Поток 1. Загрузка комбобоксов
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            //_timer.Start();
-
-            // Загрузка данных о поставщиках в комбобокс
+            // Загрузка данных о поставщиках из БД
             SqlCommand command = new SqlCommand("SELECT Name, max(Vendor_id) AS 'ID' FROM Vendors GROUP BY Name ORDER BY max(Vendor_id)", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(_Vendors);
             
-            _timer.Start();
-            Thread.Sleep(8000);
             /*if (comboBoxVendor.InvokeRequired)
             {
                 comboBoxVendor.Invoke(new _delObj((s) => comboBoxVendor.DataSource = s), _Vendors);
@@ -70,8 +66,7 @@ namespace РасчетКУ
                 comboBoxVendor.Invoke(new _del((s) => comboBoxVendor.ValueMember = s), "Name");
                 comboBoxVendor.Invoke(new _delInt((s) => comboBoxVendor.SelectedIndex = s), -1);
             }*/
-            _timer.Stop();
-            Console.WriteLine("Время загрузки комбобокса с поставщиками: " + _timer.Elapsed);
+            
             // Загрузка данных о юр. лицах в комбобокс
             command = new SqlCommand("SELECT Entity_id, Director_name FROM Entities WHERE Director_name != 'NULL'", _sqlConnection);
             adapt.SelectCommand = command;
@@ -90,6 +85,12 @@ namespace РасчетКУ
         // Поток 1. Завершение и отображение данных о КУ
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
+            // Загрузка данных о поставщиках в комбобокс
+            comboBoxVendor.DataSource = _Vendors;
+            comboBoxVendor.DisplayMember = "Name";
+            comboBoxVendor.ValueMember = "Name";
+            comboBoxVendor.SelectedIndex = -1;
+
             if (!_approved) // Если не утверждено
             {
                 comboBoxVendor.Enabled = true;
@@ -108,9 +109,6 @@ namespace РасчетКУ
                     comboBoxEntity.SelectedText = command.ExecuteScalar().ToString();
                 }
             }
-
-            //_timer.Stop();
-            //Console.WriteLine("Время загрузки комбобокса с поставщиками: " + _timer.Elapsed);
 
             _formLoadDone = true;
         }
@@ -436,7 +434,6 @@ namespace РасчетКУ
 
             adapt.Fill(_BrandProd);
 
-            _timer.Restart();
             combo1.DataSource = _BrandProd;
             combo1.DisplayMember = "Producer";
             combo1.ValueMember = "Producer";
@@ -449,9 +446,6 @@ namespace РасчетКУ
             combo4.DataSource = _BrandProd;
             combo4.DisplayMember = "Brand";
             combo4.ValueMember = "Brand";
-
-            _timer.Stop();
-            Console.WriteLine("Время загрузки комбобоксов произв. и торг. марки: " + _timer.Elapsed);
         }
 
         // Отображение добавленных и исключенных из расчета продуктов
@@ -752,6 +746,7 @@ namespace РасчетКУ
         {
             if (!nullCheck())
                 return;
+            _allowFormClose = true;
 
             // Добавление или изменение информаци о коммерческих условиях
             if (buttonCreate.Text == "Создать")
@@ -773,6 +768,7 @@ namespace РасчетКУ
             {
                 if (!nullCheck())
                     return;
+                _allowFormClose = true;
 
                 if (buttonCreateNApprove.Text == "Создать и утвердить")
                 {
@@ -786,7 +782,7 @@ namespace РасчетКУ
                 }
             }
         }
-        // Нажатие на кнопку закрытия КУ
+        // Нажатие на кнопку закрытия КУ (перевод в статус "Закрыто")
         private void close_button_Click(object sender, EventArgs e)
         {
             DialogResult result;
@@ -794,6 +790,8 @@ namespace РасчетКУ
             result = MessageBox.Show("Вы уверены, что хотите изменить статус КУ на 'Закрыто' ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
+                _allowFormClose = true;
+
                 SqlCommand command = new SqlCommand($"UPDATE KU SET Status = 'Закрыто' WHERE KU_id = {_KU_id}", _sqlConnection);
                 command.ExecuteNonQuery();
                 this.DialogResult = DialogResult.OK;
@@ -804,6 +802,8 @@ namespace РасчетКУ
         // Нажатие на кнопку отмены при изменении КУ
         private void cancel_button_Click(object sender, EventArgs e)
         {
+            _allowFormClose = true;
+
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
@@ -815,6 +815,8 @@ namespace РасчетКУ
             result = MessageBox.Show("Вы уверены, что хотите отменить утверждение КУ и перевести его в статус 'Создано' ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
+                _allowFormClose = true;
+
                 SqlCommand command = new SqlCommand($"UPDATE KU SET Status = 'Создано' WHERE KU_id = {_KU_id}", _sqlConnection);
                 command.ExecuteNonQuery();
                 this.DialogResult = DialogResult.OK;
@@ -1002,8 +1004,8 @@ namespace РасчетКУ
             {
                 for(int i = 0; i < dataGridViewTerms.Rows.Count; i++)
                 {
-                    if(dataGridViewTerms.Rows[i].Cells["Criterion"].Value.ToString() == "" 
-                        || dataGridViewTerms.Rows[i].Cells["PercentSum"].Value.ToString() == "")
+                    if(dataGridViewTerms.Rows[i].Cells["Criterion"].Value is null 
+                        || dataGridViewTerms.Rows[i].Cells["PercentSum"].Value is null)
                     {
                         MessageBox.Show("Условия бонуса не введены!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
@@ -1180,9 +1182,11 @@ namespace РасчетКУ
         // Закрытие формы
         private void InputKUForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(!_wasChanged)
+            if(!_wasChanged) // Если не было произведено изменений
                 _sqlConnection.Close();
-            else if (MessageBox.Show("При закрытии все несохраненные данные будут удалены.\n\nВы уверены, что хотите закрыть окно?", 
+            else if(_allowFormClose) // Если производится "санкционированный" выход
+                _sqlConnection.Close();
+            else if (MessageBox.Show("При закрытии все несохраненные данные будут утеряны.\n\nВы уверены, что хотите закрыть окно?", 
                 "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
             {
                 e.Cancel = true;

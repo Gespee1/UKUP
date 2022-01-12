@@ -30,23 +30,70 @@ namespace РасчетКУ
         // Вывод списка поставщиков
         private void vend_button_Click(object sender, EventArgs e)
         {
-            Size = new System.Drawing.Size(776, 489);
+            Size = new System.Drawing.Size(1230, 700);
             panel2.Visible = true;
 
             SqlCommand command = new SqlCommand("SELECT Entity_id As 'Код юр. лица', Vendor_foreign_id As 'Внешний код поставщика', Name As 'Поставщик', " +
                 "Urastic_name As 'Юридическое имя', [INN\\KPP] As 'ИНН\\КПП', Director_name As 'Директор', Urastic_address As 'Юр. адрес', Account As 'Счет', " +
-                "Bank_name As 'Наименование банка', Bank_bik As 'Поставщик', Corr_account As 'Корр. аккаунт', Dir_party FROM Vendors", _sqlConnection);
+                "Bank_name As 'Наименование банка', Bank_bik As 'БИК банка', Corr_account As 'Корр. аккаунт', Dir_party FROM Vendors", _sqlConnection);
             DataTable dt = new DataTable();
             SqlDataAdapter adapt = new SqlDataAdapter();
             adapt.SelectCommand = command;
+
             adapt.Fill(dt);
             advancedDataGridView.DataSource = dt;
         }
+        // Вывод классификатора
+        private void buttonClassifier_Click(object sender, EventArgs e)
+        {
+            Size = new System.Drawing.Size(1230, 700);
+            panel2.Visible = true;
 
+            SqlCommand command = new SqlCommand("SELECT L1 As 'Код 1 категории', L1_name As 'Категория 1', L2 As 'Код 2 категории', L2_name As 'Категория 2', " +
+                "L3 As 'Код 3 категории', L3_name As 'Категория 3', L4 As 'Код 4 категории', L4_name As 'Категория 4' FROM Classifier", _sqlConnection);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapt = new SqlDataAdapter();
+            adapt.SelectCommand = command;
+
+            adapt.Fill(dt);
+            advancedDataGridView.DataSource = dt;
+        }
+        // Вывод юр. лиц
+        private void buttonEntities_Click(object sender, EventArgs e)
+        {
+            Size = new System.Drawing.Size(1000, 490);
+            panel2.Visible = true;
+
+            SqlCommand command = new SqlCommand("SELECT Name As 'Юр. лицо', Director_name As 'Имя директора', Urastic_name As 'Юр. имя', Urastic_address As 'Юр. адрес', " +
+                "[INN\\KPP] As 'ИНН\\КПП', Bank_name As 'Название банка', Account As 'Счет', Corr_account As 'Корр. счет', Bank_bik As 'БИК банка' FROM Entities", 
+                _sqlConnection);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapt = new SqlDataAdapter();
+            adapt.SelectCommand = command;
+
+            adapt.Fill(dt);
+            advancedDataGridView.DataSource = dt;
+        }
+        // Вывод списка продуктов
+        private void buttonAllProducts_Click(object sender, EventArgs e)
+        {
+            Size = new System.Drawing.Size(600, 610);
+            panel2.Visible = true;
+
+            SqlCommand command = new SqlCommand("SELECT Classifier_id As 'Код классификатора', Name As 'Наименование', Brand As 'Торговая марка', " +
+                "Producer As 'Производитель' FROM Products " +
+                "LEFT JOIN BrandProducer ON Products.BrandProdID = BrandProducer.ForeignID", _sqlConnection);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapt = new SqlDataAdapter();
+            adapt.SelectCommand = command;
+
+            adapt.Fill(dt);
+            advancedDataGridView.DataSource = dt;
+        }
         // Вывод списка оказываемых услуг
         private void service_button_Click(object sender, EventArgs e)
         {
-
+            Console.WriteLine($"{Size.Width} {Size.Height}");
         }
 
 
@@ -64,13 +111,6 @@ namespace РасчетКУ
         }
 
 
-        // Открытие формы ввода коммерческих условий
-        private void вводКУToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form FormInputKU = new InputKUForm();
-
-            FormInputKU.Show();
-        }
 
         //Открытие формы списка КУ с помощью кнопки на верхней панели
         private void списокКУToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,5 +147,6 @@ namespace РасчетКУ
             _sqlConnection.Close();
         }
 
+        
     }
 }

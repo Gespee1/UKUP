@@ -10,8 +10,6 @@ namespace РасчетКУ
     public partial class KUListForm : Form
     {
         private SqlConnection _sqlConnection;
-        //private List<Int64> ProdIds = new List<Int64>();
-        //private List<string> CategoryID = new List<string>();
         public KUListForm()
         {
             InitializeComponent();
@@ -41,7 +39,7 @@ namespace РасчетКУ
         // Изменение выбранного КУ
         private void button2_Click(object sender, EventArgs e)
         {
-            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value), Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Vendor_id"].Value));
+            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Код КУ"].Value), Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Vendor_id"].Value));
             FormInputKu.ShowDialog();
 
             if(FormInputKu.DialogResult == DialogResult.OK)
@@ -51,8 +49,8 @@ namespace РасчетКУ
         //Изменение выбранного КУ (двойное нажатие)
         private void advancedDataGridView1_DoubleClick(object sender, EventArgs e)
         {
-            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value), 
-                Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Vendor_id"].Value));
+            Form FormInputKu = new InputKUForm(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Код КУ"].Value), 
+                Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Код поставщика"].Value));
             FormInputKu.ShowDialog();
 
             if (FormInputKu.DialogResult == DialogResult.OK)
@@ -65,18 +63,19 @@ namespace РасчетКУ
             DialogResult result;
             DataGridViewRow row = advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index];
 
-            result = MessageBox.Show("Вы уверены, что хотите удалить информацию о коммерческих условиях с поставщиком " + row.Cells["Name"].Value.ToString() + " ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            result = MessageBox.Show("Вы уверены, что хотите удалить информацию о коммерческих условиях с поставщиком " + 
+                row.Cells["Наименование поставщика"].Value.ToString() + " ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No)
                 return;
 
             // Удаление привязанных к КУ значений в других таблицах
-            SqlCommand command = new SqlCommand($"DELETE FROM Included_products WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+            SqlCommand command = new SqlCommand($"DELETE FROM Included_products WHERE KU_id = {row.Cells["Код КУ"].Value}", _sqlConnection);
             command.ExecuteNonQuery();
-            command = new SqlCommand($"DELETE FROM Excluded_products WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+            command = new SqlCommand($"DELETE FROM Excluded_products WHERE KU_id = {row.Cells["Код КУ"].Value}", _sqlConnection);
             command.ExecuteNonQuery();
 
             // Удаление самого КУ
-            command = new SqlCommand("DELETE FROM KU WHERE KU_id = " + row.Cells["KU_id"].Value.ToString(), _sqlConnection);
+            command = new SqlCommand("DELETE FROM KU WHERE KU_id = " + row.Cells["Код КУ"].Value.ToString(), _sqlConnection);
             command.ExecuteNonQuery();
 
             showKUList();
@@ -104,20 +103,16 @@ namespace РасчетКУ
         // Вывод списка КУ
         private void showKUList()
         {
-            SqlCommand command = new SqlCommand("SELECT KU.KU_id, Vendors.Vendor_id, Vendors.Name, KU.Date_from, KU.Date_to, KU.Period, Status FROM KU, Vendors " +
+            SqlCommand command = new SqlCommand("SELECT KU.KU_id As 'Код КУ', Vendors.Vendor_id As 'Код поставщика', Vendors.Name As 'Наименование поставщика', " +
+                "KU.Date_from As 'Дата от', KU.Date_to As 'Дата по', KU.Period As 'Период', Status As 'Статус' FROM KU, Vendors " +
                 "WHERE KU.Vendor_id = Vendors.Vendor_id", _sqlConnection);
 
             DataTable dt = new DataTable();
             SqlDataAdapter adapt = new SqlDataAdapter();
             adapt.SelectCommand = command;
             adapt.Fill(dt);
-            // Изменение данных о процентах для правильного отображения
-            //for(int i = 0; i < dt.Rows.Count; i++)
-            //{
-                //dt.Rows[i][3] = Convert.ToDouble(dt.Rows[i][3]) / 10;
-            //}
             advancedDataGridViewKUList.DataSource = dt;
-            advancedDataGridViewKUList.Columns["Vendor_id"].Visible = false;
+            advancedDataGridViewKUList.Columns["Код поставщика"].Visible = false;
         }
           
              

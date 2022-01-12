@@ -39,6 +39,9 @@ namespace РасчетКУ
             this.service_button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonClassifier = new System.Windows.Forms.Button();
+            this.buttonEntities = new System.Windows.Forms.Button();
+            this.buttonAllProducts = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).BeginInit();
             this.panel2.SuspendLayout();
@@ -95,7 +98,7 @@ namespace РасчетКУ
             this.advancedDataGridView.AllowUserToDeleteRows = false;
             this.advancedDataGridView.AllowUserToResizeRows = false;
             this.advancedDataGridView.AutoGenerateContextFilters = true;
-            this.advancedDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.advancedDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.advancedDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.advancedDataGridView.DateWithTime = false;
             this.advancedDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -125,8 +128,9 @@ namespace РасчетКУ
             // 
             // service_button
             // 
+            this.service_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.service_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.service_button.Location = new System.Drawing.Point(131, 72);
+            this.service_button.Location = new System.Drawing.Point(574, 72);
             this.service_button.Name = "service_button";
             this.service_button.Size = new System.Drawing.Size(171, 27);
             this.service_button.TabIndex = 20;
@@ -146,6 +150,9 @@ namespace РасчетКУ
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonAllProducts);
+            this.panel1.Controls.Add(this.buttonEntities);
+            this.panel1.Controls.Add(this.buttonClassifier);
             this.panel1.Controls.Add(this.buttonVendors);
             this.panel1.Controls.Add(this.service_button);
             this.panel1.Controls.Add(this.labelMain);
@@ -155,6 +162,39 @@ namespace РасчетКУ
             this.panel1.Padding = new System.Windows.Forms.Padding(12, 12, 12, 5);
             this.panel1.Size = new System.Drawing.Size(760, 107);
             this.panel1.TabIndex = 22;
+            // 
+            // buttonClassifier
+            // 
+            this.buttonClassifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClassifier.Location = new System.Drawing.Point(131, 72);
+            this.buttonClassifier.Name = "buttonClassifier";
+            this.buttonClassifier.Size = new System.Drawing.Size(134, 27);
+            this.buttonClassifier.TabIndex = 21;
+            this.buttonClassifier.Text = "Классификатор";
+            this.buttonClassifier.UseVisualStyleBackColor = true;
+            this.buttonClassifier.Click += new System.EventHandler(this.buttonClassifier_Click);
+            // 
+            // buttonEntities
+            // 
+            this.buttonEntities.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonEntities.Location = new System.Drawing.Point(271, 72);
+            this.buttonEntities.Name = "buttonEntities";
+            this.buttonEntities.Size = new System.Drawing.Size(96, 27);
+            this.buttonEntities.TabIndex = 22;
+            this.buttonEntities.Text = "Юр. лица";
+            this.buttonEntities.UseVisualStyleBackColor = true;
+            this.buttonEntities.Click += new System.EventHandler(this.buttonEntities_Click);
+            // 
+            // buttonAllProducts
+            // 
+            this.buttonAllProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAllProducts.Location = new System.Drawing.Point(373, 72);
+            this.buttonAllProducts.Name = "buttonAllProducts";
+            this.buttonAllProducts.Size = new System.Drawing.Size(109, 27);
+            this.buttonAllProducts.TabIndex = 23;
+            this.buttonAllProducts.Text = "Все товары";
+            this.buttonAllProducts.UseVisualStyleBackColor = true;
+            this.buttonAllProducts.Click += new System.EventHandler(this.buttonAllProducts_Click);
             // 
             // ListForm
             // 
@@ -166,7 +206,7 @@ namespace РасчетКУ
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(370, 300);
+            this.MinimumSize = new System.Drawing.Size(690, 300);
             this.Name = "ListForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -196,6 +236,9 @@ namespace РасчетКУ
         private System.Windows.Forms.Button service_button;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonClassifier;
+        private System.Windows.Forms.Button buttonEntities;
+        private System.Windows.Forms.Button buttonAllProducts;
     }
 }
 

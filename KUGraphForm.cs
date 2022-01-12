@@ -446,24 +446,28 @@ namespace РасчетКУ
                 //Thread.Sleep(500);
                 DataGridViewRow row = dgvSelectedRows[i];
 
-                // Изменение статуса на "В расчете"
-                SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                command.ExecuteNonQuery();
-
-                Actions actions = new Actions();
-                if (actions.currentRetroCalc(this, row.Index))
+                //Условие на расчёт бонуса не старше текущей даты 
+                if (Convert.ToDateTime(row.Cells["date_To"].Value) < DateTime.Today)
                 {
-                    // Изменение статуса на "Рассчитано" 
-                    command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                }
-                else
-                {
-                    // Изменение статуса на "Создан" 
-                    command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                }
-                command.ExecuteNonQuery();
+                    // Изменение статуса на "В расчете"
+                    SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    command.ExecuteNonQuery();
 
-                backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dgvSelectedRows.Count));
+                    Actions actions = new Actions();
+                    if (actions.currentRetroCalc(this, row.Index))
+                    {
+                        // Изменение статуса на "Рассчитано" 
+                        command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    }
+                    else
+                    {
+                        // Изменение статуса на "Создан" 
+                        command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    }
+                    command.ExecuteNonQuery();
+
+                    backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dgvSelectedRows.Count));
+                }
             }
         }
         // Метод расчета бонуса по датам
@@ -472,53 +476,58 @@ namespace РасчетКУ
             for (int i = 0; i < dataGridViewKUGraph.Rows.Count; ++i)
             {
                 DataGridViewRow row = dataGridViewKUGraph.Rows[i];
-                //проверка на соответствие временного периода
-                int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerFrom.Value);
-                int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerTo.Value);
-                if (dateTimePickerFrom.Format == DateTimePickerFormat.Custom && dateTimePickerTo.Format != DateTimePickerFormat.Custom)
-                {
-                    if (result1 <= 0)
-                    {
-                        //Thread.Sleep(1000);
-                        // Изменение статуса на "В расчете"
-                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        command.ExecuteNonQuery();
 
-                        Actions actions = new Actions();
-                        if (actions.currentRetroCalc(this, row.Index))
+                //Условие на расчёт бонуса не старше текущей даты 
+                if (Convert.ToDateTime(row.Cells["date_To"].Value) < DateTime.Today)
+                {
+                    //проверка на соответствие временного периода
+                    int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerFrom.Value);
+                    int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerTo.Value);
+                    if (dateTimePickerFrom.Format == DateTimePickerFormat.Custom && dateTimePickerTo.Format != DateTimePickerFormat.Custom)
+                    {
+                        if (result1 <= 0)
                         {
-                            // Изменение статуса на "Рассчитано" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            //Thread.Sleep(1000);
+                            // Изменение статуса на "В расчете"
+                            SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            command.ExecuteNonQuery();
+
+                            Actions actions = new Actions();
+                            if (actions.currentRetroCalc(this, row.Index))
+                            {
+                                // Изменение статуса на "Рассчитано" 
+                                command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            }
+                            else
+                            {
+                                // Изменение статуса на "Создан" 
+                                command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            }
+                            command.ExecuteNonQuery();
                         }
-                        else
-                        {
-                            // Изменение статуса на "Создан" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        }
-                        command.ExecuteNonQuery();
                     }
-                }
-                else
-                {
-                    if (result >= 0 && result1 <= 0)
+                    else
                     {
-                        //Thread.Sleep(1000);
-                        // Изменение статуса на "В расчете"
-                        SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        command.ExecuteNonQuery();
+                        if (result >= 0 && result1 <= 0)
+                        {
+                            //Thread.Sleep(1000);
+                            // Изменение статуса на "В расчете"
+                            SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            command.ExecuteNonQuery();
 
-                        Actions actions = new Actions();
-                        if (actions.currentRetroCalc(this, row.Index))
-                        {
-                            // Изменение статуса на "Рассчитано" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            Actions actions = new Actions();
+                            if (actions.currentRetroCalc(this, row.Index))
+                            {
+                                // Изменение статуса на "Рассчитано" 
+                                command = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            }
+                            else
+                            {
+                                // Изменение статуса на "Создан" 
+                                command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                            }
+                            command.ExecuteNonQuery();
                         }
-                        else
-                        {
-                            // Изменение статуса на "Создан" 
-                            command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
-                        }
-                        command.ExecuteNonQuery();
                     }
                 }
                 backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dataGridViewKUGraph.Rows.Count));

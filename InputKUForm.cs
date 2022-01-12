@@ -169,9 +169,12 @@ namespace РасчетКУ
             //comboBoxVendor.SelectedItem = reader[0].ToString();
             comboBoxPeriod.SelectedItem = reader[0].ToString();
             dateTimePickerDateFrom.Format = DateTimePickerFormat.Long;
-            dateTimePickerDateTo.Format = DateTimePickerFormat.Long;
             dateTimePickerDateFrom.Value = Convert.ToDateTime(reader[1]);
-            dateTimePickerDateTo.Value = Convert.ToDateTime(reader[2]);
+            if (reader[2].ToString() != "")
+            {
+                dateTimePickerDateTo.Format = DateTimePickerFormat.Long;
+                dateTimePickerDateTo.Value = Convert.ToDateTime(reader[2]);
+            }
             textBoxStatus.Text = reader[3].ToString();
             richTextBoxDescription.Text = reader[4].ToString();
             if (reader[5].ToString() != "")
@@ -180,7 +183,7 @@ namespace РасчетКУ
                 _Entity_id = 0;
             textBoxVendAccount.Text = reader[6].ToString();
             textBoxContract.Text = reader[7].ToString();
-            textBoxProductType.Text = reader[8].ToString();
+            comboBoxProductType.SelectedItem = reader[8].ToString();
             textBoxDocName.Text = reader[9].ToString();
             textBoxDocHeader.Text = reader[10].ToString();
             textBoxTransferTo.Text = reader[11].ToString();
@@ -212,15 +215,35 @@ namespace РасчетКУ
                 buttonUnapprove.Visible = true;
                 comboBoxVendor.Enabled = false;
                 comboBoxPeriod.Enabled = false;
+                comboBoxProductType.Enabled = false;
+                comboBoxPayMethod.Enabled = false;
+                comboBoxKUType.Enabled = false;
                 dateTimePickerDateFrom.Enabled = false;
                 dateTimePickerDateTo.Enabled = false;
+                dateTimePickerDocDate.Enabled = false;
+                richTextBoxDescription.Enabled = false;
+                richTextBoxDocSubject.Enabled = false;
                 textBoxStatus.Enabled = false;
+                textBoxContract.Enabled = false;
+                textBoxDocName.Enabled = false;
+                textBoxTransferTo.Enabled = false;
+                textBoxDocAccount.Enabled = false;
+                textBoxDocTitle.Enabled = false;
+                textBoxDocCode.Enabled = false;
+                textBoxContract.Enabled = false;
+                textBoxDocHeader.Enabled = false;
                 buttonAddAll.Enabled = false;
                 buttonAddProduct.Enabled = false;
                 buttonAddCategory.Enabled = false;
                 buttonDelete.Enabled = false;
-                dataGridViewIncluded.ReadOnly = true;
-                dataGridViewExcluded.ReadOnly = true;
+                buttonAddTerm.Enabled = false;
+                buttonDelTerm.Enabled = false;
+                checkBoxTax.Enabled = false;
+                checkBoxReturn.Enabled = false;
+                checkBoxOfactured.Enabled = false;
+                dataGridViewTerms.Enabled = false;
+                //dataGridViewIncluded.ReadOnly = true;
+                //dataGridViewExcluded.ReadOnly = true;
             }
 
             showExInProducts(_KU_id);
@@ -261,13 +284,23 @@ namespace РасчетКУ
                 }
             }
 
+            string date_to;
             // Создание КУ
+            if (dateTimePickerDateTo.Format == DateTimePickerFormat.Custom)
+            {
+               date_to = "NULL";
+            }
+            else
+            {
+                date_to = "'" + Convert.ToString(dateTimePickerDateTo.Value) + "'";
+            }
+            
             command = addOrUpdate == true ? new SqlCommand(
                 $"INSERT INTO KU (Vendor_id, Period, Date_from, Date_to, Status, Entity_id, Vend_account, Description, Contract, Product_type, Docu_name, Docu_header, " +
                 $"Transfer_to, Docu_account, Docu_title, Docu_code, Docu_date, Docu_subject, Tax, [Return], Ofactured, Pay_Method, KU_type)" +
                 $" VALUES ({findVendorIdByName(comboBoxVendor.Text)}, '{comboBoxPeriod.SelectedItem}', '{dateTimePickerDateFrom.Value.ToShortDateString()}', " +
-                $"'{dateTimePickerDateTo.Value.ToShortDateString()}', '{status}', {findEntityIdByName(comboBoxEntity.Text)}, " +
-                $"'{textBoxVendAccount.Text}', '{richTextBoxDescription.Text}', '{textBoxContract.Text}', '{textBoxProductType.Text}', '{textBoxDocName.Text}', " +
+                $"{date_to}, '{status}', {findEntityIdByName(comboBoxEntity.Text)}, " +
+                $"'{textBoxVendAccount.Text}', '{richTextBoxDescription.Text}', '{textBoxContract.Text}', '{comboBoxProductType.SelectedItem}', '{textBoxDocName.Text}', " +
                 $"'{textBoxDocHeader.Text}', '{textBoxTransferTo.Text}', '{textBoxDocAccount.Text}', '{textBoxDocTitle.Text}', '{textBoxDocCode.Text}', " +
                 $"'{dateTimePickerDocDate.Value.ToShortDateString()}', '{richTextBoxDocSubject.Text}', '{checkBoxTax.Checked}', '{checkBoxReturn.Checked}', " +
                 $"'{checkBoxOfactured.Checked}', '{comboBoxPayMethod.SelectedItem}', '{comboBoxKUType.SelectedItem}')", _sqlConnection)
@@ -275,7 +308,7 @@ namespace РасчетКУ
                 $"UPDATE KU SET Period = '{comboBoxPeriod.SelectedItem}', Date_from = '{dateTimePickerDateFrom.Value.ToShortDateString()}', " +
                 $"Date_to = '{dateTimePickerDateTo.Value.ToShortDateString()}', Status = '{status}', Entity_id = " +
                 $"{findEntityIdByName(comboBoxEntity.Text)}, Vend_account = '{textBoxVendAccount.Text}', " +
-                $"Description = '{richTextBoxDescription.Text}', Contract = '{textBoxContract.Text}', Product_type = '{textBoxProductType.Text}', Docu_name = '{textBoxDocName.Text}', " +
+                $"Description = '{richTextBoxDescription.Text}', Contract = '{textBoxContract.Text}', Product_type = '{comboBoxProductType.SelectedItem}', Docu_name = '{textBoxDocName.Text}', " +
                 $"Docu_header = '{textBoxDocHeader.Text}', Transfer_to = '{textBoxTransferTo.Text}', Docu_account = '{textBoxDocAccount.Text}', " +
                 $"Docu_title = '{textBoxDocTitle.Text}', Docu_code = '{textBoxDocCode.Text}', Docu_date = '{dateTimePickerDocDate.Value.ToShortDateString()}', " +
                 $"Docu_subject = '{richTextBoxDocSubject.Text}', Tax = '{checkBoxTax.Checked}', [Return] = '{checkBoxReturn.Checked}', Ofactured = '{checkBoxOfactured.Checked}', " +
@@ -317,7 +350,7 @@ namespace РасчетКУ
                 comboBoxEntity.Text = "";
                 textBoxVendAccount.Text = "";
                 textBoxContract.Text = "";
-                textBoxProductType.Text = "";
+                comboBoxProductType.SelectedIndex = -1;
                 textBoxDocName.Text = "";
                 textBoxTransferTo.Text = "";
                 textBoxDocAccount.Text = "";
@@ -925,7 +958,7 @@ namespace РасчетКУ
                 MessageBox.Show("Контракт не введен!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (textBoxProductType.Text == "") // Тип товаров
+            if (comboBoxProductType.SelectedIndex == -1) // Тип товаров
             {
                 MessageBox.Show("Тип товаров не введен!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

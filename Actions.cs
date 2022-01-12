@@ -88,6 +88,8 @@ namespace РасчетКУ
             SqlDataAdapter adt = new SqlDataAdapter(command);
             adt.Fill(KU_table);
 
+            DateToNullCheck(ref KU_table);
+
             DateTime dateFrom, dateTo;
 
             // Настройка таблицы графика в коде
@@ -161,8 +163,22 @@ namespace РасчетКУ
             return true;
         }
 
+        //Метод проверки на нулевую дату конца периода
+        private void DateToNullCheck (ref DataTable KU_table)
+        {
+            
+            for (int i = 0; i < KU_table.Rows.Count; i++)
+            {
+                if (KU_table.Rows[i]["Date_to"].ToString() == "")
+                {
+                    KU_table.Rows[i]["Date_to"] = Convert.ToDateTime(KU_table.Rows[i]["Date_from"]).AddYears(1).ToShortDateString();
+                }
+            }
+            
+        }
+
         //Расчёт графика для квартала с поправкой на начало периода
-        private DateTime nextQuater(DateTime dateFrom)
+         private DateTime nextQuater(DateTime dateFrom)
         {
             int month = dateFrom.Month;
             if (month < 4)
@@ -198,6 +214,8 @@ namespace РасчетКУ
             return dateFrom;
 
         }
+
+      
 
 
         // Расчет ретро-бонуса конкретной строки графика
@@ -393,6 +411,19 @@ namespace РасчетКУ
                 command.ExecuteNonQuery();
                 state = true;
             }
+           else
+            {
+
+                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {0}, Sum_bonus = {0},  Turnover = {0} WHERE " +
+                    $"Graph_id = {Graph_id}", _sqlConnection);
+                command.ExecuteNonQuery();
+
+                command = new SqlCommand($"UPDATE KU SET [Percent] = {0} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                command.ExecuteNonQuery();
+                command = new SqlCommand($"UPDATE KU_graph SET [Percent] = {0} WHERE KU_id = {row.Cells["KU_id"].Value} AND Graph_id = {Graph_id}" , _sqlConnection);
+                command.ExecuteNonQuery();
+                state = true;
+            } 
 
             invoicesProducts.Clear();
             included.Clear();

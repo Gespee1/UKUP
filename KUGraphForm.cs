@@ -471,6 +471,7 @@ namespace РасчетКУ
                     backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dgvSelectedRows.Count));
                 }
             }
+            _asked = false;
         }
         // Метод расчета бонуса по датам
         private void bonusCalcByDates()
@@ -478,6 +479,16 @@ namespace РасчетКУ
             for (int i = 0; i < dataGridViewKUGraph.Rows.Count; ++i)
             {
                 DataGridViewRow row = dataGridViewKUGraph.Rows[i];
+
+                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
+                {
+                    DialogResult result;
+                    result = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                        return;
+                    else
+                        _asked = true;
+                }
 
                 //Условие на расчёт бонуса не старше текущей даты 
                 if (Convert.ToDateTime(row.Cells["date_To"].Value) < DateTime.Today)
@@ -534,6 +545,7 @@ namespace РасчетКУ
                 }
                 backgroundWorker1.ReportProgress(Convert.ToInt32((i + 1) * 100 / dataGridViewKUGraph.Rows.Count));
             }
+            _asked = false;
         }
 
         //Отмена расчёта бонуса
@@ -545,14 +557,16 @@ namespace РасчетКУ
             {
                 DataGridViewRow row = dgvSelectedRows[i];
 
-                if ((row.Cells["GraphStatus"].Value.ToString() == "Рассчитано") || (row.Cells["GraphStatus"].Value.ToString() == "В расчете"))
+                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
                 {
                     DialogResult result;
                     result = MessageBox.Show("Вы уверены что хотите отменить расчёт?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.No)
                         return;
+                    else
+                        _asked = true;
                 }
-                else
+                else if (!_asked)
                 {
                     MessageBox.Show("В выбранной строке не существует рассчитаной премии", "Внимание", MessageBoxButtons.OK);
                     return;
@@ -566,7 +580,9 @@ namespace РасчетКУ
                 command.ExecuteNonQuery();
                 
             }
+            _asked = false;
             ShowGraph();
+            
         }
 
 

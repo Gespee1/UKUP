@@ -33,13 +33,22 @@ namespace РасчетКУ
             this.buttonSave = new System.Windows.Forms.Button();
             this.labelMain = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ButtonPath = new System.Windows.Forms.Button();
+            this.textBoxPath = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxSdvig
             // 
             this.textBoxSdvig.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxSdvig.Location = new System.Drawing.Point(102, 79);
+            this.textBoxSdvig.Location = new System.Drawing.Point(90, 112);
             this.textBoxSdvig.Name = "textBoxSdvig";
             this.textBoxSdvig.Size = new System.Drawing.Size(124, 26);
             this.textBoxSdvig.TabIndex = 1;
@@ -48,7 +57,7 @@ namespace РасчетКУ
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSave.Location = new System.Drawing.Point(107, 121);
+            this.buttonSave.Location = new System.Drawing.Point(90, 167);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(115, 36);
             this.buttonSave.TabIndex = 2;
@@ -59,30 +68,93 @@ namespace РасчетКУ
             // labelMain
             // 
             this.labelMain.AutoSize = true;
-            this.labelMain.Font = new System.Drawing.Font("Book Antiqua", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMain.Location = new System.Drawing.Point(33, 12);
+            this.labelMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMain.Location = new System.Drawing.Point(57, 40);
             this.labelMain.Name = "labelMain";
-            this.labelMain.Size = new System.Drawing.Size(262, 52);
+            this.labelMain.Size = new System.Drawing.Size(215, 40);
             this.labelMain.TabIndex = 3;
             this.labelMain.Text = "Введите количество дней \r\nдля сдвига даты расчета";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonSave);
-            this.panel1.Controls.Add(this.labelMain);
-            this.panel1.Controls.Add(this.textBoxSdvig);
+            this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(12);
-            this.panel1.Size = new System.Drawing.Size(329, 186);
+            this.panel1.Size = new System.Drawing.Size(382, 296);
             this.panel1.TabIndex = 4;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tabControl1.Location = new System.Drawing.Point(15, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(356, 284);
+            this.tabControl1.TabIndex = 6;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.buttonSave);
+            this.tabPage1.Controls.Add(this.textBoxSdvig);
+            this.tabPage1.Controls.Add(this.labelMain);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(348, 255);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Дата сдвига";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.textBoxPath);
+            this.tabPage2.Controls.Add(this.ButtonPath);
+            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(348, 255);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Путь сохранения файлов";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(6, 164);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 20);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Текущий путь";
+            // 
+            // ButtonPath
+            // 
+            this.ButtonPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonPath.Location = new System.Drawing.Point(113, 88);
+            this.ButtonPath.Name = "ButtonPath";
+            this.ButtonPath.Size = new System.Drawing.Size(120, 46);
+            this.ButtonPath.TabIndex = 6;
+            this.ButtonPath.Text = "Выбрать путь сохранения";
+            this.ButtonPath.UseVisualStyleBackColor = true;
+            // 
+            // textBoxPath
+            // 
+            this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxPath.Location = new System.Drawing.Point(10, 187);
+            this.textBoxPath.Name = "textBoxPath";
+            this.textBoxPath.Size = new System.Drawing.Size(332, 26);
+            this.textBoxPath.TabIndex = 7;
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(329, 186);
+            this.ClientSize = new System.Drawing.Size(383, 296);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(345, 225);
             this.Name = "SettingsForm";
@@ -92,7 +164,11 @@ namespace РасчетКУ
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.Resize += new System.EventHandler(this.SettingsForm_Resize);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -103,5 +179,11 @@ namespace РасчетКУ
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label labelMain;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxPath;
+        private System.Windows.Forms.Button ButtonPath;
     }
 }

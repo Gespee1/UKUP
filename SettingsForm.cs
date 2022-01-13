@@ -60,5 +60,6 @@ namespace РасчетКУ
         {
             panel1.Location = new System.Drawing.Point(Convert.ToInt32((ClientSize.Width - panel1.Width) / 2), Convert.ToInt32((ClientSize.Height - panel1.Height) / 2));
         }
+
     }
 }

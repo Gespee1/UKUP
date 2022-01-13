@@ -14,7 +14,7 @@ namespace РасчетКУ
     {
         private SqlConnection SqlCon;
         private DataGridViewSelectedRowCollection dgvSelectedRows;
-        private bool byDate = false;
+        private bool byDate = false, _asked = false;
 
         private string VendorName;
         private string EntitiesName;
@@ -424,12 +424,14 @@ namespace РасчетКУ
             for (int i = 0; i < dgvSelectedRows.Count; ++i)
             {
                 DataGridViewRow row = dgvSelectedRows[i];
-                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано")
+                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
                 {
                     DialogResult result;
                     result = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.No)
                         return;
+                    else
+                        _asked = true;
                 }
                 // Очистка значений ретро в графике
                 SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = NULL, Sum_bonus = NULL, Sum_accept = NULL, Turnover = NULL, [Percent] = NULL WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);

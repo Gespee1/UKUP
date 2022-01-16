@@ -285,8 +285,8 @@ namespace РасчетКУ
             //заполнение табличной части
             
             DataTable tb = new DataTable();
-            SqlCommand command1 = new SqlCommand($"SELECT Product_id FROM Included_products_list WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} " +
-                $"ORDER BY Product_id DESC", SqlCon);
+            SqlCommand command1 = new SqlCommand($"SELECT DISTINCT Product_id FROM Included_products_list WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value}" +
+                $" EXCEPT (SELECT Product_id FROM Excluded_products_list WHERE Graph_id =  { dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value }) ORDER BY Product_id DESC", SqlCon);
             SqlDataAdapter adapt1 = new SqlDataAdapter(command1);
             adapt1.Fill(tb);
             DataTable tableExcel = new DataTable();
@@ -344,9 +344,9 @@ namespace РасчетКУ
                 for (int i = 0; i < tb.Rows.Count; i++)
                 {
 
-                    SqlCommand command = new SqlCommand($"SELECT Included_products_list.Invoice_id, Date, Quantity, Summ " +
+                    SqlCommand command = new SqlCommand($"SELECT DISTINCT Included_products_list.Invoice_id, Date, Quantity, Summ " +
                         $"FROM Included_products_list, Invoices, Invoices_products  WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value}" +
-                        $" AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Invoices.Invoice_id = Included_products_list.Invoice_id AND Included_products_list.Product_id = Invoices_products.Product_id ", SqlCon);
+                        $" AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Invoices.Invoice_id = Included_products_list.Invoice_id AND Included_products_list.Product_id = Invoices_products.Product_id", SqlCon);
                     SqlDataReader reader = command.ExecuteReader();
 
                     reader.Read();

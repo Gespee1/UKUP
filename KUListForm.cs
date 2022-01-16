@@ -139,15 +139,15 @@ namespace РасчетКУ
         private void создатьГрафикToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Проверка статуса выбранного КУ
-            if(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Status"].Value.ToString() != "Утверждено")
+            if(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Статус"].Value.ToString() != "Утверждено")
             {
                 MessageBox.Show("КУ должно быть утверждено, чтобы создать по нему график!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             Actions actions = new Actions();
-            if(actions.addGraphToCurrentKU(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value)) == true)
-                MessageBox.Show($"Для КУ с номером: {advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["KU_id"].Value} успешно создан график.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if(actions.addGraphToCurrentKU(Convert.ToInt64(advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Код КУ"].Value)) == true)
+                MessageBox.Show($"Для КУ с номером: {advancedDataGridViewKUList.Rows[advancedDataGridViewKUList.CurrentRow.Index].Cells["Код КУ"].Value} успешно создан график.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Кнопка меню для создания графика по всем КУ

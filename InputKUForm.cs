@@ -852,6 +852,8 @@ namespace РасчетКУ
 
                 SqlCommand command = new SqlCommand($"UPDATE KU SET Status = 'Создано' WHERE KU_id = {_KU_id}", _sqlConnection);
                 command.ExecuteNonQuery();
+                SqlCommand command1 = new SqlCommand($"DELETE FROM KU_graph WHERE KU_id = {_KU_id}", _sqlConnection);
+                command1.ExecuteNonQuery();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

@@ -449,7 +449,7 @@ namespace РасчетКУ
                 DataGridViewRow row = dgvSelectedRows[i];
 
                 //Условие на расчёт бонуса не старше текущей даты 
-                if (Convert.ToDateTime(row.Cells["date_To"].Value) < DateTime.Today)
+                if (Convert.ToDateTime(row.Cells["date_Calc"].Value) < DateTime.Today)
                 {
                     // Изменение статуса на "В расчете"
                     SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
@@ -491,7 +491,7 @@ namespace РасчетКУ
                 }
 
                 //Условие на расчёт бонуса не старше текущей даты 
-                if (Convert.ToDateTime(row.Cells["date_To"].Value) < DateTime.Today)
+                if (Convert.ToDateTime(row.Cells["date_Calc"].Value) < DateTime.Today)
                 {
                     //проверка на соответствие временного периода
                     int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerFrom.Value);

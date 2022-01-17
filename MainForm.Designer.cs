@@ -34,10 +34,10 @@
             this.VendorsListButton = new System.Windows.Forms.Button();
             this.KUGraphButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.notifyLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.waitTimer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,6 +97,19 @@
             this.panel1.Size = new System.Drawing.Size(426, 267);
             this.panel1.TabIndex = 7;
             // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::РасчетКУ.Properties.Resources.png_transparent_computer_icons_setting_windows_настройки_windows_101;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(376, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(38, 31);
+            this.button1.TabIndex = 7;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // notifyLabel
             // 
             this.notifyLabel.AutoSize = true;
@@ -116,18 +129,6 @@
             // waitTimer
             // 
             this.waitTimer.Tick += new System.EventHandler(this.waitTimer_Tick);
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::РасчетКУ.Properties.Resources.png_transparent_computer_icons_setting_windows_настройки_windows_101;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(376, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(38, 31);
-            this.button1.TabIndex = 7;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 

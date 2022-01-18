@@ -844,7 +844,9 @@ namespace РасчетКУ
         private void buttonUnapprove_Click(object sender, EventArgs e)
         {
             DialogResult result;
-
+            DataTable tb = new DataTable();
+            tb.Columns.Add("Graph_id", typeof(int));
+            
             result = MessageBox.Show("Вы уверены, что хотите отменить утверждение КУ и перевести его в статус 'Создано' ?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
@@ -852,8 +854,24 @@ namespace РасчетКУ
 
                 SqlCommand command = new SqlCommand($"UPDATE KU SET Status = 'Создано' WHERE KU_id = {_KU_id}", _sqlConnection);
                 command.ExecuteNonQuery();
-                SqlCommand command1 = new SqlCommand($"DELETE FROM KU_graph WHERE KU_id = {_KU_id}", _sqlConnection);
-                command1.ExecuteNonQuery();
+                //Удаление расчета из графика и товаров из InEx 
+                SqlCommand command2 = new SqlCommand($"SELECT Graph_id FROM KU_graph WHERE KU_id = {_KU_id}", _sqlConnection);
+                SqlDataAdapter adapt1 = new SqlDataAdapter(command2);
+                adapt1.Fill(tb);
+
+
+                for (int i = 0; i < tb.Rows.Count; i++)
+                {
+                    
+                    SqlCommand command3 = new SqlCommand($"DELETE FROM Included_products_list WHERE Graph_id = {tb.Rows[i]["Graph_id"]}", _sqlConnection);
+                    command3.ExecuteNonQuery();
+                    SqlCommand command4 = new SqlCommand($"DELETE FROM Excluded_products_list WHERE Graph_id = {tb.Rows[i]["Graph_id"]}", _sqlConnection);
+                    command4.ExecuteNonQuery();
+                    
+                }
+                
+                SqlCommand command5 = new SqlCommand($"DELETE FROM KU_graph WHERE KU_id = {_KU_id}", _sqlConnection);
+                command5.ExecuteNonQuery();
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

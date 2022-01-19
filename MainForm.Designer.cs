@@ -34,7 +34,8 @@
             this.VendorsListButton = new System.Windows.Forms.Button();
             this.KUGraphButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonMerge = new System.Windows.Forms.Button();
+            this.buttonSettings = new System.Windows.Forms.Button();
             this.notifyLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.waitTimer = new System.Windows.Forms.Timer(this.components);
@@ -86,7 +87,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.buttonMerge);
+            this.panel1.Controls.Add(this.buttonSettings);
             this.panel1.Controls.Add(this.notifyLabel);
             this.panel1.Controls.Add(this.labelMain);
             this.panel1.Controls.Add(this.KUListButton);
@@ -97,18 +99,28 @@
             this.panel1.Size = new System.Drawing.Size(426, 267);
             this.panel1.TabIndex = 7;
             // 
-            // button1
+            // buttonMerge
             // 
-            this.button1.BackgroundImage = global::РасчетКУ.Properties.Resources.png_transparent_computer_icons_setting_windows_настройки_windows_101;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(376, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(38, 31);
-            this.button1.TabIndex = 7;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonMerge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonMerge.Image = global::РасчетКУ.Properties.Resources.refresh;
+            this.buttonMerge.Location = new System.Drawing.Point(389, 231);
+            this.buttonMerge.Name = "buttonMerge";
+            this.buttonMerge.Size = new System.Drawing.Size(25, 25);
+            this.buttonMerge.TabIndex = 8;
+            this.buttonMerge.UseVisualStyleBackColor = true;
+            this.buttonMerge.Click += new System.EventHandler(this.buttonMerge_Click);
+            // 
+            // buttonSettings
+            // 
+            this.buttonSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSettings.Image = global::РасчетКУ.Properties.Resources.settings;
+            this.buttonSettings.Location = new System.Drawing.Point(389, 12);
+            this.buttonSettings.Name = "buttonSettings";
+            this.buttonSettings.Size = new System.Drawing.Size(25, 25);
+            this.buttonSettings.TabIndex = 7;
+            this.buttonSettings.UseVisualStyleBackColor = true;
+            this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
             // notifyLabel
             // 
@@ -159,7 +171,8 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Timer waitTimer;
         private System.Windows.Forms.Label notifyLabel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSettings;
+        private System.Windows.Forms.Button buttonMerge;
     }
 }
 

@@ -39,9 +39,10 @@ namespace РасчетКУ
             this.service_button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonClassifier = new System.Windows.Forms.Button();
-            this.buttonEntities = new System.Windows.Forms.Button();
             this.buttonAllProducts = new System.Windows.Forms.Button();
+            this.buttonEntities = new System.Windows.Forms.Button();
+            this.buttonClassifier = new System.Windows.Forms.Button();
+            this.labelRows = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).BeginInit();
             this.panel2.SuspendLayout();
@@ -85,10 +86,10 @@ namespace РасчетКУ
             // labelMain
             // 
             this.labelMain.AutoSize = true;
-            this.labelMain.Font = new System.Drawing.Font("Book Antiqua", 15.75F, System.Drawing.FontStyle.Bold);
+            this.labelMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelMain.Location = new System.Drawing.Point(305, 12);
             this.labelMain.Name = "labelMain";
-            this.labelMain.Size = new System.Drawing.Size(157, 26);
+            this.labelMain.Size = new System.Drawing.Size(155, 25);
             this.labelMain.TabIndex = 11;
             this.labelMain.Text = "Справочники";
             // 
@@ -150,6 +151,7 @@ namespace РасчетКУ
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelRows);
             this.panel1.Controls.Add(this.buttonAllProducts);
             this.panel1.Controls.Add(this.buttonEntities);
             this.panel1.Controls.Add(this.buttonClassifier);
@@ -163,16 +165,16 @@ namespace РасчетКУ
             this.panel1.Size = new System.Drawing.Size(760, 107);
             this.panel1.TabIndex = 22;
             // 
-            // buttonClassifier
+            // buttonAllProducts
             // 
-            this.buttonClassifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonClassifier.Location = new System.Drawing.Point(131, 72);
-            this.buttonClassifier.Name = "buttonClassifier";
-            this.buttonClassifier.Size = new System.Drawing.Size(134, 27);
-            this.buttonClassifier.TabIndex = 21;
-            this.buttonClassifier.Text = "Классификатор";
-            this.buttonClassifier.UseVisualStyleBackColor = true;
-            this.buttonClassifier.Click += new System.EventHandler(this.buttonClassifier_Click);
+            this.buttonAllProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAllProducts.Location = new System.Drawing.Point(373, 72);
+            this.buttonAllProducts.Name = "buttonAllProducts";
+            this.buttonAllProducts.Size = new System.Drawing.Size(109, 27);
+            this.buttonAllProducts.TabIndex = 23;
+            this.buttonAllProducts.Text = "Все товары";
+            this.buttonAllProducts.UseVisualStyleBackColor = true;
+            this.buttonAllProducts.Click += new System.EventHandler(this.buttonAllProducts_Click);
             // 
             // buttonEntities
             // 
@@ -185,16 +187,27 @@ namespace РасчетКУ
             this.buttonEntities.UseVisualStyleBackColor = true;
             this.buttonEntities.Click += new System.EventHandler(this.buttonEntities_Click);
             // 
-            // buttonAllProducts
+            // buttonClassifier
             // 
-            this.buttonAllProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonAllProducts.Location = new System.Drawing.Point(373, 72);
-            this.buttonAllProducts.Name = "buttonAllProducts";
-            this.buttonAllProducts.Size = new System.Drawing.Size(109, 27);
-            this.buttonAllProducts.TabIndex = 23;
-            this.buttonAllProducts.Text = "Все товары";
-            this.buttonAllProducts.UseVisualStyleBackColor = true;
-            this.buttonAllProducts.Click += new System.EventHandler(this.buttonAllProducts_Click);
+            this.buttonClassifier.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClassifier.Location = new System.Drawing.Point(131, 72);
+            this.buttonClassifier.Name = "buttonClassifier";
+            this.buttonClassifier.Size = new System.Drawing.Size(134, 27);
+            this.buttonClassifier.TabIndex = 21;
+            this.buttonClassifier.Text = "Классификатор";
+            this.buttonClassifier.UseVisualStyleBackColor = true;
+            this.buttonClassifier.Click += new System.EventHandler(this.buttonClassifier_Click);
+            // 
+            // labelRows
+            // 
+            this.labelRows.AutoSize = true;
+            this.labelRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRows.Location = new System.Drawing.Point(12, 53);
+            this.labelRows.Name = "labelRows";
+            this.labelRows.Size = new System.Drawing.Size(178, 16);
+            this.labelRows.TabIndex = 24;
+            this.labelRows.Text = "Кол-во выведенных строк:";
+            this.labelRows.Visible = false;
             // 
             // ListForm
             // 
@@ -239,6 +252,7 @@ namespace РасчетКУ
         private System.Windows.Forms.Button buttonClassifier;
         private System.Windows.Forms.Button buttonEntities;
         private System.Windows.Forms.Button buttonAllProducts;
+        private System.Windows.Forms.Label labelRows;
     }
 }
 

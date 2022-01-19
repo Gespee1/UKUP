@@ -18,8 +18,8 @@ namespace РасчетКУ
         // Загрузка формы
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (!backgroundWorker1.IsBusy)
-                backgroundWorker1.RunWorkerAsync();
+            /*if (!backgroundWorker1.IsBusy)
+                backgroundWorker1.RunWorkerAsync();*/
             Console.WriteLine($"{Environment.MachineName} {Environment.UserName}");
         }
 
@@ -88,10 +88,16 @@ namespace РасчетКУ
             panel1.Location = new System.Drawing.Point(Convert.ToInt32((ClientSize.Width - panel1.Width) / 2), Convert.ToInt32((ClientSize.Height - panel1.Height) / 2));
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonSettings_Click(object sender, EventArgs e)
         {
             Form settings = new SettingsForm();
             settings.ShowDialog();
+        }
+
+        private void buttonMerge_Click(object sender, EventArgs e)
+        {
+            if (!backgroundWorker1.IsBusy)
+                backgroundWorker1.RunWorkerAsync();
         }
     }
 }

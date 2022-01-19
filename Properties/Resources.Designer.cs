@@ -63,9 +63,19 @@ namespace РасчетКУ.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap png_transparent_computer_icons_setting_windows_настройки_windows_101 {
+        internal static System.Drawing.Bitmap refresh {
             get {
-                object obj = ResourceManager.GetObject("png-transparent-computer-icons-setting-windows-настройки-windows-101", resourceCulture);
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap settings {
+            get {
+                object obj = ResourceManager.GetObject("settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -42,6 +42,8 @@ namespace РасчетКУ
 
             adapt.Fill(dt);
             advancedDataGridView.DataSource = dt;
+            labelRows.Visible = true;
+            labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
         }
         // Вывод классификатора
         private void buttonClassifier_Click(object sender, EventArgs e)
@@ -57,6 +59,8 @@ namespace РасчетКУ
 
             adapt.Fill(dt);
             advancedDataGridView.DataSource = dt;
+            labelRows.Visible = true;
+            labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
         }
         // Вывод юр. лиц
         private void buttonEntities_Click(object sender, EventArgs e)
@@ -73,6 +77,8 @@ namespace РасчетКУ
 
             adapt.Fill(dt);
             advancedDataGridView.DataSource = dt;
+            labelRows.Visible = true;
+            labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
         }
         // Вывод списка продуктов
         private void buttonAllProducts_Click(object sender, EventArgs e)
@@ -89,6 +95,8 @@ namespace РасчетКУ
 
             adapt.Fill(dt);
             advancedDataGridView.DataSource = dt;
+            labelRows.Visible = true;
+            labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
         }
         // Вывод списка оказываемых услуг
         private void service_button_Click(object sender, EventArgs e)
@@ -102,12 +110,16 @@ namespace РасчетКУ
         private void advancedDataGridView1_FilterStringChanged(object sender, EventArgs e)
         {
             (advancedDataGridView.DataSource as DataTable).DefaultView.RowFilter = advancedDataGridView.FilterString;
+            
+            labelRows.Text = $"Кол-во выведенных строк: {advancedDataGridView.RowCount}";
         }
 
         // Сортировка поставщиков
         private void advancedDataGridView1_SortStringChanged(object sender, EventArgs e)
         {
             (advancedDataGridView.DataSource as DataTable).DefaultView.Sort = advancedDataGridView.SortString;
+
+            labelRows.Text = $"Кол-во выведенных строк: {advancedDataGridView.RowCount}";
         }
 
 

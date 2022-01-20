@@ -7,6 +7,7 @@ namespace РасчетКУ
     public partial class SettingsForm : Form
     {
         string name1 = "delta";
+        string user;
         public SettingsForm()
         {
             InitializeComponent();
@@ -61,5 +62,18 @@ namespace РасчетКУ
             panel1.Location = new System.Drawing.Point(Convert.ToInt32((ClientSize.Width - panel1.Width) / 2), Convert.ToInt32((ClientSize.Height - panel1.Height) / 2));
         }
 
+        //выбор пути сохранения файлов
+        private void ButtonPath_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog FBD = new FolderBrowserDialog();
+            if (FBD.ShowDialog() == DialogResult.OK)
+            {
+                textBoxPath.Text = FBD.SelectedPath;
+                string textPath = textBoxPath.Text;
+                Global_parameters GP2 = new Global_parameters();
+                GP2.setPath(user, textPath);
+                MessageBox.Show("Сохранено!");
+            }
+        }
     }
 }

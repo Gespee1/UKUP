@@ -36,9 +36,9 @@ namespace РасчетКУ
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ButtonPath = new System.Windows.Forms.Button();
             this.textBoxPath = new System.Windows.Forms.TextBox();
+            this.ButtonPath = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -121,15 +121,13 @@ namespace РасчетКУ
             this.tabPage2.Text = "Путь сохранения файлов";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // textBoxPath
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(6, 164);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 20);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Текущий путь";
+            this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxPath.Location = new System.Drawing.Point(10, 187);
+            this.textBoxPath.Name = "textBoxPath";
+            this.textBoxPath.Size = new System.Drawing.Size(332, 26);
+            this.textBoxPath.TabIndex = 7;
             // 
             // ButtonPath
             // 
@@ -140,14 +138,17 @@ namespace РасчетКУ
             this.ButtonPath.TabIndex = 6;
             this.ButtonPath.Text = "Выбрать путь сохранения";
             this.ButtonPath.UseVisualStyleBackColor = true;
+            this.ButtonPath.Click += new System.EventHandler(this.ButtonPath_Click);
             // 
-            // textBoxPath
+            // label1
             // 
-            this.textBoxPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxPath.Location = new System.Drawing.Point(10, 187);
-            this.textBoxPath.Name = "textBoxPath";
-            this.textBoxPath.Size = new System.Drawing.Size(332, 26);
-            this.textBoxPath.TabIndex = 7;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(6, 164);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 20);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Текущий путь";
             // 
             // SettingsForm
             // 

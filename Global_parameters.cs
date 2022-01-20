@@ -71,18 +71,18 @@ namespace РасчетКУ
             conn.Close();
         }
 
-        public void setPath(string name, string value)
+        public void setPath(string user, string textPath)
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             conn.Open();
 
-            SqlCommand command = new SqlCommand($"SELECT Value FROM Global_parameters WHERE Name = '{name}'", conn);
+            SqlCommand command = new SqlCommand($"SELECT Path FROM UsersPathes WHERE User = '{user}'", conn);
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
             if (reader.HasRows)
             {
                 reader.Close();
-                command = new SqlCommand($"UPDATE Global_parameters SET Value = '{value}' WHERE Name = '{name}'", conn);
+                command = new SqlCommand($"UPDATE UsersPathes SET Path = '{textPath}' WHERE User = '{user}'", conn);
                 command.ExecuteNonQuery();
             }
             else

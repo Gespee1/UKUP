@@ -86,6 +86,7 @@ namespace РасчетКУ
             this.labelContract = new System.Windows.Forms.Label();
             this.textBoxContract = new System.Windows.Forms.TextBox();
             this.groupBoxDescription = new System.Windows.Forms.GroupBox();
+            this.comboBoxProductType = new System.Windows.Forms.ComboBox();
             this.comboBoxEntity = new System.Windows.Forms.ComboBox();
             this.labelKUCode = new System.Windows.Forms.Label();
             this.textBoxKUCode = new System.Windows.Forms.TextBox();
@@ -126,7 +127,6 @@ namespace РасчетКУ
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.buttonUnapprove = new System.Windows.Forms.Button();
-            this.comboBoxProductType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tabControlInEx.SuspendLayout();
             this.tabPageToInclude.SuspendLayout();
@@ -176,7 +176,7 @@ namespace РасчетКУ
             this.comboBoxVendor.Location = new System.Drawing.Point(6, 174);
             this.comboBoxVendor.Name = "comboBoxVendor";
             this.comboBoxVendor.Size = new System.Drawing.Size(180, 26);
-            this.comboBoxVendor.TabIndex = 2;
+            this.comboBoxVendor.TabIndex = 4;
             this.comboBoxVendor.SelectedIndexChanged += new System.EventHandler(this.comboBoxVendor_SelectedIndexChanged);
             this.comboBoxVendor.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
@@ -204,7 +204,7 @@ namespace РасчетКУ
             this.comboBoxPeriod.Location = new System.Drawing.Point(13, 49);
             this.comboBoxPeriod.Name = "comboBoxPeriod";
             this.comboBoxPeriod.Size = new System.Drawing.Size(180, 26);
-            this.comboBoxPeriod.TabIndex = 6;
+            this.comboBoxPeriod.TabIndex = 22;
             this.comboBoxPeriod.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDateFrom
@@ -234,7 +234,7 @@ namespace РасчетКУ
             this.dateTimePickerDateFrom.Location = new System.Drawing.Point(13, 110);
             this.dateTimePickerDateFrom.Name = "dateTimePickerDateFrom";
             this.dateTimePickerDateFrom.Size = new System.Drawing.Size(180, 24);
-            this.dateTimePickerDateFrom.TabIndex = 10;
+            this.dateTimePickerDateFrom.TabIndex = 23;
             this.dateTimePickerDateFrom.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // dateTimePickerDateTo
@@ -243,7 +243,7 @@ namespace РасчетКУ
             this.dateTimePickerDateTo.Location = new System.Drawing.Point(13, 170);
             this.dateTimePickerDateTo.Name = "dateTimePickerDateTo";
             this.dateTimePickerDateTo.Size = new System.Drawing.Size(180, 24);
-            this.dateTimePickerDateTo.TabIndex = 11;
+            this.dateTimePickerDateTo.TabIndex = 24;
             this.dateTimePickerDateTo.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // buttonCreate
@@ -253,7 +253,7 @@ namespace РасчетКУ
             this.buttonCreate.Location = new System.Drawing.Point(1013, 12);
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(87, 27);
-            this.buttonCreate.TabIndex = 12;
+            this.buttonCreate.TabIndex = 32;
             this.buttonCreate.Text = "Создать";
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.create_button_Click);
@@ -317,7 +317,7 @@ namespace РасчетКУ
             this.buttonCancel.Location = new System.Drawing.Point(12, 12);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(87, 27);
-            this.buttonCancel.TabIndex = 17;
+            this.buttonCancel.TabIndex = 29;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Visible = false;
@@ -330,7 +330,7 @@ namespace РасчетКУ
             this.buttonCreateNApprove.Location = new System.Drawing.Point(1108, 12);
             this.buttonCreateNApprove.Name = "buttonCreateNApprove";
             this.buttonCreateNApprove.Size = new System.Drawing.Size(174, 27);
-            this.buttonCreateNApprove.TabIndex = 18;
+            this.buttonCreateNApprove.TabIndex = 33;
             this.buttonCreateNApprove.Text = "Создать и утвердить";
             this.buttonCreateNApprove.UseVisualStyleBackColor = true;
             this.buttonCreateNApprove.Click += new System.EventHandler(this.createNapprove_button_Click);
@@ -342,7 +342,7 @@ namespace РасчетКУ
             this.textBoxStatus.Location = new System.Drawing.Point(203, 49);
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.Size = new System.Drawing.Size(180, 24);
-            this.textBoxStatus.TabIndex = 19;
+            this.textBoxStatus.TabIndex = 2;
             // 
             // buttonClose
             // 
@@ -351,7 +351,7 @@ namespace РасчетКУ
             this.buttonClose.Location = new System.Drawing.Point(920, 12);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(87, 27);
-            this.buttonClose.TabIndex = 20;
+            this.buttonClose.TabIndex = 31;
             this.buttonClose.Text = "Закрыть";
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Visible = false;
@@ -402,6 +402,7 @@ namespace РасчетКУ
             this.dataGridViewIncluded.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewIncluded.Size = new System.Drawing.Size(964, 183);
             this.dataGridViewIncluded.TabIndex = 0;
+            this.dataGridViewIncluded.TabStop = false;
             this.dataGridViewIncluded.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInEx_CellEndEdit);
             this.dataGridViewIncluded.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
             this.dataGridViewIncluded.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_RowsAdded);
@@ -490,6 +491,7 @@ namespace РасчетКУ
             this.dataGridViewExcluded.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewExcluded.Size = new System.Drawing.Size(964, 183);
             this.dataGridViewExcluded.TabIndex = 0;
+            this.dataGridViewExcluded.TabStop = false;
             this.dataGridViewExcluded.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInEx_CellEndEdit);
             this.dataGridViewExcluded.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
             this.dataGridViewExcluded.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_RowsAdded);
@@ -550,7 +552,7 @@ namespace РасчетКУ
             this.buttonDelete.Location = new System.Drawing.Point(996, 127);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(178, 27);
-            this.buttonDelete.TabIndex = 25;
+            this.buttonDelete.TabIndex = 28;
             this.buttonDelete.Text = "Удалить";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.button7_Click);
@@ -561,7 +563,7 @@ namespace РасчетКУ
             this.buttonAddCategory.Location = new System.Drawing.Point(996, 61);
             this.buttonAddCategory.Name = "buttonAddCategory";
             this.buttonAddCategory.Size = new System.Drawing.Size(178, 27);
-            this.buttonAddCategory.TabIndex = 24;
+            this.buttonAddCategory.TabIndex = 26;
             this.buttonAddCategory.Text = "Добавить категорию";
             this.buttonAddCategory.UseVisualStyleBackColor = true;
             this.buttonAddCategory.Click += new System.EventHandler(this.btnSelectCategory_Click);
@@ -572,7 +574,7 @@ namespace РасчетКУ
             this.buttonAddProduct.Location = new System.Drawing.Point(996, 94);
             this.buttonAddProduct.Name = "buttonAddProduct";
             this.buttonAddProduct.Size = new System.Drawing.Size(178, 27);
-            this.buttonAddProduct.TabIndex = 23;
+            this.buttonAddProduct.TabIndex = 27;
             this.buttonAddProduct.Text = "Добавить товар";
             this.buttonAddProduct.UseVisualStyleBackColor = true;
             this.buttonAddProduct.Click += new System.EventHandler(this.button5_Click);
@@ -583,7 +585,7 @@ namespace РасчетКУ
             this.buttonAddAll.Location = new System.Drawing.Point(996, 28);
             this.buttonAddAll.Name = "buttonAddAll";
             this.buttonAddAll.Size = new System.Drawing.Size(178, 27);
-            this.buttonAddAll.TabIndex = 22;
+            this.buttonAddAll.TabIndex = 25;
             this.buttonAddAll.Text = "Добавить все";
             this.buttonAddAll.UseVisualStyleBackColor = true;
             this.buttonAddAll.Click += new System.EventHandler(this.button4_Click);
@@ -615,7 +617,7 @@ namespace РасчетКУ
             this.checkBoxReturn.Location = new System.Drawing.Point(13, 51);
             this.checkBoxReturn.Name = "checkBoxReturn";
             this.checkBoxReturn.Size = new System.Drawing.Size(165, 22);
-            this.checkBoxReturn.TabIndex = 30;
+            this.checkBoxReturn.TabIndex = 18;
             this.checkBoxReturn.Text = "Исключить возврат";
             this.checkBoxReturn.UseVisualStyleBackColor = true;
             this.checkBoxReturn.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
@@ -627,7 +629,7 @@ namespace РасчетКУ
             this.checkBoxTax.Location = new System.Drawing.Point(13, 28);
             this.checkBoxTax.Name = "checkBoxTax";
             this.checkBoxTax.Size = new System.Drawing.Size(146, 22);
-            this.checkBoxTax.TabIndex = 31;
+            this.checkBoxTax.TabIndex = 17;
             this.checkBoxTax.Text = "Учитывать налог";
             this.checkBoxTax.UseVisualStyleBackColor = true;
             this.checkBoxTax.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
@@ -639,7 +641,7 @@ namespace РасчетКУ
             this.checkBoxOfactured.Location = new System.Drawing.Point(13, 74);
             this.checkBoxOfactured.Name = "checkBoxOfactured";
             this.checkBoxOfactured.Size = new System.Drawing.Size(186, 22);
-            this.checkBoxOfactured.TabIndex = 32;
+            this.checkBoxOfactured.TabIndex = 19;
             this.checkBoxOfactured.Text = "Только офактуренные";
             this.checkBoxOfactured.UseVisualStyleBackColor = true;
             this.checkBoxOfactured.CheckedChanged += new System.EventHandler(this.checkBox_CheckedChanged);
@@ -656,7 +658,7 @@ namespace РасчетКУ
             this.comboBoxKUType.Location = new System.Drawing.Point(13, 177);
             this.comboBoxKUType.Name = "comboBoxKUType";
             this.comboBoxKUType.Size = new System.Drawing.Size(180, 26);
-            this.comboBoxKUType.TabIndex = 33;
+            this.comboBoxKUType.TabIndex = 21;
             this.comboBoxKUType.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelKUType
@@ -691,7 +693,7 @@ namespace РасчетКУ
             this.comboBoxPayMethod.Location = new System.Drawing.Point(13, 120);
             this.comboBoxPayMethod.Name = "comboBoxPayMethod";
             this.comboBoxPayMethod.Size = new System.Drawing.Size(180, 26);
-            this.comboBoxPayMethod.TabIndex = 35;
+            this.comboBoxPayMethod.TabIndex = 20;
             this.comboBoxPayMethod.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDescription
@@ -711,7 +713,7 @@ namespace РасчетКУ
             this.textBoxVendAccount.Location = new System.Drawing.Point(6, 225);
             this.textBoxVendAccount.Name = "textBoxVendAccount";
             this.textBoxVendAccount.Size = new System.Drawing.Size(180, 24);
-            this.textBoxVendAccount.TabIndex = 39;
+            this.textBoxVendAccount.TabIndex = 6;
             // 
             // labelContract
             // 
@@ -729,7 +731,7 @@ namespace РасчетКУ
             this.textBoxContract.Location = new System.Drawing.Point(203, 177);
             this.textBoxContract.Name = "textBoxContract";
             this.textBoxContract.Size = new System.Drawing.Size(180, 24);
-            this.textBoxContract.TabIndex = 41;
+            this.textBoxContract.TabIndex = 5;
             this.textBoxContract.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // groupBoxDescription
@@ -758,6 +760,20 @@ namespace РасчетКУ
             this.groupBoxDescription.TabStop = false;
             this.groupBoxDescription.Text = "Описание";
             // 
+            // comboBoxProductType
+            // 
+            this.comboBoxProductType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxProductType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBoxProductType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxProductType.FormattingEnabled = true;
+            this.comboBoxProductType.Items.AddRange(new object[] {
+            "Продовльственные",
+            "Непродовольственные"});
+            this.comboBoxProductType.Location = new System.Drawing.Point(203, 223);
+            this.comboBoxProductType.Name = "comboBoxProductType";
+            this.comboBoxProductType.Size = new System.Drawing.Size(180, 26);
+            this.comboBoxProductType.TabIndex = 7;
+            // 
             // comboBoxEntity
             // 
             this.comboBoxEntity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -768,7 +784,7 @@ namespace РасчетКУ
             this.comboBoxEntity.Location = new System.Drawing.Point(83, 255);
             this.comboBoxEntity.Name = "comboBoxEntity";
             this.comboBoxEntity.Size = new System.Drawing.Size(300, 26);
-            this.comboBoxEntity.TabIndex = 50;
+            this.comboBoxEntity.TabIndex = 8;
             this.comboBoxEntity.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelKUCode
@@ -788,7 +804,7 @@ namespace РасчетКУ
             this.textBoxKUCode.Location = new System.Drawing.Point(6, 49);
             this.textBoxKUCode.Name = "textBoxKUCode";
             this.textBoxKUCode.Size = new System.Drawing.Size(180, 24);
-            this.textBoxKUCode.TabIndex = 48;
+            this.textBoxKUCode.TabIndex = 1;
             // 
             // richTextBoxDescription
             // 
@@ -796,7 +812,7 @@ namespace РасчетКУ
             this.richTextBoxDescription.Location = new System.Drawing.Point(6, 97);
             this.richTextBoxDescription.Name = "richTextBoxDescription";
             this.richTextBoxDescription.Size = new System.Drawing.Size(377, 56);
-            this.richTextBoxDescription.TabIndex = 47;
+            this.richTextBoxDescription.TabIndex = 3;
             this.richTextBoxDescription.Text = "";
             this.richTextBoxDescription.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
@@ -881,7 +897,7 @@ namespace РасчетКУ
             this.richTextBoxDocSubject.Location = new System.Drawing.Point(217, 157);
             this.richTextBoxDocSubject.Name = "richTextBoxDocSubject";
             this.richTextBoxDocSubject.Size = new System.Drawing.Size(180, 74);
-            this.richTextBoxDocSubject.TabIndex = 58;
+            this.richTextBoxDocSubject.TabIndex = 16;
             this.richTextBoxDocSubject.Text = "";
             this.richTextBoxDocSubject.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
@@ -901,7 +917,7 @@ namespace РасчетКУ
             this.dateTimePickerDocDate.Location = new System.Drawing.Point(217, 100);
             this.dateTimePickerDocDate.Name = "dateTimePickerDocDate";
             this.dateTimePickerDocDate.Size = new System.Drawing.Size(180, 24);
-            this.dateTimePickerDocDate.TabIndex = 55;
+            this.dateTimePickerDocDate.TabIndex = 12;
             this.dateTimePickerDocDate.ValueChanged += new System.EventHandler(this.dateTimePicker3_ValueChanged);
             // 
             // labelDocDate
@@ -920,7 +936,7 @@ namespace РасчетКУ
             this.textBoxDocHeader.Location = new System.Drawing.Point(217, 49);
             this.textBoxDocHeader.Name = "textBoxDocHeader";
             this.textBoxDocHeader.Size = new System.Drawing.Size(180, 24);
-            this.textBoxDocHeader.TabIndex = 53;
+            this.textBoxDocHeader.TabIndex = 10;
             this.textBoxDocHeader.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocHeader
@@ -939,7 +955,7 @@ namespace РасчетКУ
             this.textBoxDocCode.Location = new System.Drawing.Point(20, 255);
             this.textBoxDocCode.Name = "textBoxDocCode";
             this.textBoxDocCode.Size = new System.Drawing.Size(180, 24);
-            this.textBoxDocCode.TabIndex = 51;
+            this.textBoxDocCode.TabIndex = 15;
             this.textBoxDocCode.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocCode
@@ -958,7 +974,7 @@ namespace РасчетКУ
             this.textBoxDocTitle.Location = new System.Drawing.Point(20, 207);
             this.textBoxDocTitle.Name = "textBoxDocTitle";
             this.textBoxDocTitle.Size = new System.Drawing.Size(180, 24);
-            this.textBoxDocTitle.TabIndex = 49;
+            this.textBoxDocTitle.TabIndex = 14;
             this.textBoxDocTitle.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocTitle
@@ -977,7 +993,7 @@ namespace РасчетКУ
             this.textBoxDocAccount.Location = new System.Drawing.Point(20, 156);
             this.textBoxDocAccount.Name = "textBoxDocAccount";
             this.textBoxDocAccount.Size = new System.Drawing.Size(180, 24);
-            this.textBoxDocAccount.TabIndex = 47;
+            this.textBoxDocAccount.TabIndex = 13;
             this.textBoxDocAccount.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocAccount
@@ -996,7 +1012,7 @@ namespace РасчетКУ
             this.textBoxTransferTo.Location = new System.Drawing.Point(20, 103);
             this.textBoxTransferTo.Name = "textBoxTransferTo";
             this.textBoxTransferTo.Size = new System.Drawing.Size(180, 24);
-            this.textBoxTransferTo.TabIndex = 45;
+            this.textBoxTransferTo.TabIndex = 11;
             this.textBoxTransferTo.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelTransferTo
@@ -1015,7 +1031,7 @@ namespace РасчетКУ
             this.textBoxDocName.Location = new System.Drawing.Point(20, 49);
             this.textBoxDocName.Name = "textBoxDocName";
             this.textBoxDocName.Size = new System.Drawing.Size(180, 24);
-            this.textBoxDocName.TabIndex = 43;
+            this.textBoxDocName.TabIndex = 9;
             this.textBoxDocName.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelDocName
@@ -1073,7 +1089,7 @@ namespace РасчетКУ
             this.buttonDelTerm.Location = new System.Drawing.Point(572, 80);
             this.buttonDelTerm.Name = "buttonDelTerm";
             this.buttonDelTerm.Size = new System.Drawing.Size(98, 27);
-            this.buttonDelTerm.TabIndex = 2;
+            this.buttonDelTerm.TabIndex = 35;
             this.buttonDelTerm.Text = "Удалить";
             this.buttonDelTerm.UseVisualStyleBackColor = true;
             this.buttonDelTerm.Click += new System.EventHandler(this.button2_Click);
@@ -1084,7 +1100,7 @@ namespace РасчетКУ
             this.buttonAddTerm.Location = new System.Drawing.Point(572, 47);
             this.buttonAddTerm.Name = "buttonAddTerm";
             this.buttonAddTerm.Size = new System.Drawing.Size(98, 27);
-            this.buttonAddTerm.TabIndex = 1;
+            this.buttonAddTerm.TabIndex = 34;
             this.buttonAddTerm.Text = "Добавить";
             this.buttonAddTerm.UseVisualStyleBackColor = true;
             this.buttonAddTerm.Click += new System.EventHandler(this.button1_Click);
@@ -1107,6 +1123,7 @@ namespace РасчетКУ
             this.dataGridViewTerms.RowHeadersVisible = false;
             this.dataGridViewTerms.Size = new System.Drawing.Size(544, 303);
             this.dataGridViewTerms.TabIndex = 0;
+            this.dataGridViewTerms.TabStop = false;
             this.dataGridViewTerms.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
             this.dataGridViewTerms.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_RowsAdded);
             this.dataGridViewTerms.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView_RowsRemoved);
@@ -1189,25 +1206,11 @@ namespace РасчетКУ
             this.buttonUnapprove.Location = new System.Drawing.Point(105, 12);
             this.buttonUnapprove.Name = "buttonUnapprove";
             this.buttonUnapprove.Size = new System.Drawing.Size(167, 27);
-            this.buttonUnapprove.TabIndex = 21;
+            this.buttonUnapprove.TabIndex = 30;
             this.buttonUnapprove.Text = "Отмена утверждения";
             this.buttonUnapprove.UseVisualStyleBackColor = true;
             this.buttonUnapprove.Visible = false;
             this.buttonUnapprove.Click += new System.EventHandler(this.buttonUnapprove_Click);
-            // 
-            // comboBoxProductType
-            // 
-            this.comboBoxProductType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBoxProductType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxProductType.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBoxProductType.FormattingEnabled = true;
-            this.comboBoxProductType.Items.AddRange(new object[] {
-            "Продовльственные",
-            "Непродовольственные"});
-            this.comboBoxProductType.Location = new System.Drawing.Point(203, 223);
-            this.comboBoxProductType.Name = "comboBoxProductType";
-            this.comboBoxProductType.Size = new System.Drawing.Size(180, 26);
-            this.comboBoxProductType.TabIndex = 51;
             // 
             // InputKUForm
             // 

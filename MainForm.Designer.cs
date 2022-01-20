@@ -39,6 +39,7 @@
             this.notifyLabel = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.waitTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolTipMainForm = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,6 +108,7 @@
             this.buttonMerge.Name = "buttonMerge";
             this.buttonMerge.Size = new System.Drawing.Size(25, 25);
             this.buttonMerge.TabIndex = 8;
+            this.toolTipMainForm.SetToolTip(this.buttonMerge, "Обновить базу данных.");
             this.buttonMerge.UseVisualStyleBackColor = true;
             this.buttonMerge.Click += new System.EventHandler(this.buttonMerge_Click);
             // 
@@ -119,6 +121,7 @@
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(25, 25);
             this.buttonSettings.TabIndex = 7;
+            this.toolTipMainForm.SetToolTip(this.buttonSettings, "Настройки.");
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
             // 
@@ -173,6 +176,7 @@
         private System.Windows.Forms.Label notifyLabel;
         private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.Button buttonMerge;
+        private System.Windows.Forms.ToolTip toolTipMainForm;
     }
 }
 

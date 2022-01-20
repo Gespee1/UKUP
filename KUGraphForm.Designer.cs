@@ -29,6 +29,22 @@
         private void InitializeComponent()
         {
             this.dataGridViewKUGraph = new System.Windows.Forms.DataGridView();
+            this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VendorNam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContractCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_from = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_calc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,22 +68,6 @@
             this.labelProgress = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.buttonCancelCalc = new System.Windows.Forms.Button();
-            this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VendorNam = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContractCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Period = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_from = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_to = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date_calc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumS = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -105,228 +105,8 @@
             this.dataGridViewKUGraph.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewKUGraph.Size = new System.Drawing.Size(1108, 476);
             this.dataGridViewKUGraph.TabIndex = 0;
+            this.dataGridViewKUGraph.TabStop = false;
             this.dataGridViewKUGraph.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.открытьToolStripMenuItem,
-            this.настройкиToolStripMenuItem,
-            this.экспортToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1132, 29);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // открытьToolStripMenuItem
-            // 
-            this.открытьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.списокКУToolStripMenuItem,
-            this.поставщикиToolStripMenuItem});
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
-            this.открытьToolStripMenuItem.Text = "Открыть";
-            // 
-            // списокКУToolStripMenuItem
-            // 
-            this.списокКУToolStripMenuItem.Name = "списокКУToolStripMenuItem";
-            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.списокКУToolStripMenuItem.Text = "Список КУ";
-            this.списокКУToolStripMenuItem.Click += new System.EventHandler(this.списокКУToolStripMenuItem_Click);
-            // 
-            // поставщикиToolStripMenuItem
-            // 
-            this.поставщикиToolStripMenuItem.Name = "поставщикиToolStripMenuItem";
-            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.поставщикиToolStripMenuItem.Text = "Поставщики";
-            this.поставщикиToolStripMenuItem.Click += new System.EventHandler(this.поставщикиToolStripMenuItem_Click);
-            // 
-            // настройкиToolStripMenuItem
-            // 
-            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.сдвигДатыРасчётаToolStripMenuItem});
-            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(99, 25);
-            this.настройкиToolStripMenuItem.Text = "Настройки";
-            // 
-            // сдвигДатыРасчётаToolStripMenuItem
-            // 
-            this.сдвигДатыРасчётаToolStripMenuItem.Name = "сдвигДатыРасчётаToolStripMenuItem";
-            this.сдвигДатыРасчётаToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
-            this.сдвигДатыРасчётаToolStripMenuItem.Text = "Сдвиг даты расчёта";
-            this.сдвигДатыРасчётаToolStripMenuItem.Click += new System.EventHandler(this.сдвигДатыРасчётаToolStripMenuItem_Click);
-            // 
-            // экспортToolStripMenuItem
-            // 
-            this.экспортToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.вВордToolStripMenuItem,
-            this.вЭксельToolStripMenuItem,
-            this.word2ToolStripMenuItem,
-            this.excel2ToolStripMenuItem});
-            this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
-            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(65, 25);
-            this.экспортToolStripMenuItem.Text = "Отчет";
-            // 
-            // вВордToolStripMenuItem
-            // 
-            this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
-            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
-            this.вВордToolStripMenuItem.Text = "АКТ-счет";
-            this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
-            // 
-            // вЭксельToolStripMenuItem
-            // 
-            this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
-            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
-            this.вЭксельToolStripMenuItem.Text = "Отчет-сверка 1";
-            this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
-            // 
-            // word2ToolStripMenuItem
-            // 
-            this.word2ToolStripMenuItem.Name = "word2ToolStripMenuItem";
-            this.word2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
-            this.word2ToolStripMenuItem.Text = "Приложение к договору";
-            this.word2ToolStripMenuItem.Click += new System.EventHandler(this.word2ToolStripMenuItem_Click);
-            // 
-            // excel2ToolStripMenuItem
-            // 
-            this.excel2ToolStripMenuItem.Name = "excel2ToolStripMenuItem";
-            this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
-            this.excel2ToolStripMenuItem.Text = "Отчет-сверка 2";
-            this.excel2ToolStripMenuItem.Click += new System.EventHandler(this.excel2ToolStripMenuItem_Click);
-            // 
-            // buttonApprove
-            // 
-            this.buttonApprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonApprove.Location = new System.Drawing.Point(995, 545);
-            this.buttonApprove.Name = "buttonApprove";
-            this.buttonApprove.Size = new System.Drawing.Size(119, 38);
-            this.buttonApprove.TabIndex = 5;
-            this.buttonApprove.Text = "Согласовать";
-            this.buttonApprove.UseVisualStyleBackColor = true;
-            this.buttonApprove.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // buttonCalcBonus
-            // 
-            this.buttonCalcBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCalcBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCalcBonus.Location = new System.Drawing.Point(736, 545);
-            this.buttonCalcBonus.Name = "buttonCalcBonus";
-            this.buttonCalcBonus.Size = new System.Drawing.Size(253, 38);
-            this.buttonCalcBonus.TabIndex = 7;
-            this.buttonCalcBonus.Text = "Рассчёт ретро-бонуса";
-            this.buttonCalcBonus.UseVisualStyleBackColor = true;
-            this.buttonCalcBonus.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // buttonCalcAll
-            // 
-            this.buttonCalcAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCalcAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCalcAll.Location = new System.Drawing.Point(179, 575);
-            this.buttonCalcAll.Name = "buttonCalcAll";
-            this.buttonCalcAll.Size = new System.Drawing.Size(159, 38);
-            this.buttonCalcAll.TabIndex = 8;
-            this.buttonCalcAll.Text = "Рассчитать все";
-            this.buttonCalcAll.UseVisualStyleBackColor = true;
-            this.buttonCalcAll.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // dateTimePickerTo
-            // 
-            this.dateTimePickerTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePickerTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerTo.Location = new System.Drawing.Point(277, 545);
-            this.dateTimePickerTo.Name = "dateTimePickerTo";
-            this.dateTimePickerTo.Size = new System.Drawing.Size(183, 24);
-            this.dateTimePickerTo.TabIndex = 56;
-            this.dateTimePickerTo.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
-            // 
-            // dateTimePickerFrom
-            // 
-            this.dateTimePickerFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dateTimePickerFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(51, 545);
-            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
-            this.dateTimePickerFrom.Size = new System.Drawing.Size(183, 24);
-            this.dateTimePickerFrom.TabIndex = 57;
-            this.dateTimePickerFrom.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            // 
-            // labelFrom
-            // 
-            this.labelFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelFrom.AutoSize = true;
-            this.labelFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFrom.Location = new System.Drawing.Point(25, 545);
-            this.labelFrom.Name = "labelFrom";
-            this.labelFrom.Size = new System.Drawing.Size(20, 20);
-            this.labelFrom.TabIndex = 58;
-            this.labelFrom.Text = "С";
-            // 
-            // labelTo
-            // 
-            this.labelTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelTo.AutoSize = true;
-            this.labelTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTo.Location = new System.Drawing.Point(241, 545);
-            this.labelTo.Name = "labelTo";
-            this.labelTo.Size = new System.Drawing.Size(30, 20);
-            this.labelTo.TabIndex = 59;
-            this.labelTo.Text = "По";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.dataGridViewKUGraph);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 29);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(12);
-            this.panel1.Size = new System.Drawing.Size(1132, 500);
-            this.panel1.TabIndex = 60;
-            // 
-            // progressBarForAsincBonus
-            // 
-            this.progressBarForAsincBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarForAsincBonus.Location = new System.Drawing.Point(797, 0);
-            this.progressBarForAsincBonus.Name = "progressBarForAsincBonus";
-            this.progressBarForAsincBonus.Size = new System.Drawing.Size(323, 23);
-            this.progressBarForAsincBonus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBarForAsincBonus.TabIndex = 61;
-            this.progressBarForAsincBonus.Visible = false;
-            // 
-            // labelProgress
-            // 
-            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProgress.AutoSize = true;
-            this.labelProgress.BackColor = System.Drawing.Color.Gainsboro;
-            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelProgress.Location = new System.Drawing.Point(759, 3);
-            this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(20, 16);
-            this.labelProgress.TabIndex = 62;
-            this.labelProgress.Text = "%";
-            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelProgress.Visible = false;
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // buttonCancelCalc
-            // 
-            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelCalc.Location = new System.Drawing.Point(562, 545);
-            this.buttonCancelCalc.Name = "buttonCancelCalc";
-            this.buttonCancelCalc.Size = new System.Drawing.Size(159, 38);
-            this.buttonCancelCalc.TabIndex = 63;
-            this.buttonCancelCalc.Text = "Отменить расчёт";
-            this.buttonCancelCalc.UseVisualStyleBackColor = true;
-            this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
             // 
             // KU_id
             // 
@@ -442,6 +222,227 @@
             this.Graph_Id.Name = "Graph_Id";
             this.Graph_Id.ReadOnly = true;
             this.Graph_Id.Visible = false;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.открытьToolStripMenuItem,
+            this.настройкиToolStripMenuItem,
+            this.экспортToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1132, 29);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.списокКУToolStripMenuItem,
+            this.поставщикиToolStripMenuItem});
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(84, 25);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            // 
+            // списокКУToolStripMenuItem
+            // 
+            this.списокКУToolStripMenuItem.Name = "списокКУToolStripMenuItem";
+            this.списокКУToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.списокКУToolStripMenuItem.Text = "Список КУ";
+            this.списокКУToolStripMenuItem.Click += new System.EventHandler(this.списокКУToolStripMenuItem_Click);
+            // 
+            // поставщикиToolStripMenuItem
+            // 
+            this.поставщикиToolStripMenuItem.Name = "поставщикиToolStripMenuItem";
+            this.поставщикиToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.поставщикиToolStripMenuItem.Text = "Поставщики";
+            this.поставщикиToolStripMenuItem.Click += new System.EventHandler(this.поставщикиToolStripMenuItem_Click);
+            // 
+            // настройкиToolStripMenuItem
+            // 
+            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сдвигДатыРасчётаToolStripMenuItem});
+            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(99, 25);
+            this.настройкиToolStripMenuItem.Text = "Настройки";
+            // 
+            // сдвигДатыРасчётаToolStripMenuItem
+            // 
+            this.сдвигДатыРасчётаToolStripMenuItem.Name = "сдвигДатыРасчётаToolStripMenuItem";
+            this.сдвигДатыРасчётаToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
+            this.сдвигДатыРасчётаToolStripMenuItem.Text = "Сдвиг даты расчёта";
+            this.сдвигДатыРасчётаToolStripMenuItem.Click += new System.EventHandler(this.сдвигДатыРасчётаToolStripMenuItem_Click);
+            // 
+            // экспортToolStripMenuItem
+            // 
+            this.экспортToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.вВордToolStripMenuItem,
+            this.вЭксельToolStripMenuItem,
+            this.word2ToolStripMenuItem,
+            this.excel2ToolStripMenuItem});
+            this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
+            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(65, 25);
+            this.экспортToolStripMenuItem.Text = "Отчет";
+            // 
+            // вВордToolStripMenuItem
+            // 
+            this.вВордToolStripMenuItem.Name = "вВордToolStripMenuItem";
+            this.вВордToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.вВордToolStripMenuItem.Text = "АКТ-счет";
+            this.вВордToolStripMenuItem.Click += new System.EventHandler(this.WordToolStripMenuItem_Click);
+            // 
+            // вЭксельToolStripMenuItem
+            // 
+            this.вЭксельToolStripMenuItem.Name = "вЭксельToolStripMenuItem";
+            this.вЭксельToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.вЭксельToolStripMenuItem.Text = "Отчет-сверка 1";
+            this.вЭксельToolStripMenuItem.Click += new System.EventHandler(this.ExcelToolStripMenuItem_Click);
+            // 
+            // word2ToolStripMenuItem
+            // 
+            this.word2ToolStripMenuItem.Name = "word2ToolStripMenuItem";
+            this.word2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.word2ToolStripMenuItem.Text = "Приложение к договору";
+            this.word2ToolStripMenuItem.Click += new System.EventHandler(this.word2ToolStripMenuItem_Click);
+            // 
+            // excel2ToolStripMenuItem
+            // 
+            this.excel2ToolStripMenuItem.Name = "excel2ToolStripMenuItem";
+            this.excel2ToolStripMenuItem.Size = new System.Drawing.Size(255, 26);
+            this.excel2ToolStripMenuItem.Text = "Отчет-сверка 2";
+            this.excel2ToolStripMenuItem.Click += new System.EventHandler(this.excel2ToolStripMenuItem_Click);
+            // 
+            // buttonApprove
+            // 
+            this.buttonApprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonApprove.Location = new System.Drawing.Point(995, 545);
+            this.buttonApprove.Name = "buttonApprove";
+            this.buttonApprove.Size = new System.Drawing.Size(119, 38);
+            this.buttonApprove.TabIndex = 2;
+            this.buttonApprove.Text = "Согласовать";
+            this.buttonApprove.UseVisualStyleBackColor = true;
+            this.buttonApprove.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // buttonCalcBonus
+            // 
+            this.buttonCalcBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCalcBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCalcBonus.Location = new System.Drawing.Point(736, 545);
+            this.buttonCalcBonus.Name = "buttonCalcBonus";
+            this.buttonCalcBonus.Size = new System.Drawing.Size(253, 38);
+            this.buttonCalcBonus.TabIndex = 1;
+            this.buttonCalcBonus.Text = "Рассчёт ретро-бонуса";
+            this.buttonCalcBonus.UseVisualStyleBackColor = true;
+            this.buttonCalcBonus.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // buttonCalcAll
+            // 
+            this.buttonCalcAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCalcAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCalcAll.Location = new System.Drawing.Point(179, 575);
+            this.buttonCalcAll.Name = "buttonCalcAll";
+            this.buttonCalcAll.Size = new System.Drawing.Size(159, 38);
+            this.buttonCalcAll.TabIndex = 6;
+            this.buttonCalcAll.Text = "Рассчитать все";
+            this.buttonCalcAll.UseVisualStyleBackColor = true;
+            this.buttonCalcAll.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // dateTimePickerTo
+            // 
+            this.dateTimePickerTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dateTimePickerTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePickerTo.Location = new System.Drawing.Point(277, 545);
+            this.dateTimePickerTo.Name = "dateTimePickerTo";
+            this.dateTimePickerTo.Size = new System.Drawing.Size(183, 24);
+            this.dateTimePickerTo.TabIndex = 5;
+            this.dateTimePickerTo.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+            // 
+            // dateTimePickerFrom
+            // 
+            this.dateTimePickerFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.dateTimePickerFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(51, 545);
+            this.dateTimePickerFrom.Name = "dateTimePickerFrom";
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(183, 24);
+            this.dateTimePickerFrom.TabIndex = 4;
+            this.dateTimePickerFrom.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            // 
+            // labelFrom
+            // 
+            this.labelFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelFrom.AutoSize = true;
+            this.labelFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelFrom.Location = new System.Drawing.Point(25, 545);
+            this.labelFrom.Name = "labelFrom";
+            this.labelFrom.Size = new System.Drawing.Size(20, 20);
+            this.labelFrom.TabIndex = 58;
+            this.labelFrom.Text = "С";
+            // 
+            // labelTo
+            // 
+            this.labelTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTo.AutoSize = true;
+            this.labelTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelTo.Location = new System.Drawing.Point(241, 545);
+            this.labelTo.Name = "labelTo";
+            this.labelTo.Size = new System.Drawing.Size(30, 20);
+            this.labelTo.TabIndex = 59;
+            this.labelTo.Text = "По";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dataGridViewKUGraph);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 29);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(12);
+            this.panel1.Size = new System.Drawing.Size(1132, 500);
+            this.panel1.TabIndex = 60;
+            // 
+            // progressBarForAsincBonus
+            // 
+            this.progressBarForAsincBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarForAsincBonus.Location = new System.Drawing.Point(797, 0);
+            this.progressBarForAsincBonus.Name = "progressBarForAsincBonus";
+            this.progressBarForAsincBonus.Size = new System.Drawing.Size(323, 23);
+            this.progressBarForAsincBonus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarForAsincBonus.TabIndex = 61;
+            this.progressBarForAsincBonus.Visible = false;
+            // 
+            // labelProgress
+            // 
+            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.BackColor = System.Drawing.Color.Gainsboro;
+            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelProgress.Location = new System.Drawing.Point(759, 3);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(20, 16);
+            this.labelProgress.TabIndex = 62;
+            this.labelProgress.Text = "%";
+            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelProgress.Visible = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // buttonCancelCalc
+            // 
+            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelCalc.Location = new System.Drawing.Point(562, 545);
+            this.buttonCancelCalc.Name = "buttonCancelCalc";
+            this.buttonCancelCalc.Size = new System.Drawing.Size(159, 38);
+            this.buttonCancelCalc.TabIndex = 3;
+            this.buttonCancelCalc.Text = "Отменить расчёт";
+            this.buttonCancelCalc.UseVisualStyleBackColor = true;
+            this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
             // 
             // KUGraphForm
             // 

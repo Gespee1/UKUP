@@ -59,7 +59,7 @@ namespace РасчетКУ
             this.buttonAddSelected.Location = new System.Drawing.Point(732, 488);
             this.buttonAddSelected.Name = "buttonAddSelected";
             this.buttonAddSelected.Size = new System.Drawing.Size(194, 32);
-            this.buttonAddSelected.TabIndex = 3;
+            this.buttonAddSelected.TabIndex = 1;
             this.buttonAddSelected.Text = "Добавить выбранное";
             this.buttonAddSelected.UseVisualStyleBackColor = true;
             this.buttonAddSelected.Click += new System.EventHandler(this.button1_Click);
@@ -81,6 +81,7 @@ namespace РасчетКУ
             this.advancedDataGridViewProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.advancedDataGridViewProducts.Size = new System.Drawing.Size(914, 427);
             this.advancedDataGridViewProducts.TabIndex = 5;
+            this.advancedDataGridViewProducts.TabStop = false;
             this.advancedDataGridViewProducts.TimeFilter = false;
             this.advancedDataGridViewProducts.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
             this.advancedDataGridViewProducts.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
@@ -92,7 +93,7 @@ namespace РасчетКУ
             this.buttonCancel.Location = new System.Drawing.Point(632, 488);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(94, 32);
-            this.buttonCancel.TabIndex = 6;
+            this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.button2_Click);

@@ -43,7 +43,7 @@ namespace РасчетКУ
             this.treeViewCategory.Location = new System.Drawing.Point(12, 12);
             this.treeViewCategory.Name = "treeViewCategory";
             this.treeViewCategory.Size = new System.Drawing.Size(301, 231);
-            this.treeViewCategory.TabIndex = 0;
+            this.treeViewCategory.TabIndex = 1;
             // 
             // btnChoiseCategory
             // 
@@ -52,7 +52,7 @@ namespace РасчетКУ
             this.btnChoiseCategory.Location = new System.Drawing.Point(6, 211);
             this.btnChoiseCategory.Name = "btnChoiseCategory";
             this.btnChoiseCategory.Size = new System.Drawing.Size(86, 32);
-            this.btnChoiseCategory.TabIndex = 1;
+            this.btnChoiseCategory.TabIndex = 2;
             this.btnChoiseCategory.Text = "Выбрать";
             this.btnChoiseCategory.UseVisualStyleBackColor = true;
             this.btnChoiseCategory.Click += new System.EventHandler(this.btnChoiseCategory_Click);

@@ -197,6 +197,7 @@ namespace РасчетКУ
             this.advancedDataGridViewKUList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.advancedDataGridViewKUList.Size = new System.Drawing.Size(1000, 390);
             this.advancedDataGridViewKUList.TabIndex = 12;
+            this.advancedDataGridViewKUList.TabStop = false;
             this.advancedDataGridViewKUList.TimeFilter = false;
             this.advancedDataGridViewKUList.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
             this.advancedDataGridViewKUList.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);

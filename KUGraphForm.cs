@@ -479,20 +479,13 @@ namespace РасчетКУ
             for (int i = 0; i < dataGridViewKUGraph.Rows.Count; ++i)
             {
                 DataGridViewRow row = dataGridViewKUGraph.Rows[i];
-
-                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
-                {
-                    DialogResult result;
-                    result = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.No)
-                        return;
-                    else
-                        _asked = true;
-                }
+                            
 
                 //Условие на расчёт бонуса не старше текущей даты 
                 if (Convert.ToDateTime(row.Cells["date_Calc"].Value) < DateTime.Today)
                 {
+
+                    
                     //проверка на соответствие временного периода
                     int result = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerFrom.Value);
                     int result1 = DateTime.Compare(Convert.ToDateTime(row.Cells["Date_calc"].Value), dateTimePickerTo.Value);
@@ -500,6 +493,16 @@ namespace РасчетКУ
                     {
                         if (result1 <= 0)
                         {
+
+                            if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
+                            {
+                                DialogResult res;
+                                res = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (res == DialogResult.No)
+                                    return;
+                                else
+                                    _asked = true;
+                            }
                             //Thread.Sleep(1000);
                             // Изменение статуса на "В расчете"
                             SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
@@ -517,12 +520,22 @@ namespace РасчетКУ
                                 command = new SqlCommand($"UPDATE KU_graph SET Status = 'Создан' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
                             }
                             command.ExecuteNonQuery();
+                            
                         }
                     }
                     else
                     {
                         if (result >= 0 && result1 <= 0)
                         {
+                            if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
+                            {
+                                DialogResult res;
+                                res = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (res == DialogResult.No)
+                                    return;
+                                else
+                                    _asked = true;
+                            }
                             //Thread.Sleep(1000);
                             // Изменение статуса на "В расчете"
                             SqlCommand command = new SqlCommand($"UPDATE KU_graph SET Status = 'В расчете' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);

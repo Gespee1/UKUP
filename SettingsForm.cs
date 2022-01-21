@@ -7,7 +7,7 @@ namespace РасчетКУ
     public partial class SettingsForm : Form
     {
         string name1 = "delta";
-        string user;
+        string user;//Environment.UserDomainName или Environment.UserName
         public SettingsForm()
         {
             InitializeComponent();
@@ -20,6 +20,10 @@ namespace РасчетКУ
             textBoxSdvig.Text = GP.getParameter(name1);
             if (textBoxSdvig.Text == "null")
                 textBoxSdvig.Text = "";
+
+            textBoxPath.Text = GP.getPath(user);
+            if (textBoxPath.Text == "null")
+                textBoxPath.Text = "";
             doResize();
         }
 

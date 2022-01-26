@@ -7,7 +7,7 @@ namespace РасчетКУ
     public partial class SettingsForm : Form
     {
         string name1 = "delta";
-        string user;//Environment.UserDomainName или Environment.UserName
+        string user = Environment.MachineName;//Environment.UserDomainName или Environment.UserName
         public SettingsForm()
         {
             InitializeComponent();

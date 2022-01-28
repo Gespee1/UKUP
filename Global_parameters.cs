@@ -60,12 +60,12 @@ namespace РасчетКУ
            return param;
         }
 
-        private void addPath(string user)
+        private void addPath(string user, string textPath)
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             conn.Open();
 
-            SqlCommand command = new SqlCommand($"INSERT INTO UsersPathes User VALUES ('{user}')", conn);
+            SqlCommand command = new SqlCommand($"INSERT INTO UsersPathes ([User], Path) VALUES ('{user}', '{textPath}')", conn);
             command.ExecuteNonQuery();
 
             conn.Close();
@@ -86,7 +86,11 @@ namespace РасчетКУ
                 command.ExecuteNonQuery();
             }
             else
+            {
                 reader.Close();
+                addPath(user, textPath);
+            }    
+                
 
             conn.Close();
         }
@@ -96,19 +100,19 @@ namespace РасчетКУ
             string param = "null";
 
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
-            SqlCommand command = new SqlCommand($"SELECT Path FROM UsersPathes WHERE User = '{user}'", conn);
+            SqlCommand command = new SqlCommand($"SELECT Path FROM UsersPathes WHERE [User] = '{user}'", conn);
             conn.Open();
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
             if (reader.HasRows)
                 param = reader[0].ToString();
-            else
+           /* else
             {
                 reader.Close();
                 conn.Close();
                 addPath(user);
                 getPath(user);
-            }
+            }*/
             reader.Close();
             conn.Close();
             return param;

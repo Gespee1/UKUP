@@ -86,6 +86,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelHelper.cs" />
+    <Compile Include="Extends\EDGV\EDGVColumnHeaderCell.cs" />
+    <Compile Include="Extends\EDGV\EDGVFilterEventArgs.cs" />
+    <Compile Include="Extends\EDGV\EDGVFilterEventHandler.cs" />
+    <Compile Include="Extends\EDGV\EDGVFilterMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extends\EDGV\EDGVFilterMenuFilterType.cs" />
+    <Compile Include="Extends\EDGV\EDGVFilterMenuSortType.cs" />
+    <Compile Include="Extends\EDGV\ExtendedDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extends\EDGV\Localization\EDGVStrings.cs" />
+    <Compile Include="Extends\EDGV\Properties\Resources.cs" />
+    <Compile Include="Extends\EDGV\SearchToolBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extends\EDGV\SearchToolBarSearchEventArgs.cs" />
+    <Compile Include="Extends\EDGV\SearchToolBarSearchEventHandler.cs" />
+    <Compile Include="Extends\EDGV\SetFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Extends\EDGV\TripleTreeNode.cs" />
+    <Compile Include="Extends\EDGV\TripleTreeNodeType.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -259,8 +282,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extends\EDGV\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

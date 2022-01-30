@@ -270,8 +270,8 @@
             // сдвигДатыРасчётаToolStripMenuItem
             // 
             this.сдвигДатыРасчётаToolStripMenuItem.Name = "сдвигДатыРасчётаToolStripMenuItem";
-            this.сдвигДатыРасчётаToolStripMenuItem.Size = new System.Drawing.Size(221, 26);
-            this.сдвигДатыРасчётаToolStripMenuItem.Text = "Сдвиг даты расчёта";
+            this.сдвигДатыРасчётаToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.сдвигДатыРасчётаToolStripMenuItem.Text = "Все настройки";
             this.сдвигДатыРасчётаToolStripMenuItem.Click += new System.EventHandler(this.сдвигДатыРасчётаToolStripMenuItem_Click);
             // 
             // экспортToolStripMenuItem

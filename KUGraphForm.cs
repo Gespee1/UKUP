@@ -21,6 +21,8 @@ namespace РасчетКУ
         private string DocNum;
         private string DocDate;
 
+        string user = Environment.MachineName;
+
         public KUGraphForm()
         {
             InitializeComponent();
@@ -173,8 +175,18 @@ namespace РасчетКУ
             //string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
             //WordDoc(docname, newdocpath);
 
-            Actions actions = new Actions();
-            WordDoc(docname, actions.getFilepath(".docx"));
+            Global_parameters GP = new Global_parameters();
+            if (GP.getPath(user) == "null")
+            {
+                MessageBox.Show("Для того, чтобы создать отчёт установите путь для сохранения в настройках.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                string newdocpath = GP.getPath(user);
+                newdocpath += "\\Приложение к договору.docx";
+                WordDoc(docname, newdocpath);
+            }
         }
 
         //Общий метод вызова отчёта word

@@ -80,7 +80,7 @@ namespace EDGV
             return node;
         }
 
-        public static TripleTreeNode CreateAllsNode(string Text, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateAllsNode(string Text, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, null, State, TripleTreeNodeType.AllsNode);
         }
@@ -90,7 +90,7 @@ namespace EDGV
             return this.CreateChildNode(Text, Value, this.checkState);
         }
 
-        public TripleTreeNode CreateChildNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public TripleTreeNode CreateChildNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             TripleTreeNode child = null;
             switch (this.NodeType)
@@ -130,47 +130,47 @@ namespace EDGV
             return child;
         }
 
-        public static TripleTreeNode CreateDayNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateDayNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.DayDateTimeNode);
         }
 
-        public static TripleTreeNode CreateEmptysNode(string Text, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateEmptysNode(string Text, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, null, State, TripleTreeNodeType.EmptysNode);
         }
 
-        public static TripleTreeNode CreateHourNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateHourNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.HourDateTimeNode);
         }
 
-        public static TripleTreeNode CreateMinNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateMinNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.MinDateTimeNode);
         }
 
-        public static TripleTreeNode CreateMonthNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateMonthNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.MonthDateTimeNode);
         }
 
-        public static TripleTreeNode CreateMSecNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateMSecNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.MSecDateTimeNode);
         }
 
-        public static TripleTreeNode CreateNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.Default);
         }
 
-        public static TripleTreeNode CreateSecNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateSecNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.SecDateTimeNode);
         }
 
-        public static TripleTreeNode CreateYearNode(string Text, object Value, System.Windows.Forms.CheckState State = 1)
+        public static TripleTreeNode CreateYearNode(string Text, object Value, System.Windows.Forms.CheckState State = CheckState.Checked)
         {
             return new TripleTreeNode(Text, Value, State, TripleTreeNodeType.YearDateTimeNode);
         }

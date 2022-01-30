@@ -34,7 +34,7 @@ namespace РасчетКУ
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelMain = new System.Windows.Forms.Label();
-            this.advancedDataGridView = new ADGV.AdvancedDataGridView();
+            this.advancedDataGridView = new EDGV.ExtendedDataGridView();
             this.buttonVendors = new System.Windows.Forms.Button();
             this.service_button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -245,7 +245,7 @@ namespace РасчетКУ
         private System.Windows.Forms.ToolStripMenuItem списокКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem графикКУToolStripMenuItem;
         private System.Windows.Forms.Label labelMain;
-        private ADGV.AdvancedDataGridView advancedDataGridView;
+        private EDGV.ExtendedDataGridView advancedDataGridView;
         private System.Windows.Forms.Button buttonVendors;
         private System.Windows.Forms.Button service_button;
         private System.Windows.Forms.Panel panel2;

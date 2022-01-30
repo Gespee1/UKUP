@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Threading;
 
 namespace РасчетКУ
 {
@@ -12,6 +13,8 @@ namespace РасчетКУ
 
         public MainForm()
         {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             InitializeComponent();
         }
 

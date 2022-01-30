@@ -26,7 +26,7 @@
             {
                 if (ReferenceEquals(resourceMan, null))
                 {
-                    resourceMan = new System.Resources.ResourceManager("EDGV.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = new System.Resources.ResourceManager("РасчетКУ.Extends.EDGV.Properties.Resources", typeof(Resources).Assembly);
                 }
                 return resourceMan;
             }

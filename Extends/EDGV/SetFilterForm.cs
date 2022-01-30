@@ -209,7 +209,7 @@ namespace EDGV
 
         private void InitializeComponent()
         {
-            this.RM = new ResourceManager("ADGV.Localization.ADGVStrings", typeof(SetFilterForm).Assembly);
+            this.RM = new ResourceManager("РасчетКУ.Extends.EDGV.Localization.EDGVStrings", typeof(SetFilterForm).Assembly);
             this.components = new Container();
             this.okButton = new Button();
             this.cancelButton = new Button();

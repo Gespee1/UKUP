@@ -10,7 +10,7 @@ namespace EDGV
 
     public class SearchToolBar : ToolStrip
     {
-        private SearchToolBarSearchEventHandler Search;
+        private SearchToolBarSearchEventHandler _Search;
         private DataGridViewColumnCollection columnsList;
         private IContainer components;
         private ToolStripButton closeButton;
@@ -27,12 +27,12 @@ namespace EDGV
         {
             add
             {
-                SearchToolBarSearchEventHandler search = this.Search;
+                SearchToolBarSearchEventHandler search = this._Search;
                 while (true)
                 {
                     SearchToolBarSearchEventHandler comparand = search;
                     SearchToolBarSearchEventHandler handler3 = comparand + value;
-                    search = Interlocked.CompareExchange<SearchToolBarSearchEventHandler>(ref this.Search, handler3, comparand);
+                    search = Interlocked.CompareExchange<SearchToolBarSearchEventHandler>(ref this._Search, handler3, comparand);
                     if (ReferenceEquals(search, comparand))
                     {
                         return;
@@ -41,12 +41,12 @@ namespace EDGV
             }
             remove
             {
-                SearchToolBarSearchEventHandler search = this.Search;
+                SearchToolBarSearchEventHandler search = this._Search;
                 while (true)
                 {
                     SearchToolBarSearchEventHandler comparand = search;
                     SearchToolBarSearchEventHandler handler3 = comparand - value;
-                    search = Interlocked.CompareExchange<SearchToolBarSearchEventHandler>(ref this.Search, handler3, comparand);
+                    search = Interlocked.CompareExchange<SearchToolBarSearchEventHandler>(ref this._Search, handler3, comparand);
                     if (ReferenceEquals(search, comparand))
                     {
                         return;
@@ -165,7 +165,7 @@ namespace EDGV
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            if ((this.searchTextBox.TextLength > 0) && ((this.searchTextBox.Text != this.searchTextBox.ToolTipText) && (this.Search != null)))
+            if ((this.searchTextBox.TextLength > 0) && ((this.searchTextBox.Text != this.searchTextBox.ToolTipText) && (this._Search != null)))
             {
                 DataGridViewColumn column = null;
                 if ((this.columnComboBox.SelectedIndex > 0) && ((this.columnsList != null) && (this.columnsList.GetColumnCount(DataGridViewElementStates.Visible) > 0)))
@@ -179,7 +179,7 @@ namespace EDGV
                     }
                 }
                 SearchToolBarSearchEventArgs args = new SearchToolBarSearchEventArgs(this.searchTextBox.Text, column, this.caseSensButton.Checked, this.wholeWordButton.Checked, this.fromBeginButton.Checked);
-                this.Search(this, args);
+                this._Search(this, args);
             }
         }
 

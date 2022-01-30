@@ -21,19 +21,19 @@ namespace EDGV
         private bool dateWithTime;
         private bool timeFilter;
         private bool loadedFilter;
-        private EventHandler SortStringChanged;
-        private EventHandler FilterStringChanged;
+        private EventHandler _SortStringChanged; // Изменил SortStringChanged на _SortStringChanged
+        private EventHandler _FilterStringChanged; // Изменил FilterStringChanged на _FilterStringChanged
 
-        public event EventHandler FilterStringChanged
+        public event EventHandler FilterStringChanged 
         {
             add
             {
-                EventHandler filterStringChanged = this.FilterStringChanged;
+                EventHandler filterStringChanged = this._FilterStringChanged;
                 while (true)
                 {
                     EventHandler comparand = filterStringChanged;
                     EventHandler handler3 = comparand + value;
-                    filterStringChanged = Interlocked.CompareExchange<EventHandler>(ref this.FilterStringChanged, handler3, comparand);
+                    filterStringChanged = Interlocked.CompareExchange<EventHandler>(ref this._FilterStringChanged, handler3, comparand);
                     if (ReferenceEquals(filterStringChanged, comparand))
                     {
                         return;
@@ -42,12 +42,12 @@ namespace EDGV
             }
             remove
             {
-                EventHandler filterStringChanged = this.FilterStringChanged;
+                EventHandler filterStringChanged = this._FilterStringChanged;
                 while (true)
                 {
                     EventHandler comparand = filterStringChanged;
                     EventHandler handler3 = comparand - value;
-                    filterStringChanged = Interlocked.CompareExchange<EventHandler>(ref this.FilterStringChanged, handler3, comparand);
+                    filterStringChanged = Interlocked.CompareExchange<EventHandler>(ref this._FilterStringChanged, handler3, comparand);
                     if (ReferenceEquals(filterStringChanged, comparand))
                     {
                         return;
@@ -56,16 +56,16 @@ namespace EDGV
             }
         }
 
-        public event EventHandler SortStringChanged
+        public event EventHandler SortStringChanged 
         {
             add
             {
-                EventHandler sortStringChanged = this.SortStringChanged;
+                EventHandler sortStringChanged = this._SortStringChanged;
                 while (true)
                 {
                     EventHandler comparand = sortStringChanged;
                     EventHandler handler3 = comparand + value;
-                    sortStringChanged = Interlocked.CompareExchange<EventHandler>(ref this.SortStringChanged, handler3, comparand);
+                    sortStringChanged = Interlocked.CompareExchange<EventHandler>(ref this._SortStringChanged, handler3, comparand);
                     if (ReferenceEquals(sortStringChanged, comparand))
                     {
                         return;
@@ -74,12 +74,12 @@ namespace EDGV
             }
             remove
             {
-                EventHandler sortStringChanged = this.SortStringChanged;
+                EventHandler sortStringChanged = this._SortStringChanged;
                 while (true)
                 {
                     EventHandler comparand = sortStringChanged;
                     EventHandler handler3 = comparand - value;
-                    sortStringChanged = Interlocked.CompareExchange<EventHandler>(ref this.SortStringChanged, handler3, comparand);
+                    sortStringChanged = Interlocked.CompareExchange<EventHandler>(ref this._SortStringChanged, handler3, comparand);
                     if (ReferenceEquals(sortStringChanged, comparand))
                     {
                         return;
@@ -453,9 +453,9 @@ namespace EDGV
                 DateWithTime = this.DateWithTime,
                 TimeFilter = this.TimeFilter
             };
-            cell.SortChanged += new ADGVFilterEventHandler(this.eSortChanged);
-            cell.FilterChanged += new ADGVFilterEventHandler(this.eFilterChanged);
-            cell.FilterPopup += new ADGVFilterEventHandler(this.eFilterPopup);
+            cell.SortChanged += new EDGVFilterEventHandler(this.eSortChanged);
+            cell.FilterChanged += new EDGVFilterEventHandler(this.eFilterChanged);
+            cell.FilterPopup += new EDGVFilterEventHandler(this.eFilterPopup);
             e.Column.MinimumWidth = cell.MinimumSize.Width;
             if (base.ColumnHeadersHeight < cell.MinimumSize.Height)
             {
@@ -559,9 +559,9 @@ namespace EDGV
                     {
                         base.SortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
                     }
-                    if (this.SortStringChanged != null)
+                    if (this._SortStringChanged != null)
                     {
-                        this.SortStringChanged(this, new EventArgs());
+                        this._SortStringChanged(this, new EventArgs());
                     }
                 }
             }
@@ -578,9 +578,9 @@ namespace EDGV
                 if (value != this.filterString)
                 {
                     this.filterString = value;
-                    if (this.FilterStringChanged != null)
+                    if (this._FilterStringChanged != null)
                     {
-                        this.FilterStringChanged(this, new EventArgs());
+                        this._FilterStringChanged(this, new EventArgs());
                     }
                 }
             }

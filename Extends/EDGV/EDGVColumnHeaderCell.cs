@@ -20,20 +20,20 @@ namespace EDGV
         private Rectangle filterButtonImageBounds = Rectangle.Empty;
         private Padding filterButtonMargin = new Padding(3, 4, 3, 4);
         private bool filterEnabled;
-        private EDGVFilterEventHandler FilterPopup;
-        private EDGVFilterEventHandler SortChanged;
-        private EDGVFilterEventHandler FilterChanged;
+        private EDGVFilterEventHandler _FilterPopup;
+        private EDGVFilterEventHandler _SortChanged;
+        private EDGVFilterEventHandler _FilterChanged;
 
         public event EDGVFilterEventHandler FilterChanged
         {
             add
             {
-                EDGVFilterEventHandler filterChanged = this.FilterChanged;
+                EDGVFilterEventHandler filterChanged = this._FilterChanged;
                 while (true)
                 {
                     EDGVFilterEventHandler comparand = filterChanged;
                     EDGVFilterEventHandler handler3 = comparand + value;
-                    filterChanged = Interlocked.CompareExchange<EDGVFilterEventHandler>(ref this.FilterChanged, handler3, comparand);
+                    filterChanged = Interlocked.CompareExchange<EDGVFilterEventHandler>(ref this._FilterChanged, handler3, comparand);
                     if (ReferenceEquals(filterChanged, comparand))
                     {
                         return;
@@ -42,12 +42,12 @@ namespace EDGV
             }
             remove
             {
-                EDGVFilterEventHandler filterChanged = this.FilterChanged;
+                EDGVFilterEventHandler filterChanged = this._FilterChanged;
                 while (true)
                 {
-                    ADGVFilterEventHandler comparand = filterChanged;
-                    ADGVFilterEventHandler handler3 = comparand - value;
-                    filterChanged = Interlocked.CompareExchange<ADGVFilterEventHandler>(ref this.FilterChanged, handler3, comparand);
+                    EDGVFilterEventHandler comparand = filterChanged;
+                    EDGVFilterEventHandler handler3 = comparand - value;
+                    filterChanged = Interlocked.CompareExchange<EDGVFilterEventHandler>(ref this._FilterChanged, handler3, comparand);
                     if (ReferenceEquals(filterChanged, comparand))
                     {
                         return;
@@ -56,16 +56,16 @@ namespace EDGV
             }
         }
 
-        public event ADGVFilterEventHandler FilterPopup
+        public event EDGVFilterEventHandler FilterPopup
         {
             add
             {
-                ADGVFilterEventHandler filterPopup = this.FilterPopup;
+                EDGVFilterEventHandler filterPopup = this._FilterPopup;
                 while (true)
                 {
-                    ADGVFilterEventHandler comparand = filterPopup;
-                    ADGVFilterEventHandler handler3 = comparand + value;
-                    filterPopup = Interlocked.CompareExchange<ADGVFilterEventHandler>(ref this.FilterPopup, handler3, comparand);
+                    EDGVFilterEventHandler comparand = filterPopup;
+                    EDGVFilterEventHandler handler3 = comparand + value;
+                    filterPopup = Interlocked.CompareExchange<EDGVFilterEventHandler>(ref this._FilterPopup, handler3, comparand);
                     if (ReferenceEquals(filterPopup, comparand))
                     {
                         return;
@@ -74,12 +74,12 @@ namespace EDGV
             }
             remove
             {
-                ADGVFilterEventHandler filterPopup = this.FilterPopup;
+                EDGVFilterEventHandler filterPopup = this._FilterPopup;
                 while (true)
                 {
-                    ADGVFilterEventHandler comparand = filterPopup;
-                    ADGVFilterEventHandler handler3 = comparand - value;
-                    filterPopup = Interlocked.CompareExchange<ADGVFilterEventHandler>(ref this.FilterPopup, handler3, comparand);
+                    EDGVFilterEventHandler comparand = filterPopup;
+                    EDGVFilterEventHandler handler3 = comparand - value;
+                    filterPopup = Interlocked.CompareExchange<EDGVFilterEventHandler>(ref this._FilterPopup, handler3, comparand);
                     if (ReferenceEquals(filterPopup, comparand))
                     {
                         return;
@@ -88,16 +88,16 @@ namespace EDGV
             }
         }
 
-        public event ADGVFilterEventHandler SortChanged
+        public event EDGVFilterEventHandler SortChanged
         {
             add
             {
-                ADGVFilterEventHandler sortChanged = this.SortChanged;
+                EDGVFilterEventHandler sortChanged = this._SortChanged;
                 while (true)
                 {
-                    ADGVFilterEventHandler comparand = sortChanged;
-                    ADGVFilterEventHandler handler3 = comparand + value;
-                    sortChanged = Interlocked.CompareExchange<ADGVFilterEventHandler>(ref this.SortChanged, handler3, comparand);
+                    EDGVFilterEventHandler comparand = sortChanged;
+                    EDGVFilterEventHandler handler3 = comparand + value;
+                    sortChanged = Interlocked.CompareExchange<EDGVFilterEventHandler>(ref this._SortChanged, handler3, comparand);
                     if (ReferenceEquals(sortChanged, comparand))
                     {
                         return;
@@ -106,12 +106,12 @@ namespace EDGV
             }
             remove
             {
-                ADGVFilterEventHandler sortChanged = this.SortChanged;
+                EDGVFilterEventHandler sortChanged = this._SortChanged;
                 while (true)
                 {
-                    ADGVFilterEventHandler comparand = sortChanged;
-                    ADGVFilterEventHandler handler3 = comparand - value;
-                    sortChanged = Interlocked.CompareExchange<ADGVFilterEventHandler>(ref this.SortChanged, handler3, comparand);
+                    EDGVFilterEventHandler comparand = sortChanged;
+                    EDGVFilterEventHandler handler3 = comparand - value;
+                    sortChanged = Interlocked.CompareExchange<EDGVFilterEventHandler>(ref this._SortChanged, handler3, comparand);
                     if (ReferenceEquals(sortChanged, comparand))
                     {
                         return;
@@ -120,7 +120,7 @@ namespace EDGV
             }
         }
 
-        public ADGVColumnHeaderCell(DataGridViewColumnHeaderCell oldCell, bool FilterEnabled = false)
+        public EDGVColumnHeaderCell(DataGridViewColumnHeaderCell oldCell, bool FilterEnabled = false)
         {
             base.Tag = oldCell.Tag;
             base.ErrorText = oldCell.ErrorText;
@@ -130,10 +130,10 @@ namespace EDGV
             this.ContextMenuStrip = oldCell.ContextMenuStrip;
             base.Style = oldCell.Style;
             this.filterEnabled = FilterEnabled;
-            ADGVColumnHeaderCell cell = oldCell as ADGVColumnHeaderCell;
+            EDGVColumnHeaderCell cell = oldCell as EDGVColumnHeaderCell;
             if ((cell == null) || (cell.FilterMenu == null))
             {
-                this.FilterMenu = new ADGVFilterMenu(oldCell.OwningColumn.ValueType);
+                this.FilterMenu = new EDGVFilterMenu(oldCell.OwningColumn.ValueType);
                 this.FilterMenu.FilterChanged += new EventHandler(this.FilterMenu_FilterChanged);
                 this.FilterMenu.SortChanged += new EventHandler(this.FilterMenu_SortChanged);
             }
@@ -172,16 +172,16 @@ namespace EDGV
 
         public override object Clone()
         {
-            return new ADGVColumnHeaderCell(this, this.FilterEnabled);
+            return new EDGVColumnHeaderCell(this, this.FilterEnabled);
         }
 
         private void FilterMenu_FilterChanged(object sender, EventArgs e)
         {
             this.RefreshImage();
             this.RepaintCell();
-            if (this.FilterEnabled && (this.FilterChanged != null))
+            if (this.FilterEnabled && (this._FilterChanged != null))
             {
-                this.FilterChanged(this, new ADGVFilterEventArgs(this.FilterMenu, base.OwningColumn));
+                this._FilterChanged(this, new EDGVFilterEventArgs(this.FilterMenu, base.OwningColumn));
             }
         }
 
@@ -189,13 +189,13 @@ namespace EDGV
         {
             this.RefreshImage();
             this.RepaintCell();
-            if (this.FilterEnabled && (this.SortChanged != null))
+            if (this.FilterEnabled && (this._SortChanged != null))
             {
-                this.SortChanged(this, new ADGVFilterEventArgs(this.FilterMenu, base.OwningColumn));
+                this._SortChanged(this, new EDGVFilterEventArgs(this.FilterMenu, base.OwningColumn));
             }
         }
 
-        ~ADGVColumnHeaderCell()
+        ~EDGVColumnHeaderCell()
         {
             if (this.FilterMenu != null)
             {
@@ -263,9 +263,9 @@ namespace EDGV
                 this.filterButtonPressed = false;
                 this.filterButtonOver = false;
                 this.RepaintCell();
-                if (this.filterButtonImageBounds.Contains(e.X, e.Y) && (this.FilterPopup != null))
+                if (this.filterButtonImageBounds.Contains(e.X, e.Y) && (this._FilterPopup != null))
                 {
-                    this.FilterPopup(this, new ADGVFilterEventArgs(this.FilterMenu, base.OwningColumn));
+                    this._FilterPopup(this, new EDGVFilterEventArgs(this.FilterMenu, base.OwningColumn));
                 }
             }
         }
@@ -297,17 +297,17 @@ namespace EDGV
 
         private void RefreshImage()
         {
-            if (this.ActiveFilterType == ADGVFilterMenuFilterType.Loaded)
+            if (this.ActiveFilterType == EDGVFilterMenuFilterType.Loaded)
             {
                 this.filterImage = Resources.SavedFilter;
             }
-            else if (this.ActiveFilterType == ADGVFilterMenuFilterType.None)
+            else if (this.ActiveFilterType == EDGVFilterMenuFilterType.None)
             {
-                if (this.ActiveSortType == ADGVFilterMenuSortType.None)
+                if (this.ActiveSortType == EDGVFilterMenuSortType.None)
                 {
                     this.filterImage = Resources.AddFilter;
                 }
-                else if (this.ActiveSortType == ADGVFilterMenuSortType.ASC)
+                else if (this.ActiveSortType == EDGVFilterMenuSortType.ASC)
                 {
                     this.filterImage = Resources.ASC;
                 }
@@ -316,11 +316,11 @@ namespace EDGV
                     this.filterImage = Resources.DESC;
                 }
             }
-            else if (this.ActiveSortType == ADGVFilterMenuSortType.None)
+            else if (this.ActiveSortType == EDGVFilterMenuSortType.None)
             {
                 this.filterImage = Resources.Filter;
             }
-            else if (this.ActiveSortType == ADGVFilterMenuSortType.ASC)
+            else if (this.ActiveSortType == EDGVFilterMenuSortType.ASC)
             {
                 this.filterImage = Resources.FilterASC;
             }
@@ -345,7 +345,7 @@ namespace EDGV
             this.RepaintCell();
         }
 
-        public ADGVFilterMenu FilterMenu { get; private set; }
+        public EDGVFilterMenu FilterMenu { get; private set; }
 
         public Size MinimumSize
         {
@@ -355,19 +355,19 @@ namespace EDGV
             }
         }
 
-        public ADGVFilterMenuSortType ActiveSortType
+        public EDGVFilterMenuSortType ActiveSortType
         {
             get
             {
-                return (((this.FilterMenu == null) || !this.FilterEnabled) ? ADGVFilterMenuSortType.None : this.FilterMenu.ActiveSortType);
+                return (((this.FilterMenu == null) || !this.FilterEnabled) ? EDGVFilterMenuSortType.None : this.FilterMenu.ActiveSortType);
             }
         }
 
-        public ADGVFilterMenuFilterType ActiveFilterType
+        public EDGVFilterMenuFilterType ActiveFilterType
         {
             get
             {
-                return (((this.FilterMenu == null) || !this.FilterEnabled) ? ADGVFilterMenuFilterType.None : this.FilterMenu.ActiveFilterType);
+                return (((this.FilterMenu == null) || !this.FilterEnabled) ? EDGVFilterMenuFilterType.None : this.FilterMenu.ActiveFilterType);
             }
         }
 

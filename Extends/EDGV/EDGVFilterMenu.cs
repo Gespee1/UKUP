@@ -47,19 +47,19 @@ namespace EDGV
         private TripleTreeNode[] filterNodes;
         private static Point resizeStartPoint = new Point(1, 1);
         private Point resizeEndPoint = new Point(-1, -1);
-        private EventHandler SortChanged;
-        private EventHandler FilterChanged;
+        private EventHandler _SortChanged;
+        private EventHandler _FilterChanged;
 
         public event EventHandler FilterChanged
         {
             add
             {
-                EventHandler filterChanged = this.FilterChanged;
+                EventHandler filterChanged = this._FilterChanged;
                 while (true)
                 {
                     EventHandler comparand = filterChanged;
                     EventHandler handler3 = comparand + value;
-                    filterChanged = Interlocked.CompareExchange<EventHandler>(ref this.FilterChanged, handler3, comparand);
+                    filterChanged = Interlocked.CompareExchange<EventHandler>(ref this._FilterChanged, handler3, comparand);
                     if (ReferenceEquals(filterChanged, comparand))
                     {
                         return;
@@ -68,12 +68,12 @@ namespace EDGV
             }
             remove
             {
-                EventHandler filterChanged = this.FilterChanged;
+                EventHandler filterChanged = this._FilterChanged;
                 while (true)
                 {
                     EventHandler comparand = filterChanged;
                     EventHandler handler3 = comparand - value;
-                    filterChanged = Interlocked.CompareExchange<EventHandler>(ref this.FilterChanged, handler3, comparand);
+                    filterChanged = Interlocked.CompareExchange<EventHandler>(ref this._FilterChanged, handler3, comparand);
                     if (ReferenceEquals(filterChanged, comparand))
                     {
                         return;
@@ -86,12 +86,12 @@ namespace EDGV
         {
             add
             {
-                EventHandler sortChanged = this.SortChanged;
+                EventHandler sortChanged = this._SortChanged;
                 while (true)
                 {
                     EventHandler comparand = sortChanged;
                     EventHandler handler3 = comparand + value;
-                    sortChanged = Interlocked.CompareExchange<EventHandler>(ref this.SortChanged, handler3, comparand);
+                    sortChanged = Interlocked.CompareExchange<EventHandler>(ref this._SortChanged, handler3, comparand);
                     if (ReferenceEquals(sortChanged, comparand))
                     {
                         return;
@@ -100,12 +100,12 @@ namespace EDGV
             }
             remove
             {
-                EventHandler sortChanged = this.SortChanged;
+                EventHandler sortChanged = this._SortChanged;
                 while (true)
                 {
                     EventHandler comparand = sortChanged;
                     EventHandler handler3 = comparand - value;
-                    sortChanged = Interlocked.CompareExchange<EventHandler>(ref this.SortChanged, handler3, comparand);
+                    sortChanged = Interlocked.CompareExchange<EventHandler>(ref this._SortChanged, handler3, comparand);
                     if (ReferenceEquals(sortChanged, comparand))
                     {
                         return;
@@ -119,7 +119,7 @@ namespace EDGV
             this.DataType = DataType;
             this.DateWithTime = true;
             this.TimeFilter = false;
-            this.RM = new ResourceManager("ADGV.Localization.ADGVStrings", typeof(EDGVFilterMenu).Assembly);
+            this.RM = new ResourceManager("РасчетКУ.Extends.EDGV.Localization.EDGVStrings", typeof(EDGVFilterMenu).Assembly);
             this.months = new Dictionary<int, string>();
             this.months.Add(1, this.RM.GetString("month1"));
             this.months.Add(2, this.RM.GetString("month2"));
@@ -310,8 +310,8 @@ namespace EDGV
             this.CheckFilterListButtonsPanel.Controls.AddRange(controls);
             this.okButton.Location = new Point(this.CheckFilterListButtonsPanel.Width - 0xa4, 0);
             this.cancelButton.Location = new Point(this.CheckFilterListButtonsPanel.Width - 0x4f, 0);
-            ToolStripItem[] itemArray2 = new ToolStripItem[] { this.SortASCMenuItem, this.SortDESCMenuItem, this.CancelSortMenuItem, this.toolStripSeparator1MenuItem, this.CancelFilterMenuItem, this.FiltersMenuItem, this.toolStripSeparator3MenuItem, this.CheckFilterListControlHost, this.CheckFilterListButtonsControlHost };
-            itemArray2[9] = this.ResizeBoxControlHost;
+            ToolStripItem[] itemArray2 = new ToolStripItem[] { this.SortASCMenuItem, this.SortDESCMenuItem, this.CancelSortMenuItem, this.toolStripSeparator1MenuItem, this.CancelFilterMenuItem, this.FiltersMenuItem, this.toolStripSeparator3MenuItem, this.CheckFilterListControlHost, this.CheckFilterListButtonsControlHost, this.ResizeBoxControlHost };
+            //itemArray2[9] = this.ResizeBoxControlHost;
             this.Items.AddRange(itemArray2);
             base.ResumeLayout(false);
             if (this.DataType == typeof(DateTime))
@@ -402,9 +402,9 @@ namespace EDGV
         {
             string filterString = this.FilterString;
             this.ClearFilter();
-            if ((filterString != this.FilterString) && (this.FilterChanged != null))
+            if ((filterString != this.FilterString) && (this._FilterChanged != null))
             {
-                this.FilterChanged(this, new EventArgs());
+                this._FilterChanged(this, new EventArgs());
             }
         }
 
@@ -412,9 +412,9 @@ namespace EDGV
         {
             string sortString = this.SortString;
             this.ClearSorting();
-            if ((sortString != this.SortString) && (this.SortChanged != null))
+            if ((sortString != this.SortString) && (this._SortChanged != null))
             {
-                this.SortChanged(this, new EventArgs());
+                this._SortChanged(this, new EventArgs());
             }
         }
 
@@ -787,9 +787,9 @@ namespace EDGV
                     }
                 }
                 this.DuplicateFilterNodes();
-                if ((filterString != this.FilterString) && (this.FilterChanged != null))
+                if ((filterString != this.FilterString) && (this._FilterChanged != null))
                 {
-                    this.FilterChanged(this, new EventArgs());
+                    this._FilterChanged(this, new EventArgs());
                 }
             }
             base.Close();
@@ -1049,9 +1049,9 @@ namespace EDGV
             this.DuplicateFilterNodes();
             this.FiltersMenuItem.Checked = true;
             this.okButton.Enabled = false;
-            if ((filterString != this.FilterString) && (this.FilterChanged != null))
+            if ((filterString != this.FilterString) && (this._FilterChanged != null))
             {
-                this.FilterChanged(this, new EventArgs());
+                this._FilterChanged(this, new EventArgs());
             }
         }
 
@@ -1131,9 +1131,9 @@ namespace EDGV
             this.activeSortType = EDGVFilterMenuSortType.ASC;
             string sortString = this.SortString;
             this.SortString = "[{0}] ASC";
-            if ((sortString != this.SortString) && (this.SortChanged != null))
+            if ((sortString != this.SortString) && (this._SortChanged != null))
             {
-                this.SortChanged(this, new EventArgs());
+                this._SortChanged(this, new EventArgs());
             }
         }
 
@@ -1152,9 +1152,9 @@ namespace EDGV
             this.activeSortType = EDGVFilterMenuSortType.DESC;
             string sortString = this.SortString;
             this.SortString = "[{0}] DESC";
-            if ((sortString != this.SortString) && (this.SortChanged != null))
+            if ((sortString != this.SortString) && (this._SortChanged != null))
             {
-                this.SortChanged(this, new EventArgs());
+                this._SortChanged(this, new EventArgs());
             }
         }
 

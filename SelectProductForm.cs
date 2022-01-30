@@ -53,7 +53,7 @@ namespace РасчетКУ
             advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].HeaderText = "Выбрать";
             advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].Name = "checkBoxes";
 
-            ADGV.ADGVColumnHeaderCell headCell = advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].HeaderCell as ADGV.ADGVColumnHeaderCell;
+            EDGV.EDGVColumnHeaderCell headCell = advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].HeaderCell as EDGV.EDGVColumnHeaderCell;
             headCell.FilterEnabled = false;
             
             showRowCount();

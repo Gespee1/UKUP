@@ -37,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,9 +49,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AdvancedDataGridView, Version=0.1.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ADGV.0.1.0.10\lib\net40\AdvancedDataGridView.dll</HintPath>
-    </Reference>
     <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\ClosedXML.0.95.4\lib\net46\ClosedXML.dll</HintPath>
     </Reference>
@@ -167,6 +165,10 @@
     <Compile Include="ListForm.Designer.cs">
       <DependentUpon>ListForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Extends\EDGV.Localization.EDGVStrings.resources" />
+    <EmbeddedResource Include="Extends\EDGV.Properties.Resources.resources" />
+    <EmbeddedResource Include="Extends\EDGV.SearchToolBar.resources" />
+    <EmbeddedResource Include="Extends\EDGV.SetFilterForm.resources" />
     <EmbeddedResource Include="SelectCategoryForm.resx">
       <DependentUpon>SelectCategoryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -202,6 +204,7 @@
     <None Include="Docs\Отчет_сверка2.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Extends\ExtendedDataGridView.csproj" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -238,7 +241,7 @@
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
-      <VersionMinor>8</VersionMinor>
+      <VersionMinor>5</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

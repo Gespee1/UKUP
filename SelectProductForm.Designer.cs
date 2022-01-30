@@ -31,7 +31,7 @@ namespace РасчетКУ
         {
             this.labelMain = new System.Windows.Forms.Label();
             this.buttonAddSelected = new System.Windows.Forms.Button();
-            this.advancedDataGridViewProducts = new ADGV.AdvancedDataGridView();
+            this.advancedDataGridViewProducts = new EDGV.ExtendedDataGridView();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelShownProducts = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -160,7 +160,7 @@ namespace РасчетКУ
         #endregion
         private System.Windows.Forms.Label labelMain;
         private System.Windows.Forms.Button buttonAddSelected;
-        private ADGV.AdvancedDataGridView advancedDataGridViewProducts;
+        private EDGV.ExtendedDataGridView advancedDataGridViewProducts;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelShownProducts;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;

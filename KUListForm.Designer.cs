@@ -43,7 +43,7 @@ namespace РасчетКУ
             this.создатьГрафикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.создатьГрафикДляВсехToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьГрафикToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.advancedDataGridViewKUList = new ADGV.AdvancedDataGridView();
+            this.advancedDataGridViewKUList = new EDGV.ExtendedDataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -278,7 +278,7 @@ namespace РасчетКУ
         private System.Windows.Forms.ToolStripMenuItem создатьГрафикToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem создатьГрафикДляВсехToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem показатьГрафикToolStripMenuItem;
-        private ADGV.AdvancedDataGridView advancedDataGridViewKUList;
+        private EDGV.ExtendedDataGridView advancedDataGridViewKUList;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel4;

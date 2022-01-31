@@ -15,9 +15,10 @@ namespace EDGV.Localization
         private static System.Resources.ResourceManager resourceMan;
         private static CultureInfo resourceCulture;
 
-        /*internal EDGVStrings()
+        internal EDGVStrings()
         {
-        }*/
+            //resourceCulture = new System.Globalization.CultureInfo("ru-RU");
+        }
 
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager
@@ -26,7 +27,7 @@ namespace EDGV.Localization
             {
                 if (ReferenceEquals(resourceMan, null))
                 {
-                    resourceMan = new System.Resources.ResourceManager("РасчетКУ.Extends.EDGV.Localization.EDGVStrings", typeof(EDGVStrings).Assembly);
+                    resourceMan = new System.Resources.ResourceManager("РасчетКУ.Extends.EDGV.Localization.EDGVStrings.resources", typeof(EDGVStrings).Assembly);
                 }
                 return resourceMan;
             }

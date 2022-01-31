@@ -162,18 +162,15 @@ namespace РасчетКУ
         private void WordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string docname = "Docs\\АКТ-счет.docx";
-            //string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
-            //WordDoc(docname, newdocpath);
-            Actions actions = new Actions();
-            WordDoc(docname, actions.getFilepath(".docx"));
-        }
 
-        //отчет ворд 2
-        private void word2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string docname = "Docs\\Приложение_к_договору.docx";
-            //string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
-            //WordDoc(docname, newdocpath);
+            /* Actions actions = new Actions();
+             WordDoc(docname, actions.getFilepath(".docx"));*/
+
+            int i = 0;
+            SqlCommand command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+            VendorName = Convert.ToString(command.ExecuteScalar());
+
 
             Global_parameters GP = new Global_parameters();
             if (GP.getPath(user) == "null")
@@ -183,8 +180,50 @@ namespace РасчетКУ
             }
             else
             {
-                string newdocpath = GP.getPath(user);
-                newdocpath += "\\Приложение к договору.docx";
+                string docpath = GP.getPath(user);
+                string newdocpath = docpath + "\\АКТ-счет_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + ".docx";
+
+
+                while (File.Exists(newdocpath) == true)
+                {
+                    i++;
+                    newdocpath = docpath + "\\АКТ-счет_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + "(" + i.ToString() + ")" + ".docx";
+                }
+
+                WordDoc(docname, newdocpath);
+            }
+        }
+
+        //отчет ворд 2
+        private void word2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            string docname = "Docs\\Приложение_к_договору.docx";
+
+            int i = 0;
+            SqlCommand command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+            VendorName = Convert.ToString(command.ExecuteScalar());
+            
+
+            Global_parameters GP = new Global_parameters();
+            if (GP.getPath(user) == "null")
+            {
+                MessageBox.Show("Для того, чтобы создать отчёт установите путь для сохранения в настройках.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                string docpath = GP.getPath(user);
+                string newdocpath = docpath + "\\Приложение к договору_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + ".docx";
+
+                
+                    while (File.Exists(newdocpath) == true)
+                    {
+                        i++;
+                        newdocpath = docpath + "\\Приложение к договору_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + "(" + i.ToString() + ")" + ".docx";
+                    }
+               
                 WordDoc(docname, newdocpath);
             }
         }
@@ -229,7 +268,7 @@ namespace РасчетКУ
                 {"<Doc.Date>", DocDate},
                 {"<GraphSumN>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumN"].Value)},
                 {"<Kol-vo>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Turnover"].Value)},
-                {"<GraphSumS>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumS"].Value)},
+                {"<GraphSumS>", Convert.ToString(dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["GraphSumP"].Value)},
                 {"<Vendors.Name>", Convert.ToString(tb1.Rows[0]["Name"])},
                 {"<Vendors.INN\\KPP>", Convert.ToString(tb1.Rows[0]["INN\\KPP"])},
                 {"<Vendors.Urastic_address>", Convert.ToString(tb1.Rows[0]["Urastic_address"])},
@@ -383,12 +422,39 @@ namespace РасчетКУ
             int docnum = 1; 
 
             string docname = "Docs\\Отчет_сверка1.xlsx";
-            /* string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
-             ExcelDoc(docname, newdocpath);*/
+            /*
             Actions actions = new Actions();
-            ExcelDoc(docname, actions.getFilepath(".xlsx"), docnum);
-            
-         
+            ExcelDoc(docname, actions.getFilepath(".xlsx"), docnum);*/
+
+
+            int i = 0;
+            SqlCommand command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+            VendorName = Convert.ToString(command.ExecuteScalar());
+
+
+            Global_parameters GP = new Global_parameters();
+            if (GP.getPath(user) == "null")
+            {
+                MessageBox.Show("Для того, чтобы создать отчёт установите путь для сохранения в настройках.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                string docpath = GP.getPath(user);
+                string newdocpath = docpath + "\\Отчет_сверка1_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + ".xlsx";
+
+
+                while (File.Exists(newdocpath) == true)
+                {
+                    i++;
+                    newdocpath = docpath + "\\Отчет_сверка1_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + "(" + i.ToString() + ")" + ".xlsx";
+                }
+
+                ExcelDoc(docname, newdocpath, docnum); 
+            }
+
+
         }
 
         //Отчёт Excel2
@@ -397,10 +463,36 @@ namespace РасчетКУ
             int docnum = 2;
 
             string docname = "Docs\\Отчет_сверка2.xlsx";
-            /* string newdocpath = "C:\\Users\\Dmitriy.Skorb\\Documents\\Тест.docx";
-             ExcelDoc(docname, newdocpath);*/
-            Actions actions = new Actions();
-            ExcelDoc(docname, actions.getFilepath(".xlsx"), docnum);
+            
+            /*Actions actions = new Actions();
+            ExcelDoc(docname, actions.getFilepath(".xlsx"), docnum);*/
+
+            int i = 0;
+            SqlCommand command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = " +
+                $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}", SqlCon);
+            VendorName = Convert.ToString(command.ExecuteScalar());
+
+
+            Global_parameters GP = new Global_parameters();
+            if (GP.getPath(user) == "null")
+            {
+                MessageBox.Show("Для того, чтобы создать отчёт установите путь для сохранения в настройках.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                string docpath = GP.getPath(user);
+                string newdocpath = docpath + "\\Отчет_сверка2_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + ".xlsx";
+
+
+                while (File.Exists(newdocpath) == true)
+                {
+                    i++;
+                    newdocpath = docpath + "\\Отчет_сверка2_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + "(" + i.ToString() + ")" + ".xlsx";
+                }
+
+                ExcelDoc(docname, newdocpath, docnum);
+            }
         }
 
 

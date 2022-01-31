@@ -183,6 +183,9 @@ namespace РасчетКУ
             int month = dateFrom.Month;
             if (month < 4)
             {
+                if(dateFrom.Day > 30)
+                dateFrom = new DateTime(dateFrom.Year, 4, dateFrom.Day - 1);
+                else
                 dateFrom = new DateTime(dateFrom.Year, 4, dateFrom.Day);
             }
             if (month >= 4 && month < 7)
@@ -228,16 +231,17 @@ namespace РасчетКУ
             DataGridViewRow row = dgv.Rows[rowIndex];
             Int64 Graph_id = (Int64)row.Cells["Graph_Id"].Value;
 
-
+            SqlCommand com = new SqlCommand($"SELECT Vendor_foreign_id FROM Vendors WHERE Vendor_id = {row.Cells["Vendor_id"].Value}", _sqlConnection);
+            string vendorForeignId = com.ExecuteScalar().ToString();
 
             DataTable invoicesProducts = new DataTable();
-            SqlCommand cm = new SqlCommand($"SELECT Product_id, Summ FROM Invoices, Invoices_products WHERE Invoices.Invoice_id = Invoices_products.Invoice_id AND " +
-                $"Vendor_id = {row.Cells["Vendor_id"].Value} AND Date >= '{row.Cells["Date_from"].Value}' AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
+            SqlCommand cm = new SqlCommand($"SELECT Product_id, Amount FROM Invoices, Invoices_products WHERE Invoices.Invoice_name = Invoices_products.Invoice_id AND " +
+                $"Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(cm);
             adapt.Fill(invoicesProducts);
 
             DataTable InvoicesID = new DataTable();
-            cm = new SqlCommand($"SELECT Invoice_id FROM Invoices WHERE Vendor_id = {row.Cells["Vendor_id"].Value} AND Date >= '{row.Cells["Date_from"].Value}' " +
+            cm = new SqlCommand($"SELECT Invoice_id FROM Invoices WHERE Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' " +
                                 $"AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
             adapt = new SqlDataAdapter(cm);
             adapt.Fill(InvoicesID);
@@ -299,7 +303,7 @@ namespace РасчетКУ
                         case "Категория":
 
                             // Отбор товаров выбранной категории
-                            command = new SqlCommand($"SELECT Product_id FROM Invoices, Products WHERE Vendor_id = {row.Cells["Vendor_id"].Value} AND Date >= '{row.Cells["Date_from"].Value}' " +
+                            command = new SqlCommand($"SELECT Product_id FROM Invoices, Products WHERE Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' " +
                                 $"AND Date < '{row.Cells["Date_to"].Value}' AND Classifier_id LIKE '{currTable.Rows[i]["Attribute_1"]}*'", _sqlConnection);
                             adapt = new SqlDataAdapter(command);
                             DataTable categotyProducts = new DataTable();
@@ -365,10 +369,10 @@ namespace РасчетКУ
             InMinusEx.Columns.Add("Turnover", typeof(double));
             for (int i = 0; i < InMinusEx.Rows.Count; i++)
             {
-                command = new SqlCommand($"SELECT Summ FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = {row.Cells["Vendor_id"].Value}) " +
+                command = new SqlCommand($"SELECT Summ FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
                     $"AND Product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
                 InMinusEx.Rows[i][1] = command.ExecuteScalar();
-                command = new SqlCommand($"SELECT Quantity FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = {row.Cells["Vendor_id"].Value}) " +
+                command = new SqlCommand($"SELECT Quantity FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
                     $"AND Product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
                 InMinusEx.Rows[i][2] = command.ExecuteScalar();
             }

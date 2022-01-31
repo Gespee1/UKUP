@@ -28,6 +28,7 @@ namespace EDGV
         private string filterString;
         private string viewfilterString;
         private ErrorProvider errorProvider;
+        private static CultureInfo resourceCulture = new System.Globalization.CultureInfo("ru-RU");
 
         private SetFilterForm()
         {
@@ -59,7 +60,10 @@ namespace EDGV
                             (this.val1contol as DateTimePicker).Format = DateTimePickerFormat.Custom;
                             (this.val2contol as DateTimePicker).Format = DateTimePickerFormat.Custom;
                         }
-                        string[] items = new string[] { this.RM.GetString("setfilterform_filtertypecombobox_equal"), this.RM.GetString("setfilterform_filtertypecombobox_notequal"), this.RM.GetString("setfilterform_filtertypecombobox_before"), this.RM.GetString("setfilterform_filtertypecombobox_after"), this.RM.GetString("setfilterform_filtertypecombobox_between") };
+                        string[] items = new string[] { "Равно"/*this.RM.GetString("setfilterform_filtertypecombobox_equal", resourceCulture)*/, 
+                            this.RM.GetString("setfilterform_filtertypecombobox_notequal", Thread.CurrentThread.CurrentCulture), 
+                            this.RM.GetString("setfilterform_filtertypecombobox_before", Thread.CurrentThread.CurrentCulture), 
+                            this.RM.GetString("setfilterform_filtertypecombobox_after", Thread.CurrentThread.CurrentCulture), this.RM.GetString("setfilterform_filtertypecombobox_between") };
                         this.FilterTypeComboBox.Items.AddRange(items);
                         break;
                     }
@@ -224,7 +228,7 @@ namespace EDGV
             this.okButton.Name = "okButton";
             this.okButton.Size = new Size(0x4b, 0x17);
             this.okButton.TabIndex = 0;
-            this.okButton.Text = this.RM.GetString("setfilterform_okbutton_text");
+            this.okButton.Text = this.RM.GetString("setfilterform_okbutton_text", resourceCulture);
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new EventHandler(this.OKButton_Click);
             this.cancelButton.DialogResult = DialogResult.Cancel;
@@ -232,7 +236,7 @@ namespace EDGV
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new Size(0x4b, 0x17);
             this.cancelButton.TabIndex = 1;
-            this.cancelButton.Text = this.RM.GetString("setfilterform_cancelbutton_text");
+            this.cancelButton.Text = this.RM.GetString("setfilterform_cancelbutton_text", resourceCulture);
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new EventHandler(this.CancelButton_Click);
             this.ColumnNameLabel.AutoSize = true;
@@ -240,7 +244,7 @@ namespace EDGV
             this.ColumnNameLabel.Name = "ColumnNameLabel";
             this.ColumnNameLabel.Size = new Size(140, 13);
             this.ColumnNameLabel.TabIndex = 2;
-            this.ColumnNameLabel.Text = this.RM.GetString("setfilterform_columnnamelabel_text");
+            this.ColumnNameLabel.Text = this.RM.GetString("setfilterform_columnnamelabel_text", resourceCulture);
             this.FilterTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.FilterTypeComboBox.FormattingEnabled = true;
             this.FilterTypeComboBox.Location = new Point(7, 0x20);
@@ -253,7 +257,7 @@ namespace EDGV
             this.AndLabel.Name = "AndLabel";
             this.AndLabel.Size = new Size(13, 13);
             this.AndLabel.TabIndex = 6;
-            this.AndLabel.Text = this.RM.GetString("setfilterform_andlabel_text");
+            this.AndLabel.Text = this.RM.GetString("setfilterform_andlabel_text", resourceCulture);
             this.AndLabel.Visible = false;
             this.errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
@@ -273,7 +277,7 @@ namespace EDGV
             base.MinimizeBox = false;
             base.CancelButton = this.cancelButton;
             base.StartPosition = FormStartPosition.CenterParent;
-            this.Text = this.RM.GetString("setfilterform_text");
+            this.Text = this.RM.GetString("setfilterform_text", resourceCulture);
             base.TopMost = true;
             ((ISupportInitialize)this.errorProvider).EndInit();
             base.ResumeLayout(false);
@@ -299,21 +303,21 @@ namespace EDGV
                     case FilterType.DateTime:
                         {
                             DateTime time = ((DateTimePicker)this.val1contol).Value;
-                            if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_equal"))
+                            if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_equal", resourceCulture))
                             {
                                 this.filterString = !this.dateWithTime ? (this.filterString + "= '" + time.ToShortDateString() + "'") : (!this.timeFilter ? ("Convert([{0}], System.String) LIKE '" + time.ToShortDateString() + "%'") : (this.filterString + "= '" + time.ToString("o") + "'"));
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_before"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_before", resourceCulture))
                             {
                                 this.filterString = !this.timeFilter ? (this.filterString + "< '" + time.ToShortDateString() + "'") : (this.filterString + "< '" + time.ToString("o") + "'");
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_after"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_after", resourceCulture))
                             {
                                 this.filterString = !this.timeFilter ? (this.filterString + "> '" + time.ToShortDateString() + "'") : (this.filterString + "> '" + time.ToString("o") + "'");
                             }
-                            else if (this.FilterTypeComboBox.Text != this.RM.GetString("setfilterform_filtertypecombobox_between"))
+                            else if (this.FilterTypeComboBox.Text != this.RM.GetString("setfilterform_filtertypecombobox_between", resourceCulture))
                             {
-                                if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_notequal"))
+                                if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_notequal", resourceCulture))
                                 {
                                     this.filterString = !this.dateWithTime ? (this.filterString + "<> '" + time.ToShortDateString() + "'") : (!this.timeFilter ? ("Convert([{0}], System.String) NOT LIKE '" + time.ToShortDateString() + "%'") : (this.filterString + "<> '" + time.ToString("o") + "'"));
                                 }
@@ -349,11 +353,11 @@ namespace EDGV
                             {
                                 text = text.Replace(",", ".");
                             }
-                            if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_equal"))
+                            if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_equal", resourceCulture))
                             {
                                 this.filterString = this.filterString + "= " + text;
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_between"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_between", resourceCulture))
                             {
                                 string s = this.val2contol.Text;
                                 if (this.filterType == FilterType.Float)
@@ -368,23 +372,23 @@ namespace EDGV
                                 string[] strArray3 = new string[] { this.filterString, ">= ", text, " AND ", str, "<= ", s };
                                 this.filterString = string.Concat(strArray3);
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_notequal"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_notequal", resourceCulture))
                             {
                                 this.filterString = this.filterString + "<> " + text;
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_larger"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_larger", resourceCulture))
                             {
                                 this.filterString = this.filterString + "> " + text;
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_lagerequals"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_lagerequals", resourceCulture))
                             {
                                 this.filterString = this.filterString + ">= " + text;
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_less"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_less", resourceCulture))
                             {
                                 this.filterString = this.filterString + "< " + text;
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_lessequals"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_lessequals", resourceCulture))
                             {
                                 this.filterString = this.filterString + "<= " + text;
                             }
@@ -393,35 +397,35 @@ namespace EDGV
                     default:
                         {
                             string str5 = this.FormatString(this.val1contol.Text);
-                            if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_equal"))
+                            if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_equal", resourceCulture))
                             {
                                 this.filterString = this.filterString + "LIKE '" + str5 + "'";
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_notequal"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_notequal", resourceCulture))
                             {
                                 this.filterString = this.filterString + "NOT LIKE '" + str5 + "'";
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_begins"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_begins", resourceCulture))
                             {
                                 this.filterString = this.filterString + "LIKE '" + str5 + "%'";
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_ends"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_ends", resourceCulture))
                             {
                                 this.filterString = this.filterString + "LIKE '%" + str5 + "'";
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_nobegins"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_nobegins", resourceCulture))
                             {
                                 this.filterString = this.filterString + "NOT LIKE '" + str5 + "%'";
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_noends"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_noends", resourceCulture))
                             {
                                 this.filterString = this.filterString + "NOT LIKE '%" + str5 + "'";
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_contain"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_contain", resourceCulture))
                             {
                                 this.filterString = this.filterString + "LIKE '%" + str5 + "%'";
                             }
-                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_nocontain"))
+                            else if (this.FilterTypeComboBox.Text == this.RM.GetString("setfilterform_filtertypecombobox_nocontain", resourceCulture))
                             {
                                 this.filterString = this.filterString + "NOT LIKE '%" + str5 + "%'";
                             }

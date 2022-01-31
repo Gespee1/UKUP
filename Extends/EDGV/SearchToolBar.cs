@@ -4,6 +4,7 @@ namespace EDGV
     using System;
     using System.ComponentModel;
     using System.Drawing;
+    using System.Globalization;
     using System.Linq;
     using System.Threading;
     using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace EDGV
         private ToolStripButton searchButton;
         private ToolStripButton wholeWordButton;
         private ToolStripSeparator searchSeparator;
+        private static CultureInfo resourceCulture = new System.Globalization.CultureInfo("ru-RU");
 
         public event SearchToolBarSearchEventHandler Search
         {
@@ -89,12 +91,12 @@ namespace EDGV
             this.wholeWordButton = new ToolStripButton();
             this.searchSeparator = new ToolStripSeparator();
             base.SuspendLayout();
-            manager.ApplyResources(this.closeButton, "closeButton");
+            manager.ApplyResources(this.closeButton, "closeButton", resourceCulture);
             this.closeButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
             this.closeButton.Name = "closeButton";
             this.closeButton.Overflow = ToolStripItemOverflow.Never;
             this.closeButton.Click += new EventHandler(this.closeButton_Click);
-            manager.ApplyResources(this.searchLabel, "searchLabel");
+            manager.ApplyResources(this.searchLabel, "searchLabel", resourceCulture);
             this.searchLabel.Name = "searchLabel";
             this.columnComboBox.Name = "columnComboBox";
             this.columnComboBox.AutoToolTip = true;
@@ -102,8 +104,8 @@ namespace EDGV
             object[] items = new object[] { manager.GetString("columnComboBox.Items") };
             this.columnComboBox.Items.AddRange(items);
             this.columnComboBox.Margin = new Padding(0, 2, 8, 2);
-            manager.ApplyResources(this.columnComboBox, "columnComboBox");
-            manager.ApplyResources(this.searchTextBox, "searchTextBox");
+            manager.ApplyResources(this.columnComboBox, "columnComboBox", resourceCulture);
+            manager.ApplyResources(this.searchTextBox, "searchTextBox", resourceCulture);
             this.searchTextBox.ForeColor = Color.LightGray;
             this.searchTextBox.Margin = new Padding(0, 2, 8, 2);
             this.searchTextBox.Name = "searchTextBox";

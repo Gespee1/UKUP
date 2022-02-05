@@ -5,7 +5,6 @@ namespace EDGV
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Globalization;
     using System.Linq;
     using System.Resources;
     using System.Runtime.CompilerServices;
@@ -47,7 +46,6 @@ namespace EDGV
         private TripleTreeNode[] startingNodes;
         private TripleTreeNode[] filterNodes;
         private static Point resizeStartPoint = new Point(1, 1);
-        private static CultureInfo resourceCulture = new CultureInfo("ru-RU");
         private Point resizeEndPoint = new Point(-1, -1);
         private EventHandler _SortChanged;
         private EventHandler _FilterChanged;
@@ -123,18 +121,18 @@ namespace EDGV
             this.TimeFilter = false;
             this.RM = new ResourceManager("РасчетКУ.Extends.EDGV.Localization.EDGVStrings", typeof(EDGVFilterMenu).Assembly);
             this.months = new Dictionary<int, string>();
-            this.months.Add(1, this.RM.GetString("month1", resourceCulture));
-            this.months.Add(2, this.RM.GetString("month2", resourceCulture));
-            this.months.Add(3, this.RM.GetString("month3", resourceCulture));
-            this.months.Add(4, this.RM.GetString("month4", resourceCulture));
-            this.months.Add(5, this.RM.GetString("month5", resourceCulture));
-            this.months.Add(6, this.RM.GetString("month6", resourceCulture));
-            this.months.Add(7, this.RM.GetString("month7", resourceCulture));
-            this.months.Add(8, this.RM.GetString("month8", resourceCulture));
-            this.months.Add(9, this.RM.GetString("month9", resourceCulture));
-            this.months.Add(10, this.RM.GetString("month10", resourceCulture));
-            this.months.Add(11, this.RM.GetString("month11", resourceCulture));
-            this.months.Add(12, this.RM.GetString("month12", resourceCulture));
+            this.months.Add(1, "Январь");
+            this.months.Add(2, "Февраль");
+            this.months.Add(3, "Март");
+            this.months.Add(4, "Апрель");
+            this.months.Add(5, "Май");
+            this.months.Add(6, "Июнь");
+            this.months.Add(7, "Июль");
+            this.months.Add(8, "Август");
+            this.months.Add(9, "Сентябрь");
+            this.months.Add(10, "Октябрь");
+            this.months.Add(11, "Ноябрь");
+            this.months.Add(12, "Декабрь");
             this.SortASCMenuItem = new ToolStripMenuItem();
             this.SortDESCMenuItem = new ToolStripMenuItem();
             this.CancelSortMenuItem = new ToolStripMenuItem();
@@ -181,7 +179,7 @@ namespace EDGV
             this.CancelSortMenuItem.Enabled = false;
             this.CancelSortMenuItem.AutoSize = false;
             this.CancelSortMenuItem.Size = new Size(base.Width - 1, 0x16);
-            this.CancelSortMenuItem.Text = this.RM.GetString("cancelsortmenuitem_text", resourceCulture);
+            this.CancelSortMenuItem.Text = "Убрать сортировку";
             this.CancelSortMenuItem.Click += new EventHandler(this.CancelSortMenuItem_Click);
             this.CancelSortMenuItem.MouseEnter += new EventHandler(this.SortASCMenuItem_MouseEnter);
             this.toolStripSeparator1MenuItem.Name = "toolStripSeparator1MenuItem";
@@ -190,12 +188,12 @@ namespace EDGV
             this.CancelFilterMenuItem.Enabled = false;
             this.CancelFilterMenuItem.AutoSize = false;
             this.CancelFilterMenuItem.Size = new Size(base.Width - 1, 0x16);
-            this.CancelFilterMenuItem.Text = this.RM.GetString("cancelfiltermenuitem_text", resourceCulture);
+            this.CancelFilterMenuItem.Text = "Очистить фильтр";
             this.CancelFilterMenuItem.Click += new EventHandler(this.CancelFilterMenuItem_Click);
             this.CancelFilterMenuItem.MouseEnter += new EventHandler(this.SortASCMenuItem_MouseEnter);
             this.SetupFilterMenuItem.Name = "SetupFilterMenuItem";
             this.SetupFilterMenuItem.Size = new Size(0x98, 0x16);
-            this.SetupFilterMenuItem.Text = this.RM.GetString("setupfiltermenuitem_text", resourceCulture);
+            this.SetupFilterMenuItem.Text = "Настроить";
             this.SetupFilterMenuItem.Click += new EventHandler(this.SetupFilterMenuItem_Click);
             this.toolStripSeparator2MenuItem.Name = "toolStripSeparator2MenuItem";
             this.toolStripSeparator2MenuItem.Size = new Size(0x95, 6);
@@ -252,14 +250,14 @@ namespace EDGV
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Margin = new Padding(0);
             this.okButton.Size = new Size(0x4b, 0x17);
-            this.okButton.Text = this.RM.GetString("okbutton_text", resourceCulture);
+            this.okButton.Text = "Ок";
             this.okButton.Click += new EventHandler(this.okButton_Click);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.BackColor = Control.DefaultBackColor;
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Margin = new Padding(0);
             this.cancelButton.Size = new Size(0x4b, 0x17);
-            this.cancelButton.Text = this.RM.GetString("cancelbutton_text", resourceCulture);
+            this.cancelButton.Text = "Отмена";
             this.cancelButton.Click += new EventHandler(this.cancelButton_Click);
             this.ResizeBoxControlHost.Name = "ResizeBoxControlHost";
             this.ResizeBoxControlHost.Control.Cursor = Cursors.SizeNWSE;
@@ -318,33 +316,33 @@ namespace EDGV
             base.ResumeLayout(false);
             if (this.DataType == typeof(DateTime))
             {
-                this.FiltersMenuItem.Text = this.RM.GetString("filtersmenuitem_text_datetime", resourceCulture);
-                this.SortASCMenuItem.Text = this.RM.GetString("sortascmenuitem_text_datetime", resourceCulture);
-                this.SortDESCMenuItem.Text = this.RM.GetString("sortdescmenuitem_text_datetime", resourceCulture);
+                this.FiltersMenuItem.Text = "Фильтр дат";
+                this.SortASCMenuItem.Text = "Сортировать по возрастанию дат";
+                this.SortDESCMenuItem.Text = "Сортировать по убыванию дат";
                 this.SortASCMenuItem.Image = Resources.ASCnum;
                 this.SortDESCMenuItem.Image = Resources.DESCnum;
             }
-            else if (this.DataType == typeof(bool))
+            /*else if (this.DataType == typeof(bool))
             {
-                this.FiltersMenuItem.Text = this.RM.GetString("filtersmenuitem_text_text", resourceCulture);
-                this.SortASCMenuItem.Text = this.RM.GetString("sortascmenuitem_text_boolean", resourceCulture);
-                this.SortDESCMenuItem.Text = this.RM.GetString("sortdescmenuitem_text_boolean", resourceCulture);
+                this.FiltersMenuItem.Text = this.RM.GetString("filtersmenuitem_text_text");
+                this.SortASCMenuItem.Text = this.RM.GetString("sortascmenuitem_text_boolean");
+                this.SortDESCMenuItem.Text = this.RM.GetString("sortdescmenuitem_text_boolean");
                 this.SortASCMenuItem.Image = Resources.ASCbool;
                 this.SortDESCMenuItem.Image = Resources.DESCbool;
-            }
+            }*/
             else if ((this.DataType != typeof(int)) && ((this.DataType != typeof(long)) && ((this.DataType != typeof(short)) && ((this.DataType != typeof(uint)) && ((this.DataType != typeof(ulong)) && ((this.DataType != typeof(ushort)) && ((this.DataType != typeof(byte)) && ((this.DataType != typeof(sbyte)) && ((this.DataType != typeof(decimal)) && ((this.DataType != typeof(float)) && (this.DataType != typeof(double))))))))))))
             {
-                this.FiltersMenuItem.Text = this.RM.GetString("filtersmenuitem_text_text", resourceCulture);
-                this.SortASCMenuItem.Text = this.RM.GetString("sortascmenuitem_text_text", resourceCulture);
-                this.SortDESCMenuItem.Text = this.RM.GetString("sortdescmenuitem_text", resourceCulture);
+                this.FiltersMenuItem.Text = "Текстовый фильтр";
+                this.SortASCMenuItem.Text = "Сортировать от А до Я";
+                this.SortDESCMenuItem.Text = "Сортировать от Я до А";
                 this.SortASCMenuItem.Image = Resources.ASCtxt;
                 this.SortDESCMenuItem.Image = Resources.DESCtxt;
             }
             else
             {
-                this.FiltersMenuItem.Text = this.RM.GetString("filtersmenuitem_text_numeric", resourceCulture);
-                this.SortASCMenuItem.Text = this.RM.GetString("sortascmenuitem_text_numeric", resourceCulture);
-                this.SortDESCMenuItem.Text = this.RM.GetString("sortdescmenuitem_text_numeric", resourceCulture);
+                this.FiltersMenuItem.Text = "Числовой фильтр";
+                this.SortASCMenuItem.Text = "Сортировать по возрастанию";
+                this.SortDESCMenuItem.Text = "Сортировать по убыванию";
                 this.SortASCMenuItem.Image = Resources.ASCnum;
                 this.SortDESCMenuItem.Image = Resources.DESCnum;
             }
@@ -824,7 +822,7 @@ namespace EDGV
             this.CheckList.Nodes.Clear();
             if (vals != null)
             {
-                TripleTreeNode node = TripleTreeNode.CreateAllsNode(this.RM.GetString("tripletreenode_allnode_text", resourceCulture) + "            ", CheckState.Checked);
+                TripleTreeNode node = TripleTreeNode.CreateAllsNode("(Выбрать все)            ", CheckState.Checked);
                 node.NodeFont = new Font(this.CheckList.Font, FontStyle.Bold);
                 this.CheckList.Nodes.Add(node);
                 if (vals.Count<DataGridViewCell>() > 0)
@@ -834,7 +832,7 @@ namespace EDGV
                                                            select c;
                     if (vals.Count<DataGridViewCell>() != source.Count<DataGridViewCell>())
                     {
-                        TripleTreeNode node2 = TripleTreeNode.CreateEmptysNode(this.RM.GetString("tripletreenode_nullnode_text", resourceCulture) + "               ", CheckState.Checked);
+                        TripleTreeNode node2 = TripleTreeNode.CreateEmptysNode(this.RM.GetString("tripletreenode_nullnode_text") + "               ", CheckState.Checked);
                         node2.NodeFont = new Font(this.CheckList.Font, FontStyle.Bold);
                         this.CheckList.Nodes.Add(node2);
                     }
@@ -847,12 +845,12 @@ namespace EDGV
                                                                         select c;
                             if (enumerable9.Count<DataGridViewCell>() != source.Count<DataGridViewCell>())
                             {
-                                TripleTreeNode node12 = TripleTreeNode.CreateNode(this.RM.GetString("tripletreenode_boolean_false", resourceCulture), false, CheckState.Checked);
+                                TripleTreeNode node12 = TripleTreeNode.CreateNode(this.RM.GetString("tripletreenode_boolean_false"), false, CheckState.Checked);
                                 this.CheckList.Nodes.Add(node12);
                             }
                             if (enumerable9.Count<DataGridViewCell>() > 0)
                             {
-                                TripleTreeNode node13 = TripleTreeNode.CreateNode(this.RM.GetString("tripletreenode_boolean_true", resourceCulture), true, CheckState.Checked);
+                                TripleTreeNode node13 = TripleTreeNode.CreateNode(this.RM.GetString("tripletreenode_boolean_true"), true, CheckState.Checked);
                                 this.CheckList.Nodes.Add(node13);
                             }
                         }
@@ -896,7 +894,7 @@ namespace EDGV
                                     }
                                     if (!this.DateWithTime)
                                     {
-                                        node4.CreateChildNode(grouping3.Key.ToString("D2"), grouping3.First<DataGridViewCell>().Value).CreateChildNode("## " + this.RM.GetString("checknodetree_hour", resourceCulture), null).CreateChildNode("## " + this.RM.GetString("checknodetree_minute", resourceCulture), null).CreateChildNode("## " + this.RM.GetString("checknodetree_second", resourceCulture), null).CreateChildNode("### " + this.RM.GetString("checknodetree_millisecond"), null);
+                                        node4.CreateChildNode(grouping3.Key.ToString("D2"), grouping3.First<DataGridViewCell>().Value).CreateChildNode("## " + this.RM.GetString("checknodetree_hour"), null).CreateChildNode("## " + this.RM.GetString("checknodetree_minute"), null).CreateChildNode("## " + this.RM.GetString("checknodetree_second"), null).CreateChildNode("### " + this.RM.GetString("checknodetree_millisecond"), null);
                                         continue;
                                     }
                                     node5 = node4.CreateChildNode(grouping3.Key.ToString("D2"), grouping3.Key);
@@ -1077,7 +1075,7 @@ namespace EDGV
                     (this.FiltersMenuItem.DropDownItems[i] as ToolStripMenuItem).Checked = false;
                 }
                 this.CheckList.Nodes.Clear();
-                TripleTreeNode node = TripleTreeNode.CreateAllsNode(this.RM.GetString("tripletreenode_allnode_text", resourceCulture) + "            ", CheckState.Checked);
+                TripleTreeNode node = TripleTreeNode.CreateAllsNode(this.RM.GetString("tripletreenode_allnode_text") + "            ", CheckState.Checked);
                 node.NodeFont = new Font(this.CheckList.Font, FontStyle.Bold);
                 node.CheckState = CheckState.Indeterminate;
                 this.CheckList.Nodes.Add(node);

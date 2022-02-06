@@ -223,18 +223,18 @@ namespace EDGV
                 Rectangle rectangle = base.GetCellDisplayRectangle(column.Index, -1, true);
                 if (this.readyToShowFilters.Contains(column.Name))
                 {
-                    filterMenu.Show(this, rectangle.Left, rectangle.Bottom, false);
+                    filterMenu.Show(this, rectangle.Left, rectangle.Bottom/*, false*/);
                 }
                 else
                 {
                     this.readyToShowFilters.Add(column.Name);
                     if ((this.filterOrder.Count<string>() > 0) && (this.filterOrder.Last<string>() == column.Name))
                     {
-                        filterMenu.Show(this, rectangle.Left, rectangle.Bottom, true);
+                        filterMenu.Show(this, rectangle.Left, rectangle.Bottom/*, true*/);
                     }
                     else
                     {
-                        filterMenu.Show(this, rectangle.Left, rectangle.Bottom, EDGVFilterMenu.GetValuesForFilter(this, column.Name));
+                        filterMenu.Show(this, rectangle.Left, rectangle.Bottom/*, EDGVFilterMenu.GetValuesForFilter(this, column.Name)*/);
                     }
                 }
             }

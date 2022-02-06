@@ -5,7 +5,7 @@ namespace EDGV
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
-
+    /*
     public class TripleTreeNode : TreeNode
     {
         private System.Windows.Forms.CheckState checkState;
@@ -230,5 +230,5 @@ namespace EDGV
                 this.SetCheckImage();
             }
         }
-    }
+    }*/
 }

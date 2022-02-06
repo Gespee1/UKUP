@@ -235,7 +235,7 @@ namespace РасчетКУ
             string vendorForeignId = com.ExecuteScalar().ToString();
 
             DataTable invoicesProducts = new DataTable();
-            SqlCommand cm = new SqlCommand($"SELECT Product_id, Amount FROM Invoices, Invoices_products WHERE Invoices.Invoice_name = Invoices_products.Invoice_id AND " +
+            SqlCommand cm = new SqlCommand($"SELECT Foreign_product_id, Amount FROM Invoices, Invoices_products WHERE Invoices.Invoice_name = Invoices_products.Invoice_number AND " +
                 $"Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(cm);
             adapt.Fill(invoicesProducts);
@@ -369,11 +369,11 @@ namespace РасчетКУ
             InMinusEx.Columns.Add("Turnover", typeof(double));
             for (int i = 0; i < InMinusEx.Rows.Count; i++)
             {
-                command = new SqlCommand($"SELECT Amount FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
-                    $"AND Product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
+                command = new SqlCommand($"SELECT Amount FROM Invoices_products WHERE Invoice_number = (SELECT Invoice_number FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
+                    $"AND Foreign_product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
                 InMinusEx.Rows[i][1] = command.ExecuteScalar();
-                command = new SqlCommand($"SELECT Qty FROM Invoices_products WHERE Invoice_id = (SELECT Invoice_id FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
-                    $"AND Product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
+                command = new SqlCommand($"SELECT Qty FROM Invoices_products WHERE Invoice_number = (SELECT Invoice_number FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
+                    $"AND Foreign_product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
                 InMinusEx.Rows[i][2] = command.ExecuteScalar();
             }
             
@@ -405,7 +405,7 @@ namespace РасчетКУ
                 else
                     bonus = summ * percentOrFix / 100;
 
-                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2)}, Sum_bonus = {Math.Round(bonus, 2)},  Turnover = {Math.Round(turnover, 2)} WHERE " +
+                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2).ToString().Replace(",",".")}, Sum_bonus = {Math.Round(bonus, 2).ToString().Replace(",", ".")},  Turnover = {Math.Round(turnover, 2).ToString().Replace(",", ".")} WHERE " +
                     $"Graph_id = {Graph_id}", _sqlConnection);
                 command.ExecuteNonQuery();
                 if (fix)

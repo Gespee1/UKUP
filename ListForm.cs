@@ -86,7 +86,7 @@ namespace РасчетКУ
             Size = new System.Drawing.Size(600, 610);
             panel2.Visible = true;
 
-            SqlCommand command = new SqlCommand("SELECT Classifier_id As 'Код классификатора', Name As 'Наименование', Brand As 'Торговая марка', " +
+            SqlCommand command = new SqlCommand("SELECT Product_id As 'Код товара', Foreign_id As 'Внешний код товара', Classifier_id As 'Код классификатора', Name As 'Наименование', Brand As 'Торговая марка', " +
                 "Producer As 'Производитель' FROM Products " +
                 "LEFT JOIN BrandProducer ON Products.BrandProdID = BrandProducer.ForeignID", _sqlConnection);
             DataTable dt = new DataTable();

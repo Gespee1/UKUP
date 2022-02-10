@@ -25,12 +25,16 @@ namespace РасчетКУ
             InitializeComponent();
         }
 
-        // Подключение к БД, Вывод ассортимента поставщика
+        // Подключение к БД
         private void SelectForm_Load(object sender, EventArgs e)
         {
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             _sqlConnection.Open();
+        }
 
+        // Отображение данных формы
+        private void ShowProducts()
+        {
             // Отображение имени поставщика в шапке
             SqlCommand command = new SqlCommand($"SELECT Name FROM Vendors WHERE Vendor_id = {VendorId}", _sqlConnection);
             SqlDataReader reader = command.ExecuteReader();
@@ -55,7 +59,7 @@ namespace РасчетКУ
 
             EDGV.EDGVColumnHeaderCell headCell = advancedDataGridViewProducts.Columns[advancedDataGridViewProducts.ColumnCount - 1].HeaderCell as EDGV.EDGVColumnHeaderCell;
             headCell.FilterEnabled = false;
-            
+
             showRowCount();
             doResize();
         }
@@ -128,6 +132,12 @@ namespace РасчетКУ
         private void doResize()
         {
             panel2.Height = buttonAddSelected.Location.Y - panel1.Height;
+        }
+
+        // Обновление данных формы при переходе
+        private void SelectProductForm_Activated(object sender, EventArgs e)
+        {
+            ShowProducts();
         }
     }
 }

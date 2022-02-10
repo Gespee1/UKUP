@@ -737,10 +737,10 @@ namespace РасчетКУ
             SqlCon.Close();
         }
 
-
+        // Обновление формы при переходе
         private void KUGraphForm_Activated(object sender, EventArgs e)
         {
-            //MessageBox.Show("sfawfawfawf");
+            ShowGraph();
         }
 
        

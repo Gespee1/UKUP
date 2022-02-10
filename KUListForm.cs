@@ -115,8 +115,14 @@ namespace РасчетКУ
             advancedDataGridViewKUList.DataSource = dt;
             advancedDataGridViewKUList.Columns["Код поставщика"].Visible = false;
         }
-          
-             
+
+        // Обновление списка КУ при переходе на форму     
+        private void KUListForm_Activated(object sender, EventArgs e)
+        {
+            showKUList();
+        }
+
+
         //
         // МЕНЮ
         //
@@ -187,6 +193,7 @@ namespace РасчетКУ
 
             labelMain.Location = new System.Drawing.Point(Convert.ToInt32((panel4.Width - labelMain.Width) / 2), labelMain.Location.Y) ;
         }
-                
+
+        
     }
 }

@@ -83,8 +83,8 @@ namespace РасчетКУ
             this.advancedDataGridViewProducts.TabIndex = 5;
             this.advancedDataGridViewProducts.TabStop = false;
             this.advancedDataGridViewProducts.TimeFilter = false;
-            this.advancedDataGridViewProducts.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
             this.advancedDataGridViewProducts.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
+            this.advancedDataGridViewProducts.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
             // 
             // buttonCancel
             // 
@@ -145,6 +145,7 @@ namespace РасчетКУ
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Форма выбора товара";
+            this.Activated += new System.EventHandler(this.SelectProductForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectForm_FormClosing);
             this.Load += new System.EventHandler(this.SelectForm_Load);
             this.Resize += new System.EventHandler(this.SelectProductForm_Resize);

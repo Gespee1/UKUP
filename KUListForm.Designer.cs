@@ -199,8 +199,8 @@ namespace РасчетКУ
             this.advancedDataGridViewKUList.TabIndex = 12;
             this.advancedDataGridViewKUList.TabStop = false;
             this.advancedDataGridViewKUList.TimeFilter = false;
-            this.advancedDataGridViewKUList.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
             this.advancedDataGridViewKUList.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
+            this.advancedDataGridViewKUList.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
             this.advancedDataGridViewKUList.DoubleClick += new System.EventHandler(this.advancedDataGridView1_DoubleClick);
             // 
             // panel1
@@ -250,6 +250,7 @@ namespace РасчетКУ
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Список КУ";
+            this.Activated += new System.EventHandler(this.KUListForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.KUListForm_FormClosing);
             this.Load += new System.EventHandler(this.KUListForm_Load);
             this.Resize += new System.EventHandler(this.KUListForm_Resize);

@@ -34,20 +34,20 @@ namespace РасчетКУ
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelMain = new System.Windows.Forms.Label();
-            this.advancedDataGridView = new EDGV.ExtendedDataGridView();
             this.buttonVendors = new System.Windows.Forms.Button();
             this.service_button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.advancedDataGridView = new EDGV.ExtendedDataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonCustomers = new System.Windows.Forms.Button();
+            this.buttonInvoices = new System.Windows.Forms.Button();
             this.labelRows = new System.Windows.Forms.Label();
             this.buttonAllProducts = new System.Windows.Forms.Button();
             this.buttonEntities = new System.Windows.Forms.Button();
             this.buttonClassifier = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,30 +95,6 @@ namespace РасчетКУ
             this.labelMain.TabIndex = 11;
             this.labelMain.Text = "Справочники";
             // 
-            // advancedDataGridView
-            // 
-            this.advancedDataGridView.AllowUserToAddRows = false;
-            this.advancedDataGridView.AllowUserToDeleteRows = false;
-            this.advancedDataGridView.AllowUserToResizeRows = false;
-            this.advancedDataGridView.AutoGenerateContextFilters = true;
-            this.advancedDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.advancedDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.advancedDataGridView.DateWithTime = false;
-            this.advancedDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advancedDataGridView.Location = new System.Drawing.Point(12, 0);
-            this.advancedDataGridView.MultiSelect = false;
-            this.advancedDataGridView.Name = "advancedDataGridView";
-            this.advancedDataGridView.ReadOnly = true;
-            this.advancedDataGridView.RowHeadersVisible = false;
-            this.advancedDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.advancedDataGridView.Size = new System.Drawing.Size(895, 296);
-            this.advancedDataGridView.TabIndex = 13;
-            this.advancedDataGridView.TabStop = false;
-            this.advancedDataGridView.Tag = "";
-            this.advancedDataGridView.TimeFilter = false;
-            this.advancedDataGridView.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
-            this.advancedDataGridView.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
-            // 
             // buttonVendors
             // 
             this.buttonVendors.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -152,10 +128,34 @@ namespace РасчетКУ
             this.panel2.Size = new System.Drawing.Size(919, 308);
             this.panel2.TabIndex = 21;
             // 
+            // advancedDataGridView
+            // 
+            this.advancedDataGridView.AllowUserToAddRows = false;
+            this.advancedDataGridView.AllowUserToDeleteRows = false;
+            this.advancedDataGridView.AllowUserToResizeRows = false;
+            this.advancedDataGridView.AutoGenerateContextFilters = true;
+            this.advancedDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.advancedDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.advancedDataGridView.DateWithTime = false;
+            this.advancedDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advancedDataGridView.Location = new System.Drawing.Point(12, 0);
+            this.advancedDataGridView.MultiSelect = false;
+            this.advancedDataGridView.Name = "advancedDataGridView";
+            this.advancedDataGridView.ReadOnly = true;
+            this.advancedDataGridView.RowHeadersVisible = false;
+            this.advancedDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.advancedDataGridView.Size = new System.Drawing.Size(895, 296);
+            this.advancedDataGridView.TabIndex = 13;
+            this.advancedDataGridView.TabStop = false;
+            this.advancedDataGridView.Tag = "";
+            this.advancedDataGridView.TimeFilter = false;
+            this.advancedDataGridView.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
+            this.advancedDataGridView.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
+            // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.buttonCustomers);
+            this.panel1.Controls.Add(this.buttonInvoices);
             this.panel1.Controls.Add(this.labelRows);
             this.panel1.Controls.Add(this.buttonAllProducts);
             this.panel1.Controls.Add(this.buttonEntities);
@@ -169,6 +169,28 @@ namespace РасчетКУ
             this.panel1.Padding = new System.Windows.Forms.Padding(12, 12, 12, 5);
             this.panel1.Size = new System.Drawing.Size(919, 107);
             this.panel1.TabIndex = 22;
+            // 
+            // buttonCustomers
+            // 
+            this.buttonCustomers.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCustomers.Location = new System.Drawing.Point(131, 72);
+            this.buttonCustomers.Name = "buttonCustomers";
+            this.buttonCustomers.Size = new System.Drawing.Size(109, 27);
+            this.buttonCustomers.TabIndex = 26;
+            this.buttonCustomers.Text = "Клиенты";
+            this.buttonCustomers.UseVisualStyleBackColor = true;
+            this.buttonCustomers.Click += new System.EventHandler(this.buttonCustomers_Click);
+            // 
+            // buttonInvoices
+            // 
+            this.buttonInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonInvoices.Location = new System.Drawing.Point(603, 72);
+            this.buttonInvoices.Name = "buttonInvoices";
+            this.buttonInvoices.Size = new System.Drawing.Size(109, 27);
+            this.buttonInvoices.TabIndex = 25;
+            this.buttonInvoices.Text = "Накладные";
+            this.buttonInvoices.UseVisualStyleBackColor = true;
+            this.buttonInvoices.Click += new System.EventHandler(this.buttonInvoices_Click);
             // 
             // labelRows
             // 
@@ -214,26 +236,6 @@ namespace РасчетКУ
             this.buttonClassifier.UseVisualStyleBackColor = true;
             this.buttonClassifier.Click += new System.EventHandler(this.buttonClassifier_Click);
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(603, 72);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 27);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Накладные";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(131, 72);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(109, 27);
-            this.button2.TabIndex = 26;
-            this.button2.Text = "Клиенты";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // ListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,8 +256,8 @@ namespace РасчетКУ
             this.Resize += new System.EventHandler(this.ListForm_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -278,8 +280,8 @@ namespace РасчетКУ
         private System.Windows.Forms.Button buttonEntities;
         private System.Windows.Forms.Button buttonAllProducts;
         private System.Windows.Forms.Label labelRows;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCustomers;
+        private System.Windows.Forms.Button buttonInvoices;
     }
 }
 

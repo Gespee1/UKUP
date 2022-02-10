@@ -98,6 +98,45 @@ namespace РасчетКУ
             labelRows.Visible = true;
             labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
         }
+
+        //ВЫвод списка клиентов
+        private void buttonCustomers_Click(object sender, EventArgs e)
+        {
+            Size = new System.Drawing.Size(1000, 490);
+            panel2.Visible = true;
+
+            SqlCommand command = new SqlCommand("SELECT Id As 'Код клиента', Customer_foreign_id As 'Внешний код клиента', Name As 'Имя клиента', Director_name As 'Имя директора', Urastic_name As 'Юр. имя'," +
+                " Urastic_address As 'Юр. адрес', [INN\\KPP] As 'ИНН\\КПП', Bank_name As 'Название банка', Account As 'Счет', Corr_account As 'Корр. счет', Bank_bik As 'БИК банка', Dir_party As 'Дир.' FROM Customers",
+                _sqlConnection);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapt = new SqlDataAdapter();
+            adapt.SelectCommand = command;
+
+            adapt.Fill(dt);
+            advancedDataGridView.DataSource = dt;
+            labelRows.Visible = true;
+            labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
+        }
+
+        //Вывод списка накладных
+        private void buttonInvoices_Click(object sender, EventArgs e)
+        {
+            Size = new System.Drawing.Size(1000, 490);
+            panel2.Visible = true;
+
+            SqlCommand command = new SqlCommand("SELECT Invoice_id As 'Код накладной', Vendor_id As 'Код поставщика', Invoice_name As 'Название накладной', Invoice_number As 'Номер накладной', Date As 'Дата'," +
+                " Purch_number  As 'Номер закупки', Purch_date As 'Дата закупки', Doc_type As 'Тип документа', Invoice_status As 'Статус', Ofactured As 'Офактурена', Base As 'Налог', Exclude_return As 'Возврат', " +
+                "KU_type As 'Тип КУ', Pay_type As 'Оплата' FROM Invoices", _sqlConnection);
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapt = new SqlDataAdapter();
+            adapt.SelectCommand = command;
+
+            adapt.Fill(dt);
+            advancedDataGridView.DataSource = dt;
+            labelRows.Visible = true;
+            labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
+        }
+
         // Вывод списка оказываемых услуг
         private void service_button_Click(object sender, EventArgs e)
         {

@@ -9,6 +9,7 @@ namespace РасчетКУ
     public partial class ListForm : Form
     {
         private SqlConnection _sqlConnection;
+        private bool invoice = false; //Выведены накладные
         public ListForm()
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace РасчетКУ
             Size = MinimumSize;
             panel2.Visible = false;
             doResize();
+            bool invoice = false; //Выведены накладные
         }
         
         
@@ -30,6 +32,7 @@ namespace РасчетКУ
         // Вывод списка поставщиков
         private void vend_button_Click(object sender, EventArgs e)
         {
+            invoice = false;
             Size = new System.Drawing.Size(1230, 700);
             panel2.Visible = true;
 
@@ -48,6 +51,7 @@ namespace РасчетКУ
         // Вывод классификатора
         private void buttonClassifier_Click(object sender, EventArgs e)
         {
+            invoice = false;
             Size = new System.Drawing.Size(1230, 700);
             panel2.Visible = true;
 
@@ -65,6 +69,7 @@ namespace РасчетКУ
         // Вывод юр. лиц
         private void buttonEntities_Click(object sender, EventArgs e)
         {
+            invoice = false;
             Size = new System.Drawing.Size(1000, 490);
             panel2.Visible = true;
 
@@ -83,6 +88,7 @@ namespace РасчетКУ
         // Вывод списка продуктов
         private void buttonAllProducts_Click(object sender, EventArgs e)
         {
+            invoice = false;
             Size = new System.Drawing.Size(600, 610);
             panel2.Visible = true;
 
@@ -102,6 +108,7 @@ namespace РасчетКУ
         //ВЫвод списка клиентов
         private void buttonCustomers_Click(object sender, EventArgs e)
         {
+            invoice = false;
             Size = new System.Drawing.Size(1000, 490);
             panel2.Visible = true;
 
@@ -121,6 +128,7 @@ namespace РасчетКУ
         //Вывод списка накладных
         private void buttonInvoices_Click(object sender, EventArgs e)
         {
+            invoice = true;
             Size = new System.Drawing.Size(1000, 490);
             panel2.Visible = true;
 
@@ -135,6 +143,20 @@ namespace РасчетКУ
             advancedDataGridView.DataSource = dt;
             labelRows.Visible = true;
             labelRows.Text = $"Кол-во выведенных строк: {dt.Rows.Count}";
+        }
+
+        //Открытие товаров накладной при двойном нажатии
+        private void advancedDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if ((e.RowIndex < 0) || (invoice == false))  // DoubleClick по заголовку или на гриде без накладных
+                return;
+
+            string Invoice_id = Convert.ToString(advancedDataGridView.Rows[advancedDataGridView.CurrentRow.Index].Cells["Номер накладной"].Value);
+
+
+            Form FormInvoiceProducts = new InvoiceProducts(Invoice_id);
+            FormInvoiceProducts.Show();
+
         }
 
         // Вывод списка оказываемых услуг

@@ -107,6 +107,12 @@
     </Compile>
     <Compile Include="Extends\EDGV\TripleTreeNode.cs" />
     <Compile Include="Extends\EDGV\TripleTreeNodeType.cs" />
+    <Compile Include="InvoiceProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InvoiceProducts.Designer.cs">
+      <DependentUpon>InvoiceProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,6 +175,9 @@
     <EmbeddedResource Include="Extends\EDGV.Properties.Resources.resources" />
     <EmbeddedResource Include="Extends\EDGV.SearchToolBar.resources" />
     <EmbeddedResource Include="Extends\EDGV.SetFilterForm.resources" />
+    <EmbeddedResource Include="InvoiceProducts.resx">
+      <DependentUpon>InvoiceProducts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectCategoryForm.resx">
       <DependentUpon>SelectCategoryForm.cs</DependentUpon>
     </EmbeddedResource>

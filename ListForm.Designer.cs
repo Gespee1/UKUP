@@ -58,7 +58,7 @@ namespace РасчетКУ
             this.открытьToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(919, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(934, 29);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -110,7 +110,7 @@ namespace РасчетКУ
             // 
             this.service_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.service_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.service_button.Location = new System.Drawing.Point(733, 72);
+            this.service_button.Location = new System.Drawing.Point(748, 72);
             this.service_button.Name = "service_button";
             this.service_button.Size = new System.Drawing.Size(171, 27);
             this.service_button.TabIndex = 5;
@@ -122,10 +122,10 @@ namespace РасчетКУ
             // 
             this.panel2.Controls.Add(this.advancedDataGridView);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 201);
+            this.panel2.Location = new System.Drawing.Point(0, 253);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(12, 0, 12, 12);
-            this.panel2.Size = new System.Drawing.Size(919, 308);
+            this.panel2.Size = new System.Drawing.Size(934, 308);
             this.panel2.TabIndex = 21;
             // 
             // advancedDataGridView
@@ -144,13 +144,14 @@ namespace РасчетКУ
             this.advancedDataGridView.ReadOnly = true;
             this.advancedDataGridView.RowHeadersVisible = false;
             this.advancedDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.advancedDataGridView.Size = new System.Drawing.Size(895, 296);
+            this.advancedDataGridView.Size = new System.Drawing.Size(910, 296);
             this.advancedDataGridView.TabIndex = 13;
             this.advancedDataGridView.TabStop = false;
             this.advancedDataGridView.Tag = "";
             this.advancedDataGridView.TimeFilter = false;
             this.advancedDataGridView.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
             this.advancedDataGridView.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
+            this.advancedDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.advancedDataGridView_CellMouseDoubleClick);
             // 
             // panel1
             // 
@@ -167,7 +168,7 @@ namespace РасчетКУ
             this.panel1.Location = new System.Drawing.Point(0, 29);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(12, 12, 12, 5);
-            this.panel1.Size = new System.Drawing.Size(919, 107);
+            this.panel1.Size = new System.Drawing.Size(934, 107);
             this.panel1.TabIndex = 22;
             // 
             // buttonCustomers
@@ -241,12 +242,12 @@ namespace РасчетКУ
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(919, 509);
+            this.ClientSize = new System.Drawing.Size(934, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(690, 300);
+            this.MinimumSize = new System.Drawing.Size(950, 600);
             this.Name = "ListForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

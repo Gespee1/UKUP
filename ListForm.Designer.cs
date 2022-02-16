@@ -37,7 +37,6 @@ namespace РасчетКУ
             this.buttonVendors = new System.Windows.Forms.Button();
             this.service_button = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.advancedDataGridView = new EDGV.ExtendedDataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonCustomers = new System.Windows.Forms.Button();
             this.buttonInvoices = new System.Windows.Forms.Button();
@@ -45,10 +44,11 @@ namespace РасчетКУ
             this.buttonAllProducts = new System.Windows.Forms.Button();
             this.buttonEntities = new System.Windows.Forms.Button();
             this.buttonClassifier = new System.Windows.Forms.Button();
+            this.advancedDataGridView = new EDGV.ExtendedDataGridView();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -122,36 +122,11 @@ namespace РасчетКУ
             // 
             this.panel2.Controls.Add(this.advancedDataGridView);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 253);
+            this.panel2.Location = new System.Drawing.Point(0, 243);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(12, 0, 12, 12);
             this.panel2.Size = new System.Drawing.Size(934, 308);
             this.panel2.TabIndex = 21;
-            // 
-            // advancedDataGridView
-            // 
-            this.advancedDataGridView.AllowUserToAddRows = false;
-            this.advancedDataGridView.AllowUserToDeleteRows = false;
-            this.advancedDataGridView.AllowUserToResizeRows = false;
-            this.advancedDataGridView.AutoGenerateContextFilters = true;
-            this.advancedDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.advancedDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.advancedDataGridView.DateWithTime = false;
-            this.advancedDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.advancedDataGridView.Location = new System.Drawing.Point(12, 0);
-            this.advancedDataGridView.MultiSelect = false;
-            this.advancedDataGridView.Name = "advancedDataGridView";
-            this.advancedDataGridView.ReadOnly = true;
-            this.advancedDataGridView.RowHeadersVisible = false;
-            this.advancedDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.advancedDataGridView.Size = new System.Drawing.Size(910, 296);
-            this.advancedDataGridView.TabIndex = 13;
-            this.advancedDataGridView.TabStop = false;
-            this.advancedDataGridView.Tag = "";
-            this.advancedDataGridView.TimeFilter = false;
-            this.advancedDataGridView.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
-            this.advancedDataGridView.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
-            this.advancedDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.advancedDataGridView_CellMouseDoubleClick);
             // 
             // panel1
             // 
@@ -237,17 +212,42 @@ namespace РасчетКУ
             this.buttonClassifier.UseVisualStyleBackColor = true;
             this.buttonClassifier.Click += new System.EventHandler(this.buttonClassifier_Click);
             // 
+            // advancedDataGridView
+            // 
+            this.advancedDataGridView.AllowUserToAddRows = false;
+            this.advancedDataGridView.AllowUserToDeleteRows = false;
+            this.advancedDataGridView.AllowUserToResizeRows = false;
+            this.advancedDataGridView.AutoGenerateContextFilters = true;
+            this.advancedDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.advancedDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.advancedDataGridView.DateWithTime = false;
+            this.advancedDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advancedDataGridView.Location = new System.Drawing.Point(12, 0);
+            this.advancedDataGridView.MultiSelect = false;
+            this.advancedDataGridView.Name = "advancedDataGridView";
+            this.advancedDataGridView.ReadOnly = true;
+            this.advancedDataGridView.RowHeadersVisible = false;
+            this.advancedDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.advancedDataGridView.Size = new System.Drawing.Size(910, 296);
+            this.advancedDataGridView.TabIndex = 13;
+            this.advancedDataGridView.TabStop = false;
+            this.advancedDataGridView.Tag = "";
+            this.advancedDataGridView.TimeFilter = false;
+            this.advancedDataGridView.FilterStringChanged += new System.EventHandler(this.advancedDataGridView1_FilterStringChanged);
+            this.advancedDataGridView.SortStringChanged += new System.EventHandler(this.advancedDataGridView1_SortStringChanged);
+            this.advancedDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.advancedDataGridView_CellMouseDoubleClick);
+            // 
             // ListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(934, 561);
+            this.ClientSize = new System.Drawing.Size(934, 551);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(950, 600);
+            this.MinimumSize = new System.Drawing.Size(950, 200);
             this.Name = "ListForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -258,9 +258,9 @@ namespace РасчетКУ
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

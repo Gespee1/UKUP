@@ -129,7 +129,7 @@ namespace РасчетКУ
         private void buttonInvoices_Click(object sender, EventArgs e)
         {
             invoice = true;
-            Size = new System.Drawing.Size(1000, 490);
+            Size = new System.Drawing.Size(1250, 700);
             panel2.Visible = true;
 
             SqlCommand command = new SqlCommand("SELECT Invoice_id As 'Код накладной', Vendor_id As 'Код поставщика', Invoice_name As 'Название накладной', Invoice_number As 'Номер накладной', Date As 'Дата'," +

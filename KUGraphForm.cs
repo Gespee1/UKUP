@@ -82,16 +82,7 @@ namespace РасчетКУ
             }
         }
 
-        // Кнопка согласовать (статус)
-        private void button3_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < dataGridViewKUGraph.SelectedRows.Count; ++i)
-            {
-                SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Согласовано' WHERE Graph_id = {dataGridViewKUGraph.SelectedRows[i].Cells["Graph_Id"].Value}", SqlCon);
-                comm.ExecuteNonQuery();
-            }
-            ShowGraph();
-        }
+     
 
         // Расчет БОНУСА выделенных строк
         private void button1_Click(object sender, EventArgs e)
@@ -122,6 +113,17 @@ namespace РасчетКУ
                 MessageBox.Show("Расчет ретро-бонуса уже запущен, ожидайте.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        // Кнопка согласовать (статус)
+        private void button3_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridViewKUGraph.SelectedRows.Count; ++i)
+            {
+                SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Согласовано' WHERE Graph_id = {dataGridViewKUGraph.SelectedRows[i].Cells["Graph_Id"].Value}", SqlCon);
+                comm.ExecuteNonQuery();
+            }
+            ShowGraph();
+        }
+
         // Изменение минимальной даты окончания, в зависимости от выбранной даты начала
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
@@ -134,29 +136,9 @@ namespace РасчетКУ
             dateTimePickerTo.Format = DateTimePickerFormat.Long;
         }
 
-        
-        //Открытие формы списка КУ с помощью кнопки на верхней панели
-        private void списокКУToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form FormKUList = new KUListForm();
-
-            FormKUList.Show();
-
-        }
-
-        //Открытие формы списка поставщиков с помощью кнопки на верхней панели
-        private void поставщикиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form FormVendorsList = new ListForm();
-
-            FormVendorsList.Show();
-        }
-        // Открытие формы настроек
-        private void сдвигДатыРасчётаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form settings = new SettingsForm();
-            settings.ShowDialog();
-        }
+        //
+        //ОТЧЁТЫ И ВЕРХНЯЯ ПАНЕЛЬ
+        //
 
         //Отчёт ворд
         private void WordToolStripMenuItem_Click(object sender, EventArgs e)
@@ -228,6 +210,7 @@ namespace РасчетКУ
             }
         }
 
+       
         //Общий метод вызова отчёта word
         private void WordDoc(string docname, string newdocpath)
         {
@@ -495,6 +478,30 @@ namespace РасчетКУ
             }
         }
 
+        //Открытие формы списка КУ с помощью кнопки на верхней панели
+        private void списокКУToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form FormKUList = new KUListForm();
+
+            FormKUList.Show();
+
+        }
+
+        //Открытие формы списка поставщиков с помощью кнопки на верхней панели
+        private void поставщикиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form FormVendorsList = new ListForm();
+
+            FormVendorsList.Show();
+        }
+        // Открытие формы настроек
+        private void сдвигДатыРасчётаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form settings = new SettingsForm();
+            settings.ShowDialog();
+        }
+
+        
 
         // Асинхронный расчет бонуса
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -521,6 +528,7 @@ namespace РасчетКУ
             dgvSelectedRows = null;
             ShowGraph();
         }
+
         // Метод расчета бонуса выделенных строк
         private void bonusCalc()
         {
@@ -703,7 +711,7 @@ namespace РасчетКУ
         }
 
 
-        // Открытие формы редактирования КУ
+        // Открытие формы редактирования КУ по дабл-клику
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex < 0) // DoubleClick по заголовку

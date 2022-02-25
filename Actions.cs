@@ -82,6 +82,7 @@ namespace РасчетКУ
             }
             if(!reader.IsClosed)
                 reader.Close();
+
             // Запрос на выборку конкретного КУ
             DataTable KU_table = new DataTable(), graph_table = new DataTable();
             command = new SqlCommand($"SELECT KU_id, Vendor_id, Period, Date_from, Date_to, [Percent] FROM KU WHERE KU_id = {KU_id} AND Status = 'Утверждено'", _sqlConnection);

@@ -13,17 +13,13 @@ namespace РасчетКУ
 
         public MainForm()
         {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru-RU");
             InitializeComponent();
         }
 
         // Загрузка формы
         private void MainForm_Load(object sender, EventArgs e)
         {
-            /*if (!backgroundWorker1.IsBusy)
-                backgroundWorker1.RunWorkerAsync();*/
-            Console.WriteLine($"{Environment.MachineName} {Environment.UserName}");
+            //Console.WriteLine($"{Environment.MachineName} {Environment.UserName}");
         }
 
         // Открытие формы со списком коммерческих условий

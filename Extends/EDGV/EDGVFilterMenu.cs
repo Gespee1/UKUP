@@ -967,8 +967,8 @@ namespace EDGV
             this.cancelButton.Location = new Point((W - 0x23) - 0x4f, 0);
             this.ResizeBoxControlHost.Margin = new Padding(W - 0x2e, 0, 0, 0);
             base.Size = new Size(W, H);
-            Console.WriteLine($"Base size: {W}/{H}");
-            Console.WriteLine($"Button panel: {CheckFilterListButtonsPanel.Width}/{CheckFilterListButtonsPanel.Height}");
+            //Console.WriteLine($"Base size: {W}/{H}");
+            //Console.WriteLine($"Button panel: {CheckFilterListButtonsPanel.Width}/{CheckFilterListButtonsPanel.Height}");
         }
 
         private void ResizePictureBox_MouseDown(object sender, MouseEventArgs e)

@@ -27,7 +27,13 @@ namespace РасчетКУ
             //panel2.Visible = false;
             //doResize();
 
-            SqlCommand command = new SqlCommand($" SELECT Inv_prod_id As 'Код товара в накладной', Qty As 'Количество товара', Amount As 'Сумма', AmountVAT As 'Сумма НДС', VAT As 'НДС, %'" +
+            SqlCommand command = new SqlCommand($"SELECT Invoice_name, Date FROM Invoices WHERE Invoice_number = '{InvoiceId}'", _sqlConnection);
+            SqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            Text = $"Товары накладной {reader[0]} от {Convert.ToDateTime(reader[1]).ToShortDateString()}";
+            reader.Close();
+
+            command = new SqlCommand($" SELECT Inv_prod_id As 'Код товара в накладной', Qty As 'Количество товара', Amount As 'Сумма', AmountVAT As 'Сумма НДС', VAT As 'НДС, %'" +
                 $" FROM Invoices_products WHERE Invoice_number = '{InvoiceId}'", _sqlConnection);
             DataTable dt = new DataTable();
             SqlDataAdapter adapt = new SqlDataAdapter();

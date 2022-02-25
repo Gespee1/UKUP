@@ -155,8 +155,7 @@ namespace РасчетКУ
 
 
             Form FormInvoiceProducts = new InvoiceProducts(Invoice_id);
-            FormInvoiceProducts.Show();
-
+            FormInvoiceProducts.ShowDialog();
         }
 
         // Вывод списка оказываемых услуг

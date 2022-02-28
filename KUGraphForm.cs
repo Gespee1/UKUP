@@ -748,7 +748,7 @@ namespace РасчетКУ
         // Обновление формы при переходе
         private void KUGraphForm_Activated(object sender, EventArgs e)
         {
-            ShowGraph();
+            //ShowGraph();
         }
 
        

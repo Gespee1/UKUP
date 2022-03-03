@@ -230,7 +230,7 @@ namespace РасчетКУ
             adapt1.Fill(tb1);
 
             DataTable tb2 = new DataTable();
-            SqlCommand command2 = new SqlCommand($"SELECT Name, [INN\\KPP], Urastic_address, Account, Bank_name, Bank_bik, Corr_account  FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
+            SqlCommand command2 = new SqlCommand($"SELECT Name, [INN\\KPP], Urastic_address, Account, Bank_name, Bank_bik, Corr_account  FROM Entities WHERE Foreign_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
                 $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
             SqlDataAdapter adapt2 = new SqlDataAdapter(command2);
             adapt2.Fill(tb2);
@@ -294,7 +294,7 @@ namespace РасчетКУ
                 $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocDate = Convert.ToString(cm2.ExecuteScalar());
 
-            SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Entity_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
+            SqlCommand cm3 = new SqlCommand($"SELECT Name FROM Entities WHERE Foreign_id = (SELECT Entity_id FROM Vendors WHERE Vendor_id = " +
                 $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Vendor_id"].Value}) ", SqlCon);
             EntitiesName = (string)cm3.ExecuteScalar();
 
@@ -348,7 +348,7 @@ namespace РасчетКУ
                 for (int i = 0; i < tb.Rows.Count; i++)
                 {
 
-                    SqlCommand command = new SqlCommand($"SELECT L2_name, L3_name, L4_name, Included_products_list.Product_id, Name, Producer, Quantity, Summ " +
+                    SqlCommand command = new SqlCommand($"SELECT L2_name, L3_name, L4_name, Included_products_list.Product_id, Name, Producer, Qty, Amount " +
                         $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Product_id = {tb.Rows[i]["Product_id"]})" +
                         $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Product_id = " +
                         $"{tb.Rows[i]["Product_id"]} )" +
@@ -378,7 +378,7 @@ namespace РасчетКУ
                 for (int i = 0; i < tb.Rows.Count; i++)
                 {
 
-                    SqlCommand command = new SqlCommand($"SELECT DISTINCT Included_products_list.Invoice_id, Date, Quantity, Summ " +
+                    SqlCommand command = new SqlCommand($"SELECT DISTINCT Included_products_list.Invoice_id, Date, Qty, Amount " +
                         $"FROM Included_products_list, Invoices, Invoices_products  WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value}" +
                         $" AND Included_products_list.Invoice_id = Invoices_products.Invoice_id AND Invoices.Invoice_id = Included_products_list.Invoice_id AND Included_products_list.Product_id = Invoices_products.Product_id", SqlCon);
                     SqlDataReader reader = command.ExecuteReader();

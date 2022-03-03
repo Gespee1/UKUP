@@ -158,7 +158,7 @@ namespace РасчетКУ
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
             this.ClientSize = new System.Drawing.Size(550, 186);
             this.Controls.Add(this.panel1);
-            this.MinimumSize = new System.Drawing.Size(345, 225);
+            this.MinimumSize = new System.Drawing.Size(515, 225);
             this.Name = "SettingsForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

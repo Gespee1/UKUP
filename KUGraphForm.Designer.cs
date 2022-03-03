@@ -434,7 +434,7 @@
             // 
             // buttonCancelCalc
             // 
-            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonCancelCalc.Location = new System.Drawing.Point(562, 545);
             this.buttonCancelCalc.Name = "buttonCancelCalc";
@@ -463,7 +463,7 @@
             this.Controls.Add(this.buttonApprove);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(884, 510);
+            this.MinimumSize = new System.Drawing.Size(1084, 510);
             this.Name = "KUGraphForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

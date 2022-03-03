@@ -120,7 +120,9 @@ namespace РасчетКУ
                     switch (KU_table.Rows[i]["Period"].ToString())
                     {
                         case "Год":
-                            dateTo = dateFrom.AddYears(1).AddDays(-dateFrom.DayOfYear + 1);
+                            
+                            dateTo = DateTime.IsLeapYear(dateFrom.Year) ? dateFrom.AddYears(1).AddDays(-dateFrom.DayOfYear + 2) : 
+                                dateFrom.AddYears(1).AddDays(-dateFrom.DayOfYear + 1);
                             break;
                         case "Квартал":
                             dateTo = nextQuater(dateFrom);

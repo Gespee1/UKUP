@@ -352,10 +352,9 @@ namespace РасчетКУ
                         $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Foreign_id = {tb.Rows[i]["Product_id"]})" +
                         $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Foreign_id = " +
                         $"{tb.Rows[i]["Product_id"]} )" +
-                        $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Included_products_list.Product_id = Products.Foreign_id" +
-                        $" AND Included_products_list.Product_id = (Select Foreign_id from Products Where Invoices_products.Foreign_product_id = Products.Foreign_id)  " +
+                        $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} And Invoices_products.Foreign_product_id = {tb.Rows[i]["Product_id"]} " +
                         $"AND Included_products_list.Invoice_id = (Select Invoice_id from Invoices Where Invoices_products.Invoice_number = Invoices.Invoice_number)" +
-                        $" AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} ", SqlCon);
+                        $" And Products.Foreign_id = {tb.Rows[i]["Product_id"]} ", SqlCon);
                     SqlDataReader reader = command.ExecuteReader();
 
                     reader.Read();
@@ -381,8 +380,10 @@ namespace РасчетКУ
                 {
 
                     SqlCommand command = new SqlCommand($"SELECT DISTINCT Included_products_list.Invoice_id, Date, Qty, Amount " +
-                        $"FROM Included_products_list, Invoices, Invoices_products  WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} AND Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value}" +
-                        $" AND Invoices.Invoice_id = Included_products_list.Invoice_id AND Included_products_list.Product_id = (Select Foreign_id from Products Where Invoices_products.Foreign_product_id = Products.Foreign_id)", SqlCon);
+                        $"FROM Included_products_list, Invoices, Invoices_products  WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} " +
+                        $"AND Invoices_products.Foreign_product_id  =  {tb.Rows[i]["Product_id"]} " +
+                        $"AND Included_products_list.Invoice_id = (Select Invoice_id from Invoices Where Invoices_products.Invoice_number = Invoices.Invoice_number) " +
+                        $"AND Invoices.Invoice_id = Included_products_list.Invoice_id AND Included_products_list.Product_id = {tb.Rows[i]["Product_id"]}", SqlCon);
                     SqlDataReader reader = command.ExecuteReader();
 
                     reader.Read();

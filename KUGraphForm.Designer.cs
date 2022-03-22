@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewKUGraph = new System.Windows.Forms.DataGridView();
+            this.dataGridViewKUGraph = new EDGV.ExtendedDataGridView();
             this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,6 +78,7 @@
             this.dataGridViewKUGraph.AllowUserToAddRows = false;
             this.dataGridViewKUGraph.AllowUserToDeleteRows = false;
             this.dataGridViewKUGraph.AllowUserToResizeRows = false;
+            this.dataGridViewKUGraph.AutoGenerateContextFilters = true;
             this.dataGridViewKUGraph.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewKUGraph.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewKUGraph.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -97,6 +98,7 @@
             this.GraphSumN,
             this.Turnover,
             this.Graph_Id});
+            this.dataGridViewKUGraph.DateWithTime = false;
             this.dataGridViewKUGraph.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewKUGraph.Location = new System.Drawing.Point(12, 12);
             this.dataGridViewKUGraph.Name = "dataGridViewKUGraph";
@@ -106,121 +108,139 @@
             this.dataGridViewKUGraph.Size = new System.Drawing.Size(1108, 476);
             this.dataGridViewKUGraph.TabIndex = 0;
             this.dataGridViewKUGraph.TabStop = false;
+            this.dataGridViewKUGraph.TimeFilter = false;
             this.dataGridViewKUGraph.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
             // KU_id
             // 
             this.KU_id.HeaderText = "Номер КУ";
+            this.KU_id.MinimumWidth = 22;
             this.KU_id.Name = "KU_id";
             this.KU_id.ReadOnly = true;
-            this.KU_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.KU_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Vendor_id
             // 
             this.Vendor_id.HeaderText = "Номер поставщика";
+            this.Vendor_id.MinimumWidth = 22;
             this.Vendor_id.Name = "Vendor_id";
             this.Vendor_id.ReadOnly = true;
-            this.Vendor_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Vendor_id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.Vendor_id.ToolTipText = "Процент КУ";
             this.Vendor_id.Visible = false;
             // 
             // VendorAcc
             // 
             this.VendorAcc.HeaderText = "Счет поставщика";
+            this.VendorAcc.MinimumWidth = 22;
             this.VendorAcc.Name = "VendorAcc";
             this.VendorAcc.ReadOnly = true;
-            this.VendorAcc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.VendorAcc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // VendorNam
             // 
             this.VendorNam.HeaderText = "Имя";
+            this.VendorNam.MinimumWidth = 22;
             this.VendorNam.Name = "VendorNam";
             this.VendorNam.ReadOnly = true;
-            this.VendorNam.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.VendorNam.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // ContractCode
             // 
             this.ContractCode.HeaderText = "Код договора";
+            this.ContractCode.MinimumWidth = 22;
             this.ContractCode.Name = "ContractCode";
             this.ContractCode.ReadOnly = true;
-            this.ContractCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ContractCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Percent
             // 
             this.Percent.HeaderText = "Процент";
+            this.Percent.MinimumWidth = 22;
             this.Percent.Name = "Percent";
             this.Percent.ReadOnly = true;
-            this.Percent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Percent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Period
             // 
             this.Period.HeaderText = "Период";
+            this.Period.MinimumWidth = 22;
             this.Period.Name = "Period";
             this.Period.ReadOnly = true;
-            this.Period.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Period.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Date_from
             // 
             this.Date_from.HeaderText = "Дата С";
+            this.Date_from.MinimumWidth = 22;
             this.Date_from.Name = "Date_from";
             this.Date_from.ReadOnly = true;
-            this.Date_from.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Date_from.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Date_to
             // 
             this.Date_to.HeaderText = "Дата По";
+            this.Date_to.MinimumWidth = 22;
             this.Date_to.Name = "Date_to";
             this.Date_to.ReadOnly = true;
-            this.Date_to.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Date_to.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Date_calc
             // 
             this.Date_calc.HeaderText = "Дата расчета";
+            this.Date_calc.MinimumWidth = 22;
             this.Date_calc.Name = "Date_calc";
             this.Date_calc.ReadOnly = true;
-            this.Date_calc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Date_calc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // GraphStatus
             // 
             this.GraphStatus.HeaderText = "Статус";
+            this.GraphStatus.MinimumWidth = 22;
             this.GraphStatus.Name = "GraphStatus";
             this.GraphStatus.ReadOnly = true;
             this.GraphStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GraphStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GraphStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // GraphSumP
             // 
             this.GraphSumP.HeaderText = "Сумма премии";
+            this.GraphSumP.MinimumWidth = 22;
             this.GraphSumP.Name = "GraphSumP";
             this.GraphSumP.ReadOnly = true;
-            this.GraphSumP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GraphSumP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // GraphSumS
             // 
             this.GraphSumS.HeaderText = "Фактическая сумма премии";
+            this.GraphSumS.MinimumWidth = 22;
             this.GraphSumS.Name = "GraphSumS";
             this.GraphSumS.ReadOnly = true;
-            this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // GraphSumN
             // 
             this.GraphSumN.HeaderText = "Сумма по накладным";
+            this.GraphSumN.MinimumWidth = 22;
             this.GraphSumN.Name = "GraphSumN";
             this.GraphSumN.ReadOnly = true;
-            this.GraphSumN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GraphSumN.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Turnover
             // 
             this.Turnover.HeaderText = "Товарооборот";
+            this.Turnover.MinimumWidth = 22;
             this.Turnover.Name = "Turnover";
             this.Turnover.ReadOnly = true;
-            this.Turnover.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Turnover.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Graph_Id
             // 
             this.Graph_Id.HeaderText = "Graph_Id";
+            this.Graph_Id.MinimumWidth = 22;
             this.Graph_Id.Name = "Graph_Id";
             this.Graph_Id.ReadOnly = true;
+            this.Graph_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.Graph_Id.Visible = false;
             // 
             // menuStrip1
@@ -498,7 +518,6 @@
         private System.Windows.Forms.Label labelFrom;
         private System.Windows.Forms.Label labelTo;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridView dataGridViewKUGraph;
         private System.Windows.Forms.ProgressBar progressBarForAsincBonus;
         private System.Windows.Forms.Label labelProgress;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
@@ -522,6 +541,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumN;
         private System.Windows.Forms.DataGridViewTextBoxColumn Turnover;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
+        private EDGV.ExtendedDataGridView dataGridViewKUGraph;
     }
 }
 

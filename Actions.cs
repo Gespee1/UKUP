@@ -412,12 +412,23 @@ namespace РасчетКУ
                     $"Graph_id = {Graph_id}", _sqlConnection);
                 command.ExecuteNonQuery();
                 if (fix)
-                    command = new SqlCommand($"UPDATE KU SET [Percent] = {Convert.ToInt32(percentOrFix * 1000 / summ)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                {
+                    command = new SqlCommand($"UPDATE KU  SET [Percent] = {Convert.ToInt32(percentOrFix * 1000 / summ)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                    command.ExecuteNonQuery();
+                    command = new SqlCommand($"UPDATE KU_graph SET [Percent] = {Convert.ToInt32(percentOrFix * 1000 / summ)} WHERE KU_id = {row.Cells["KU_id"].Value} AND Graph_id = {Graph_id}", _sqlConnection);
+                    command.ExecuteNonQuery();
+                }
                 else
-                    command = new SqlCommand($"UPDATE KU SET [Percent] = {Convert.ToInt32(percentOrFix * 10)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
-                command.ExecuteNonQuery();
+                {
+                    command = new SqlCommand($"UPDATE KU  SET [Percent] = {Convert.ToInt32(percentOrFix * 10)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                    command.ExecuteNonQuery();
+                    command = new SqlCommand($"UPDATE KU_graph SET [Percent] = {Convert.ToInt32(percentOrFix * 10)} WHERE KU_id = {row.Cells["KU_id"].Value} AND Graph_id = {Graph_id}", _sqlConnection);
+                    command.ExecuteNonQuery();
+                }
+
                 state = true;
             }
+
            else
             {
 

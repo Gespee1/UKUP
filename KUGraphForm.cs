@@ -143,6 +143,7 @@ namespace РасчетКУ
         //Отчёт ворд
         private void WordToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             string docname = "Docs\\АКТ-счет.docx";
 
             /* Actions actions = new Actions();
@@ -279,6 +280,7 @@ namespace РасчетКУ
         //общий метод вызова отчётов Excel
         private void ExcelDoc(string docname, string newdocpath, int ex_num)
         {
+
              File.Copy(docname, newdocpath, true);
             ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
 

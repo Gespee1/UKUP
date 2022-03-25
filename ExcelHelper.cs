@@ -65,7 +65,7 @@ namespace РасчетКУ
                 {
 
                     _excel.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
-                    _excel.Visible = true;                
+                                   
 
                 }
                 
@@ -90,7 +90,7 @@ namespace РасчетКУ
                 }
 
 
-
+                
                 _excel.Visible = true;
 
                 return true;
@@ -133,7 +133,7 @@ namespace РасчетКУ
                 {
 
                     _excel.Cells.Replace(item.Key, item.Value, Excel.XlLookAt.xlPart, Excel.XlSearchOrder.xlByColumns, MatchCase: false, SearchFormat: false, ReplaceFormat: false);
-                    _excel.Visible = true;
+                    
 
                 }
 

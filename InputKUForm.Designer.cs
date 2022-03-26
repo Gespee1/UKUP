@@ -39,7 +39,7 @@ namespace РасчетКУ
             this.dateTimePickerDateFrom = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerDateTo = new System.Windows.Forms.DateTimePicker();
             this.buttonCreate = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.поставщикиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,19 +115,30 @@ namespace РасчетКУ
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.tabPageBonus = new System.Windows.Forms.TabPage();
-            this.buttonDelTerm = new System.Windows.Forms.Button();
-            this.buttonAddTerm = new System.Windows.Forms.Button();
+            this.menuStripTerms = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItemAddTerm = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDelTerm = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTerms = new System.Windows.Forms.DataGridView();
             this.FixSum = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Criterion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PercentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageServices = new System.Windows.Forms.TabPage();
+            this.dataGridViewServices = new System.Windows.Forms.DataGridView();
+            this.ServiceId = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.NameService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Article = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.NameService2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Coeff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuStripServices = new System.Windows.Forms.MenuStrip();
+            this.ToolStripMenuItemAddService = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemDelService = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.buttonUnapprove = new System.Windows.Forms.Button();
-            this.menuStrip1.SuspendLayout();
+            this.menuStripMain.SuspendLayout();
             this.tabControlInEx.SuspendLayout();
             this.tabPageToInclude.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIncluded)).BeginInit();
@@ -140,7 +151,11 @@ namespace РасчетКУ
             this.tabControlMain.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.tabPageBonus.SuspendLayout();
+            this.menuStripTerms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTerms)).BeginInit();
+            this.tabPageServices.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServices)).BeginInit();
+            this.menuStripServices.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -258,16 +273,16 @@ namespace РасчетКУ
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.create_button_Click);
             // 
-            // menuStrip1
+            // menuStripMain
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStripMain.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.открытьToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1294, 29);
-            this.menuStrip1.TabIndex = 14;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStripMain.Location = new System.Drawing.Point(0, 0);
+            this.menuStripMain.Name = "menuStripMain";
+            this.menuStripMain.Size = new System.Drawing.Size(1294, 29);
+            this.menuStripMain.TabIndex = 14;
+            this.menuStripMain.Text = "menuStrip1";
             // 
             // открытьToolStripMenuItem
             // 
@@ -1048,6 +1063,7 @@ namespace РасчетКУ
             // 
             this.tabControlMain.Controls.Add(this.tabPageMain);
             this.tabControlMain.Controls.Add(this.tabPageBonus);
+            this.tabControlMain.Controls.Add(this.tabPageServices);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControlMain.Location = new System.Drawing.Point(12, 0);
@@ -1073,8 +1089,7 @@ namespace РасчетКУ
             // tabPageBonus
             // 
             this.tabPageBonus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(250)))), ((int)(((byte)(200)))));
-            this.tabPageBonus.Controls.Add(this.buttonDelTerm);
-            this.tabPageBonus.Controls.Add(this.buttonAddTerm);
+            this.tabPageBonus.Controls.Add(this.menuStripTerms);
             this.tabPageBonus.Controls.Add(this.dataGridViewTerms);
             this.tabPageBonus.Location = new System.Drawing.Point(4, 25);
             this.tabPageBonus.Name = "tabPageBonus";
@@ -1083,27 +1098,31 @@ namespace РасчетКУ
             this.tabPageBonus.TabIndex = 1;
             this.tabPageBonus.Text = "Условия бонуса";
             // 
-            // buttonDelTerm
+            // menuStripTerms
             // 
-            this.buttonDelTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDelTerm.Location = new System.Drawing.Point(572, 80);
-            this.buttonDelTerm.Name = "buttonDelTerm";
-            this.buttonDelTerm.Size = new System.Drawing.Size(98, 27);
-            this.buttonDelTerm.TabIndex = 35;
-            this.buttonDelTerm.Text = "Удалить";
-            this.buttonDelTerm.UseVisualStyleBackColor = true;
-            this.buttonDelTerm.Click += new System.EventHandler(this.button2_Click);
+            this.menuStripTerms.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.menuStripTerms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemAddTerm,
+            this.toolStripMenuItemDelTerm});
+            this.menuStripTerms.Location = new System.Drawing.Point(3, 3);
+            this.menuStripTerms.Name = "menuStripTerms";
+            this.menuStripTerms.Size = new System.Drawing.Size(1256, 28);
+            this.menuStripTerms.TabIndex = 36;
+            this.menuStripTerms.Text = "menuStrip2";
             // 
-            // buttonAddTerm
+            // toolStripMenuItemAddTerm
             // 
-            this.buttonAddTerm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonAddTerm.Location = new System.Drawing.Point(572, 47);
-            this.buttonAddTerm.Name = "buttonAddTerm";
-            this.buttonAddTerm.Size = new System.Drawing.Size(98, 27);
-            this.buttonAddTerm.TabIndex = 34;
-            this.buttonAddTerm.Text = "Добавить";
-            this.buttonAddTerm.UseVisualStyleBackColor = true;
-            this.buttonAddTerm.Click += new System.EventHandler(this.button1_Click);
+            this.toolStripMenuItemAddTerm.Name = "toolStripMenuItemAddTerm";
+            this.toolStripMenuItemAddTerm.Size = new System.Drawing.Size(88, 24);
+            this.toolStripMenuItemAddTerm.Text = "Добавить";
+            this.toolStripMenuItemAddTerm.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItemDelTerm
+            // 
+            this.toolStripMenuItemDelTerm.Name = "toolStripMenuItemDelTerm";
+            this.toolStripMenuItemDelTerm.Size = new System.Drawing.Size(77, 24);
+            this.toolStripMenuItemDelTerm.Text = "Удалить";
+            this.toolStripMenuItemDelTerm.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // dataGridViewTerms
             // 
@@ -1118,10 +1137,10 @@ namespace РасчетКУ
             this.PercentSum,
             this.Total});
             this.dataGridViewTerms.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dataGridViewTerms.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewTerms.Location = new System.Drawing.Point(6, 34);
             this.dataGridViewTerms.Name = "dataGridViewTerms";
             this.dataGridViewTerms.RowHeadersVisible = false;
-            this.dataGridViewTerms.Size = new System.Drawing.Size(544, 303);
+            this.dataGridViewTerms.Size = new System.Drawing.Size(665, 275);
             this.dataGridViewTerms.TabIndex = 0;
             this.dataGridViewTerms.TabStop = false;
             this.dataGridViewTerms.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellValueChanged);
@@ -1149,6 +1168,98 @@ namespace РасчетКУ
             // 
             this.Total.HeaderText = "Итого по премии";
             this.Total.Name = "Total";
+            // 
+            // tabPageServices
+            // 
+            this.tabPageServices.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(250)))), ((int)(((byte)(200)))));
+            this.tabPageServices.Controls.Add(this.dataGridViewServices);
+            this.tabPageServices.Controls.Add(this.menuStripServices);
+            this.tabPageServices.Location = new System.Drawing.Point(4, 25);
+            this.tabPageServices.Name = "tabPageServices";
+            this.tabPageServices.Size = new System.Drawing.Size(1262, 315);
+            this.tabPageServices.TabIndex = 2;
+            this.tabPageServices.Text = "Оказываемые услуги";
+            // 
+            // dataGridViewServices
+            // 
+            this.dataGridViewServices.AllowUserToAddRows = false;
+            this.dataGridViewServices.AllowUserToDeleteRows = false;
+            this.dataGridViewServices.AllowUserToResizeRows = false;
+            this.dataGridViewServices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewServices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewServices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ServiceId,
+            this.NameService,
+            this.Article,
+            this.NameService2,
+            this.Coeff});
+            this.dataGridViewServices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewServices.Location = new System.Drawing.Point(0, 28);
+            this.dataGridViewServices.MultiSelect = false;
+            this.dataGridViewServices.Name = "dataGridViewServices";
+            this.dataGridViewServices.RowHeadersVisible = false;
+            this.dataGridViewServices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridViewServices.Size = new System.Drawing.Size(1262, 287);
+            this.dataGridViewServices.TabIndex = 1;
+            this.dataGridViewServices.TabStop = false;
+            // 
+            // ServiceId
+            // 
+            this.ServiceId.HeaderText = "Код услуги";
+            this.ServiceId.Name = "ServiceId";
+            this.ServiceId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // NameService
+            // 
+            this.NameService.HeaderText = "Наименование услуги";
+            this.NameService.Name = "NameService";
+            this.NameService.ReadOnly = true;
+            this.NameService.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Article
+            // 
+            this.Article.HeaderText = "Код статьи";
+            this.Article.Name = "Article";
+            this.Article.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // NameService2
+            // 
+            this.NameService2.HeaderText = "Наименование услуги";
+            this.NameService2.Name = "NameService2";
+            this.NameService2.ReadOnly = true;
+            this.NameService2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Coeff
+            // 
+            this.Coeff.HeaderText = "Коэффициент";
+            this.Coeff.Name = "Coeff";
+            this.Coeff.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // menuStripServices
+            // 
+            this.menuStripServices.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.menuStripServices.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItemAddService,
+            this.ToolStripMenuItemDelService});
+            this.menuStripServices.Location = new System.Drawing.Point(0, 0);
+            this.menuStripServices.Name = "menuStripServices";
+            this.menuStripServices.Size = new System.Drawing.Size(1262, 28);
+            this.menuStripServices.TabIndex = 0;
+            this.menuStripServices.Text = "menuStrip2";
+            // 
+            // ToolStripMenuItemAddService
+            // 
+            this.ToolStripMenuItemAddService.Name = "ToolStripMenuItemAddService";
+            this.ToolStripMenuItemAddService.Size = new System.Drawing.Size(88, 24);
+            this.ToolStripMenuItemAddService.Text = "Добавить";
+            this.ToolStripMenuItemAddService.Click += new System.EventHandler(this.добавитьToolStripMenuItem_Click);
+            // 
+            // ToolStripMenuItemDelService
+            // 
+            this.ToolStripMenuItemDelService.Name = "ToolStripMenuItemDelService";
+            this.ToolStripMenuItemDelService.Size = new System.Drawing.Size(77, 24);
+            this.ToolStripMenuItemDelService.Text = "Удалить";
+            this.ToolStripMenuItemDelService.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -1222,8 +1333,9 @@ namespace РасчетКУ
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStripMain);
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStripServices;
             this.MinimumSize = new System.Drawing.Size(1310, 700);
             this.Name = "InputKUForm";
             this.ShowIcon = false;
@@ -1233,8 +1345,8 @@ namespace РасчетКУ
             this.Load += new System.EventHandler(this.InputKUForm_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InputKUForm_KeyPress);
             this.Resize += new System.EventHandler(this.InputKUForm_Resize);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStripMain.ResumeLayout(false);
+            this.menuStripMain.PerformLayout();
             this.tabControlInEx.ResumeLayout(false);
             this.tabPageToInclude.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIncluded)).EndInit();
@@ -1251,7 +1363,15 @@ namespace РасчетКУ
             this.tabControlMain.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
             this.tabPageBonus.ResumeLayout(false);
+            this.tabPageBonus.PerformLayout();
+            this.menuStripTerms.ResumeLayout(false);
+            this.menuStripTerms.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTerms)).EndInit();
+            this.tabPageServices.ResumeLayout(false);
+            this.tabPageServices.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewServices)).EndInit();
+            this.menuStripServices.ResumeLayout(false);
+            this.menuStripServices.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -1274,7 +1394,7 @@ namespace РасчетКУ
         private System.Windows.Forms.DateTimePicker dateTimePickerDateFrom;
         private System.Windows.Forms.DateTimePicker dateTimePickerDateTo;
         private System.Windows.Forms.Button buttonCreate;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem открытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокКУToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem поставщикиToolStripMenuItem;
@@ -1346,8 +1466,6 @@ namespace РасчетКУ
         private System.Windows.Forms.TabPage tabPageBonus;
         private System.Windows.Forms.RichTextBox richTextBoxDescription;
         private System.Windows.Forms.RichTextBox richTextBoxDocSubject;
-        private System.Windows.Forms.Button buttonDelTerm;
-        private System.Windows.Forms.Button buttonAddTerm;
         private System.Windows.Forms.DataGridView dataGridViewTerms;
         private System.Windows.Forms.DataGridViewCheckBoxColumn FixSum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Criterion;
@@ -1362,5 +1480,18 @@ namespace РасчетКУ
         private System.Windows.Forms.Button buttonUnapprove;
         private System.Windows.Forms.ComboBox comboBoxEntity;
         private System.Windows.Forms.ComboBox comboBoxProductType;
+        private System.Windows.Forms.TabPage tabPageServices;
+        private System.Windows.Forms.DataGridView dataGridViewServices;
+        private System.Windows.Forms.MenuStrip menuStripServices;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemAddService;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemDelService;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ServiceId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameService;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Article;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameService2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Coeff;
+        private System.Windows.Forms.MenuStrip menuStripTerms;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddTerm;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDelTerm;
     }
 }

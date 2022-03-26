@@ -236,12 +236,14 @@ namespace РасчетКУ
                 buttonAddProduct.Enabled = false;
                 buttonAddCategory.Enabled = false;
                 buttonDelete.Enabled = false;
-                buttonAddTerm.Enabled = false;
-                buttonDelTerm.Enabled = false;
+                toolStripMenuItemAddTerm.Enabled = false;
+                toolStripMenuItemDelTerm.Enabled = false;
                 checkBoxTax.Enabled = false;
                 checkBoxReturn.Enabled = false;
                 checkBoxOfactured.Enabled = false;
                 dataGridViewTerms.Enabled = false;
+                ToolStripMenuItemAddService.Enabled = false;
+                ToolStripMenuItemDelService.Enabled = false;
                 //dataGridViewIncluded.ReadOnly = true;
                 //dataGridViewExcluded.ReadOnly = true;
             }
@@ -946,19 +948,34 @@ namespace РасчетКУ
         // Условия бонуса
         //
         // Добавление строки
-        private void button1_Click(object sender, EventArgs e)
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             dataGridViewTerms.Rows.Add();
         }
         //Удаление строки
-        private void button2_Click(object sender, EventArgs e)
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (dataGridViewTerms.RowCount > 0)
                 dataGridViewTerms.Rows.RemoveAt(dataGridViewTerms.CurrentRow.Index);
             else
                 MessageBox.Show("Отсутствуют строки для удаления!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-
+        //
+        // Оказываемые услуги
+        //
+        // Добавление строки
+        private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dataGridViewServices.Rows.Add();
+        }
+        // Удаление строк
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewServices.RowCount > 0)
+                dataGridViewServices.Rows.RemoveAt(dataGridViewServices.CurrentRow.Index);
+            else
+                MessageBox.Show("Отсутствуют строки для удаления!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
 
 
 
@@ -1176,6 +1193,7 @@ namespace РасчетКУ
             if(_formLoadDone)
                 _wasChanged = true;
         }
+
         // Отслеживание изм. значений в чекбоксах
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {

@@ -18,8 +18,8 @@ namespace РасчетКУ
     {
         private Excel.Application _excel;
         //private Excel.Workbook _workbook;
-        private Excel.Worksheet _worksheet;
-        private string _filePath;
+        //private Excel.Worksheet _worksheet;
+        //private string _filePath;
         private FileInfo _fileInfo;
         
         

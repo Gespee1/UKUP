@@ -19,7 +19,24 @@ namespace РасчетКУ
         // Загрузка формы
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //Console.WriteLine($"{Environment.MachineName} {Environment.UserName}");
+            /*SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
+            try
+            {
+                connection.Open();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Приложение не смогло подключиться к базе данных!\nПроверьте строку подключения или файл базы данных и попробуйте снова.\n" +
+                    $"Вызвана следующая ошибка: {ex.Message}", "Внимание!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Application.Exit();
+            }
+            
+            *//*if(connection.State != ConnectionState.Open)
+            {
+                
+            }*//*
+            connection.Close();*/
         }
 
         // Открытие формы со списком коммерческих условий

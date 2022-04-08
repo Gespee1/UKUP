@@ -399,8 +399,9 @@ namespace РасчетКУ
                     {
                         fix = (bool)terms.Rows[i][0];
                         percentOrFix = (double)terms.Rows[i][2];
-                        break;
+                        
                     }
+
                 }
 
                 if (fix)

@@ -1072,12 +1072,23 @@ namespace РасчетКУ
             }
             else
             {
+                
                 for(int i = 0; i < dataGridViewTerms.Rows.Count; i++)
                 {
-                    if(dataGridViewTerms.Rows[i].Cells["Criterion"].Value is null 
+                    
+
+                    if (dataGridViewTerms.Rows[i].Cells["Criterion"].Value is null 
                         || dataGridViewTerms.Rows[i].Cells["PercentSum"].Value is null)
                     {
                         MessageBox.Show("Условия бонуса не введены!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                    Int64 Sum = Convert.ToInt64(dataGridViewTerms.Rows[i].Cells["PercentSum"].Value);
+                    bool Fix = Convert.ToBoolean(dataGridViewTerms.Rows[i].Cells["FixSum"].Value);
+                    if (Fix == false && Sum > 100)
+                    {
+                        MessageBox.Show("Вы ввели слишком большой процент вознаграждения, проверьте условия!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }

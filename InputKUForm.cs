@@ -142,6 +142,7 @@ namespace РасчетКУ
                 showSelectedKU();
             else
             {
+                hideTabPageServices();
                 if (!backgroundWorker1.IsBusy)
                     backgroundWorker1.RunWorkerAsync();
             }
@@ -250,6 +251,7 @@ namespace РасчетКУ
 
             showExInProducts(_KU_id);
             showTerms(_KU_id);
+            hideTabPageServices();
             // Запуск потока по загрузке данных
             if (!backgroundWorker1.IsBusy)
                 backgroundWorker1.RunWorkerAsync();
@@ -400,6 +402,11 @@ namespace РасчетКУ
             dateTimePickerDocDate.Format = DateTimePickerFormat.Long;
             if (_formLoadDone)
                 _wasChanged = true;
+        }
+        // Изменение типа КУ
+        private void comboBoxKUType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hideTabPageServices();
         }
 
 
@@ -1164,6 +1171,15 @@ namespace РасчетКУ
                     return _BrandProd.Rows[i]["Brand"].ToString();
             }
             return "";
+        }
+
+        // Скрытие/отображение вкладки "Оказываемые услуги"
+        private void hideTabPageServices()
+        {
+            if (comboBoxKUType.SelectedIndex == 1)
+                tabPageServices.Parent = tabControlMain;
+            else
+                tabPageServices.Parent = null;
         }
 
         // Изменение размеров формы

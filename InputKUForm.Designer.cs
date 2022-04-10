@@ -674,6 +674,7 @@ namespace РасчетКУ
             this.comboBoxKUType.Name = "comboBoxKUType";
             this.comboBoxKUType.Size = new System.Drawing.Size(180, 26);
             this.comboBoxKUType.TabIndex = 21;
+            this.comboBoxKUType.SelectedIndexChanged += new System.EventHandler(this.comboBoxKUType_SelectedIndexChanged);
             this.comboBoxKUType.TextChanged += new System.EventHandler(this.control_TextChanged);
             // 
             // labelKUType

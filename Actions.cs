@@ -401,7 +401,6 @@ namespace РасчетКУ
                         percentOrFix = (double)terms.Rows[i][2];
                         
                     }
-
                 }
 
                 if (fix)

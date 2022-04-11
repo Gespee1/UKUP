@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewKUGraph = new EDGV.ExtendedDataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +55,7 @@
             this.labelProgress = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.buttonCancelCalc = new System.Windows.Forms.Button();
+            this.dataGridViewKUGraph = new EDGV.ExtendedDataGridView();
             this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VendorAcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,50 +72,10 @@
             this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridViewKUGraph
-            // 
-            this.dataGridViewKUGraph.AllowUserToAddRows = false;
-            this.dataGridViewKUGraph.AllowUserToDeleteRows = false;
-            this.dataGridViewKUGraph.AllowUserToResizeRows = false;
-            this.dataGridViewKUGraph.AutoGenerateContextFilters = true;
-            this.dataGridViewKUGraph.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewKUGraph.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewKUGraph.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.KU_id,
-            this.Vendor_id,
-            this.VendorAcc,
-            this.VendorNam,
-            this.ContractCode,
-            this.Percent,
-            this.Period,
-            this.Date_from,
-            this.Date_to,
-            this.Date_calc,
-            this.GraphStatus,
-            this.GraphSumP,
-            this.GraphSumS,
-            this.GraphSumN,
-            this.Turnover,
-            this.Graph_Id});
-            this.dataGridViewKUGraph.DateWithTime = false;
-            this.dataGridViewKUGraph.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewKUGraph.Location = new System.Drawing.Point(12, 12);
-            this.dataGridViewKUGraph.Name = "dataGridViewKUGraph";
-            this.dataGridViewKUGraph.ReadOnly = true;
-            this.dataGridViewKUGraph.RowHeadersVisible = false;
-            dataGridViewCellStyle12.NullValue = null;
-            this.dataGridViewKUGraph.RowsDefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridViewKUGraph.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewKUGraph.Size = new System.Drawing.Size(1108, 476);
-            this.dataGridViewKUGraph.TabIndex = 0;
-            this.dataGridViewKUGraph.TabStop = false;
-            this.dataGridViewKUGraph.TimeFilter = false;
-            this.dataGridViewKUGraph.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
             // menuStrip1
             // 
@@ -211,7 +171,7 @@
             // 
             this.buttonApprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonApprove.Location = new System.Drawing.Point(995, 545);
+            this.buttonApprove.Location = new System.Drawing.Point(837, 545);
             this.buttonApprove.Name = "buttonApprove";
             this.buttonApprove.Size = new System.Drawing.Size(119, 38);
             this.buttonApprove.TabIndex = 2;
@@ -223,11 +183,11 @@
             // 
             this.buttonCalcBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCalcBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCalcBonus.Location = new System.Drawing.Point(736, 545);
+            this.buttonCalcBonus.Location = new System.Drawing.Point(669, 545);
             this.buttonCalcBonus.Name = "buttonCalcBonus";
-            this.buttonCalcBonus.Size = new System.Drawing.Size(253, 38);
+            this.buttonCalcBonus.Size = new System.Drawing.Size(162, 38);
             this.buttonCalcBonus.TabIndex = 1;
-            this.buttonCalcBonus.Text = "Рассчёт ретро-бонуса";
+            this.buttonCalcBonus.Text = "Расчёт премии";
             this.buttonCalcBonus.UseVisualStyleBackColor = true;
             this.buttonCalcBonus.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -330,13 +290,53 @@
             // 
             this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelCalc.Location = new System.Drawing.Point(562, 545);
+            this.buttonCancelCalc.Location = new System.Drawing.Point(962, 545);
             this.buttonCancelCalc.Name = "buttonCancelCalc";
             this.buttonCancelCalc.Size = new System.Drawing.Size(159, 38);
             this.buttonCancelCalc.TabIndex = 3;
             this.buttonCancelCalc.Text = "Отменить расчёт";
             this.buttonCancelCalc.UseVisualStyleBackColor = true;
             this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
+            // 
+            // dataGridViewKUGraph
+            // 
+            this.dataGridViewKUGraph.AllowUserToAddRows = false;
+            this.dataGridViewKUGraph.AllowUserToDeleteRows = false;
+            this.dataGridViewKUGraph.AllowUserToResizeRows = false;
+            this.dataGridViewKUGraph.AutoGenerateContextFilters = true;
+            this.dataGridViewKUGraph.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewKUGraph.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewKUGraph.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.KU_id,
+            this.Vendor_id,
+            this.VendorAcc,
+            this.VendorNam,
+            this.ContractCode,
+            this.Percent,
+            this.Period,
+            this.Date_from,
+            this.Date_to,
+            this.Date_calc,
+            this.GraphStatus,
+            this.GraphSumP,
+            this.GraphSumS,
+            this.GraphSumN,
+            this.Turnover,
+            this.Graph_Id});
+            this.dataGridViewKUGraph.DateWithTime = false;
+            this.dataGridViewKUGraph.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewKUGraph.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewKUGraph.Name = "dataGridViewKUGraph";
+            this.dataGridViewKUGraph.ReadOnly = true;
+            this.dataGridViewKUGraph.RowHeadersVisible = false;
+            dataGridViewCellStyle4.NullValue = null;
+            this.dataGridViewKUGraph.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewKUGraph.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewKUGraph.Size = new System.Drawing.Size(1108, 476);
+            this.dataGridViewKUGraph.TabIndex = 0;
+            this.dataGridViewKUGraph.TabStop = false;
+            this.dataGridViewKUGraph.TimeFilter = false;
+            this.dataGridViewKUGraph.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
             // KU_id
             // 
@@ -431,9 +431,9 @@
             // 
             // GraphSumP
             // 
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.GraphSumP.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.GraphSumP.DefaultCellStyle = dataGridViewCellStyle1;
             this.GraphSumP.HeaderText = "Сумма премии";
             this.GraphSumP.MinimumWidth = 22;
             this.GraphSumP.Name = "GraphSumP";
@@ -442,9 +442,9 @@
             // 
             // GraphSumS
             // 
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = null;
-            this.GraphSumS.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.GraphSumS.DefaultCellStyle = dataGridViewCellStyle2;
             this.GraphSumS.HeaderText = "Фактическая сумма премии";
             this.GraphSumS.MinimumWidth = 22;
             this.GraphSumS.Name = "GraphSumS";
@@ -453,9 +453,9 @@
             // 
             // GraphSumN
             // 
-            dataGridViewCellStyle11.Format = "N2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.GraphSumN.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.GraphSumN.DefaultCellStyle = dataGridViewCellStyle3;
             this.GraphSumN.HeaderText = "Сумма по накладным";
             this.GraphSumN.MinimumWidth = 22;
             this.GraphSumN.Name = "GraphSumN";
@@ -507,10 +507,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.KUGraphForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

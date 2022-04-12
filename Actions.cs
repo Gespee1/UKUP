@@ -374,10 +374,10 @@ namespace РасчетКУ
             InMinusEx.Columns.Add("Turnover", typeof(double));
             for (int i = 0; i < InMinusEx.Rows.Count; i++)
             {
-                command = new SqlCommand($"SELECT Amount FROM Invoices_products WHERE Invoice_number = (SELECT Invoice_number FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
+                command = new SqlCommand($"SELECT distinct Amount FROM Invoices_products inner join Invoices on Vendor_id = '{vendorForeignId}' " +
                     $"AND Foreign_product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
                 InMinusEx.Rows[i][1] = command.ExecuteScalar();
-                command = new SqlCommand($"SELECT Qty FROM Invoices_products WHERE Invoice_number = (SELECT Invoice_number FROM Invoices WHERE Vendor_id = '{vendorForeignId}') " +
+                command = new SqlCommand($"SELECT distinct Qty FROM Invoices_products inner join Invoices on Vendor_id = '{vendorForeignId}' " +
                     $"AND Foreign_product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
                 InMinusEx.Rows[i][2] = command.ExecuteScalar();
             }

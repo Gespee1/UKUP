@@ -228,14 +228,16 @@ namespace РасчетКУ
         public bool currentRetroCalc(Form graph_form, int rowIndex)
         {
             _sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
-            bool state = false;
             _sqlConnection.Open();
+
+            bool state;
+            string vendorForeignId;
             DataGridView dgv = graph_form.Controls["panel1"].Controls["dataGridViewKUGraph"] as DataGridView;
             DataGridViewRow row = dgv.Rows[rowIndex];
             Int64 Graph_id = (Int64)row.Cells["Graph_Id"].Value;
 
             SqlCommand com = new SqlCommand($"SELECT Vendor_foreign_id FROM Vendors WHERE Vendor_id = {row.Cells["Vendor_id"].Value}", _sqlConnection);
-            string vendorForeignId = com.ExecuteScalar().ToString();
+            vendorForeignId = com.ExecuteScalar().ToString();
 
             DataTable invoicesProducts = new DataTable();
             SqlCommand cm = new SqlCommand($"SELECT Foreign_product_id, Amount FROM Invoices, Invoices_products WHERE Invoices.Invoice_name = Invoices_products.Invoice_number AND " +
@@ -487,7 +489,7 @@ namespace РасчетКУ
         }
 
 
-        public string getFilepath(string ext)
+        /*public string getFilepath(string ext)
         {
             SaveFileDialog saveFlDlg = new SaveFileDialog();
             saveFlDlg.DefaultExt = ext;
@@ -496,7 +498,7 @@ namespace РасчетКУ
                 return saveFlDlg.FileName;
             else
                 return "";
-        }
+        }*/
 
 
     }

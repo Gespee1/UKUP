@@ -541,7 +541,7 @@ namespace РасчетКУ
             for (int i = 0; i < dgvSelectedRows.Count; ++i)
             {
                 DataGridViewRow row = dgvSelectedRows[i];
-                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
+                if ((row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" || row.Cells["GraphStatus"].Value.ToString() == "В расчете") && !_asked)
                 {
                     DialogResult result;
                     result = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -562,7 +562,6 @@ namespace РасчетКУ
             // Расчет бонуса для каждой выделенной строки
             for (int i = 0; i < dgvSelectedRows.Count; ++i)
             {
-                //Thread.Sleep(500);
                 DataGridViewRow row = dgvSelectedRows[i];
 
                 //Условие на расчёт бонуса не старше текущей даты 
@@ -687,7 +686,7 @@ namespace РасчетКУ
             {
                 DataGridViewRow row = dgvSelectedRows[i];
 
-                if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
+                if ((row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" || row.Cells["GraphStatus"].Value.ToString() == "В расчете") && !_asked)
                 {
                     DialogResult result;
                     result = MessageBox.Show("Вы уверены что хотите отменить расчёт?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

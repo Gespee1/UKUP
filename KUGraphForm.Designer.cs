@@ -51,10 +51,6 @@
             this.labelFrom = new System.Windows.Forms.Label();
             this.labelTo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.progressBarForAsincBonus = new System.Windows.Forms.ProgressBar();
-            this.labelProgress = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.buttonCancelCalc = new System.Windows.Forms.Button();
             this.dataGridViewKUGraph = new EDGV.ExtendedDataGridView();
             this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,6 +68,10 @@
             this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.progressBarForAsincBonus = new System.Windows.Forms.ProgressBar();
+            this.labelProgress = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.buttonCancelCalc = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
@@ -255,49 +255,6 @@
             this.panel1.Size = new System.Drawing.Size(1132, 500);
             this.panel1.TabIndex = 60;
             // 
-            // progressBarForAsincBonus
-            // 
-            this.progressBarForAsincBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarForAsincBonus.Location = new System.Drawing.Point(797, 0);
-            this.progressBarForAsincBonus.Name = "progressBarForAsincBonus";
-            this.progressBarForAsincBonus.Size = new System.Drawing.Size(323, 23);
-            this.progressBarForAsincBonus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBarForAsincBonus.TabIndex = 61;
-            this.progressBarForAsincBonus.Visible = false;
-            // 
-            // labelProgress
-            // 
-            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProgress.AutoSize = true;
-            this.labelProgress.BackColor = System.Drawing.Color.Gainsboro;
-            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelProgress.Location = new System.Drawing.Point(759, 3);
-            this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(20, 16);
-            this.labelProgress.TabIndex = 62;
-            this.labelProgress.Text = "%";
-            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelProgress.Visible = false;
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // buttonCancelCalc
-            // 
-            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelCalc.Location = new System.Drawing.Point(962, 545);
-            this.buttonCancelCalc.Name = "buttonCancelCalc";
-            this.buttonCancelCalc.Size = new System.Drawing.Size(159, 38);
-            this.buttonCancelCalc.TabIndex = 3;
-            this.buttonCancelCalc.Text = "Отменить расчёт";
-            this.buttonCancelCalc.UseVisualStyleBackColor = true;
-            this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
-            // 
             // dataGridViewKUGraph
             // 
             this.dataGridViewKUGraph.AllowUserToAddRows = false;
@@ -478,6 +435,49 @@
             this.Graph_Id.ReadOnly = true;
             this.Graph_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.Graph_Id.Visible = false;
+            // 
+            // progressBarForAsincBonus
+            // 
+            this.progressBarForAsincBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarForAsincBonus.Location = new System.Drawing.Point(797, 0);
+            this.progressBarForAsincBonus.Name = "progressBarForAsincBonus";
+            this.progressBarForAsincBonus.Size = new System.Drawing.Size(323, 23);
+            this.progressBarForAsincBonus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarForAsincBonus.TabIndex = 61;
+            this.progressBarForAsincBonus.Visible = false;
+            // 
+            // labelProgress
+            // 
+            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.BackColor = System.Drawing.Color.Gainsboro;
+            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelProgress.Location = new System.Drawing.Point(759, 3);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(20, 16);
+            this.labelProgress.TabIndex = 62;
+            this.labelProgress.Text = "%";
+            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelProgress.Visible = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // buttonCancelCalc
+            // 
+            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelCalc.Location = new System.Drawing.Point(962, 545);
+            this.buttonCancelCalc.Name = "buttonCancelCalc";
+            this.buttonCancelCalc.Size = new System.Drawing.Size(159, 38);
+            this.buttonCancelCalc.TabIndex = 3;
+            this.buttonCancelCalc.Text = "Отменить расчёт";
+            this.buttonCancelCalc.UseVisualStyleBackColor = true;
+            this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
             // 
             // KUGraphForm
             // 

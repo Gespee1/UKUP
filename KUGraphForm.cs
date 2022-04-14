@@ -350,13 +350,14 @@ namespace РасчетКУ
                 for (int i = 0; i < tb.Rows.Count; i++)
                 {
 
-                    SqlCommand command = new SqlCommand($"SELECT L2_name, L3_name, L4_name, Included_products_list.Product_id, Name, Producer, Qty, Amount " +
-                        $"FROM Included_products_list, Products, Invoices_products LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Foreign_id = {tb.Rows[i]["Product_id"]})" +
-                        $" LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Foreign_id = " +
-                        $"{tb.Rows[i]["Product_id"]} )" +
-                        $" WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} And Invoices_products.Foreign_product_id = {tb.Rows[i]["Product_id"]} " +
-                        $"AND Included_products_list.Invoice_id = (Select Invoice_id from Invoices Where Invoices_products.Invoice_number = Invoices.Invoice_number)" +
-                        $" And Products.Foreign_id = {tb.Rows[i]["Product_id"]} ", SqlCon);
+                    SqlCommand command = new SqlCommand($"SELECT DISTINCT L2_name, L3_name, L4_name, Products.Foreign_id, Name, Producer, Sum(Qty) as Qty, Sum(Amount) as Amount " +
+                        $"FROM Included_products_list ipl, Invoices_products ip " +
+                        $"LEFT JOIN Classifier ON Foreign_id = (Select Classifier_id FROM Products WHERE Foreign_id = {tb.Rows[i]["Product_id"]}) " +
+                        $"left join Invoices inv on inv.Invoice_number = ip.Invoice_number " +
+                        $"left join Products on Products.Foreign_id = ip.Foreign_product_id " +
+                        $"LEFT JOIN BrandProducer ON BrandProducer.ID = (SELECT BrandProdID FROM Products WHERE Foreign_id = {tb.Rows[i]["Product_id"]}) " +
+                        $"Where ipl.Product_id = {tb.Rows[i]["Product_id"]} and Products.Foreign_id = {tb.Rows[i]["Product_id"]} " +
+                        $"group by L2_name, L3_name, L4_name, Products.Foreign_id, Name, Producer ", SqlCon);
                     SqlDataReader reader = command.ExecuteReader();
 
                     reader.Read();

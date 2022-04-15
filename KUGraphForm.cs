@@ -382,11 +382,10 @@ namespace РасчетКУ
                 for (int i = 0; i < tb.Rows.Count; i++)
                 {
 
-                    SqlCommand command = new SqlCommand($"SELECT DISTINCT Included_products_list.Invoice_id, Date, Qty, Amount " +
-                        $"FROM Included_products_list, Invoices, Invoices_products  WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]} " +
-                        $"AND Invoices_products.Foreign_product_id  =  {tb.Rows[i]["Product_id"]} " +
-                        $"AND Included_products_list.Invoice_id = (Select Invoice_id from Invoices Where Invoices_products.Invoice_number = Invoices.Invoice_number) " +
-                        $"AND Invoices.Invoice_id = Included_products_list.Invoice_id AND Included_products_list.Product_id = {tb.Rows[i]["Product_id"]}", SqlCon);
+                    SqlCommand command = new SqlCommand($"SELECT DISTINCT Invoices.Invoice_number, Date, Sum(Qty) as Qty, Sum(Amount) as Amount" +
+                        $" FROM Included_products_list, Invoices, Invoices_products WHERE Included_products_list.Product_id = {tb.Rows[i]["Product_id"]}" +
+                        $" AND Invoices_products.Foreign_product_id = Included_products_list.Product_id " +
+                        $"AND Included_products_list.Invoice_id = Invoices.Invoice_id group by Invoices.Invoice_number, Date", SqlCon);
                     SqlDataReader reader = command.ExecuteReader();
 
                     reader.Read();

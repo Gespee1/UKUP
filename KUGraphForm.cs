@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 namespace РасчетКУ
 {
@@ -15,6 +16,7 @@ namespace РасчетКУ
         private SqlConnection SqlCon;
         private DataGridViewSelectedRowCollection dgvSelectedRows;
         private bool byDate = false, _asked = false;
+        private Stopwatch _timer = new Stopwatch();
 
         private string VendorName;
         private string EntitiesName;
@@ -280,7 +282,6 @@ namespace РасчетКУ
         //общий метод вызова отчётов Excel
         private void ExcelDoc(string docname, string newdocpath, int ex_num)
         {
-
              File.Copy(docname, newdocpath, true);
             ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
 
@@ -343,11 +344,11 @@ namespace РасчетКУ
             tableExcel2.Columns.Add("Status", typeof(string));
             tableExcel2.Columns.Add("Quantity", typeof(int));
             tableExcel2.Columns.Add("Summ", typeof(int));
-       
+            
             //Если 1-й документ
             if (ex_num == 1)
             {
-                for (int i = 0; i < tb.Rows.Count; i++)
+                /*for (int i = 0; i < tb.Rows.Count; i++)
                 {
 
                     SqlCommand command = new SqlCommand($"SELECT DISTINCT L2_name, L3_name, L4_name, Products.Foreign_id, Name, Producer, Sum(Qty) as Qty, Sum(Amount) as Amount " +
@@ -372,8 +373,24 @@ namespace РасчетКУ
                     tableExcel.Rows[i]["Summ"] = reader[7];
                     reader.Close();
 
-                }
+                }*/
+                SqlCommand command = new SqlCommand($"SELECT DISTINCT ipl.Product_id, L2_name, L3_name, L4_name, Name, Producer, Sum(Qty) as Qty, Sum(Amount) as Amount " +
+                    $"FROM Included_products_list ipl " +
+                    $"LEFT JOIN Products p on p.Foreign_id = ipl.Product_id " +
+                    $"LEFT JOIN Classifier c ON c.Foreign_id = p.Classifier_id " +
+                    $"LEFT JOIN BrandProducer ON BrandProducer.ID = p.BrandProdID " +
+                    $"LEFT JOIN Invoices_products ip on ip.Foreign_product_id = ipl.Product_id " +
+                    $"WHERE ipl.Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} " +
+                    $"and ipl.Graph_id not in (SELECT Graph_id FROM Excluded_products_list) " +
+                    $"GROUP BY ipl.Product_id, L2_name, L3_name, L4_name, Name, Producer " +
+                    $"ORDER BY ipl.Product_id DESC", SqlCon);
+                SqlDataAdapter adapt = new SqlDataAdapter(command);
+                adapt.Fill(tableExcel);
+
+                _timer.Restart();
                 helper.Process(items, tableExcel);
+                _timer.Stop();
+                Console.WriteLine($"Заполнение Excel файла: {_timer.Elapsed}");
             }
 
             //Если 2-й документ
@@ -397,6 +414,22 @@ namespace РасчетКУ
                     reader.Close();
 
                 }
+                /*SqlCommand command = new SqlCommand($"SELECT DISTINCT Product_id, inv.Invoice_number, Date, Sum(Qty) as Qty, Sum(Amount) as Amount " +
+                    $"FROM Included_products_list incpl " +
+                    $"LEFT JOIN Invoices_products invp on invp.Foreign_product_id = incpl.Product_id " +
+                    $"LEFT JOIN Invoices inv on inv.Invoice_id = incpl.Invoice_id " +
+                    $"WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} " +
+                    $"and Graph_id not in (SELECT Product_id FROM Excluded_products_list) " +
+                    $"GROUP BY Product_id, inv.Invoice_number, Date " +
+                    $"ORDER BY Product_id DESC", SqlCon);
+                SqlDataReader reader = command.ExecuteReader();
+                while(reader.Read())
+                {
+
+                }*/
+
+
+
                 helper.Process2(items, tableExcel2);
             }
 
@@ -406,7 +439,6 @@ namespace РасчетКУ
         //Отчёт Excel1
         private void ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             int docnum = 1; 
 
             string docname = "Docs\\Отчет_сверка1.xlsx";
@@ -438,7 +470,6 @@ namespace РасчетКУ
                     i++;
                     newdocpath = docpath + "\\Отчет_сверка1_" + VendorName + "_" + DateTime.Now.ToString("dd_MM_yyyy") + "(" + i.ToString() + ")" + ".xlsx";
                 }
-
                 ExcelDoc(docname, newdocpath, docnum); 
             }
 

@@ -340,7 +340,7 @@ namespace РасчетКУ
             tableExcel2.Columns.Add("Invoice_id", typeof(string));
             tableExcel2.Columns.Add("Invoice_Date", typeof(string));
             tableExcel2.Columns.Add("Num_Buy", typeof(string));
-            tableExcel2.Columns.Add("Buy_Date", typeof(int));
+            tableExcel2.Columns.Add("Buy_Date", typeof(string));
             tableExcel2.Columns.Add("Status", typeof(string));
             tableExcel2.Columns.Add("Quantity", typeof(int));
             tableExcel2.Columns.Add("Summ", typeof(int));
@@ -374,7 +374,7 @@ namespace РасчетКУ
                     reader.Close();
 
                 }*/
-                SqlCommand command = new SqlCommand($"SELECT DISTINCT ipl.Product_id, L2_name, L3_name, L4_name, Name, Producer, Sum(Qty) as Qty, Sum(Amount) as Amount " +
+                SqlCommand command = new SqlCommand($"SELECT DISTINCT  L2_name, L3_name, L4_name, ipl.Product_id, Name, Producer, Sum(Qty) as Qty, Sum(Amount) as Amount " +
                     $"FROM Included_products_list ipl " +
                     $"LEFT JOIN Products p on p.Foreign_id = ipl.Product_id " +
                     $"LEFT JOIN Classifier c ON c.Foreign_id = p.Classifier_id " +
@@ -384,8 +384,23 @@ namespace РасчетКУ
                     $"and ipl.Graph_id not in (SELECT Graph_id FROM Excluded_products_list) " +
                     $"GROUP BY ipl.Product_id, L2_name, L3_name, L4_name, Name, Producer " +
                     $"ORDER BY ipl.Product_id DESC", SqlCon);
-                SqlDataAdapter adapt = new SqlDataAdapter(command);
-                adapt.Fill(tableExcel);
+                // SqlDataAdapter adapt = new SqlDataAdapter(command);
+                //adapt.Fill(tableExcel);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    tableExcel.Rows.Add();
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["L2_Name"] = reader[0];
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["L3_Name"] = reader[1];
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["L4_Name"] = reader[2];
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["Included_products_list.Product_id"] = reader[3];
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["Name"] = reader[4];
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["Producer"] = reader[5];
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["Quantity"] = reader[6];
+                    tableExcel.Rows[tableExcel.Rows.Count - 1]["Summ"] = reader[7];
+                }
+                reader.Close();
 
                 _timer.Restart();
                 helper.Process(items, tableExcel);
@@ -396,7 +411,7 @@ namespace РасчетКУ
             //Если 2-й документ
             if (ex_num == 2)
             {
-                for (int i = 0; i < tb.Rows.Count; i++)
+               /* for (int i = 0; i < tb.Rows.Count; i++)
                 {
 
                     SqlCommand command = new SqlCommand($"SELECT DISTINCT Invoices.Invoice_number, Date, Sum(Qty) as Qty, Sum(Amount) as Amount" +
@@ -413,21 +428,25 @@ namespace РасчетКУ
                     tableExcel2.Rows[i]["Summ"] = reader[3];
                     reader.Close();
 
-                }
-                /*SqlCommand command = new SqlCommand($"SELECT DISTINCT Product_id, inv.Invoice_number, Date, Sum(Qty) as Qty, Sum(Amount) as Amount " +
-                    $"FROM Included_products_list incpl " +
-                    $"LEFT JOIN Invoices_products invp on invp.Foreign_product_id = incpl.Product_id " +
-                    $"LEFT JOIN Invoices inv on inv.Invoice_id = incpl.Invoice_id " +
-                    $"WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value} " +
-                    $"and Graph_id not in (SELECT Product_id FROM Excluded_products_list) " +
-                    $"GROUP BY Product_id, inv.Invoice_number, Date " +
-                    $"ORDER BY Product_id DESC", SqlCon);
-                SqlDataReader reader = command.ExecuteReader();
-                while(reader.Read())
-                {
-
                 }*/
-
+                SqlCommand command = new SqlCommand($"SELECT DISTINCT inv.Invoice_number, Date, Purch_number, Purch_date, Sum(Qty) as Qty, Sum(Amount) as Amount " +
+                    $"FROM Included_products_list incpl " +
+                    $"LEFT JOIN Invoices_products invp on invp.Foreign_product_id = incpl.Product_id LEFT JOIN Invoices inv on inv.Invoice_id = incpl.Invoice_id " +
+                    $"WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value}" +
+                    $" and Graph_id not in (SELECT Product_id FROM Excluded_products_list) " +
+                    $"GROUP BY inv.Invoice_number, Date, Purch_number, Purch_date ORDER BY inv.Invoice_number DESC", SqlCon);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    tableExcel2.Rows.Add();
+                    tableExcel2.Rows[tableExcel2.Rows.Count - 1]["Invoice_id"] = reader[0];
+                    tableExcel2.Rows[tableExcel2.Rows.Count - 1]["Invoice_Date"] = reader[1];
+                    tableExcel2.Rows[tableExcel2.Rows.Count - 1]["Num_Buy"] = reader[2];
+                    tableExcel2.Rows[tableExcel2.Rows.Count - 1]["Buy_Date"] = reader[3];
+                    tableExcel2.Rows[tableExcel2.Rows.Count - 1]["Quantity"] = reader[4];
+                    tableExcel2.Rows[tableExcel2.Rows.Count - 1]["Summ"] = reader[5];
+                }
+                reader.Close();
 
 
                 helper.Process2(items, tableExcel2);

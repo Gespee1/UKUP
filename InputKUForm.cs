@@ -667,7 +667,7 @@ namespace РасчетКУ
             SqlCommand command;
             int counter = 0;
 
-            while(counter < 1)
+            while(counter < 2)
             {
                 if (buttonCreate.Text.ToString() == "Изменить")
                 {

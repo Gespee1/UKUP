@@ -76,13 +76,13 @@ namespace РасчетКУ
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
             conn.Open();
 
-            SqlCommand command = new SqlCommand($"SELECT Path FROM UsersPathes WHERE User = '{user}'", conn);
+            SqlCommand command = new SqlCommand($"SELECT Path FROM UsersPathes WHERE [User] = '{user}'", conn);
             SqlDataReader reader = command.ExecuteReader();
             reader.Read();
             if (reader.HasRows)
             {
                 reader.Close();
-                command = new SqlCommand($"UPDATE UsersPathes SET Path = '{textPath}' WHERE User = '{user}'", conn);
+                command = new SqlCommand($"UPDATE UsersPathes SET Path = '{textPath}' WHERE [User] = '{user}'", conn);
                 command.ExecuteNonQuery();
             }
             else

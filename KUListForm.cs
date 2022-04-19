@@ -74,6 +74,8 @@ namespace РасчетКУ
             command.ExecuteNonQuery();
             command = new SqlCommand($"DELETE FROM Excluded_products WHERE KU_id = {row.Cells["Код КУ"].Value}", _sqlConnection);
             command.ExecuteNonQuery();
+            command = new SqlCommand($"DELETE FROM KU_graph WHERE KU_id = {row.Cells["Код КУ"].Value}", _sqlConnection);
+            command.ExecuteNonQuery();
 
             // Удаление самого КУ
             command = new SqlCommand("DELETE FROM KU WHERE KU_id = " + row.Cells["Код КУ"].Value.ToString(), _sqlConnection);
@@ -119,7 +121,7 @@ namespace РасчетКУ
         // Обновление списка КУ при переходе на форму     
         private void KUListForm_Activated(object sender, EventArgs e)
         {
-            showKUList();
+            //showKUList();
         }
 
 

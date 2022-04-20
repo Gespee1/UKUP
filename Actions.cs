@@ -365,24 +365,15 @@ namespace РасчетКУ
 
             // Вычисление товаров, имеющихся во вкл и неимеющихся в искл
             DataTable InMinusEx = new DataTable();
-            command = new SqlCommand($"SELECT DISTINCT Product_id FROM Included_products_list WHERE Graph_id = {Graph_id} EXCEPT " +
-                $"(SELECT Product_id FROM Excluded_products_list WHERE Graph_id = {Graph_id})", _sqlConnection);
+            command = new SqlCommand("SELECT ipl.Product_id, Sum(ip.Amount) as Summ, Sum(ip.Qty) as Turnover " +
+                "FROM Included_products_list ipl " +
+                "LEFT JOIN Invoices_products ip on ip.Foreign_product_id = ipl.Product_id " +
+                $"LEFT JOIN Invoices inv on inv.Vendor_id = '{vendorForeignId}' and inv.Invoice_number = ip.Invoice_number " +
+                $"WHERE ipl.Graph_id = {Graph_id} and ipl.Product_id not in (SELECT Product_id FROM Excluded_products_list epl WHERE epl.Graph_id = ipl.Graph_id) " +
+                "GROUP BY ipl.Product_id", _sqlConnection);
             adapt.SelectCommand = command;
             adapt.Fill(InMinusEx);
 
-            InMinusEx.Columns.Add("Summ", typeof(double));
-            InMinusEx.Columns.Add("Turnover", typeof(double));
-            for (int i = 0; i < InMinusEx.Rows.Count; i++)
-            {
-                command = new SqlCommand($"SELECT distinct Sum(Amount) as Amount" +
-                    $" FROM Invoices_products ip join Invoices inv on Vendor_id = '{vendorForeignId}' and inv.Invoice_number = ip.Invoice_number" +
-                    $" WHERE  Foreign_product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
-                InMinusEx.Rows[i][1] = command.ExecuteScalar();
-                command = new SqlCommand($"SELECT distinct Sum(Qty) as Qty FROM Invoices_products ip join Invoices inv on Vendor_id = '{vendorForeignId}'" +
-                    $" and inv.Invoice_number = ip.Invoice_number WHERE  Foreign_product_id = {InMinusEx.Rows[i][0]}", _sqlConnection);
-                InMinusEx.Rows[i][2] = command.ExecuteScalar();
-            }
-            
             // Вывод суммы по накладным и бонуса
             if (InMinusEx.Rows.Count > 0)
             {
@@ -416,14 +407,14 @@ namespace РасчетКУ
                 command.ExecuteNonQuery();
                 if (fix)
                 {
-                    command = new SqlCommand($"UPDATE KU  SET [Percent] = {Convert.ToInt32(percentOrFix * 1000 / summ)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                    command = new SqlCommand($"UPDATE KU SET [Percent] = {Convert.ToInt32(percentOrFix * 1000 / summ)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
                     command.ExecuteNonQuery();
                     command = new SqlCommand($"UPDATE KU_graph SET [Percent] = {Convert.ToInt32(percentOrFix * 1000 / summ)} WHERE KU_id = {row.Cells["KU_id"].Value} AND Graph_id = {Graph_id}", _sqlConnection);
                     command.ExecuteNonQuery();
                 }
                 else
                 {
-                    command = new SqlCommand($"UPDATE KU  SET [Percent] = {Convert.ToInt32(percentOrFix * 10)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
+                    command = new SqlCommand($"UPDATE KU SET [Percent] = {Convert.ToInt32(percentOrFix * 10)} WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
                     command.ExecuteNonQuery();
                     command = new SqlCommand($"UPDATE KU_graph SET [Percent] = {Convert.ToInt32(percentOrFix * 10)} WHERE KU_id = {row.Cells["KU_id"].Value} AND Graph_id = {Graph_id}", _sqlConnection);
                     command.ExecuteNonQuery();
@@ -431,10 +422,8 @@ namespace РасчетКУ
 
                 state = true;
             }
-
-           else
+            else
             {
-
                 command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {0}, Sum_bonus = {0},  Turnover = {0} WHERE " +
                     $"Graph_id = {Graph_id}", _sqlConnection);
                 command.ExecuteNonQuery();

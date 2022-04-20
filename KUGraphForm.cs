@@ -53,9 +53,15 @@ namespace РасчетКУ
         private void ShowGraph()
         {
             DataTable graphs = new DataTable();
+            List<int> RowIndexes = new List<int>();
             SqlCommand command = new SqlCommand("SELECT * FROM KU_graph", SqlCon);
             SqlDataAdapter adapt = new SqlDataAdapter(command);
             adapt.Fill(graphs);
+
+            // Запись выделенных строк
+            if (dataGridViewKUGraph.RowCount > 0)
+                for (int i = 0; i < dataGridViewKUGraph.SelectedRows.Count; i++)
+                    RowIndexes.Add(dataGridViewKUGraph.SelectedRows[i].Index);
 
             dataGridViewKUGraph.Rows.Clear();
             for (int i = 0; i < graphs.Rows.Count; i++)
@@ -82,6 +88,14 @@ namespace РасчетКУ
                 dataGridViewKUGraph.Rows[i].Cells["GraphSumS"].Value = graphs.Rows[i][11];
                 dataGridViewKUGraph.Rows[i].Cells["Turnover"].Value = graphs.Rows[i][12];
             }
+
+            // Отображение ранее выделенных строк
+            if(RowIndexes.Count > 0)
+            {
+                dataGridViewKUGraph.CurrentCell = dataGridViewKUGraph.Rows[RowIndexes[0]].Cells[0];
+                for (int i = 0; i < RowIndexes.Count; i++)
+                    dataGridViewKUGraph.Rows[RowIndexes[i]].Cells[0].Selected = true;
+            }    
         }
 
      
@@ -217,7 +231,7 @@ namespace РасчетКУ
         //Общий метод вызова отчёта word
         private void WordDoc(string docname, string newdocpath)
         {
-            
+            this.UseWaitCursor = true;
             SqlCommand cm1 = new SqlCommand($"SELECT Docu_code FROM KU WHERE KU_id = " +
                 $"{dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["KU_id"].Value}", SqlCon);
             DocNum = Convert.ToString(cm1.ExecuteScalar());
@@ -275,7 +289,7 @@ namespace РасчетКУ
             };
 
             helper.Process(items);
-            // MessageBox.Show("Файл сохранен");
+            this.UseWaitCursor = false;
 
         }
 
@@ -283,6 +297,7 @@ namespace РасчетКУ
         private void ExcelDoc(string docname, string newdocpath, int ex_num)
         {
             _timer.Restart();
+            this.UseWaitCursor = true;
             File.Copy(docname, newdocpath, true);
             ExcelHelper helper = new ExcelHelper(/*Environment.CurrentDirectory + */ newdocpath);
 
@@ -365,8 +380,7 @@ namespace РасчетКУ
 
                 helper.Process2(items, tableExcel2);
             }
-
-          //  helper.Dispose();
+            this.UseWaitCursor = false;
         }
 
         //Отчёт Excel1
@@ -475,11 +489,12 @@ namespace РасчетКУ
         // Асинхронный расчет бонуса
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            this.UseWaitCursor = true;
             if (byDate)
                 bonusCalcByDates();
             else
                 bonusCalc();
-
+            this.UseWaitCursor = false;
         }
         // Изменение прогресса асинхронного расчета бонуса
         private void backgroundWorker1_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -644,6 +659,7 @@ namespace РасчетКУ
         //Отмена расчёта бонуса
         private void buttonCancelCalc_Click(object sender, EventArgs e)
         {
+            this.UseWaitCursor = true;
             dgvSelectedRows = dataGridViewKUGraph.SelectedRows;
             // Проверка есть ли рассчет в выбранных строчках или нет
             for (int i = 0; i < dgvSelectedRows.Count; ++i)
@@ -675,7 +691,7 @@ namespace РасчетКУ
             }
             _asked = false;
             ShowGraph();
-            
+            this.UseWaitCursor = false;
         }
 
 

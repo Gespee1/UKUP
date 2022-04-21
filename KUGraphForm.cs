@@ -90,7 +90,7 @@ namespace РасчетКУ
             }
 
             // Отображение ранее выделенных строк
-            if(RowIndexes.Count > 0)
+            if(RowIndexes.Count > 0 && RowIndexes[0] < dataGridViewKUGraph.RowCount - 1)
             {
                 dataGridViewKUGraph.CurrentCell = dataGridViewKUGraph.Rows[RowIndexes[0]].Cells[0];
                 for (int i = 0; i < RowIndexes.Count; i++)

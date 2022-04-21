@@ -240,16 +240,16 @@ namespace РасчетКУ
             vendorForeignId = com.ExecuteScalar().ToString();
 
             DataTable invoicesProducts = new DataTable();
-            SqlCommand cm = new SqlCommand($"SELECT Foreign_product_id, Amount FROM Invoices, Invoices_products WHERE Invoices.Invoice_name = Invoices_products.Invoice_number AND " +
+            SqlCommand cm = new SqlCommand($"SELECT Foreign_product_id, Amount, Invoice_id FROM Invoices, Invoices_products WHERE Invoices.Invoice_name = Invoices_products.Invoice_number AND " +
                 $"Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
             SqlDataAdapter adapt = new SqlDataAdapter(cm);
             adapt.Fill(invoicesProducts);
 
-            DataTable InvoicesID = new DataTable();
+            /*DataTable InvoicesID = new DataTable();
             cm = new SqlCommand($"SELECT Invoice_id FROM Invoices WHERE Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' " +
                                 $"AND Date < '{row.Cells["Date_to"].Value}'", _sqlConnection);
             adapt = new SqlDataAdapter(cm);
-            adapt.Fill(InvoicesID);
+            adapt.Fill(InvoicesID);*/
 
             DataTable included = new DataTable();
             cm = new SqlCommand($"SELECT Type, Attribute_1, Attribute_2, BrandProdID FROM Included_products WHERE KU_id = {row.Cells["KU_id"].Value}", _sqlConnection);
@@ -300,7 +300,7 @@ namespace РасчетКУ
                                 }
 
                                 // Добавление
-                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {invoicesProducts.Rows[j][0]}, {InvoicesID.Rows[i][0]})", _sqlConnection);
+                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {invoicesProducts.Rows[j][0]}, {invoicesProducts.Rows[j][2]})", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
 
@@ -308,7 +308,7 @@ namespace РасчетКУ
                         case "Категория":
 
                             // Отбор товаров выбранной категории
-                            command = new SqlCommand($"SELECT Product_id FROM Invoices, Products WHERE Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' " +
+                            command = new SqlCommand($"SELECT Product_id, Invoice_id FROM Invoices, Products  WHERE Vendor_id = '{vendorForeignId}' AND Date >= '{row.Cells["Date_from"].Value}' " +
                                 $"AND Date < '{row.Cells["Date_to"].Value}' AND Classifier_id LIKE '{currTable.Rows[i]["Attribute_1"]}*'", _sqlConnection);
                             adapt = new SqlDataAdapter(command);
                             DataTable categotyProducts = new DataTable();
@@ -333,7 +333,7 @@ namespace РасчетКУ
                                 }
 
                                 // Добавление
-                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {categotyProducts.Rows[j][0]}, {InvoicesID.Rows[i][0]})", _sqlConnection);
+                                command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {categotyProducts.Rows[j][0]}, {categotyProducts.Rows[j][1]})", _sqlConnection);
                                 command.ExecuteNonQuery();
                             }
                             categotyProducts.Clear();
@@ -350,7 +350,7 @@ namespace РасчетКУ
                                 break;
                             
                             // Добавление
-                            command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {currTable.Rows[i]["Attribute_1"]}, {InvoicesID.Rows[i][0]})", _sqlConnection);
+                            command = new SqlCommand($"INSERT INTO {tableName} (Graph_id, Product_id, Invoice_id) VALUES ({Graph_id}, {currTable.Rows[i]["Attribute_1"]}, {invoicesProducts.Rows[i][2]})", _sqlConnection);
                             command.ExecuteNonQuery();
 
                             break;

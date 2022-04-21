@@ -140,11 +140,11 @@ namespace РасчетКУ
                 for (int i = 0; i < Table.Rows.Count; i++)
                 {
 
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < 5; j++)
                     {
                         _excel.Range[Convert.ToChar(Convert.ToByte(65 + j)) + "10"].Value = Table.Rows[i][j];
                     }
-                    for (int j = 4; j < 7; j++)
+                    for (int j = 5; j < 7; j++)
                     {
                         // 2 часть табличной хрени
                         _excel.Range[Convert.ToChar(Convert.ToByte(79 + j - 4)) + "10"].Value = Table.Rows[i][j];

@@ -369,12 +369,12 @@ namespace РасчетКУ
             //Если 2-й документ
             if (ex_num == 2)
             {
-                SqlCommand command = new SqlCommand($"SELECT DISTINCT inv.Invoice_number, Date, Purch_number, Purch_date, Sum(Qty) as Qty, Sum(Amount) as Amount " +
+                SqlCommand command = new SqlCommand($"SELECT DISTINCT inv.Invoice_number, Date, Purch_number, Purch_date, Invoice_status, Sum(Qty) as Qty, Sum(Amount) as Amount " +
                     $"FROM Included_products_list incpl " +
                     $"LEFT JOIN Invoices_products invp on invp.Foreign_product_id = incpl.Product_id LEFT JOIN Invoices inv on inv.Invoice_id = incpl.Invoice_id " +
                     $"WHERE Graph_id = {dataGridViewKUGraph.Rows[dataGridViewKUGraph.CurrentRow.Index].Cells["Graph_id"].Value}" +
                     $" and Graph_id not in (SELECT Product_id FROM Excluded_products_list) " +
-                    $"GROUP BY inv.Invoice_number, Date, Purch_number, Purch_date ORDER BY inv.Invoice_number DESC", SqlCon);
+                    $"GROUP BY inv.Invoice_number, Date, Purch_number, Purch_date, Invoice_status ORDER BY inv.Invoice_number DESC", SqlCon);
                 SqlDataAdapter adapt = new SqlDataAdapter(command);
                 adapt.Fill(tableExcel2);
 

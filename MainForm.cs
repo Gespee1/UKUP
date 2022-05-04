@@ -80,7 +80,7 @@ namespace РасчетКУ
             command.Parameters.Add(RowCount);
             command.ExecuteNonQuery();
             
-            message = $"Кол-во задействованных в слиянии строк: {RowCount.Value}";
+            message = $"Количество задействованных в слиянии строк: {RowCount.Value}";
             
             connection.Close();
         }

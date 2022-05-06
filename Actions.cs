@@ -402,7 +402,10 @@ namespace РасчетКУ
                 else
                     bonus = summ * percentOrFix / 100;
 
-                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2).ToString().Replace(",",".")}, Sum_bonus = {Math.Round(bonus, 2).ToString().Replace(",", ".")},  Turnover = {Math.Round(turnover, 2).ToString().Replace(",", ".")} WHERE " +
+                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {Math.Round(summ, 2).ToString().Replace(",",".")}," +
+                    $" Sum_bonus = {Math.Round(bonus, 2).ToString().Replace(",", ".")}," +
+                    $" Turnover = {Math.Round(turnover, 2).ToString().Replace(",", ".")}," +
+                    $" Sum_accept =  {Math.Round(bonus, 2).ToString().Replace(",", ".")} WHERE " +
                     $"Graph_id = {Graph_id}", _sqlConnection);
                 command.ExecuteNonQuery();
                 if (fix)
@@ -424,7 +427,7 @@ namespace РасчетКУ
             }
             else
             {
-                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {0}, Sum_bonus = {0},  Turnover = {0} WHERE " +
+                command = new SqlCommand($"UPDATE KU_graph SET Sum_calc = {0}, Sum_bonus = {0},  Turnover = {0}, Sum_accept = {0} WHERE " +
                     $"Graph_id = {Graph_id}", _sqlConnection);
                 command.ExecuteNonQuery();
 

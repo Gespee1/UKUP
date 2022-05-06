@@ -24,6 +24,7 @@ namespace РасчетКУ
         private string DocDate;
 
         string user = Environment.MachineName;
+        private int GridPosition;
 
         public KUGraphForm()
         {
@@ -49,6 +50,13 @@ namespace РасчетКУ
             doResize();
         }
 
+            // Фиксация позиции в гриде
+        private void DataGridFixPosition()
+        {
+
+            GridPosition = dataGridViewKUGraph.FirstDisplayedScrollingRowIndex;
+
+        }
         //Загрузка графика из БД
         private void ShowGraph()
         {
@@ -95,7 +103,10 @@ namespace РасчетКУ
                 dataGridViewKUGraph.CurrentCell = dataGridViewKUGraph.Rows[RowIndexes[0]].Cells[0];
                 for (int i = 0; i < RowIndexes.Count; i++)
                     dataGridViewKUGraph.Rows[RowIndexes[i]].Cells[0].Selected = true;
-            }    
+            }
+
+            dataGridViewKUGraph.FirstDisplayedScrollingRowIndex = GridPosition;
+
         }
 
      
@@ -134,9 +145,17 @@ namespace РасчетКУ
         {
             for (int i = 0; i < dataGridViewKUGraph.SelectedRows.Count; ++i)
             {
-                SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Согласовано' WHERE Graph_id = {dataGridViewKUGraph.SelectedRows[i].Cells["Graph_Id"].Value}", SqlCon);
-                comm.ExecuteNonQuery();
+                DataGridViewRow row = dataGridViewKUGraph.SelectedRows[i];
+
+                string strstatus = row.Cells["GraphStatus"].Value.ToString();
+
+                if (strstatus == "Рассчитано")
+                {
+                    SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Утверждено' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    comm.ExecuteNonQuery();
+                }
             }
+            DataGridFixPosition();
             ShowGraph();
         }
 
@@ -520,10 +539,13 @@ namespace РасчетКУ
             for (int i = 0; i < dgvSelectedRows.Count; ++i)
             {
                 DataGridViewRow row = dgvSelectedRows[i];
-                if ((row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" || row.Cells["GraphStatus"].Value.ToString() == "В расчете") && !_asked)
+                
+                string strstatus = row.Cells["GraphStatus"].Value.ToString();
+
+                if ((strstatus == "Рассчитано" || strstatus == "В расчете" || strstatus == "Утверждено") && !_asked)
                 {
                     DialogResult result;
-                    result = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    result = MessageBox.Show("В выбранных строках графика уже рассчитана или утверждена сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.No)
                         return;
                     else
@@ -588,11 +610,12 @@ namespace РасчетКУ
                     {
                         if (result1 <= 0)
                         {
+                            string strstatus = row.Cells["GraphStatus"].Value.ToString();
 
-                            if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
+                            if ((strstatus == "Рассчитано" || strstatus == "Утверждено") && !_asked)
                             {
                                 DialogResult res;
-                                res = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                res = MessageBox.Show("В выбранных строках графика уже рассчитана или утверждена сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                 if (res == DialogResult.No)
                                     return;
                                 else
@@ -622,7 +645,9 @@ namespace РасчетКУ
                     {
                         if (result >= 0 && result1 <= 0)
                         {
-                            if (row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" && !_asked)
+                            string strstatus = row.Cells["GraphStatus"].Value.ToString();
+
+                            if ((strstatus == "Рассчитано" || strstatus == "Утверждено") && !_asked)
                             {
                                 DialogResult res;
                                 res = MessageBox.Show("В выбранных строках графика уже рассчитана сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -666,7 +691,9 @@ namespace РасчетКУ
             {
                 DataGridViewRow row = dgvSelectedRows[i];
 
-                if ((row.Cells["GraphStatus"].Value.ToString() == "Рассчитано" || row.Cells["GraphStatus"].Value.ToString() == "В расчете") && !_asked)
+                string strstatus = row.Cells["GraphStatus"].Value.ToString();
+
+                if ((strstatus == "Рассчитано" || strstatus == "В расчете" || strstatus == "Утверждено") && !_asked)
                 {
                     DialogResult result;
                     result = MessageBox.Show("Вы уверены что хотите отменить расчёт?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -678,6 +705,8 @@ namespace РасчетКУ
                 else if (!_asked)
                 {
                     MessageBox.Show("В выбранной строке не существует рассчитаной премии", "Внимание", MessageBoxButtons.OK);
+                    ShowGraph();
+                    this.UseWaitCursor = false;
                     return;
                 }
                 // Очистка значений ретро в графике
@@ -727,6 +756,25 @@ namespace РасчетКУ
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SqlCon.Close();
+        }
+
+        private void AsseptCancel_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridViewKUGraph.SelectedRows.Count; ++i)
+            {
+                DataGridViewRow row = dataGridViewKUGraph.SelectedRows[i];
+
+                string strstatus = row.Cells["GraphStatus"].Value.ToString();
+
+                if (strstatus == "Утверждено")
+                {
+                    SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Рассчитано' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
+                    comm.ExecuteNonQuery();
+                }
+            }
+            DataGridFixPosition();
+            ShowGraph();
+
         }
 
         // Обновление формы при переходе

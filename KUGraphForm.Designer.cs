@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +51,10 @@
             this.labelFrom = new System.Windows.Forms.Label();
             this.labelTo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBarForAsincBonus = new System.Windows.Forms.ProgressBar();
+            this.labelProgress = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.buttonCancelCalc = new System.Windows.Forms.Button();
             this.dataGridViewKUGraph = new EDGV.ExtendedDataGridView();
             this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,10 +72,7 @@
             this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.progressBarForAsincBonus = new System.Windows.Forms.ProgressBar();
-            this.labelProgress = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.buttonCancelCalc = new System.Windows.Forms.Button();
+            this.AsseptCancel = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
@@ -170,22 +171,22 @@
             // buttonApprove
             // 
             this.buttonApprove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonApprove.Location = new System.Drawing.Point(837, 545);
+            this.buttonApprove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonApprove.Location = new System.Drawing.Point(856, 545);
             this.buttonApprove.Name = "buttonApprove";
-            this.buttonApprove.Size = new System.Drawing.Size(119, 38);
+            this.buttonApprove.Size = new System.Drawing.Size(183, 24);
             this.buttonApprove.TabIndex = 2;
-            this.buttonApprove.Text = "Согласовать";
+            this.buttonApprove.Text = "Утвердить";
             this.buttonApprove.UseVisualStyleBackColor = true;
             this.buttonApprove.Click += new System.EventHandler(this.button3_Click);
             // 
             // buttonCalcBonus
             // 
             this.buttonCalcBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCalcBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCalcBonus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonCalcBonus.Location = new System.Drawing.Point(669, 545);
             this.buttonCalcBonus.Name = "buttonCalcBonus";
-            this.buttonCalcBonus.Size = new System.Drawing.Size(162, 38);
+            this.buttonCalcBonus.Size = new System.Drawing.Size(162, 24);
             this.buttonCalcBonus.TabIndex = 1;
             this.buttonCalcBonus.Text = "Расчёт премии";
             this.buttonCalcBonus.UseVisualStyleBackColor = true;
@@ -194,12 +195,12 @@
             // buttonCalcAll
             // 
             this.buttonCalcAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCalcAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCalcAll.Location = new System.Drawing.Point(179, 575);
+            this.buttonCalcAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCalcAll.Location = new System.Drawing.Point(30, 545);
             this.buttonCalcAll.Name = "buttonCalcAll";
-            this.buttonCalcAll.Size = new System.Drawing.Size(159, 38);
+            this.buttonCalcAll.Size = new System.Drawing.Size(196, 24);
             this.buttonCalcAll.TabIndex = 6;
-            this.buttonCalcAll.Text = "Рассчитать все";
+            this.buttonCalcAll.Text = "Рассчитать всё за период";
             this.buttonCalcAll.UseVisualStyleBackColor = true;
             this.buttonCalcAll.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -207,7 +208,7 @@
             // 
             this.dateTimePickerTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dateTimePickerTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerTo.Location = new System.Drawing.Point(277, 545);
+            this.dateTimePickerTo.Location = new System.Drawing.Point(273, 575);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(183, 24);
             this.dateTimePickerTo.TabIndex = 5;
@@ -217,7 +218,7 @@
             // 
             this.dateTimePickerFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dateTimePickerFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerFrom.Location = new System.Drawing.Point(51, 545);
+            this.dateTimePickerFrom.Location = new System.Drawing.Point(273, 545);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(183, 24);
             this.dateTimePickerFrom.TabIndex = 4;
@@ -228,7 +229,7 @@
             this.labelFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelFrom.AutoSize = true;
             this.labelFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelFrom.Location = new System.Drawing.Point(25, 545);
+            this.labelFrom.Location = new System.Drawing.Point(247, 545);
             this.labelFrom.Name = "labelFrom";
             this.labelFrom.Size = new System.Drawing.Size(20, 20);
             this.labelFrom.TabIndex = 58;
@@ -239,7 +240,7 @@
             this.labelTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTo.AutoSize = true;
             this.labelTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTo.Location = new System.Drawing.Point(241, 545);
+            this.labelTo.Location = new System.Drawing.Point(237, 575);
             this.labelTo.Name = "labelTo";
             this.labelTo.Size = new System.Drawing.Size(30, 20);
             this.labelTo.TabIndex = 59;
@@ -254,6 +255,49 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(12);
             this.panel1.Size = new System.Drawing.Size(1132, 500);
             this.panel1.TabIndex = 60;
+            // 
+            // progressBarForAsincBonus
+            // 
+            this.progressBarForAsincBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarForAsincBonus.Location = new System.Drawing.Point(797, 0);
+            this.progressBarForAsincBonus.Name = "progressBarForAsincBonus";
+            this.progressBarForAsincBonus.Size = new System.Drawing.Size(323, 23);
+            this.progressBarForAsincBonus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarForAsincBonus.TabIndex = 61;
+            this.progressBarForAsincBonus.Visible = false;
+            // 
+            // labelProgress
+            // 
+            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.BackColor = System.Drawing.Color.Gainsboro;
+            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelProgress.Location = new System.Drawing.Point(759, 3);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(20, 16);
+            this.labelProgress.TabIndex = 62;
+            this.labelProgress.Text = "%";
+            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelProgress.Visible = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // buttonCancelCalc
+            // 
+            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelCalc.Location = new System.Drawing.Point(669, 575);
+            this.buttonCancelCalc.Name = "buttonCancelCalc";
+            this.buttonCancelCalc.Size = new System.Drawing.Size(162, 24);
+            this.buttonCancelCalc.TabIndex = 3;
+            this.buttonCancelCalc.Text = "Отменить расчёт";
+            this.buttonCancelCalc.UseVisualStyleBackColor = true;
+            this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
             // 
             // dataGridViewKUGraph
             // 
@@ -284,10 +328,9 @@
             this.dataGridViewKUGraph.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewKUGraph.Location = new System.Drawing.Point(12, 12);
             this.dataGridViewKUGraph.Name = "dataGridViewKUGraph";
-            this.dataGridViewKUGraph.ReadOnly = true;
             this.dataGridViewKUGraph.RowHeadersVisible = false;
-            dataGridViewCellStyle4.NullValue = null;
-            this.dataGridViewKUGraph.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.NullValue = null;
+            this.dataGridViewKUGraph.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewKUGraph.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewKUGraph.Size = new System.Drawing.Size(1108, 476);
             this.dataGridViewKUGraph.TabIndex = 0;
@@ -388,9 +431,9 @@
             // 
             // GraphSumP
             // 
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.GraphSumP.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.GraphSumP.DefaultCellStyle = dataGridViewCellStyle5;
             this.GraphSumP.HeaderText = "Сумма премии";
             this.GraphSumP.MinimumWidth = 22;
             this.GraphSumP.Name = "GraphSumP";
@@ -399,20 +442,19 @@
             // 
             // GraphSumS
             // 
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.GraphSumS.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.GraphSumS.DefaultCellStyle = dataGridViewCellStyle6;
             this.GraphSumS.HeaderText = "Фактическая сумма премии";
             this.GraphSumS.MinimumWidth = 22;
             this.GraphSumS.Name = "GraphSumS";
-            this.GraphSumS.ReadOnly = true;
             this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // GraphSumN
             // 
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.GraphSumN.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.GraphSumN.DefaultCellStyle = dataGridViewCellStyle7;
             this.GraphSumN.HeaderText = "Сумма по накладным";
             this.GraphSumN.MinimumWidth = 22;
             this.GraphSumN.Name = "GraphSumN";
@@ -434,50 +476,18 @@
             this.Graph_Id.Name = "Graph_Id";
             this.Graph_Id.ReadOnly = true;
             this.Graph_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Graph_Id.Visible = false;
             // 
-            // progressBarForAsincBonus
+            // AsseptCancel
             // 
-            this.progressBarForAsincBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarForAsincBonus.Location = new System.Drawing.Point(797, 0);
-            this.progressBarForAsincBonus.Name = "progressBarForAsincBonus";
-            this.progressBarForAsincBonus.Size = new System.Drawing.Size(323, 23);
-            this.progressBarForAsincBonus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBarForAsincBonus.TabIndex = 61;
-            this.progressBarForAsincBonus.Visible = false;
-            // 
-            // labelProgress
-            // 
-            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProgress.AutoSize = true;
-            this.labelProgress.BackColor = System.Drawing.Color.Gainsboro;
-            this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelProgress.Location = new System.Drawing.Point(759, 3);
-            this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(20, 16);
-            this.labelProgress.TabIndex = 62;
-            this.labelProgress.Text = "%";
-            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelProgress.Visible = false;
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // buttonCancelCalc
-            // 
-            this.buttonCancelCalc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancelCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelCalc.Location = new System.Drawing.Point(962, 545);
-            this.buttonCancelCalc.Name = "buttonCancelCalc";
-            this.buttonCancelCalc.Size = new System.Drawing.Size(159, 38);
-            this.buttonCancelCalc.TabIndex = 3;
-            this.buttonCancelCalc.Text = "Отменить расчёт";
-            this.buttonCancelCalc.UseVisualStyleBackColor = true;
-            this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
+            this.AsseptCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AsseptCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AsseptCancel.Location = new System.Drawing.Point(856, 575);
+            this.AsseptCancel.Name = "AsseptCancel";
+            this.AsseptCancel.Size = new System.Drawing.Size(183, 24);
+            this.AsseptCancel.TabIndex = 2;
+            this.AsseptCancel.Text = "Отменить утверждение";
+            this.AsseptCancel.UseVisualStyleBackColor = true;
+            this.AsseptCancel.Click += new System.EventHandler(this.AsseptCancel_Click);
             // 
             // KUGraphForm
             // 
@@ -495,6 +505,7 @@
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.buttonCalcAll);
             this.Controls.Add(this.buttonCalcBonus);
+            this.Controls.Add(this.AsseptCancel);
             this.Controls.Add(this.buttonApprove);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -557,6 +568,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumN;
         private System.Windows.Forms.DataGridViewTextBoxColumn Turnover;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
+        private System.Windows.Forms.Button AsseptCancel;
     }
 }
 

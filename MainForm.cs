@@ -67,10 +67,18 @@ namespace РасчетКУ
         // Асинхронный мёрж базы
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
+            SqlConnectionStringBuilder SqlCS = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
+
+            SqlCS.ConnectTimeout = 300;
+
+            SqlConnection connection = new SqlConnection(SqlCS.ConnectionString);
+
             connection.Open();
 
             SqlCommand command = new SqlCommand("USE DataBaseKU EXEC MergeProcedure @RowCount OUTPUT", connection);
+
+            command.CommandTimeout = 300;
+
             SqlParameter RowCount = new SqlParameter
             {
                 ParameterName = "@RowCount",
@@ -79,16 +87,27 @@ namespace РасчетКУ
             };
             command.Parameters.Add(RowCount);
             command.ExecuteNonQuery();
-            
-            message = $"Количество задействованных в слиянии строк: {RowCount.Value}";
+
+            string v = $"Количество задействованных в слиянии строк: {RowCount.Value}";
+            e.Result = v;
             
             connection.Close();
         }
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            notifyLabel.Text = message;
+            string v;
+
+            notifyLabel.Visible = false;
+            if (e.Error != null)
+            {
+                // There was an error during the operation.
+                v = String.Format("An error occurred: {0}",  e.Result.ToString());
+            }
+            else
+                v = e.Result.ToString();
+            notifyLabel.Text = v;
             notifyLabel.Visible = true;
-            waitTimer.Interval = 7000;
+            waitTimer.Interval = 15000;
             waitTimer.Start();
         }
         // Тик таймера
@@ -113,7 +132,12 @@ namespace РасчетКУ
         private void buttonMerge_Click(object sender, EventArgs e)
         {
             if (!backgroundWorker1.IsBusy)
+            {
+                notifyLabel.Text = $"Запущен процесс загрузки данных из ПБД..."; ;
+                notifyLabel.Visible = true;
+
                 backgroundWorker1.RunWorkerAsync();
-        }
+            }
+         }
     }
 }

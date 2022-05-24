@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКУToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +57,7 @@
             this.labelProgress = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.buttonCancelCalc = new System.Windows.Forms.Button();
+            this.AsseptCancel = new System.Windows.Forms.Button();
             this.dataGridViewKUGraph = new EDGV.ExtendedDataGridView();
             this.KU_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vendor_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,7 +75,6 @@
             this.GraphSumN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Turnover = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Graph_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AsseptCancel = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKUGraph)).BeginInit();
@@ -299,6 +301,18 @@
             this.buttonCancelCalc.UseVisualStyleBackColor = true;
             this.buttonCancelCalc.Click += new System.EventHandler(this.buttonCancelCalc_Click);
             // 
+            // AsseptCancel
+            // 
+            this.AsseptCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AsseptCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AsseptCancel.Location = new System.Drawing.Point(856, 575);
+            this.AsseptCancel.Name = "AsseptCancel";
+            this.AsseptCancel.Size = new System.Drawing.Size(183, 24);
+            this.AsseptCancel.TabIndex = 2;
+            this.AsseptCancel.Text = "Отменить утверждение";
+            this.AsseptCancel.UseVisualStyleBackColor = true;
+            this.AsseptCancel.Click += new System.EventHandler(this.AsseptCancel_Click);
+            // 
             // dataGridViewKUGraph
             // 
             this.dataGridViewKUGraph.AllowUserToAddRows = false;
@@ -306,6 +320,14 @@
             this.dataGridViewKUGraph.AllowUserToResizeRows = false;
             this.dataGridViewKUGraph.AutoGenerateContextFilters = true;
             this.dataGridViewKUGraph.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKUGraph.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewKUGraph.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewKUGraph.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.KU_id,
@@ -325,12 +347,20 @@
             this.Turnover,
             this.Graph_Id});
             this.dataGridViewKUGraph.DateWithTime = false;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewKUGraph.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewKUGraph.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewKUGraph.Location = new System.Drawing.Point(12, 12);
             this.dataGridViewKUGraph.Name = "dataGridViewKUGraph";
             this.dataGridViewKUGraph.RowHeadersVisible = false;
-            dataGridViewCellStyle8.NullValue = null;
-            this.dataGridViewKUGraph.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle6.NullValue = null;
+            this.dataGridViewKUGraph.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewKUGraph.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewKUGraph.Size = new System.Drawing.Size(1108, 476);
             this.dataGridViewKUGraph.TabIndex = 0;
@@ -431,9 +461,9 @@
             // 
             // GraphSumP
             // 
-            dataGridViewCellStyle5.Format = "N2";
-            dataGridViewCellStyle5.NullValue = null;
-            this.GraphSumP.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.GraphSumP.DefaultCellStyle = dataGridViewCellStyle2;
             this.GraphSumP.HeaderText = "Сумма премии";
             this.GraphSumP.MinimumWidth = 22;
             this.GraphSumP.Name = "GraphSumP";
@@ -442,19 +472,19 @@
             // 
             // GraphSumS
             // 
-            dataGridViewCellStyle6.Format = "N2";
-            dataGridViewCellStyle6.NullValue = null;
-            this.GraphSumS.DefaultCellStyle = dataGridViewCellStyle6;
-            this.GraphSumS.HeaderText = "Фактическая сумма премии";
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.GraphSumS.DefaultCellStyle = dataGridViewCellStyle3;
+            this.GraphSumS.HeaderText = "Начислено";
             this.GraphSumS.MinimumWidth = 22;
             this.GraphSumS.Name = "GraphSumS";
             this.GraphSumS.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // GraphSumN
             // 
-            dataGridViewCellStyle7.Format = "N2";
-            dataGridViewCellStyle7.NullValue = null;
-            this.GraphSumN.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.GraphSumN.DefaultCellStyle = dataGridViewCellStyle4;
             this.GraphSumN.HeaderText = "Сумма по накладным";
             this.GraphSumN.MinimumWidth = 22;
             this.GraphSumN.Name = "GraphSumN";
@@ -476,18 +506,7 @@
             this.Graph_Id.Name = "Graph_Id";
             this.Graph_Id.ReadOnly = true;
             this.Graph_Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // AsseptCancel
-            // 
-            this.AsseptCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AsseptCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AsseptCancel.Location = new System.Drawing.Point(856, 575);
-            this.AsseptCancel.Name = "AsseptCancel";
-            this.AsseptCancel.Size = new System.Drawing.Size(183, 24);
-            this.AsseptCancel.TabIndex = 2;
-            this.AsseptCancel.Text = "Отменить утверждение";
-            this.AsseptCancel.UseVisualStyleBackColor = true;
-            this.AsseptCancel.Click += new System.EventHandler(this.AsseptCancel_Click);
+            this.Graph_Id.Visible = false;
             // 
             // KUGraphForm
             // 
@@ -552,6 +571,7 @@
         private System.Windows.Forms.ToolStripMenuItem сдвигДатыРасчётаToolStripMenuItem;
         private System.Windows.Forms.Button buttonCancelCalc;
         private EDGV.ExtendedDataGridView dataGridViewKUGraph;
+        private System.Windows.Forms.Button AsseptCancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn KU_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vendor_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn VendorAcc;
@@ -568,7 +588,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GraphSumN;
         private System.Windows.Forms.DataGridViewTextBoxColumn Turnover;
         private System.Windows.Forms.DataGridViewTextBoxColumn Graph_Id;
-        private System.Windows.Forms.Button AsseptCancel;
     }
 }
 

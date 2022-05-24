@@ -109,8 +109,6 @@ namespace РасчетКУ
 
         }
 
-     
-
         // Расчет БОНУСА выделенных строк
         private void button1_Click(object sender, EventArgs e)
         {
@@ -140,7 +138,7 @@ namespace РасчетКУ
                 MessageBox.Show("Расчет ретро-бонуса уже запущен, ожидайте.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        // Кнопка согласовать (статус)
+        // Кнопка Утвердить (статус)
         private void button3_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < dataGridViewKUGraph.SelectedRows.Count; ++i)
@@ -149,7 +147,7 @@ namespace РасчетКУ
 
                 string strstatus = row.Cells["GraphStatus"].Value.ToString();
 
-                if (strstatus == "Рассчитано")
+                if (strstatus == "Рассчитано" || strstatus == "Начислено")
                 {
                     SqlCommand comm = new SqlCommand($"UPDATE KU_graph SET Status = 'Утверждено' WHERE Graph_id = {row.Cells["Graph_Id"].Value}", SqlCon);
                     comm.ExecuteNonQuery();
@@ -542,10 +540,10 @@ namespace РасчетКУ
                 
                 string strstatus = row.Cells["GraphStatus"].Value.ToString();
 
-                if ((strstatus == "Рассчитано" || strstatus == "В расчете" || strstatus == "Утверждено") && !_asked)
+                if ((strstatus == "Рассчитано" || strstatus == "В расчете" || strstatus == "Утверждено" || strstatus == "Начислено") && !_asked)
                 {
                     DialogResult result;
-                    result = MessageBox.Show("В выбранных строках графика уже рассчитана или утверждена сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    result = MessageBox.Show("В выбранных строках графика уже рассчитана, начислена или утверждена сумма ретро бонуса, пересчитать их?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.No)
                         return;
                     else

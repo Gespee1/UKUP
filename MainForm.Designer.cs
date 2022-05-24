@@ -127,11 +127,10 @@
             // 
             // notifyLabel
             // 
-            this.notifyLabel.AutoSize = true;
             this.notifyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.notifyLabel.Location = new System.Drawing.Point(81, 244);
+            this.notifyLabel.Location = new System.Drawing.Point(33, 231);
             this.notifyLabel.Name = "notifyLabel";
-            this.notifyLabel.Size = new System.Drawing.Size(66, 15);
+            this.notifyLabel.Size = new System.Drawing.Size(350, 25);
             this.notifyLabel.TabIndex = 6;
             this.notifyLabel.Text = "notifyLabel";
             this.notifyLabel.Visible = false;

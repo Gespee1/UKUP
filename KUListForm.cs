@@ -76,6 +76,8 @@ namespace РасчетКУ
             command.ExecuteNonQuery();
             command = new SqlCommand($"DELETE FROM KU_graph WHERE KU_id = {row.Cells["Код КУ"].Value}", _sqlConnection);
             command.ExecuteNonQuery();
+            command = new SqlCommand($"DELETE FROM Terms WHERE KU_id = {row.Cells["Код КУ"].Value}", _sqlConnection);
+            command.ExecuteNonQuery();
 
             // Удаление самого КУ
             command = new SqlCommand("DELETE FROM KU WHERE KU_id = " + row.Cells["Код КУ"].Value.ToString(), _sqlConnection);

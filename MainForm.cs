@@ -67,6 +67,8 @@ namespace РасчетКУ
         // Асинхронный мёрж базы
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            DateTime dtbegin, dtend;
+
             SqlConnectionStringBuilder SqlCS = new SqlConnectionStringBuilder(ConfigurationManager.ConnectionStrings["DB1"].ConnectionString);
 
             SqlCS.ConnectTimeout = 300;
@@ -74,6 +76,8 @@ namespace РасчетКУ
             SqlConnection connection = new SqlConnection(SqlCS.ConnectionString);
 
             connection.Open();
+
+            dtbegin = DateTime.Now;
 
             SqlCommand command = new SqlCommand("USE DataBaseKU EXEC MergeProcedure @RowCount OUTPUT", connection);
 
@@ -88,7 +92,11 @@ namespace РасчетКУ
             command.Parameters.Add(RowCount);
             command.ExecuteNonQuery();
 
-            string v = $"Количество задействованных в слиянии строк: {RowCount.Value}";
+            dtend = DateTime.Now;
+
+            TimeSpan duration = dtend - dtbegin;
+
+            string v = $"{dtend}\t\t обработано: {RowCount.Value}\n за ({duration})";
             e.Result = v;
             
             connection.Close();
@@ -107,7 +115,7 @@ namespace РасчетКУ
                 v = e.Result.ToString();
             notifyLabel.Text = v;
             notifyLabel.Visible = true;
-            waitTimer.Interval = 15000;
+            waitTimer.Interval = 150000;
             waitTimer.Start();
         }
         // Тик таймера

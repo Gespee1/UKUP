@@ -801,7 +801,7 @@ namespace РасчетКУ
             this.comboBoxEntity.Name = "comboBoxEntity";
             this.comboBoxEntity.Size = new System.Drawing.Size(300, 26);
             this.comboBoxEntity.TabIndex = 8;
-            this.comboBoxEntity.TextChanged += new System.EventHandler(this.control_TextChanged);
+            this.comboBoxEntity.TextChanged += new System.EventHandler(this.EntityChanged);
             // 
             // labelKUCode
             // 

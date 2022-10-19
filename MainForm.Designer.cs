@@ -45,18 +45,22 @@
             // 
             // labelMain
             // 
+            this.labelMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMain.AutoSize = true;
             this.labelMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMain.Location = new System.Drawing.Point(137, 30);
+            this.labelMain.Location = new System.Drawing.Point(165, 29);
             this.labelMain.Name = "labelMain";
             this.labelMain.Size = new System.Drawing.Size(151, 24);
             this.labelMain.TabIndex = 2;
             this.labelMain.Text = "Главное меню";
+            this.labelMain.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // KUListButton
             // 
             this.KUListButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.KUListButton.Location = new System.Drawing.Point(84, 85);
+            this.KUListButton.Location = new System.Drawing.Point(108, 85);
             this.KUListButton.Name = "KUListButton";
             this.KUListButton.Size = new System.Drawing.Size(257, 39);
             this.KUListButton.TabIndex = 3;
@@ -67,7 +71,7 @@
             // VendorsListButton
             // 
             this.VendorsListButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.VendorsListButton.Location = new System.Drawing.Point(84, 130);
+            this.VendorsListButton.Location = new System.Drawing.Point(108, 130);
             this.VendorsListButton.Name = "VendorsListButton";
             this.VendorsListButton.Size = new System.Drawing.Size(257, 39);
             this.VendorsListButton.TabIndex = 4;
@@ -78,7 +82,7 @@
             // KUGraphButton
             // 
             this.KUGraphButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.KUGraphButton.Location = new System.Drawing.Point(84, 175);
+            this.KUGraphButton.Location = new System.Drawing.Point(108, 175);
             this.KUGraphButton.Name = "KUGraphButton";
             this.KUGraphButton.Size = new System.Drawing.Size(257, 39);
             this.KUGraphButton.TabIndex = 5;
@@ -97,14 +101,14 @@
             this.panel1.Controls.Add(this.VendorsListButton);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(426, 267);
+            this.panel1.Size = new System.Drawing.Size(480, 276);
             this.panel1.TabIndex = 7;
             // 
             // buttonMerge
             // 
             this.buttonMerge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonMerge.Image = global::РасчетКУ.Properties.Resources.refresh;
-            this.buttonMerge.Location = new System.Drawing.Point(389, 231);
+            this.buttonMerge.Location = new System.Drawing.Point(444, 231);
             this.buttonMerge.Name = "buttonMerge";
             this.buttonMerge.Size = new System.Drawing.Size(25, 25);
             this.buttonMerge.TabIndex = 8;
@@ -117,7 +121,7 @@
             this.buttonSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSettings.Image = global::РасчетКУ.Properties.Resources.settings;
-            this.buttonSettings.Location = new System.Drawing.Point(389, 12);
+            this.buttonSettings.Location = new System.Drawing.Point(444, 12);
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(25, 25);
             this.buttonSettings.TabIndex = 7;
@@ -128,9 +132,9 @@
             // notifyLabel
             // 
             this.notifyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.notifyLabel.Location = new System.Drawing.Point(33, 231);
+            this.notifyLabel.Location = new System.Drawing.Point(12, 231);
             this.notifyLabel.Name = "notifyLabel";
-            this.notifyLabel.Size = new System.Drawing.Size(350, 25);
+            this.notifyLabel.Size = new System.Drawing.Size(416, 39);
             this.notifyLabel.TabIndex = 6;
             this.notifyLabel.Text = "notifyLabel";
             this.notifyLabel.Visible = false;
@@ -149,7 +153,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(238)))), ((int)(((byte)(168)))));
-            this.ClientSize = new System.Drawing.Size(426, 268);
+            this.ClientSize = new System.Drawing.Size(484, 279);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(317, 284);
             this.Name = "MainForm";
